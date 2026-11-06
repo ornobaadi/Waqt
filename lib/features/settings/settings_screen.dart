@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../app/app_state.dart';
 import '../../core/config/flavor.dart';
+import '../../core/config/test_mode.dart';
 import '../../core/diagnostics/reports.dart';
 import '../../core/theme/tokens.dart';
 import '../../core/theme/waqt_theme.dart';
@@ -192,10 +193,10 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   children: [
                     RowTile(title: l.privacyTitle, subtitle: l.privacyBody),
                     RowTile(title: l.reportProblem, subtitle: l.reportProblemHint, onTap: Reports.reportProblem),
-                    RowTile(title: l.settingsAbout, value: l.settingsVersion(AppConfig.version)),
+                    const _VersionTile(),
                   ],
                 ),
-                if (AppConfig.debugTools) ...[
+                if (ref.watch(testModeProvider.select((s) => s.unlocked))) ...[
                   SectionLabel(l.settingsDeveloper),
                   RowGroup(
                     children: [
@@ -242,5 +243,31 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       ],
     );
     if (picked != null) ref.read(userPrefsProvider.notifier).setHijriOffset(picked);
+  }
+}
+
+/// Seven taps unlock test mode, the usual Android convention.
+class _VersionTile extends ConsumerStatefulWidget {
+  const _VersionTile();
+
+  @override
+  ConsumerState<_VersionTile> createState() => _VersionTileState();
+}
+
+class _VersionTileState extends ConsumerState<_VersionTile> {
+  int _taps = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+    return RowTile(
+      title: l.settingsAbout,
+      value: l.settingsVersion(AppConfig.version),
+      onTap: () {
+        if (ref.read(testModeProvider).unlocked || ++_taps < 7) return;
+        ref.read(testModeProvider.notifier).unlock();
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(l.testModeUnlocked)));
+      },
+    );
   }
 }

@@ -22,8 +22,8 @@
   "duasEmptyBody": "The library opens once each item has been checked against its primary source and approved by a scholar.",
   "settingsLanguage": "Language",
   "settingsLanguageSystem": "Device language",
-  "settingsDeveloper": "Developer",
-  "settingsDeveloperHint": "Fake clock and moment palettes",
+  "settingsDeveloper": "Test mode",
+  "settingsDeveloperHint": "Fake clock, day jumps and the reference checker",
   "settingsAbout": "About Waqt",
   "settingsVersion": "Version {version}",
   "@settingsVersion": {
@@ -33,7 +33,7 @@
       }
     }
   },
-  "debugTitle": "Developer",
+  "debugTitle": "Test mode",
   "debugClock": "Clock",
   "debugClockReal": "Real time",
   "debugClockFaked": "Faked",
@@ -294,7 +294,7 @@
   },
   "widgetEmptyBody": "Open Waqt to set your location",
   "notifTitle": "Reminders",
-  "notifHint": "Prayer times and moments, as you choose",
+  "notifHint": "Adhkar, Jumu'ah and night reminders, as you choose",
   "notifPermission": "Notifications",
   "notifAllowed": "Allowed",
   "notifAllow": "Allow",
@@ -315,7 +315,7 @@
   "notifPrayers": "Prayer times",
   "notifMoments": "Moments",
   "notifSound": "Play sound",
-  "notifSoundHint": "An adhan option will come once a licensed recording is added",
+  "notifSoundHint": "Off keeps every reminder silent",
   "notifScheduled": "{count} reminders scheduled until {date}",
   "@notifScheduled": {
     "placeholders": {
@@ -370,7 +370,7 @@
   "counterOpen": "Open counter",
   "reportContent": "Report an issue with this text",
   "reportProblem": "Report a problem",
-  "reportProblemHint": "Opens a pre-filled form on GitHub. You see everything before it is sent.",
+  "reportProblemHint": "Opens an email draft. You see everything before it is sent.",
   "privacyTitle": "Privacy",
   "privacyBody": "Everything is calculated on this phone. Waqt has no accounts, ads or analytics.",
   "placeTime": "{city} time",
@@ -380,5 +380,21 @@
         "type": "String"
       }
     }
-  }
+  },
+  "testModeUnlocked": "Test mode is on. Find it at the bottom of Settings.",
+  "debugJumpDay": "Jump to a day",
+  "debugNextFriday": "Next Friday",
+  "debugContent": "Content",
+  "debugShowUnchecked": "Show unchecked content",
+  "debugShowUncheckedHint": "On this phone only. Unchecked items are marked as drafts.",
+  "debugLock": "Turn off test mode",
+  "checkerTitle": "Check references",
+  "checkerHint": "Open each reference at its source and confirm it",
+  "checkerProgress": "{done} of {total} checked",
+  "@checkerProgress": {"placeholders": {"done": {"type": "int"}, "total": {"type": "int"}}},
+  "checkerOpen": "Open source",
+  "checkerCorrect": "Correct",
+  "checkerWrong": "Wrong",
+  "checkerWrongHint": "What is wrong, and the correct reference if you know it",
+  "checkerSend": "Email results"
 }

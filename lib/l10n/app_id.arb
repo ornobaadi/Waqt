@@ -146,7 +146,7 @@
   "notifPrayers": "Waktu salat",
   "notifMoments": "Momen",
   "notifSound": "Putar suara",
-  "notifSoundHint": "Pilihan azan akan hadir setelah rekaman berlisensi ditambahkan",
+  "notifSoundHint": "Jika mati, semua pengingat tanpa suara",
   "notifScheduled": "{count} pengingat dijadwalkan hingga {date}",
   "notifNone": "Tidak ada pengingat terjadwal",
   "notifStatus": "Status",
@@ -177,7 +177,7 @@
   "counterOpen": "Buka penghitung",
   "reportContent": "Laporkan masalah pada teks ini",
   "reportProblem": "Laporkan masalah",
-  "reportProblemHint": "Membuka formulir terisi di GitHub. Anda melihat semuanya sebelum dikirim.",
+  "reportProblemHint": "Membuka draf email. Anda melihat semuanya sebelum dikirim.",
   "privacyTitle": "Privasi",
   "privacyBody": "Semuanya dihitung di ponsel ini. Waqt tanpa akun, iklan, atau analitik.",
   "placeTime": "Waktu {city}"

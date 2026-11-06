@@ -152,7 +152,7 @@
   "notifPrayers": "Namaz vakitleri",
   "notifMoments": "Anlar",
   "notifSound": "Ses çal",
-  "notifSoundHint": "Lisanslı bir kayıt eklendiğinde ezan seçeneği gelecek",
+  "notifSoundHint": "Kapalıyken tüm hatırlatmalar sessiz olur",
   "notifScheduled": "{date} tarihine kadar {count} hatırlatma planlandı",
   "notifNone": "Planlanmış hatırlatma yok",
   "notifStatus": "Durum",
@@ -183,7 +183,7 @@
   "counterOpen": "Sayacı aç",
   "reportContent": "Bu metindeki bir hatayı bildir",
   "reportProblem": "Sorun bildir",
-  "reportProblemHint": "GitHub'da önceden doldurulmuş bir form açar. Göndermeden önce her şeyi görürsünüz.",
+  "reportProblemHint": "Bir e-posta taslağı açar. Göndermeden önce her şeyi görürsünüz.",
   "privacyTitle": "Gizlilik",
   "privacyBody": "Her şey bu telefonda hesaplanır. Waqt'ta hesap, reklam veya analiz yoktur.",
   "placeTime": "{city} saati"

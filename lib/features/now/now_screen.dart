@@ -5,7 +5,6 @@ import 'package:intl/intl.dart';
 
 import '../../app/app_state.dart';
 import '../../core/clock/clock.dart';
-import '../../core/config/flavor.dart';
 import '../../core/theme/tokens.dart';
 import '../../core/theme/waqt_theme.dart';
 import '../../core/utils/digits.dart';
@@ -21,8 +20,7 @@ import '../../platform/location/gps.dart';
 import '../common/labels.dart';
 import 'checklist_card.dart';
 import 'moment_cards.dart';
-import 'moon_glyph.dart';
-import 'sky_arc.dart';
+import 'celestial.dart';
 import 'sky_background.dart';
 
 /// Home v0: where you are, what time it is in the prayer day, what's next.
@@ -47,7 +45,6 @@ class NowScreen extends ConsumerWidget {
     final hijri = ref.watch(hijriDateProvider);
     final occ = ref.watch(occasionsProvider);
     final occasions = occ.list;
-    final settings = ref.watch(prayerSettingsProvider);
     final n = LocaleDigits(locale);
 
     final dateLine = '${DateFormat.MMMEd(locale).format(now)}  ·  ${l.hijri(hijri, n.call)}';
@@ -62,65 +59,72 @@ class NowScreen extends ConsumerWidget {
             padding: const EdgeInsets.fromLTRB(WaqtSpace.screen, WaqtSpace.x3, WaqtSpace.screen, WaqtSpace.x8),
             children: [
               Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // The city is the one thing on Home you may want to change.
+                  Flexible(
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(WaqtRadii.row),
+                      onTap: () => context.push('/settings/city'),
+                      child: ConstrainedBox(
+                        constraints: const BoxConstraints(minHeight: WaqtSpace.minTouch),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Flexible(
+                              child: Text(
+                                place?.name ?? l.appName,
+                                style: WaqtText.bodyStrong.copyWith(color: t.ink),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                            if (place != null) Icon(Icons.expand_more_rounded, size: 20, color: t.inkMuted),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  const Spacer(),
+                  if (faked)
+                    _Pill(text: l.debugClockFaked, color: t.ink, ink: t.ground)
+                  else if (occasions.isNotEmpty)
+                    _Pill(
+                      text: l.occasion(occasions.first, ramadanDay: n(occ.date.day)),
+                      color: t.accent,
+                      ink: const Color(0xFF14110C),
+                    ),
+                ],
+              ),
+              // Another city's clock: say so, so the big time isn't mistaken
+              // for the phone's.
+              if (place != null && differsFromDevice(ref.watch(placeZoneProvider), now))
+                Row(
+                  children: [
+                    Icon(Icons.public_rounded, size: 14, color: t.inkMuted),
+                    const SizedBox(width: WaqtSpace.x1),
+                    Text(l.placeTime(place.name), style: WaqtText.caption.copyWith(color: t.inkMuted)),
+                  ],
+                ),
+              const SizedBox(height: WaqtSpace.x4),
+              Row(
                 children: [
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          place?.name ?? l.appName,
-                          style: WaqtText.titleSmall.copyWith(color: t.ink),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        const SizedBox(height: WaqtSpace.x1),
-                        Text(dateLine, style: WaqtText.label.copyWith(color: t.inkMuted)),
-                        // Another city's clock: say so, so the big time isn't mistaken
-                        // for the phone's.
-                        if (place != null && differsFromDevice(ref.watch(placeZoneProvider), now)) ...[
+                        _Clock(now: now, locale: locale),
+                        if (status != null) ...[
                           const SizedBox(height: WaqtSpace.x1),
-                          Row(
-                            children: [
-                              Icon(Icons.public_rounded, size: 14, color: t.inkMuted),
-                              const SizedBox(width: WaqtSpace.x1),
-                              Text(l.placeTime(place.name), style: WaqtText.caption.copyWith(color: t.inkMuted)),
-                            ],
-                          ),
-                        ],
-                        if (occasions.isNotEmpty) ...[
-                          const SizedBox(height: WaqtSpace.x2),
-                          _Pill(
-                            text: l.occasion(occasions.first, ramadanDay: n(occ.date.day)),
-                            color: t.accent,
-                            ink: const Color(0xFF14110C),
-                          ),
+                          _HeroLines(title: l.waqt(status.current), status: status, now: now, numbers: n),
                         ],
                       ],
                     ),
                   ),
-                  if (faked) _Pill(text: l.debugClockFaked, color: t.accent, ink: const Color(0xFF14110C)),
-                  if (AppConfig.flavor == Flavor.dev) ...[
-                    const SizedBox(width: WaqtSpace.x2),
-                    _Pill(text: 'DEV', color: t.ink.withValues(alpha: 0.08), ink: t.inkMuted),
-                  ],
+                  Celestial(at: now, night: palette.isDark, southern: (place?.latitude ?? 0) < 0),
                 ],
               ),
-              const SizedBox(height: WaqtSpace.x8),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: _Clock(now: now, locale: locale),
-                  ),
-                  if (palette.isDark) MoonGlyph(at: now, southern: (place?.latitude ?? 0) < 0),
-                ],
-              ),
-              if (status != null) ...[
-                const SizedBox(height: WaqtSpace.x2),
-                _StatusLine(status: status, now: now, numbers: n),
-              ],
-              if (moments != null) ...[const SizedBox(height: WaqtSpace.x8), SkyArc(snapshot: moments)],
+              const SizedBox(height: WaqtSpace.x3),
+              Text(dateLine, style: WaqtText.label.copyWith(color: t.inkMuted)),
               const SizedBox(height: WaqtSpace.x6),
               _PrayerStrip(status: status, now: now, locale: locale),
               if (status?.today.estimated ?? false) ...[
@@ -140,7 +144,8 @@ class NowScreen extends ConsumerWidget {
                   onDismiss: () => ref.read(notificationPrefsProvider.notifier).dismissSetup(),
                 ),
               ],
-              if (moments != null && moments.hero.kind != MomentKind.prayer) ...[
+              // A checklist moment is shown by its checklist alone.
+              if (moments != null && moments.hero.kind != MomentKind.prayer && moments.hero.id != checklist) ...[
                 const SizedBox(height: WaqtSpace.x4),
                 RightNowCard(
                   moment: moments.hero,
@@ -163,37 +168,7 @@ class NowScreen extends ConsumerWidget {
                 const SizedBox(height: WaqtSpace.x6),
                 ComingUp(moments: moments.upcoming),
               ],
-              if (place != null) ...[
-                const SizedBox(height: WaqtSpace.x4),
-                Semantics(
-                  button: true,
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(WaqtRadii.row),
-                    onTap: () => context.go('/settings'),
-                    child: ConstrainedBox(
-                      constraints: const BoxConstraints(minHeight: WaqtSpace.minTouch),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: WaqtSpace.x1),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Text(
-                                '${l.method(settings.method)}  ·  ${l.settingsAsr}: ${l.asr(settings.asr)}',
-                                style: WaqtText.caption.copyWith(color: t.inkMuted),
-                              ),
-                            ),
-                            const SizedBox(width: WaqtSpace.x2),
-                            Icon(Icons.tune_rounded, size: 16, color: t.inkMuted),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ] else ...[
-                const SizedBox(height: WaqtSpace.x4),
-                const _LocationCard(),
-              ],
+              if (place == null) ...[const SizedBox(height: WaqtSpace.x4), const _LocationCard()],
             ],
           ),
         ),
@@ -247,8 +222,9 @@ String formatCountdown(Duration d, LocaleDigits n) {
   return h > 0 ? '${n(h)}:${n(m, pad: 2)}:${n(sec, pad: 2)}' : '${n(m, pad: 2)}:${n(sec, pad: 2)}';
 }
 
-class _StatusLine extends StatelessWidget {
-  const _StatusLine({required this.status, required this.now, required this.numbers});
+class _HeroLines extends StatelessWidget {
+  const _HeroLines({required this.title, required this.status, required this.now, required this.numbers});
+  final String title;
   final PrayerStatus status;
   final DateTime now;
   final LocaleDigits numbers;
@@ -259,19 +235,20 @@ class _StatusLine extends StatelessWidget {
     final t = WaqtTokens.of(context);
     final countdown = formatCountdown(status.remaining(now), numbers);
     return Semantics(
-      label: '${l.currentWaqt(status.current)}. ${l.nextIn(l.waqt(status.next), countdown)}',
+      label: '$title. ${l.nextIn(l.waqt(status.next), countdown)}',
       excludeSemantics: true,
-      child: Wrap(
-        crossAxisAlignment: WrapCrossAlignment.center,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            width: 8,
-            height: 8,
-            decoration: BoxDecoration(color: t.accent, shape: BoxShape.circle),
+          AnimatedSwitcher(
+            duration: WaqtMotion.ui,
+            child: Text(
+              title,
+              key: ValueKey(title),
+              style: WaqtText.title.copyWith(color: t.ink),
+            ),
           ),
-          const SizedBox(width: WaqtSpace.x2),
-          Text(l.currentWaqt(status.current), style: WaqtText.bodyStrong.copyWith(color: t.ink)),
-          Text('  ·  ', style: WaqtText.body.copyWith(color: t.inkMuted)),
+          const SizedBox(height: WaqtSpace.x1),
           Text(l.nextIn(l.waqt(status.next), countdown), style: WaqtText.body.copyWith(color: t.inkMuted)),
         ],
       ),
@@ -306,14 +283,22 @@ class _PrayerStrip extends StatelessWidget {
     final rows = MediaQuery.textScalerOf(context).scale(10) > 13 ? 2 : 1;
     final per = Waqt.values.length ~/ rows;
 
-    return Container(
-      padding: const EdgeInsets.all(WaqtSpace.x1),
-      decoration: BoxDecoration(color: t.surface, borderRadius: BorderRadius.circular(WaqtRadii.strip)),
-      child: Column(
-        children: [
-          for (var r = 0; r < rows; r++)
-            Row(children: [for (final w in Waqt.values.skip(r * per).take(per)) Expanded(child: cell(w))]),
-        ],
+    // The whole day is one tap away.
+    return Material(
+      color: t.surface,
+      borderRadius: BorderRadius.circular(WaqtRadii.strip),
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        onTap: () => context.go('/today'),
+        child: Padding(
+          padding: const EdgeInsets.all(WaqtSpace.x1),
+          child: Column(
+            children: [
+              for (var r = 0; r < rows; r++)
+                Row(children: [for (final w in Waqt.values.skip(r * per).take(per)) Expanded(child: cell(w))]),
+            ],
+          ),
+        ),
       ),
     );
   }

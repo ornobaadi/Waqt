@@ -174,7 +174,7 @@
   "notifPrayers": "أوقات الصلاة",
   "notifMoments": "اللحظات",
   "notifSound": "تشغيل الصوت",
-  "notifSoundHint": "سيُتاح خيار الأذان بعد إضافة تسجيل مرخّص",
+  "notifSoundHint": "عند الإيقاف تصل كل التذكيرات بصمت",
   "notifScheduled": "{count} تذكيرًا مجدولًا حتى {date}",
   "notifNone": "لا توجد تذكيرات مجدولة",
   "notifStatus": "الحالة",
@@ -205,7 +205,7 @@
   "counterOpen": "فتح العدّاد",
   "reportContent": "الإبلاغ عن خطأ في هذا النص",
   "reportProblem": "الإبلاغ عن مشكلة",
-  "reportProblemHint": "يفتح نموذجًا جاهزًا على GitHub، وترى كل شيء قبل إرساله.",
+  "reportProblemHint": "يفتح مسودة بريد. ترى كل شيء قبل إرساله.",
   "privacyTitle": "الخصوصية",
   "privacyBody": "كل شيء يُحسب على هذا الهاتف. لا حسابات ولا إعلانات ولا تحليلات في وقت.",
   "placeTime": "توقيت {city}"

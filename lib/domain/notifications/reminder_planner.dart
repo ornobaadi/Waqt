@@ -1,25 +1,23 @@
 import '../moments/moment.dart';
 import '../moments/moment_engine.dart';
 
-/// What a user can ask to be reminded of. Calm by default (PRD principle 4):
-/// the five prayers on, everything else opt-in.
+/// What a user can ask to be reminded of. Deeds only, never the prayer time
+/// itself: an adhan alert can go off mid-meeting or mid-salah, and the
+/// mosque already calls. Calm by default: morning and evening adhkar on.
 enum ReminderKind {
-  fajr(MomentId.fajr, prayer: true),
-  dhuhr(MomentId.dhuhr, prayer: true),
-  asr(MomentId.asr, prayer: true),
-  maghrib(MomentId.maghrib, prayer: true),
-  isha(MomentId.isha, prayer: true),
-  lastThird(MomentId.lastThird),
+  morningAdhkar(MomentId.morningAdhkar),
+  eveningAdhkar(MomentId.eveningAdhkar),
+  jumuah(MomentId.jumuah),
   fridayLastHour(MomentId.fridayLastHour),
-  bedtime(MomentId.bedtime);
+  bedtime(MomentId.bedtime),
+  lastThird(MomentId.lastThird),
+  suhoor(MomentId.suhoor),
+  iftar(MomentId.iftar);
 
-  const ReminderKind(this.moment, {this.prayer = false});
+  const ReminderKind(this.moment);
   final MomentId moment;
 
-  /// Prayer reminders are the only ones that ask for exact timing.
-  final bool prayer;
-
-  static const defaults = {fajr, dhuhr, asr, maghrib, isha};
+  static const defaults = {morningAdhkar, eveningAdhkar};
 }
 
 class PlannedReminder {

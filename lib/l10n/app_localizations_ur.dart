@@ -79,10 +79,11 @@ class AppLocalizationsUr extends AppLocalizations {
   String get settingsLanguageSystem => 'آلے کی زبان';
 
   @override
-  String get settingsDeveloper => 'Developer';
+  String get settingsDeveloper => 'Test mode';
 
   @override
-  String get settingsDeveloperHint => 'Fake clock and moment palettes';
+  String get settingsDeveloperHint =>
+      'Fake clock, day jumps and the reference checker';
 
   @override
   String get settingsAbout => 'وقت کے بارے میں';
@@ -93,7 +94,7 @@ class AppLocalizationsUr extends AppLocalizations {
   }
 
   @override
-  String get debugTitle => 'Developer';
+  String get debugTitle => 'Test mode';
 
   @override
   String get debugClock => 'Clock';
@@ -184,13 +185,16 @@ class AppLocalizationsUr extends AppLocalizations {
   String get locationLocating => 'مقام تلاش ہو رہا ہے…';
 
   @override
-  String get gpsServiceOff => 'اس فون پر مقام بند ہے۔ اسے آن کریں یا شہر منتخب کریں۔';
+  String get gpsServiceOff =>
+      'اس فون پر مقام بند ہے۔ اسے آن کریں یا شہر منتخب کریں۔';
 
   @override
-  String get gpsDenied => 'مقام کی اجازت نہیں دی گئی۔ آپ شہر منتخب کر سکتے ہیں۔';
+  String get gpsDenied =>
+      'مقام کی اجازت نہیں دی گئی۔ آپ شہر منتخب کر سکتے ہیں۔';
 
   @override
-  String get gpsDeniedForever => 'مقام کی اجازت بند ہے۔ ترتیبات میں اجازت دیں یا شہر منتخب کریں۔';
+  String get gpsDeniedForever =>
+      'مقام کی اجازت بند ہے۔ ترتیبات میں اجازت دیں یا شہر منتخب کریں۔';
 
   @override
   String get gpsTimeout => 'مقام نہیں ملا۔ دوبارہ کوشش کریں یا شہر منتخب کریں۔';
@@ -270,7 +274,8 @@ class AppLocalizationsUr extends AppLocalizations {
   }
 
   @override
-  String get settingsAttribution => 'شہروں کا ڈیٹا © GeoNames، CC BY 4.0۔ نماز کے اوقات آلے پر ہی حساب ہوتے ہیں۔';
+  String get settingsAttribution =>
+      'شہروں کا ڈیٹا © GeoNames، CC BY 4.0۔ نماز کے اوقات آلے پر ہی حساب ہوتے ہیں۔';
 
   @override
   String get citySearchHint => 'شہر تلاش کریں';
@@ -391,7 +396,8 @@ class AppLocalizationsUr extends AppLocalizations {
   String get statusChecked => 'جانچا گیا';
 
   @override
-  String get draftNotice => 'غیر جانچا مسودہ، صرف ترقیاتی ورژن میں دکھائی دیتا ہے';
+  String get draftNotice =>
+      'غیر جانچا مسودہ، صرف ترقیاتی ورژن میں دکھائی دیتا ہے';
 
   @override
   String get collectionQuran => 'قرآن';
@@ -462,7 +468,8 @@ class AppLocalizationsUr extends AppLocalizations {
   }
 
   @override
-  String get sheetTextPending => 'یہ حوالہ اصل ماخذ سے جانچنے کے بعد متن یہاں ظاہر ہوگا۔';
+  String get sheetTextPending =>
+      'یہ حوالہ اصل ماخذ سے جانچنے کے بعد متن یہاں ظاہر ہوگا۔';
 
   @override
   String get statusApproved => 'عالم سے منظور شدہ';
@@ -555,7 +562,8 @@ class AppLocalizationsUr extends AppLocalizations {
   String get notifBatteryFix => 'ترتیبات کھولیں';
 
   @override
-  String get notifBatteryHint => 'کچھ فون پس منظر میں یاد دہانیاں روک دیتے ہیں۔ وقت کو «غیر محدود» پر رکھیں۔';
+  String get notifBatteryHint =>
+      'کچھ فون پس منظر میں یاد دہانیاں روک دیتے ہیں۔ وقت کو «غیر محدود» پر رکھیں۔';
 
   @override
   String notifBatteryHintOem(String maker) {
@@ -572,7 +580,7 @@ class AppLocalizationsUr extends AppLocalizations {
   String get notifSound => 'آواز';
 
   @override
-  String get notifSoundHint => 'لائسنس یافتہ ریکارڈنگ شامل ہونے پر اذان کا انتخاب آئے گا';
+  String get notifSoundHint => 'بند ہو تو ہر یاددہانی خاموش رہے گی';
 
   @override
   String notifScheduled(String count, String date) {
@@ -672,16 +680,68 @@ class AppLocalizationsUr extends AppLocalizations {
   String get reportProblem => 'مسئلے کی اطلاع دیں';
 
   @override
-  String get reportProblemHint => 'GitHub پر ایک تیار فارم کھلتا ہے، بھیجنے سے پہلے آپ سب کچھ دیکھ سکتے ہیں۔';
+  String get reportProblemHint =>
+      'ای میل کا مسودہ کھلتا ہے، بھیجنے سے پہلے آپ سب کچھ دیکھ سکتے ہیں۔';
 
   @override
   String get privacyTitle => 'رازداری';
 
   @override
-  String get privacyBody => 'سب کچھ اسی فون پر حساب ہوتا ہے۔ وقت میں نہ اکاؤنٹ ہیں، نہ اشتہارات، نہ اینالیٹکس۔';
+  String get privacyBody =>
+      'سب کچھ اسی فون پر حساب ہوتا ہے۔ وقت میں نہ اکاؤنٹ ہیں، نہ اشتہارات، نہ اینالیٹکس۔';
 
   @override
   String placeTime(String city) {
     return '$city کا وقت';
   }
+
+  @override
+  String get testModeUnlocked =>
+      'Test mode is on. Find it at the bottom of Settings.';
+
+  @override
+  String get debugJumpDay => 'Jump to a day';
+
+  @override
+  String get debugNextFriday => 'Next Friday';
+
+  @override
+  String get debugContent => 'Content';
+
+  @override
+  String get debugShowUnchecked => 'Show unchecked content';
+
+  @override
+  String get debugShowUncheckedHint =>
+      'On this phone only. Unchecked items are marked as drafts.';
+
+  @override
+  String get debugLock => 'Turn off test mode';
+
+  @override
+  String get checkerTitle => 'Check references';
+
+  @override
+  String get checkerHint => 'Open each reference at its source and confirm it';
+
+  @override
+  String checkerProgress(int done, int total) {
+    return '$done of $total checked';
+  }
+
+  @override
+  String get checkerOpen => 'Open source';
+
+  @override
+  String get checkerCorrect => 'Correct';
+
+  @override
+  String get checkerWrong => 'Wrong';
+
+  @override
+  String get checkerWrongHint =>
+      'What is wrong, and the correct reference if you know it';
+
+  @override
+  String get checkerSend => 'Email results';
 }

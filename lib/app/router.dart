@@ -3,12 +3,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../core/config/flavor.dart';
 import '../core/theme/waqt_theme.dart';
 import '../features/counter/counter_screen.dart';
 import '../features/duas/duas_screen.dart';
 import '../features/now/now_screen.dart';
 import '../features/settings/city_picker_screen.dart';
+import '../features/settings/checker_screen.dart';
 import '../features/settings/developer_screen.dart';
 import '../features/settings/notifications_screen.dart';
 import '../features/settings/settings_screen.dart';
@@ -40,7 +40,11 @@ final routerProvider = Provider<GoRouter>((ref) {
                 routes: [
                   GoRoute(path: 'city', builder: (_, _) => const CityPickerScreen()),
                   GoRoute(path: 'notifications', builder: (_, _) => const NotificationsScreen()),
-                  if (AppConfig.debugTools) GoRoute(path: 'developer', builder: (_, _) => const DeveloperScreen()),
+                  GoRoute(
+                    path: 'developer',
+                    builder: (_, _) => const DeveloperScreen(),
+                    routes: [GoRoute(path: 'check', builder: (_, _) => const CheckerScreen())],
+                  ),
                 ],
               ),
             ],

@@ -79,10 +79,11 @@ class AppLocalizationsId extends AppLocalizations {
   String get settingsLanguageSystem => 'Bahasa perangkat';
 
   @override
-  String get settingsDeveloper => 'Developer';
+  String get settingsDeveloper => 'Test mode';
 
   @override
-  String get settingsDeveloperHint => 'Fake clock and moment palettes';
+  String get settingsDeveloperHint =>
+      'Fake clock, day jumps and the reference checker';
 
   @override
   String get settingsAbout => 'Tentang Waqt';
@@ -93,7 +94,7 @@ class AppLocalizationsId extends AppLocalizations {
   }
 
   @override
-  String get debugTitle => 'Developer';
+  String get debugTitle => 'Test mode';
 
   @override
   String get debugClock => 'Clock';
@@ -184,16 +185,19 @@ class AppLocalizationsId extends AppLocalizations {
   String get locationLocating => 'Mencari lokasi…';
 
   @override
-  String get gpsServiceOff => 'Lokasi di ponsel ini mati. Nyalakan, atau pilih kota.';
+  String get gpsServiceOff =>
+      'Lokasi di ponsel ini mati. Nyalakan, atau pilih kota.';
 
   @override
   String get gpsDenied => 'Izin lokasi ditolak. Anda bisa memilih kota.';
 
   @override
-  String get gpsDeniedForever => 'Izin lokasi diblokir. Izinkan di pengaturan, atau pilih kota.';
+  String get gpsDeniedForever =>
+      'Izin lokasi diblokir. Izinkan di pengaturan, atau pilih kota.';
 
   @override
-  String get gpsTimeout => 'Lokasi tidak ditemukan. Coba lagi, atau pilih kota.';
+  String get gpsTimeout =>
+      'Lokasi tidak ditemukan. Coba lagi, atau pilih kota.';
 
   @override
   String get openSettings => 'Buka pengaturan';
@@ -226,7 +230,8 @@ class AppLocalizationsId extends AppLocalizations {
   String get asrStandard => 'Jumhur';
 
   @override
-  String get asrStandardHint => 'Syafi\'i, Maliki, Hanbali: bayangan sama dengan benda';
+  String get asrStandardHint =>
+      'Syafi\'i, Maliki, Hanbali: bayangan sama dengan benda';
 
   @override
   String get asrHanafi => 'Hanafi';
@@ -241,7 +246,8 @@ class AppLocalizationsId extends AppLocalizations {
   String get highLatAuto => 'Otomatis';
 
   @override
-  String get highLatAutoHint => 'Sepertujuh malam di atas 48°, tengah malam di bawahnya';
+  String get highLatAutoHint =>
+      'Sepertujuh malam di atas 48°, tengah malam di bawahnya';
 
   @override
   String get highLatMiddle => 'Tengah malam';
@@ -270,7 +276,8 @@ class AppLocalizationsId extends AppLocalizations {
   }
 
   @override
-  String get settingsAttribution => 'Data kota © GeoNames, CC BY 4.0. Jadwal salat dihitung di perangkat.';
+  String get settingsAttribution =>
+      'Data kota © GeoNames, CC BY 4.0. Jadwal salat dihitung di perangkat.';
 
   @override
   String get citySearchHint => 'Cari kota';
@@ -391,7 +398,8 @@ class AppLocalizationsId extends AppLocalizations {
   String get statusChecked => 'Diperiksa';
 
   @override
-  String get draftNotice => 'Draf belum diperiksa, hanya tampil di versi pengembangan';
+  String get draftNotice =>
+      'Draf belum diperiksa, hanya tampil di versi pengembangan';
 
   @override
   String get collectionQuran => 'Al-Qur\'an';
@@ -462,7 +470,8 @@ class AppLocalizationsId extends AppLocalizations {
   }
 
   @override
-  String get sheetTextPending => 'Teks akan muncul di sini setelah rujukan ini diperiksa dengan sumber aslinya.';
+  String get sheetTextPending =>
+      'Teks akan muncul di sini setelah rujukan ini diperiksa dengan sumber aslinya.';
 
   @override
   String get statusApproved => 'Disetujui ulama';
@@ -543,7 +552,8 @@ class AppLocalizationsId extends AppLocalizations {
   String get notifExact => 'Tepat waktu';
 
   @override
-  String get notifExactHint => 'Agar pengingat salat datang tepat pada menitnya';
+  String get notifExactHint =>
+      'Agar pengingat salat datang tepat pada menitnya';
 
   @override
   String get notifBattery => 'Optimasi baterai';
@@ -573,7 +583,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get notifSound => 'Putar suara';
 
   @override
-  String get notifSoundHint => 'Pilihan azan akan hadir setelah rekaman berlisensi ditambahkan';
+  String get notifSoundHint => 'Jika mati, semua pengingat tanpa suara';
 
   @override
   String notifScheduled(String count, String date) {
@@ -673,16 +683,68 @@ class AppLocalizationsId extends AppLocalizations {
   String get reportProblem => 'Laporkan masalah';
 
   @override
-  String get reportProblemHint => 'Membuka formulir terisi di GitHub. Anda melihat semuanya sebelum dikirim.';
+  String get reportProblemHint =>
+      'Membuka draf email. Anda melihat semuanya sebelum dikirim.';
 
   @override
   String get privacyTitle => 'Privasi';
 
   @override
-  String get privacyBody => 'Semuanya dihitung di ponsel ini. Waqt tanpa akun, iklan, atau analitik.';
+  String get privacyBody =>
+      'Semuanya dihitung di ponsel ini. Waqt tanpa akun, iklan, atau analitik.';
 
   @override
   String placeTime(String city) {
     return 'Waktu $city';
   }
+
+  @override
+  String get testModeUnlocked =>
+      'Test mode is on. Find it at the bottom of Settings.';
+
+  @override
+  String get debugJumpDay => 'Jump to a day';
+
+  @override
+  String get debugNextFriday => 'Next Friday';
+
+  @override
+  String get debugContent => 'Content';
+
+  @override
+  String get debugShowUnchecked => 'Show unchecked content';
+
+  @override
+  String get debugShowUncheckedHint =>
+      'On this phone only. Unchecked items are marked as drafts.';
+
+  @override
+  String get debugLock => 'Turn off test mode';
+
+  @override
+  String get checkerTitle => 'Check references';
+
+  @override
+  String get checkerHint => 'Open each reference at its source and confirm it';
+
+  @override
+  String checkerProgress(int done, int total) {
+    return '$done of $total checked';
+  }
+
+  @override
+  String get checkerOpen => 'Open source';
+
+  @override
+  String get checkerCorrect => 'Correct';
+
+  @override
+  String get checkerWrong => 'Wrong';
+
+  @override
+  String get checkerWrongHint =>
+      'What is wrong, and the correct reference if you know it';
+
+  @override
+  String get checkerSend => 'Email results';
 }

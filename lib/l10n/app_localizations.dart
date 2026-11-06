@@ -67,7 +67,8 @@ import 'app_localizations_ur.dart';
 /// be consistent with the languages listed in the AppLocalizations.supportedLocales
 /// property.
 abstract class AppLocalizations {
-  AppLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+  AppLocalizations(String locale)
+    : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -75,7 +76,8 @@ abstract class AppLocalizations {
     return Localizations.of<AppLocalizations>(context, AppLocalizations)!;
   }
 
-  static const LocalizationsDelegate<AppLocalizations> delegate = _AppLocalizationsDelegate();
+  static const LocalizationsDelegate<AppLocalizations> delegate =
+      _AppLocalizationsDelegate();
 
   /// A list of this localizations delegate along with the default localizations
   /// delegates.
@@ -87,12 +89,13 @@ abstract class AppLocalizations {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
-    delegate,
-    GlobalMaterialLocalizations.delegate,
-    GlobalCupertinoLocalizations.delegate,
-    GlobalWidgetsLocalizations.delegate,
-  ];
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
+      <LocalizationsDelegate<dynamic>>[
+        delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ];
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
@@ -240,13 +243,13 @@ abstract class AppLocalizations {
   /// No description provided for @settingsDeveloper.
   ///
   /// In en, this message translates to:
-  /// **'Developer'**
+  /// **'Test mode'**
   String get settingsDeveloper;
 
   /// No description provided for @settingsDeveloperHint.
   ///
   /// In en, this message translates to:
-  /// **'Fake clock and moment palettes'**
+  /// **'Fake clock, day jumps and the reference checker'**
   String get settingsDeveloperHint;
 
   /// No description provided for @settingsAbout.
@@ -264,7 +267,7 @@ abstract class AppLocalizations {
   /// No description provided for @debugTitle.
   ///
   /// In en, this message translates to:
-  /// **'Developer'**
+  /// **'Test mode'**
   String get debugTitle;
 
   /// No description provided for @debugClock.
@@ -1068,7 +1071,7 @@ abstract class AppLocalizations {
   /// No description provided for @notifHint.
   ///
   /// In en, this message translates to:
-  /// **'Prayer times and moments, as you choose'**
+  /// **'Adhkar, Jumu\'ah and night reminders, as you choose'**
   String get notifHint;
 
   /// No description provided for @notifPermission.
@@ -1152,7 +1155,7 @@ abstract class AppLocalizations {
   /// No description provided for @notifSoundHint.
   ///
   /// In en, this message translates to:
-  /// **'An adhan option will come once a licensed recording is added'**
+  /// **'Off keeps every reminder silent'**
   String get notifSoundHint;
 
   /// No description provided for @notifScheduled.
@@ -1338,7 +1341,7 @@ abstract class AppLocalizations {
   /// No description provided for @reportProblemHint.
   ///
   /// In en, this message translates to:
-  /// **'Opens a pre-filled form on GitHub. You see everything before it is sent.'**
+  /// **'Opens an email draft. You see everything before it is sent.'**
   String get reportProblemHint;
 
   /// No description provided for @privacyTitle.
@@ -1358,9 +1361,100 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{city} time'**
   String placeTime(String city);
+
+  /// No description provided for @testModeUnlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Test mode is on. Find it at the bottom of Settings.'**
+  String get testModeUnlocked;
+
+  /// No description provided for @debugJumpDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Jump to a day'**
+  String get debugJumpDay;
+
+  /// No description provided for @debugNextFriday.
+  ///
+  /// In en, this message translates to:
+  /// **'Next Friday'**
+  String get debugNextFriday;
+
+  /// No description provided for @debugContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Content'**
+  String get debugContent;
+
+  /// No description provided for @debugShowUnchecked.
+  ///
+  /// In en, this message translates to:
+  /// **'Show unchecked content'**
+  String get debugShowUnchecked;
+
+  /// No description provided for @debugShowUncheckedHint.
+  ///
+  /// In en, this message translates to:
+  /// **'On this phone only. Unchecked items are marked as drafts.'**
+  String get debugShowUncheckedHint;
+
+  /// No description provided for @debugLock.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn off test mode'**
+  String get debugLock;
+
+  /// No description provided for @checkerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Check references'**
+  String get checkerTitle;
+
+  /// No description provided for @checkerHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Open each reference at its source and confirm it'**
+  String get checkerHint;
+
+  /// No description provided for @checkerProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'{done} of {total} checked'**
+  String checkerProgress(int done, int total);
+
+  /// No description provided for @checkerOpen.
+  ///
+  /// In en, this message translates to:
+  /// **'Open source'**
+  String get checkerOpen;
+
+  /// No description provided for @checkerCorrect.
+  ///
+  /// In en, this message translates to:
+  /// **'Correct'**
+  String get checkerCorrect;
+
+  /// No description provided for @checkerWrong.
+  ///
+  /// In en, this message translates to:
+  /// **'Wrong'**
+  String get checkerWrong;
+
+  /// No description provided for @checkerWrongHint.
+  ///
+  /// In en, this message translates to:
+  /// **'What is wrong, and the correct reference if you know it'**
+  String get checkerWrongHint;
+
+  /// No description provided for @checkerSend.
+  ///
+  /// In en, this message translates to:
+  /// **'Email results'**
+  String get checkerSend;
 }
 
-class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
+class _AppLocalizationsDelegate
+    extends LocalizationsDelegate<AppLocalizations> {
   const _AppLocalizationsDelegate();
 
   @override
@@ -1369,7 +1463,15 @@ class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> 
   }
 
   @override
-  bool isSupported(Locale locale) => <String>['ar', 'bn', 'en', 'fr', 'id', 'tr', 'ur'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>[
+    'ar',
+    'bn',
+    'en',
+    'fr',
+    'id',
+    'tr',
+    'ur',
+  ].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;

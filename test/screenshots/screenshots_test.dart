@@ -143,8 +143,8 @@ void main() {
       then: () async {
         await t.tap(find.text('Settings'));
         await t.pumpAndSettle();
-        await t.scrollUntilVisible(find.text('Fake clock and moment palettes'), 200);
-        await t.tap(find.text('Fake clock and moment palettes'));
+        await t.scrollUntilVisible(find.text('Fake clock, day jumps and the reference checker'), 200);
+        await t.tap(find.text('Fake clock, day jumps and the reference checker'));
       },
     ),
   );

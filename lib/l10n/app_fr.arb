@@ -146,7 +146,7 @@
   "notifPrayers": "Horaires de prière",
   "notifMoments": "Moments",
   "notifSound": "Son",
-  "notifSoundHint": "Une option d'adhan viendra avec un enregistrement sous licence",
+  "notifSoundHint": "Désactivé, tous les rappels restent silencieux",
   "notifScheduled": "{count} rappels programmés jusqu'au {date}",
   "notifNone": "Aucun rappel programmé",
   "notifStatus": "État",
@@ -177,7 +177,7 @@
   "counterOpen": "Ouvrir le compteur",
   "reportContent": "Signaler un problème dans ce texte",
   "reportProblem": "Signaler un problème",
-  "reportProblemHint": "Ouvre un formulaire prérempli sur GitHub. Vous voyez tout avant l'envoi.",
+  "reportProblemHint": "Ouvre un brouillon d'e-mail. Vous voyez tout avant l'envoi.",
   "privacyTitle": "Confidentialité",
   "privacyBody": "Tout est calculé sur ce téléphone. Waqt n'a ni compte, ni publicité, ni statistiques.",
   "placeTime": "Heure de {city}"

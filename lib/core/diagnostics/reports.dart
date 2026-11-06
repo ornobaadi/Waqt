@@ -11,7 +11,7 @@ import '../config/flavor.dart';
 /// report is only ever a pre-filled form the user reads and sends themselves.
 /// No analytics, no crash SDK, no location or personal data in any report.
 abstract final class Reports {
-  static const repo = 'https://github.com/ornobaadi/Waqt';
+  static const email = 'ornobaadi.dev@gmail.com';
   static const _key = 'crashlog.v1';
   static const _max = 15;
   static SharedPreferences? _prefs;
@@ -41,20 +41,25 @@ abstract final class Reports {
 
   static List<String> get log => _prefs?.getStringList(_key) ?? const [];
 
-  static Uri issueUri(String title, String body) =>
-      Uri.parse('$repo/issues/new').replace(queryParameters: {'title': title, 'body': body});
+  /// A mailto link the user's mail app opens as a draft. Encoded by hand:
+  /// `Uri.queryParameters` would turn spaces into `+`, which mail apps show.
+  static Uri issueUri(String title, String body) => Uri(
+    scheme: 'mailto',
+    path: email,
+    query: 'subject=${Uri.encodeComponent('Waqt: $title')}&body=${Uri.encodeComponent(body)}',
+  );
 
   static Uri contentIssue(ContentItem i) => issueUri(
     'Content: ${i.id}',
     [
-      '**Item:** `${i.id}` (v${i.version}, ${i.status.name})',
-      '**Reference:** ${i.source.collection} ${i.source.number}',
-      '**Source link:** ${i.source.url}',
+      'Item: ${i.id} (v${i.version}, ${i.status.name})',
+      'Reference: ${i.source.collection} ${i.source.number}',
+      'Source link: ${i.source.url}',
       '',
-      '**What is wrong?** (wording, translation, reference, grading)',
+      'What is wrong? (wording, translation, reference, grading)',
       '',
       '',
-      '_App ${AppConfig.version} (${AppConfig.flavor.name})_',
+      'App ${AppConfig.version} (${AppConfig.flavor.name})',
     ].join('\n'),
   );
 
@@ -66,15 +71,15 @@ abstract final class Reports {
       issueUri(
         'Problem report',
         [
-          '**What happened?**',
+          'What happened?',
           '',
           '',
-          '**Steps to reproduce**',
+          'Steps to reproduce',
           '',
           '',
           '---',
           'App ${AppConfig.version} (${AppConfig.flavor.name}), ${defaultTargetPlatform.name}',
-          if (errors.isNotEmpty) ...['', 'Recent errors on this device:', '```', errors, '```'],
+          if (errors.isNotEmpty) ...['', 'Recent errors on this device:', errors],
         ].join('\n'),
       ),
       mode: LaunchMode.externalApplication,

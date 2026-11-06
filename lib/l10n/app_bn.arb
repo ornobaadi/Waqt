@@ -152,7 +152,7 @@
   "notifPrayers": "নামাজের সময়",
   "notifMoments": "মুহূর্ত",
   "notifSound": "শব্দ",
-  "notifSoundHint": "লাইসেন্সপ্রাপ্ত রেকর্ডিং যোগ হলে আজানের বিকল্প আসবে",
+  "notifSoundHint": "বন্ধ থাকলে সব রিমাইন্ডার নীরব থাকবে",
   "notifScheduled": "{date} পর্যন্ত {count}টি রিমাইন্ডার নির্ধারিত",
   "notifNone": "কোনো রিমাইন্ডার নির্ধারিত নেই",
   "notifStatus": "অবস্থা",
@@ -183,7 +183,7 @@
   "counterOpen": "তাসবিহ খুলুন",
   "reportContent": "এই লেখায় ভুল জানান",
   "reportProblem": "সমস্যা জানান",
-  "reportProblemHint": "GitHub-এ একটি পূরণ করা ফর্ম খোলে। পাঠানোর আগে আপনি সব দেখতে পাবেন।",
+  "reportProblemHint": "একটি ইমেইল খসড়া খোলে। পাঠানোর আগে আপনি সব দেখতে পাবেন।",
   "privacyTitle": "গোপনীয়তা",
   "privacyBody": "সবকিছু এই ফোনেই হিসাব হয়। Waqt-এ কোনো অ্যাকাউন্ট, বিজ্ঞাপন বা অ্যানালিটিক্স নেই।",
   "placeTime": "{city}-এর সময়"

@@ -79,10 +79,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsLanguageSystem => 'Device language';
 
   @override
-  String get settingsDeveloper => 'Developer';
+  String get settingsDeveloper => 'Test mode';
 
   @override
-  String get settingsDeveloperHint => 'Fake clock and moment palettes';
+  String get settingsDeveloperHint =>
+      'Fake clock, day jumps and the reference checker';
 
   @override
   String get settingsAbout => 'About Waqt';
@@ -93,7 +94,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get debugTitle => 'Developer';
+  String get debugTitle => 'Test mode';
 
   @override
   String get debugClock => 'Clock';
@@ -184,13 +185,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get locationLocating => 'Finding you…';
 
   @override
-  String get gpsServiceOff => 'Location is turned off on this phone. Turn it on, or choose a city.';
+  String get gpsServiceOff =>
+      'Location is turned off on this phone. Turn it on, or choose a city.';
 
   @override
-  String get gpsDenied => 'Location permission was declined. You can choose a city instead.';
+  String get gpsDenied =>
+      'Location permission was declined. You can choose a city instead.';
 
   @override
-  String get gpsDeniedForever => 'Location permission is blocked. Allow it in settings, or choose a city.';
+  String get gpsDeniedForever =>
+      'Location permission is blocked. Allow it in settings, or choose a city.';
 
   @override
   String get gpsTimeout => 'Couldn\'t get a fix. Try again, or choose a city.';
@@ -226,7 +230,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get asrStandard => 'Standard';
 
   @override
-  String get asrStandardHint => 'Shafi\'i, Maliki, Hanbali: shadow equals object length';
+  String get asrStandardHint =>
+      'Shafi\'i, Maliki, Hanbali: shadow equals object length';
 
   @override
   String get asrHanafi => 'Hanafi';
@@ -241,7 +246,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get highLatAuto => 'Automatic';
 
   @override
-  String get highLatAutoHint => 'Seventh of the night above 48°, middle of the night below';
+  String get highLatAutoHint =>
+      'Seventh of the night above 48°, middle of the night below';
 
   @override
   String get highLatMiddle => 'Middle of the night';
@@ -270,7 +276,8 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get settingsAttribution => 'City data © GeoNames, CC BY 4.0. Prayer times calculated on device.';
+  String get settingsAttribution =>
+      'City data © GeoNames, CC BY 4.0. Prayer times calculated on device.';
 
   @override
   String get citySearchHint => 'Search for a city';
@@ -529,7 +536,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get notifTitle => 'Reminders';
 
   @override
-  String get notifHint => 'Prayer times and moments, as you choose';
+  String get notifHint => 'Adhkar, Jumu\'ah and night reminders, as you choose';
 
   @override
   String get notifPermission => 'Notifications';
@@ -544,7 +551,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get notifExact => 'On-time delivery';
 
   @override
-  String get notifExactHint => 'Lets prayer reminders arrive at the exact minute';
+  String get notifExactHint =>
+      'Lets prayer reminders arrive at the exact minute';
 
   @override
   String get notifBattery => 'Battery optimisation';
@@ -556,7 +564,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get notifBatteryFix => 'Open settings';
 
   @override
-  String get notifBatteryHint => 'Some phones stop reminders in the background. Set Waqt to Unrestricted.';
+  String get notifBatteryHint =>
+      'Some phones stop reminders in the background. Set Waqt to Unrestricted.';
 
   @override
   String notifBatteryHintOem(String maker) {
@@ -573,7 +582,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get notifSound => 'Play sound';
 
   @override
-  String get notifSoundHint => 'An adhan option will come once a licensed recording is added';
+  String get notifSoundHint => 'Off keeps every reminder silent';
 
   @override
   String notifScheduled(String count, String date) {
@@ -590,7 +599,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get setupCardTitle => 'Gentle reminders';
 
   @override
-  String get setupCardBody => 'A quiet nudge at each prayer time. You choose which, and nothing leaves your phone.';
+  String get setupCardBody =>
+      'A quiet nudge at each prayer time. You choose which, and nothing leaves your phone.';
 
   @override
   String get setupCardAction => 'Set up';
@@ -672,16 +682,68 @@ class AppLocalizationsEn extends AppLocalizations {
   String get reportProblem => 'Report a problem';
 
   @override
-  String get reportProblemHint => 'Opens a pre-filled form on GitHub. You see everything before it is sent.';
+  String get reportProblemHint =>
+      'Opens an email draft. You see everything before it is sent.';
 
   @override
   String get privacyTitle => 'Privacy';
 
   @override
-  String get privacyBody => 'Everything is calculated on this phone. Waqt has no accounts, ads or analytics.';
+  String get privacyBody =>
+      'Everything is calculated on this phone. Waqt has no accounts, ads or analytics.';
 
   @override
   String placeTime(String city) {
     return '$city time';
   }
+
+  @override
+  String get testModeUnlocked =>
+      'Test mode is on. Find it at the bottom of Settings.';
+
+  @override
+  String get debugJumpDay => 'Jump to a day';
+
+  @override
+  String get debugNextFriday => 'Next Friday';
+
+  @override
+  String get debugContent => 'Content';
+
+  @override
+  String get debugShowUnchecked => 'Show unchecked content';
+
+  @override
+  String get debugShowUncheckedHint =>
+      'On this phone only. Unchecked items are marked as drafts.';
+
+  @override
+  String get debugLock => 'Turn off test mode';
+
+  @override
+  String get checkerTitle => 'Check references';
+
+  @override
+  String get checkerHint => 'Open each reference at its source and confirm it';
+
+  @override
+  String checkerProgress(int done, int total) {
+    return '$done of $total checked';
+  }
+
+  @override
+  String get checkerOpen => 'Open source';
+
+  @override
+  String get checkerCorrect => 'Correct';
+
+  @override
+  String get checkerWrong => 'Wrong';
+
+  @override
+  String get checkerWrongHint =>
+      'What is wrong, and the correct reference if you know it';
+
+  @override
+  String get checkerSend => 'Email results';
 }

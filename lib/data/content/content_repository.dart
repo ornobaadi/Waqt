@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../core/config/flavor.dart';
+import '../../core/config/test_mode.dart';
 import '../../domain/moments/moment.dart';
 
 enum ReviewStatus { draft, checked, approved }
@@ -141,7 +141,8 @@ class ContentBundle {
 
 final contentProvider = FutureProvider<ContentBundle>((ref) async {
   final json = await rootBundle.loadString('assets/content/content.json');
-  return ContentBundle.parse(json, includeUnreviewed: AppConfig.debugTools);
+  // Unchecked items appear only when test mode asks for them, marked as drafts.
+  return ContentBundle.parse(json, includeUnreviewed: ref.watch(testModeProvider.select((s) => s.showUnchecked)));
 });
 
 /// Items for a moment; empty while loading or if none are linked.

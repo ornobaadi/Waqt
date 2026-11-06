@@ -26,8 +26,10 @@ void main() {
     final bundle = ContentBundle.parse(File('assets/content/content.json').readAsStringSync(), includeUnreviewed: true);
     final item = bundle.items.first;
     final uri = Reports.contentIssue(item);
-    expect(uri.host, 'github.com');
-    final body = uri.queryParameters['body']!;
+    expect(uri.scheme, 'mailto');
+    expect(uri.path, Reports.email);
+    expect(uri.query, isNot(contains('+')));
+    final body = Uri.decodeComponent(uri.query.split('&body=').last);
     expect(body, contains(item.id));
     expect(body, contains(item.source.number));
     expect(body.toLowerCase(), isNot(contains('dhaka')));

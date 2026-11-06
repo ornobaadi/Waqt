@@ -22,16 +22,14 @@ void main() {
   final d = days(now, 9);
   const planner = ReminderPlanner();
 
-  test('defaults: five prayers a day for a week, in order, future only', () {
+  test('defaults: morning and evening adhkar, in order, future only, never a prayer time', () {
     final r = planner.plan(now, d, ReminderKind.defaults);
-    expect(r.length, inInclusiveRange(34, 36)); // 7 days × 5, give or take the edges
-    expect(r.every((x) => x.at.isAfter(now) && x.kind.prayer), isTrue);
+    expect(r.length, inInclusiveRange(13, 15));
+    expect(r.every((x) => x.at.isAfter(now) && ReminderKind.defaults.contains(x.kind)), isTrue);
     for (var i = 1; i < r.length; i++) {
       expect(r[i].at.isAfter(r[i - 1].at), isTrue);
     }
-    expect(r.first.kind, ReminderKind.asr); // Dhuhr was 11:43, so Asr is next
     expect(r.map((x) => x.id).toSet().length, r.length);
-    expect(r.last.at.isBefore(now.add(const Duration(days: 7, minutes: 1))), isTrue);
   });
 
   test('moments: Friday last hour only on Fridays, no duplicates across day edges', () {

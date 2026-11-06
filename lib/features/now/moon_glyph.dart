@@ -8,8 +8,11 @@ import '../../domain/astronomy/moon.dart';
 /// The real moon phase for [at]. Mirrored in the southern hemisphere,
 /// where a waxing crescent is lit on the left.
 class MoonGlyph extends StatelessWidget {
-  const MoonGlyph({super.key, required this.at, this.southern = false, this.size = 34});
+  const MoonGlyph({super.key, required this.at, this.southern = false, this.size = 34, this.lit});
   final DateTime at;
+
+  /// Lit-side colour; defaults to the palette ink.
+  final Color? lit;
   final bool southern;
   final double size;
 
@@ -19,7 +22,12 @@ class MoonGlyph extends StatelessWidget {
     return ExcludeSemantics(
       child: CustomPaint(
         size: Size.square(size),
-        painter: _MoonPainter(age: moonAge(at), southern: southern, lit: t.ink, shade: t.ink.withValues(alpha: 0.12)),
+        painter: _MoonPainter(
+          age: moonAge(at),
+          southern: southern,
+          lit: lit ?? t.ink,
+          shade: (lit ?? t.ink).withValues(alpha: 0.12),
+        ),
       ),
     );
   }
@@ -56,7 +64,17 @@ class _MoonPainter extends CustomPainter {
         ..translate(size.width, 0)
         ..scale(-1, 1);
     }
-    canvas.drawPath(path, Paint()..color = lit);
+    // Shaded from the top left, so a large moon reads as a sphere.
+    canvas.drawPath(
+      path,
+      Paint()
+        ..shader = RadialGradient(
+          center: const Alignment(-0.3, -0.35),
+          radius: 1.1,
+          colors: [Color.lerp(lit, Colors.white, 0.35)!, lit, Color.lerp(lit, Colors.black, 0.22)!],
+          stops: const [0, 0.5, 1],
+        ).createShader(disc),
+    );
     canvas.restore();
 
     // Soft halo.

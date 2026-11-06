@@ -23,7 +23,7 @@ Your settings, reminder choices and checklist ticks are stored on the phone. Uni
 Waqt can open a hadith or Qur'an reference on sunnah.com, quran.com or dorar.net in your browser. Those sites have their own privacy policies.
 
 ## Problem reports
-Waqt keeps a short log of app errors on the phone. **Report a problem** and **Report an issue with this text** open a pre-filled form on GitHub in your browser. You see the full text before anything is sent, and nothing is sent unless you submit it. Reports contain the app version and, for problem reports, recent error messages. They never contain your location.
+Waqt keeps a short log of app errors on the phone. **Report a problem** and **Report an issue with this text** open a pre-filled email draft in your mail app. You see the full text before anything is sent, and nothing is sent unless you submit it. Reports contain the app version and, for problem reports, recent error messages. They never contain your location.
 
 ## Children
 Waqt is suitable for all ages and collects no data from anyone.
@@ -32,4 +32,4 @@ Waqt is suitable for all ages and collects no data from anyone.
 If this policy changes, the new version will be published at the same address with a new date.
 
 ## Contact
-Open an issue at https://github.com/ornobaadi/Waqt/issues.
+Email ornobaadi.dev@gmail.com.

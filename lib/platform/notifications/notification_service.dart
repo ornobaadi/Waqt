@@ -102,21 +102,13 @@ class NotificationService {
     }
   }
 
-  static AndroidNotificationDetails _details(ReminderKind k, bool sound) => k.prayer
-      ? AndroidNotificationDetails(
-          sound ? 'prayer' : 'prayer_silent',
-          sound ? 'Prayer times' : 'Prayer times (silent)',
-          importance: Importance.high,
-          priority: Priority.high,
-          playSound: sound,
-          category: AndroidNotificationCategory.reminder,
-        )
-      : const AndroidNotificationDetails(
-          'moments',
-          'Moments',
-          importance: Importance.defaultImportance,
-          category: AndroidNotificationCategory.reminder,
-        );
+  static AndroidNotificationDetails _details(bool sound) => AndroidNotificationDetails(
+    sound ? 'moments' : 'moments_silent',
+    sound ? 'Moments' : 'Moments (silent)',
+    importance: Importance.defaultImportance,
+    playSound: sound,
+    category: AndroidNotificationCategory.reminder,
+  );
 
   /// Replaces everything previously scheduled.
   Future<int> schedule(
@@ -135,8 +127,8 @@ class NotificationService {
         title: title(r.kind),
         body: body(r),
         scheduledDate: tz.TZDateTime.from(r.at, tz.local),
-        notificationDetails: NotificationDetails(android: _details(r.kind, sound)),
-        androidScheduleMode: r.kind.prayer && exact
+        notificationDetails: NotificationDetails(android: _details(sound)),
+        androidScheduleMode: exact
             ? AndroidScheduleMode.exactAllowWhileIdle
             : AndroidScheduleMode.inexactAllowWhileIdle,
         payload: r.kind.name,

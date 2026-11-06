@@ -46,8 +46,18 @@ extension WaqtLabels on AppLocalizations {
   };
 
   String hijriMonth(int m) => [
-    hijriMonth1, hijriMonth2, hijriMonth3, hijriMonth4, hijriMonth5, hijriMonth6, //
-    hijriMonth7, hijriMonth8, hijriMonth9, hijriMonth10, hijriMonth11, hijriMonth12,
+    hijriMonth1,
+    hijriMonth2,
+    hijriMonth3,
+    hijriMonth4,
+    hijriMonth5,
+    hijriMonth6, //
+    hijriMonth7,
+    hijriMonth8,
+    hijriMonth9,
+    hijriMonth10,
+    hijriMonth11,
+    hijriMonth12,
   ][m - 1];
 
   String hijri(HijriDate d, String Function(int) n) => hijriDate(n(d.day), hijriMonth(d.month), n(d.year));

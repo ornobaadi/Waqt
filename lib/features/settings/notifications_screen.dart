@@ -111,10 +111,8 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> with 
               ],
             ),
           ],
-          SectionLabel(l.notifPrayers),
-          RowGroup(children: [for (final k in ReminderKind.values.where((k) => k.prayer)) toggle(k)]),
           SectionLabel(l.notifMoments),
-          RowGroup(children: [for (final k in ReminderKind.values.where((k) => !k.prayer)) toggle(k)]),
+          RowGroup(children: [for (final k in ReminderKind.values) toggle(k)]),
           const SizedBox(height: WaqtSpace.x4),
           RowGroup(
             children: [

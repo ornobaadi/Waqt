@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:hijri/hijri_calendar.dart';
 import 'package:intl/intl.dart';
 
 import '../../app/app_state.dart';
 import '../../core/clock/clock.dart';
 import '../../core/config/flavor.dart';
+import '../../core/config/test_mode.dart';
+import '../../domain/occasions/occasions.dart';
 import '../../core/theme/tokens.dart';
 import '../../core/theme/waqt_theme.dart';
 import '../../core/widgets/waqt_widgets.dart';
 import '../common/labels.dart';
 import '../../l10n/app_localizations.dart';
 
-/// QA tools: fake clock + moment palette preview. Dev flavor / debug only.
+/// Test mode: fake clock, day and moment jumps, palettes, and the reference
+/// checker. Available in any build once unlocked from Settings.
 class DeveloperScreen extends ConsumerWidget {
   const DeveloperScreen({super.key});
 
@@ -67,6 +72,16 @@ class DeveloperScreen extends ConsumerWidget {
               ],
             ),
           ),
+          SectionLabel(l.debugJumpDay),
+          Wrap(
+            spacing: WaqtSpace.x2,
+            runSpacing: WaqtSpace.x2,
+            children: [
+              _Chip(l.debugNextFriday, () => _jumpDay(ref, now, _nextFriday(now))),
+              for (final (o, m, d) in _days)
+                _Chip(l.occasion(o, ramadanDay: '$d'), () => _jumpDay(ref, now, _nextHijri(now, m, d))),
+            ],
+          ),
           if (timeline != null) ...[
             SectionLabel(l.debugJump),
             Wrap(
@@ -100,11 +115,36 @@ class DeveloperScreen extends ConsumerWidget {
                 ),
             ],
           ),
+          SectionLabel(l.debugContent),
+          RowGroup(
+            children: [
+              _Toggle(
+                title: l.debugShowUnchecked,
+                hint: l.debugShowUncheckedHint,
+                value: ref.watch(testModeProvider.select((s) => s.showUnchecked)),
+                onChanged: ref.read(testModeProvider.notifier).setShowUnchecked,
+              ),
+              RowTile(
+                title: l.checkerTitle,
+                subtitle: l.checkerHint,
+                onTap: () => context.push('/settings/developer/check'),
+              ),
+            ],
+          ),
           SectionLabel(l.debugBuild),
           RowGroup(
             children: [
               RowTile(title: 'Flavor', value: AppConfig.flavor.name),
               const RowTile(title: 'Application ID', value: 'com.ornobaadi.waqt'),
+              if (!AppConfig.debugTools)
+                RowTile(
+                  title: l.debugLock,
+                  onTap: () {
+                    clock.reset();
+                    ref.read(testModeProvider.notifier).lock();
+                    context.pop();
+                  },
+                ),
             ],
           ),
         ],
@@ -121,6 +161,34 @@ class DeveloperScreen extends ConsumerWidget {
     MomentPalette.bedtime => l.momentBedtime,
   };
 
+  /// (occasion, Hijri month, Hijri day) worth testing.
+  static const _days = [
+    (OccasionId.ramadan, 9, 1),
+    (OccasionId.lastTenNights, 9, 27),
+    (OccasionId.arafah, 12, 9),
+    (OccasionId.eidAlAdha, 12, 10),
+    (OccasionId.eidAlFitr, 10, 1),
+    (OccasionId.ashura, 1, 10),
+  ];
+
+  static DateTime _nextFriday(DateTime now) =>
+      DateTime(now.year, now.month, now.day + (DateTime.friday - now.weekday + 7) % 7);
+
+  /// Next Gregorian date of a Hijri day (Umm al-Qura, before any offset).
+  /// Noon, so the Hijri day hasn't yet advanced at Maghrib.
+  static DateTime _nextHijri(DateTime now, int month, int day) {
+    final h = HijriCalendar.fromDate(now);
+    for (final y in [h.hYear, h.hYear + 1]) {
+      final g = HijriCalendar().hijriToGregorian(y, month, day);
+      if (!g.isBefore(DateTime(now.year, now.month, now.day))) return g;
+    }
+    return now;
+  }
+
+  /// Same time of day, another date: then jump to a moment within it.
+  void _jumpDay(WidgetRef ref, DateTime now, DateTime d) =>
+      ref.read(fakeClockProvider.notifier).jumpTo(DateTime(d.year, d.month, d.day, 12));
+
   Future<void> _pickDate(BuildContext context, WidgetRef ref, DateTime now) async {
     final d = await showDatePicker(
       context: context,
@@ -136,6 +204,25 @@ class DeveloperScreen extends ConsumerWidget {
     final t = await showTimePicker(context: context, initialTime: TimeOfDay.fromDateTime(now));
     if (t == null) return;
     ref.read(fakeClockProvider.notifier).jumpTo(DateTime(now.year, now.month, now.day, t.hour, t.minute));
+  }
+}
+
+class _Toggle extends StatelessWidget {
+  const _Toggle({required this.title, required this.hint, required this.value, required this.onChanged});
+  final String title;
+  final String hint;
+  final bool value;
+  final ValueChanged<bool> onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = WaqtTokens.of(context);
+    return SwitchListTile(
+      value: value,
+      onChanged: onChanged,
+      title: Text(title, style: WaqtText.bodyStrong.copyWith(color: t.ink)),
+      subtitle: Text(hint, style: WaqtText.caption.copyWith(color: t.inkMuted)),
+    );
   }
 }
 
