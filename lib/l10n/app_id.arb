@@ -179,5 +179,6 @@
   "reportProblem": "Laporkan masalah",
   "reportProblemHint": "Membuka formulir terisi di GitHub. Anda melihat semuanya sebelum dikirim.",
   "privacyTitle": "Privasi",
-  "privacyBody": "Semuanya dihitung di ponsel ini. Waqt tanpa akun, iklan, atau analitik."
+  "privacyBody": "Semuanya dihitung di ponsel ini. Waqt tanpa akun, iklan, atau analitik.",
+  "placeTime": "Waktu {city}"
 }

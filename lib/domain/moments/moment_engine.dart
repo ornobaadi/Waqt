@@ -1,5 +1,6 @@
 import '../hijri/hijri_service.dart';
 import '../prayer/prayer_times_service.dart';
+import '../time/place_zone.dart';
 import 'moment.dart';
 import 'moment_config.dart';
 
@@ -207,7 +208,7 @@ class BedtimeRule extends MomentRule {
     // The usual bedtime that falls in tonight (Maghrib → Fajr), whichever
     // calendar day that is; if the night never reaches it, start at Isha.
     final usual = [
-      for (final offset in const [0, 1, -1]) DateTime(day.year, day.month, day.day + offset, 0, c.bedtimeMinutes),
+      for (final offset in const [0, 1, -1]) wallClock(day, day.year, day.month, day.day + offset, 0, c.bedtimeMinutes),
     ].where((t) => !t.isBefore(maghrib) && t.isBefore(fajr)).firstOrNull;
     final start = usual != null && usual.isAfter(isha) ? usual : isha;
     var end = start.add(c.bedtimeLength);

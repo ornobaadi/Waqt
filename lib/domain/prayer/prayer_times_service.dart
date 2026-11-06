@@ -1,12 +1,16 @@
 import 'package:adhan/adhan.dart' as adhan;
 
+import 'package:timezone/timezone.dart' as tz;
+
 import '../location/place.dart';
+import '../time/place_zone.dart';
 import 'prayer_settings.dart';
 
 /// The six daily markers shown in the prayer strip.
 enum Waqt { fajr, sunrise, dhuhr, asr, maghrib, isha }
 
-/// Prayer times for one civil day, in device-local time.
+/// Prayer times for one civil day at the place, as wall-clock times in the
+/// place's time zone (the phone's zone if the place's is unknown).
 class DayTimes {
   DayTimes(this.date, this._times, {this.estimated = false});
 
@@ -53,23 +57,36 @@ class PrayerTimesService {
   /// compute at ±65° on the same meridian and flag the result as estimated.
   static const polarFallbackLatitude = 65.0;
 
+  /// [day]'s calendar fields name a date *at the place*.
   DayTimes forDay(Place place, DateTime day, PrayerSettings settings) {
-    final date = DateTime(day.year, day.month, day.day);
+    final zone = zoneOf(place);
+    final date = zone == null
+        ? DateTime(day.year, day.month, day.day)
+        : tz.TZDateTime(zone, day.year, day.month, day.day);
     try {
-      return _compute(place.latitude, place.longitude, date, settings, estimated: false);
+      return _compute(place.latitude, place.longitude, date, zone, settings, estimated: false);
     } on ArgumentError {
       final lat = place.latitude.sign * polarFallbackLatitude;
-      return _compute(lat, place.longitude, date, settings, estimated: true);
+      return _compute(lat, place.longitude, date, zone, settings, estimated: true);
     }
   }
 
-  DayTimes _compute(double lat, double lng, DateTime date, PrayerSettings settings, {required bool estimated}) {
-    final pt = adhan.PrayerTimes(
+  DayTimes _compute(
+    double lat,
+    double lng,
+    DateTime date,
+    tz.Location? zone,
+    PrayerSettings settings, {
+    required bool estimated,
+  }) {
+    // utcOffset makes adhan return UTC instants; we then present them in the
+    // place's zone. The date components are the place's calendar date.
+    final pt = adhan.PrayerTimes.utc(
       adhan.Coordinates(lat, lng),
       adhan.DateComponents(date.year, date.month, date.day),
       settings.parametersFor(lat),
     );
-    DateTime local(DateTime t) => t.toLocal();
+    DateTime local(DateTime t) => inZone(t, zone);
     return DayTimes(date, estimated: estimated, {
       Waqt.fajr: local(pt.fajr),
       Waqt.sunrise: local(pt.sunrise),

@@ -56,4 +56,12 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('1 of 5'), findsOneWidget);
   });
+
+  testWidgets('another city shows its own clock and says so', (tester) async {
+    // 16:00 UTC: 16:00 in London, 22:00 on this Dhaka-time test machine.
+    await tester.pumpWidget(await app(at: DateTime.utc(2026, 11, 6, 16), place: london));
+    await tester.pumpAndSettle();
+    expect(find.text('London time'), findsOneWidget);
+    expect(find.text('4:00'), findsOneWidget);
+  });
 }

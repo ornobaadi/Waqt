@@ -70,6 +70,11 @@ Margins awaiting scholar review: see `docs/moment-rules.md`.
 - [ ] Host privacy policy; feature graphic
 - [ ] Closed beta → public launch
 
+## Phase 8 — Place time zones
+- [x] Prayer times, moments, bedtime, Hijri switch and widget run in the chosen city's zone (IANA id from GeoNames), not the phone's
+- [x] "{city} time" note on Now when the city's clock differs from the phone's
+- [x] Tests: London/Toronto from a Dhaka-time machine, both DST changeovers, bedtime at 22:30 local, unknown-zone fallback
+
 ## Later
 iOS · OTA signed content updates · more languages · Qibla · cloud backup.
 

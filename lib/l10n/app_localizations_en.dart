@@ -679,4 +679,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get privacyBody => 'Everything is calculated on this phone. Waqt has no accounts, ads or analytics.';
+
+  @override
+  String placeTime(String city) {
+    return '$city time';
+  }
 }

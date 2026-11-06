@@ -21,6 +21,16 @@ const dhaka = Place(
   source: PlaceSource.gps,
 );
 
+const london = Place(
+  name: 'London',
+  countryCode: 'GB',
+  country: 'United Kingdom',
+  latitude: 51.5074,
+  longitude: -0.1278,
+  timeZone: 'Europe/London',
+  source: PlaceSource.manual,
+);
+
 bool _fontsLoaded = false;
 
 /// Real fonts instead of the test "Ahem" boxes, so goldens look like the app.

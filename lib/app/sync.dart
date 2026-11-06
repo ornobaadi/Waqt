@@ -12,6 +12,7 @@ import '../domain/moments/moment.dart';
 import '../domain/moments/moment_engine.dart';
 import '../domain/notifications/reminder_planner.dart';
 import '../domain/prayer/prayer_times_service.dart';
+import '../domain/time/place_zone.dart';
 import '../features/common/labels.dart';
 import '../l10n/app_localizations.dart';
 import '../platform/notifications/notification_service.dart';
@@ -121,7 +122,7 @@ Future<void> syncPlatform(WidgetRef ref) async {
 
   final settings = ref.read(prayerSettingsProvider);
   final svc = ref.read(prayerTimesServiceProvider);
-  final now = DateTime.now();
+  final now = inZone(DateTime.now(), zoneOf(place));
   DayTimes day(int plus) => svc.forDay(place, DateTime(now.year, now.month, now.day + plus), settings);
   final times = [for (var i = -1; i <= 9; i++) day(i)];
   final days = [for (var i = 0; i + 1 < times.length; i++) PrayerDay(today: times[i], tomorrow: times[i + 1])];

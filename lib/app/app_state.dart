@@ -6,7 +6,11 @@ import '../core/clock/clock.dart';
 import '../core/theme/tokens.dart';
 import '../data/places/place_repository.dart';
 import '../data/user/user_prefs.dart';
+
+import 'package:timezone/timezone.dart' as tz;
+
 import '../domain/hijri/hijri_service.dart';
+import '../domain/time/place_zone.dart';
 import '../domain/moments/moment.dart';
 import '../domain/moments/moment_engine.dart';
 import '../domain/occasions/occasions.dart';
@@ -58,7 +62,7 @@ final momentEngineProvider = Provider((ref) => const MomentEngine());
 final momentSnapshotProvider = Provider<MomentSnapshot?>((ref) {
   final place = ref.watch(userPrefsProvider.select((p) => p.place));
   if (place == null) return null;
-  final now = ref.watch(nowProvider).value ?? readNow(ref.watch(fakeClockProvider));
+  final now = ref.watch(placeNowProvider);
   final settings = ref.watch(prayerSettingsProvider);
   final svc = ref.watch(prayerTimesServiceProvider);
   DayTimes day(DateTime d, int plus) => svc.forDay(place, DateTime(d.year, d.month, d.day + plus), settings);
@@ -75,6 +79,16 @@ final momentSnapshotProvider = Provider<MomentSnapshot?>((ref) {
 
 final prayerTimesServiceProvider = Provider((ref) => const PrayerTimesService());
 
+/// The place's time zone (null = the phone's).
+final placeZoneProvider = Provider<tz.Location?>((ref) => zoneOf(ref.watch(userPrefsProvider.select((p) => p.place))));
+
+/// "Now" as wall-clock time at the chosen place. Everything about the day
+/// (prayer status, moments, Hijri date, the big clock) reads this.
+final placeNowProvider = Provider<DateTime>((ref) {
+  final now = ref.watch(nowProvider).value ?? readNow(ref.watch(fakeClockProvider));
+  return inZone(now, ref.watch(placeZoneProvider));
+});
+
 final prayerSettingsProvider = Provider<PrayerSettings>((ref) {
   final prefs = ref.watch(userPrefsProvider);
   return prefs.prayer ?? PrayerSettings.defaultsFor(prefs.place?.countryCode);
@@ -84,14 +98,14 @@ final prayerSettingsProvider = Provider<PrayerSettings>((ref) {
 final prayerStatusProvider = Provider<PrayerStatus?>((ref) {
   final place = ref.watch(userPrefsProvider.select((p) => p.place));
   if (place == null) return null;
-  final now = ref.watch(nowProvider).value ?? readNow(ref.watch(fakeClockProvider));
+  final now = ref.watch(placeNowProvider);
   return ref.watch(prayerTimesServiceProvider).status(place, now, ref.watch(prayerSettingsProvider));
 });
 
 /// Occasions of the current daylight Hijri day (they don't flip at Maghrib:
 /// "Monday fast" stays Monday's until Monday ends).
 final occasionsProvider = Provider<({HijriDate date, List<OccasionId> list})>((ref) {
-  final now = ref.watch(nowProvider).value ?? readNow(ref.watch(fakeClockProvider));
+  final now = ref.watch(placeNowProvider);
   final day = DateTime(now.year, now.month, now.day, 12);
   final offset = ref.watch(userPrefsProvider.select((p) => p.hijriOffset));
   final h = const HijriService().dateFor(day, offset: offset);
@@ -99,7 +113,7 @@ final occasionsProvider = Provider<({HijriDate date, List<OccasionId> list})>((r
 });
 
 final hijriDateProvider = Provider<HijriDate>((ref) {
-  final now = ref.watch(nowProvider).value ?? readNow(ref.watch(fakeClockProvider));
+  final now = ref.watch(placeNowProvider);
   final maghrib = ref.watch(prayerStatusProvider.select((s) => s?.today[Waqt.maghrib]));
   final offset = ref.watch(userPrefsProvider.select((p) => p.hijriOffset));
   return const HijriService().dateFor(now, maghrib: maghrib, offset: offset);

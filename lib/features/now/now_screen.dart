@@ -15,6 +15,7 @@ import '../../data/user/notification_prefs.dart';
 import '../../data/user/user_prefs.dart';
 import '../../domain/moments/moment.dart';
 import '../../domain/prayer/prayer_times_service.dart';
+import '../../domain/time/place_zone.dart';
 import '../../l10n/app_localizations.dart';
 import '../../platform/location/gps.dart';
 import '../common/labels.dart';
@@ -33,7 +34,7 @@ class NowScreen extends ConsumerWidget {
     final l = AppLocalizations.of(context);
     final t = WaqtTokens.of(context);
     final locale = Localizations.localeOf(context).toLanguageTag();
-    final now = ref.watch(nowProvider).value ?? readNow(ref.read(fakeClockProvider));
+    final now = ref.watch(placeNowProvider);
     final faked = ref.watch(fakeClockProvider) != null;
     final place = ref.watch(userPrefsProvider.select((p) => p.place));
     final status = ref.watch(prayerStatusProvider);
@@ -75,6 +76,18 @@ class NowScreen extends ConsumerWidget {
                         ),
                         const SizedBox(height: WaqtSpace.x1),
                         Text(dateLine, style: WaqtText.label.copyWith(color: t.inkMuted)),
+                        // Another city's clock: say so, so the big time isn't mistaken
+                        // for the phone's.
+                        if (place != null && differsFromDevice(ref.watch(placeZoneProvider), now)) ...[
+                          const SizedBox(height: WaqtSpace.x1),
+                          Row(
+                            children: [
+                              Icon(Icons.public_rounded, size: 14, color: t.inkMuted),
+                              const SizedBox(width: WaqtSpace.x1),
+                              Text(l.placeTime(place.name), style: WaqtText.caption.copyWith(color: t.inkMuted)),
+                            ],
+                          ),
+                        ],
                         if (occasions.isNotEmpty) ...[
                           const SizedBox(height: WaqtSpace.x2),
                           _Pill(

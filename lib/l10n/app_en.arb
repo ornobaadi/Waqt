@@ -372,5 +372,13 @@
   "reportProblem": "Report a problem",
   "reportProblemHint": "Opens a pre-filled form on GitHub. You see everything before it is sent.",
   "privacyTitle": "Privacy",
-  "privacyBody": "Everything is calculated on this phone. Waqt has no accounts, ads or analytics."
+  "privacyBody": "Everything is calculated on this phone. Waqt has no accounts, ads or analytics.",
+  "placeTime": "{city} time",
+  "@placeTime": {
+    "placeholders": {
+      "city": {
+        "type": "String"
+      }
+    }
+  }
 }

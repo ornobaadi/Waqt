@@ -87,13 +87,16 @@ class _DayArc extends StatelessWidget {
             ),
           ),
           const SizedBox(height: WaqtSpace.x2),
-          Wrap(
-            alignment: WrapAlignment.spaceBetween,
-            runSpacing: WaqtSpace.x1,
-            children: [
-              Text('${l.prayerSunrise} ${fmt.format(sunrise)}', style: WaqtText.caption.copyWith(color: t.inkMuted)),
-              Text('${l.prayerMaghrib} ${fmt.format(sunset)}', style: WaqtText.caption.copyWith(color: t.inkMuted)),
-            ],
+          SizedBox(
+            width: double.infinity,
+            child: Wrap(
+              alignment: WrapAlignment.spaceBetween,
+              runSpacing: WaqtSpace.x1,
+              children: [
+                Text('${l.prayerSunrise} ${fmt.format(sunrise)}', style: WaqtText.caption.copyWith(color: t.inkMuted)),
+                Text('${l.prayerMaghrib} ${fmt.format(sunset)}', style: WaqtText.caption.copyWith(color: t.inkMuted)),
+              ],
+            ),
           ),
         ],
       ),

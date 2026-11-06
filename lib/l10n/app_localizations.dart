@@ -1352,6 +1352,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Everything is calculated on this phone. Waqt has no accounts, ads or analytics.'**
   String get privacyBody;
+
+  /// No description provided for @placeTime.
+  ///
+  /// In en, this message translates to:
+  /// **'{city} time'**
+  String placeTime(String city);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -15,7 +15,6 @@ import '../../domain/hijri/hijri_service.dart';
 import '../../domain/location/place.dart';
 import '../../domain/prayer/prayer_settings.dart';
 import '../../domain/prayer/prayer_times_service.dart';
-import '../../core/clock/clock.dart';
 import '../../l10n/app_localizations.dart';
 import '../common/labels.dart';
 
@@ -226,7 +225,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   Future<void> _pickHijriOffset(BuildContext context, int current) async {
     final l = AppLocalizations.of(context);
     final n = LocaleDigits(Localizations.localeOf(context).toLanguageTag());
-    final now = readNow(ref.read(fakeClockProvider));
+    final now = ref.read(placeNowProvider);
     final maghrib = ref.read(prayerStatusProvider)?.today;
     const service = HijriService();
     final picked = await showOptionSheet<int>(

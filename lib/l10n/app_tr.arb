@@ -185,5 +185,6 @@
   "reportProblem": "Sorun bildir",
   "reportProblemHint": "GitHub'da önceden doldurulmuş bir form açar. Göndermeden önce her şeyi görürsünüz.",
   "privacyTitle": "Gizlilik",
-  "privacyBody": "Her şey bu telefonda hesaplanır. Waqt'ta hesap, reklam veya analiz yoktur."
+  "privacyBody": "Her şey bu telefonda hesaplanır. Waqt'ta hesap, reklam veya analiz yoktur.",
+  "placeTime": "{city} saati"
 }

@@ -679,4 +679,9 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get privacyBody => 'Her şey bu telefonda hesaplanır. Waqt\'ta hesap, reklam veya analiz yoktur.';
+
+  @override
+  String placeTime(String city) {
+    return '$city saati';
+  }
 }

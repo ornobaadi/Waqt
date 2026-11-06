@@ -679,4 +679,9 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get privacyBody => 'سب کچھ اسی فون پر حساب ہوتا ہے۔ وقت میں نہ اکاؤنٹ ہیں، نہ اشتہارات، نہ اینالیٹکس۔';
+
+  @override
+  String placeTime(String city) {
+    return '$city کا وقت';
+  }
 }

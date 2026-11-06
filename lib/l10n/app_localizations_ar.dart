@@ -674,4 +674,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get privacyBody => 'كل شيء يُحسب على هذا الهاتف. لا حسابات ولا إعلانات ولا تحليلات في وقت.';
+
+  @override
+  String placeTime(String city) {
+    return 'توقيت $city';
+  }
 }

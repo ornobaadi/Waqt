@@ -681,4 +681,9 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get privacyBody => 'Tout est calculé sur ce téléphone. Waqt n\'a ni compte, ni publicité, ni statistiques.';
+
+  @override
+  String placeTime(String city) {
+    return 'Heure de $city';
+  }
 }

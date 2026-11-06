@@ -678,4 +678,9 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get privacyBody => 'সবকিছু এই ফোনেই হিসাব হয়। Waqt-এ কোনো অ্যাকাউন্ট, বিজ্ঞাপন বা অ্যানালিটিক্স নেই।';
+
+  @override
+  String placeTime(String city) {
+    return '$city-এর সময়';
+  }
 }

@@ -680,4 +680,9 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get privacyBody => 'Semuanya dihitung di ponsel ini. Waqt tanpa akun, iklan, atau analitik.';
+
+  @override
+  String placeTime(String city) {
+    return 'Waktu $city';
+  }
 }

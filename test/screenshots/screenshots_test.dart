@@ -268,4 +268,9 @@ void main() {
       then: () async => t.tap(find.text('Today')),
     ),
   );
+
+  testWidgets(
+    'other city',
+    (t) async => shoot(t, '50_now_london_from_dhaka', await app(at: DateTime.utc(2026, 11, 6, 16), place: london)),
+  );
 }
