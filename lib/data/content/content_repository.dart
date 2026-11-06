@@ -119,6 +119,23 @@ class ContentBundle {
 
   ContentItem? item(String id) => _items[id];
 
+  Iterable<ContentItem> get items => _items.values;
+
+  /// Moments (in engine order) that have content linked.
+  List<MomentId> get moments => [
+    for (final m in MomentId.values)
+      if ((_moments[m] ?? const []).isNotEmpty) m,
+  ];
+
+  /// Items linked to no moment (situational library, Phase 6+).
+  List<ContentItem> get unlinked {
+    final linked = {for (final ids in _moments.values) ...ids};
+    return [
+      for (final i in _items.values)
+        if (!linked.contains(i.id)) i,
+    ];
+  }
+
   List<ContentItem> forMoment(MomentId id) => [for (final i in _moments[id] ?? const <String>[]) _items[i]!];
 }
 

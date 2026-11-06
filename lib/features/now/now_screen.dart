@@ -10,13 +10,16 @@ import '../../core/theme/tokens.dart';
 import '../../core/theme/waqt_theme.dart';
 import '../../core/utils/digits.dart';
 import '../../data/content/content_repository.dart';
+import '../../data/user/checklist.dart';
 import '../../data/user/user_prefs.dart';
 import '../../domain/moments/moment.dart';
 import '../../domain/prayer/prayer_times_service.dart';
 import '../../l10n/app_localizations.dart';
 import '../../platform/location/gps.dart';
 import '../common/labels.dart';
+import 'checklist_card.dart';
 import 'moment_cards.dart';
+import 'sky_arc.dart';
 
 /// Home v0: where you are, what time it is in the prayer day, what's next.
 class NowScreen extends ConsumerWidget {
@@ -32,6 +35,11 @@ class NowScreen extends ConsumerWidget {
     final place = ref.watch(userPrefsProvider.select((p) => p.place));
     final status = ref.watch(prayerStatusProvider);
     final moments = ref.watch(momentSnapshotProvider);
+    // The contextual module: a checklist when an active moment has one.
+    final checklist = moments?.active
+        .map((m) => m.id)
+        .where((id) => checklistMoments.contains(id) && ref.watch(momentContentProvider(id)).isNotEmpty)
+        .firstOrNull;
     final hijri = ref.watch(hijriDateProvider);
     final settings = ref.watch(prayerSettingsProvider);
     final n = LocaleDigits(locale);
@@ -68,13 +76,14 @@ class NowScreen extends ConsumerWidget {
               ],
             ],
           ),
-          const SizedBox(height: WaqtSpace.x12),
+          const SizedBox(height: WaqtSpace.x8),
           _Clock(now: now, locale: locale),
           if (status != null) ...[
             const SizedBox(height: WaqtSpace.x2),
             _StatusLine(status: status, now: now, numbers: n),
           ],
-          const SizedBox(height: WaqtSpace.x8),
+          if (moments != null) ...[const SizedBox(height: WaqtSpace.x8), SkyArc(snapshot: moments)],
+          const SizedBox(height: WaqtSpace.x6),
           _PrayerStrip(status: status, now: now, locale: locale),
           if (status?.today.estimated ?? false) ...[
             const SizedBox(height: WaqtSpace.x3),
@@ -85,7 +94,22 @@ class NowScreen extends ConsumerWidget {
           ],
           if (moments != null && moments.hero.kind != MomentKind.prayer) ...[
             const SizedBox(height: WaqtSpace.x4),
-            RightNowCard(moment: moments.hero, now: now, items: ref.watch(momentContentProvider(moments.hero.id))),
+            RightNowCard(
+              moment: moments.hero,
+              now: now,
+              // Checklist moments show their items in the checklist instead.
+              items: checklistMoments.contains(moments.hero.id)
+                  ? const []
+                  : ref.watch(momentContentProvider(moments.hero.id)),
+            ),
+          ],
+          if (checklist != null) ...[
+            const SizedBox(height: WaqtSpace.x4),
+            ChecklistCard(
+              moment: checklist,
+              items: ref.watch(momentContentProvider(checklist)),
+              day: prayerDayKey(moments!.timeline.first.window.start),
+            ),
           ],
           if (moments != null && moments.upcoming.isNotEmpty) ...[
             const SizedBox(height: WaqtSpace.x6),

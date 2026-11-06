@@ -65,6 +65,17 @@ class FridayLastHourRule extends MomentRule {
   }
 }
 
+/// The day of Jumu'ah, Fajr → Maghrib on Fridays. Low priority: it frames
+/// the day (checklist) without displacing more specific moments.
+class JumuahRule extends MomentRule {
+  const JumuahRule();
+  @override
+  Iterable<Moment> windows(PrayerDay d, MomentConfig c) sync* {
+    if (d.today.date.weekday != DateTime.friday) return;
+    yield Moment(MomentId.jumuah, MomentKind.devotion, 20, TimeWindow(d.today[Waqt.fajr], d.today[Waqt.maghrib]));
+  }
+}
+
 class RestrictedTimesRule extends MomentRule {
   const RestrictedTimesRule();
   @override
@@ -168,6 +179,7 @@ class BedtimeRule extends MomentRule {
 const defaultRules = <MomentRule>[
   WaqtRule(),
   LastThirdRule(),
+  JumuahRule(),
   FridayLastHourRule(),
   RestrictedTimesRule(),
   SalahRule(),

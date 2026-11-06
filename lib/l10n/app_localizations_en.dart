@@ -437,4 +437,83 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get collectionNasaiKubra => 'al-Sunan al-Kubra';
+
+  @override
+  String get sheetSource => 'Source';
+
+  @override
+  String get sheetNarrator => 'Narrated by';
+
+  @override
+  String get sheetGrade => 'Grade';
+
+  @override
+  String get sheetGradedBy => 'Graded by';
+
+  @override
+  String get sheetTranslation => 'Translation';
+
+  @override
+  String get sheetReview => 'Review';
+
+  @override
+  String sheetOpen(String host) {
+    return 'Open on $host';
+  }
+
+  @override
+  String get sheetTextPending =>
+      'The text appears here once this reference has been checked against its primary source.';
+
+  @override
+  String get statusApproved => 'Scholar approved';
+
+  @override
+  String get gradeSahih => 'Sahih';
+
+  @override
+  String get gradeHasan => 'Hasan';
+
+  @override
+  String reviewCheckedBy(String name) {
+    return 'Checked by $name';
+  }
+
+  @override
+  String reviewApprovedBy(String name) {
+    return 'Approved by $name';
+  }
+
+  @override
+  String checklistProgress(String done, String total) {
+    return '$done of $total';
+  }
+
+  @override
+  String get checklistTitleBedtime => 'Before you sleep';
+
+  @override
+  String get checklistTitleJumuah => 'Jumu\'ah';
+
+  @override
+  String get momentJumuah => 'Jumu\'ah';
+
+  @override
+  String get librarySearch => 'Search duas and references';
+
+  @override
+  String libraryNoMatch(String query) {
+    return 'Nothing matches “$query”';
+  }
+
+  @override
+  String libraryCount(String count) {
+    return '$count items';
+  }
+
+  @override
+  String get libraryOther => 'Other';
+
+  @override
+  String get momentLastThirdShort => 'Last third';
 }

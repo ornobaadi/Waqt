@@ -697,6 +697,10 @@
    "bedtime_three_quls",
    "bedtime_ayat_al_kursi",
    "bedtime_tasbih_fatimah"
+  ],
+  "jumuah": [
+   "friday_surah_al_kahf",
+   "friday_salawat"
   ]
  }
 }

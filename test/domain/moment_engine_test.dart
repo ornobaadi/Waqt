@@ -89,6 +89,7 @@ void main() {
           }
 
           expect(timeline.any((m) => m.id == MomentId.fridayLastHour), d.weekday == DateTime.friday);
+          expect(timeline.any((m) => m.id == MomentId.jumuah), d.weekday == DateTime.friday);
         });
       }
     }

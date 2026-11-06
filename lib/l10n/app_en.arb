@@ -213,5 +213,72 @@
   "collectionHakim": "al-Hakim",
   "collectionIbnhibban": "Ibn Hibban",
   "collectionBayhaqi": "Bayhaqi",
-  "collectionNasaiKubra": "al-Sunan al-Kubra"
+  "collectionNasaiKubra": "al-Sunan al-Kubra",
+  "sheetSource": "Source",
+  "sheetNarrator": "Narrated by",
+  "sheetGrade": "Grade",
+  "sheetGradedBy": "Graded by",
+  "sheetTranslation": "Translation",
+  "sheetReview": "Review",
+  "sheetOpen": "Open on {host}",
+  "@sheetOpen": {
+    "placeholders": {
+      "host": {
+        "type": "String"
+      }
+    }
+  },
+  "sheetTextPending": "The text appears here once this reference has been checked against its primary source.",
+  "statusApproved": "Scholar approved",
+  "gradeSahih": "Sahih",
+  "gradeHasan": "Hasan",
+  "reviewCheckedBy": "Checked by {name}",
+  "@reviewCheckedBy": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "reviewApprovedBy": "Approved by {name}",
+  "@reviewApprovedBy": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "checklistProgress": "{done} of {total}",
+  "@checklistProgress": {
+    "placeholders": {
+      "done": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
+  "checklistTitleBedtime": "Before you sleep",
+  "checklistTitleJumuah": "Jumu'ah",
+  "momentJumuah": "Jumu'ah",
+  "librarySearch": "Search duas and references",
+  "libraryNoMatch": "Nothing matches “{query}”",
+  "@libraryNoMatch": {
+    "placeholders": {
+      "query": {
+        "type": "String"
+      }
+    }
+  },
+  "libraryCount": "{count} items",
+  "@libraryCount": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "libraryOther": "Other",
+  "momentLastThirdShort": "Last third"
 }

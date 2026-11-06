@@ -7,6 +7,7 @@ import '../../data/content/content_repository.dart';
 import '../../domain/moments/moment.dart';
 import '../../l10n/app_localizations.dart';
 import '../common/labels.dart';
+import '../duas/dua_sheet.dart';
 
 DateFormat clockFormat(BuildContext context) {
   final locale = Localizations.localeOf(context).toLanguageTag();
@@ -103,33 +104,39 @@ class _ItemRow extends StatelessWidget {
     return Semantics(
       label: '${item.titleFor(lang)}. ${l.reference(item.source)}${item.approved ? '' : '. ${l.draftNotice}'}',
       excludeSemantics: true,
-      child: Container(
-        width: double.infinity,
-        margin: const EdgeInsets.only(top: WaqtSpace.x2),
-        padding: const EdgeInsets.fromLTRB(WaqtSpace.x3, WaqtSpace.x3, WaqtSpace.x3, WaqtSpace.x3),
-        decoration: BoxDecoration(
-          color: ink.withValues(alpha: 0.07),
-          borderRadius: BorderRadius.circular(WaqtRadii.card - WaqtSpace.x5 + WaqtSpace.x1),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(item.titleFor(lang), style: WaqtText.bodyStrong.copyWith(color: ink)),
-            const SizedBox(height: WaqtSpace.x2),
-            Wrap(
-              spacing: WaqtSpace.x2,
-              runSpacing: WaqtSpace.x1,
-              children: [
-                _Chip(text: l.reference(item.source), fg: ink, border: ink.withValues(alpha: 0.3)),
-                if (!item.approved)
-                  _Chip(
-                    text: (item.status == ReviewStatus.checked ? l.statusChecked : l.statusDraft).toUpperCase(),
-                    fg: const Color(0xFF14110C),
-                    fill: t.accent,
-                  ),
-              ],
-            ),
-          ],
+      button: true,
+      onTap: () => showDuaSheet(context, item),
+      child: GestureDetector(
+        onTap: () => showDuaSheet(context, item),
+        behavior: HitTestBehavior.opaque,
+        child: Container(
+          width: double.infinity,
+          margin: const EdgeInsets.only(top: WaqtSpace.x2),
+          padding: const EdgeInsets.fromLTRB(WaqtSpace.x3, WaqtSpace.x3, WaqtSpace.x3, WaqtSpace.x3),
+          decoration: BoxDecoration(
+            color: ink.withValues(alpha: 0.07),
+            borderRadius: BorderRadius.circular(WaqtRadii.card - WaqtSpace.x5 + WaqtSpace.x1),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(item.titleFor(lang), style: WaqtText.bodyStrong.copyWith(color: ink)),
+              const SizedBox(height: WaqtSpace.x2),
+              Wrap(
+                spacing: WaqtSpace.x2,
+                runSpacing: WaqtSpace.x1,
+                children: [
+                  _Chip(text: l.reference(item.source), fg: ink, border: ink.withValues(alpha: 0.3)),
+                  if (!item.approved)
+                    _Chip(
+                      text: (item.status == ReviewStatus.checked ? l.statusChecked : l.statusDraft).toUpperCase(),
+                      fg: const Color(0xFF14110C),
+                      fill: t.accent,
+                    ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

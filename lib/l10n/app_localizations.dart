@@ -901,6 +901,138 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'al-Sunan al-Kubra'**
   String get collectionNasaiKubra;
+
+  /// No description provided for @sheetSource.
+  ///
+  /// In en, this message translates to:
+  /// **'Source'**
+  String get sheetSource;
+
+  /// No description provided for @sheetNarrator.
+  ///
+  /// In en, this message translates to:
+  /// **'Narrated by'**
+  String get sheetNarrator;
+
+  /// No description provided for @sheetGrade.
+  ///
+  /// In en, this message translates to:
+  /// **'Grade'**
+  String get sheetGrade;
+
+  /// No description provided for @sheetGradedBy.
+  ///
+  /// In en, this message translates to:
+  /// **'Graded by'**
+  String get sheetGradedBy;
+
+  /// No description provided for @sheetTranslation.
+  ///
+  /// In en, this message translates to:
+  /// **'Translation'**
+  String get sheetTranslation;
+
+  /// No description provided for @sheetReview.
+  ///
+  /// In en, this message translates to:
+  /// **'Review'**
+  String get sheetReview;
+
+  /// No description provided for @sheetOpen.
+  ///
+  /// In en, this message translates to:
+  /// **'Open on {host}'**
+  String sheetOpen(String host);
+
+  /// No description provided for @sheetTextPending.
+  ///
+  /// In en, this message translates to:
+  /// **'The text appears here once this reference has been checked against its primary source.'**
+  String get sheetTextPending;
+
+  /// No description provided for @statusApproved.
+  ///
+  /// In en, this message translates to:
+  /// **'Scholar approved'**
+  String get statusApproved;
+
+  /// No description provided for @gradeSahih.
+  ///
+  /// In en, this message translates to:
+  /// **'Sahih'**
+  String get gradeSahih;
+
+  /// No description provided for @gradeHasan.
+  ///
+  /// In en, this message translates to:
+  /// **'Hasan'**
+  String get gradeHasan;
+
+  /// No description provided for @reviewCheckedBy.
+  ///
+  /// In en, this message translates to:
+  /// **'Checked by {name}'**
+  String reviewCheckedBy(String name);
+
+  /// No description provided for @reviewApprovedBy.
+  ///
+  /// In en, this message translates to:
+  /// **'Approved by {name}'**
+  String reviewApprovedBy(String name);
+
+  /// No description provided for @checklistProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'{done} of {total}'**
+  String checklistProgress(String done, String total);
+
+  /// No description provided for @checklistTitleBedtime.
+  ///
+  /// In en, this message translates to:
+  /// **'Before you sleep'**
+  String get checklistTitleBedtime;
+
+  /// No description provided for @checklistTitleJumuah.
+  ///
+  /// In en, this message translates to:
+  /// **'Jumu\'ah'**
+  String get checklistTitleJumuah;
+
+  /// No description provided for @momentJumuah.
+  ///
+  /// In en, this message translates to:
+  /// **'Jumu\'ah'**
+  String get momentJumuah;
+
+  /// No description provided for @librarySearch.
+  ///
+  /// In en, this message translates to:
+  /// **'Search duas and references'**
+  String get librarySearch;
+
+  /// No description provided for @libraryNoMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing matches “{query}”'**
+  String libraryNoMatch(String query);
+
+  /// No description provided for @libraryCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} items'**
+  String libraryCount(String count);
+
+  /// No description provided for @libraryOther.
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get libraryOther;
+
+  /// No description provided for @momentLastThirdShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Last third'**
+  String get momentLastThirdShort;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

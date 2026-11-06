@@ -9,6 +9,7 @@ The "prayer day" runs from Fajr to the next Fajr. When several moments overlap, 
 | Moment | Window | Default margin | Priority | Needs ruling |
 |---|---|---|---|---|
 | Last hour of Friday | Maghrib − 60 min → Maghrib, Fridays | 60 min | 90 | Which narration/understanding of the "hour"; fixed 60 min vs. a fraction of Asr→Maghrib |
+| Jumu'ah | Fajr → Maghrib, Fridays | — | 20 | Whether the day starts at Maghrib on Thursday (Islamic day) for content like Surat al-Kahf |
 | Last third of the night | Fajr − (Fajr − Maghrib)/3 → Fajr | — | 85 | Night = Maghrib→Fajr (used) vs. Isha→Fajr or sunset→sunrise |
 | Between adhan and iqamah | Adhan → adhan + delay | Fajr 20, Dhuhr 15, Asr 15, Maghrib 5, Isha 15 min | 80 | Local mosque practice; to be user-adjustable |
 | After the prayer | Iqamah + 10 min (salah) → + 20 min | 10 / 20 min | 75 | Length of the post-salah window |

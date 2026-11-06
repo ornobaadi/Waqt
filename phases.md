@@ -34,14 +34,14 @@ Margins awaiting scholar review: see `docs/moment-rules.md`.
 - [ ] Scholar review (status `approved`)
 
 ## Phase 4 — Core UI (weeks 5–7)
-- [ ] Sun arc + night-thirds widgets (CustomPainter), animated
-- [ ] Right Now card, reference chips, coming-up tiles
-- [ ] Moment-driven theming (palette crossfade)
-- [ ] Today timeline
-- [ ] Dua detail bottom sheet (Arabic, translit, translation, source panel, link-out)
-- [ ] Checklists (bedtime, Jumu'ah) with daily reset
-- [ ] Duas library + search
-- [ ] Golden tests per moment
+- [x] Sun arc + night-thirds widgets (CustomPainter), animated
+- [x] Right Now card, reference chips, coming-up tiles
+- [x] Moment-driven theming (palette crossfade)
+- [x] Today timeline
+- [x] Dua detail bottom sheet (Arabic, translit, translation, source panel, link-out)
+- [x] Checklists (bedtime, Jumu'ah) with daily reset
+- [x] Duas library + search
+- [x] Golden tests per moment
 
 ## Phase 5 — Notifications & widget (weeks 8–9)
 - [ ] Scheduler (48 h horizon, reschedule on boot/tz/location change)

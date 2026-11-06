@@ -138,4 +138,31 @@ void main() {
       },
     ),
   );
+
+  testWidgets(
+    'library',
+    (t) async => shoot(
+      t,
+      '16_duas_library',
+      await app(at: DateTime(2026, 11, 6, 9, 41), place: dhaka),
+      then: () async => t.tap(find.text('Duas')),
+    ),
+  );
+
+  testWidgets(
+    'sheet',
+    (t) async => shoot(
+      t,
+      '17_dua_sheet',
+      await app(at: DateTime(2026, 11, 6, 22, 45), place: dhaka),
+      then: () async {
+        await t.tap(find.byTooltip('Source').first);
+      },
+    ),
+  );
+
+  testWidgets(
+    'jumuah morning',
+    (t) async => shoot(t, '18_now_jumuah_morning', await app(at: DateTime(2026, 11, 6, 9, 41), place: dhaka)),
+  );
 }

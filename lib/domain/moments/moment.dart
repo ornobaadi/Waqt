@@ -14,6 +14,7 @@ enum MomentId {
   duha,
   bedtime,
   lastThird,
+  jumuah,
   fridayLastHour,
   betweenAdhanIqamah,
   afterSalah,

@@ -57,10 +57,7 @@ Future<Widget> app({DateTime? at, Place? place, Locale? locale}) async {
       sharedPrefsProvider.overrideWithValue(prefs),
       // Real bundle, read synchronously: asset I/O doesn't complete inside pumps.
       contentProvider.overrideWith(
-        (ref) => ContentBundle.parse(
-          File('assets/content/content.json').readAsStringSync(),
-          includeUnreviewed: true,
-        ),
+        (ref) => ContentBundle.parse(File('assets/content/content.json').readAsStringSync(), includeUnreviewed: true),
       ),
       if (at != null) nowProvider.overrideWith((ref) => Stream.value(at)),
       if (locale != null) localeOverrideProvider.overrideWith(() => _Locale(locale)),

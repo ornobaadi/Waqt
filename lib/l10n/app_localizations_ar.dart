@@ -433,4 +433,82 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get collectionNasaiKubra => 'السنن الكبرى';
+
+  @override
+  String get sheetSource => 'المصدر';
+
+  @override
+  String get sheetNarrator => 'الراوي';
+
+  @override
+  String get sheetGrade => 'الدرجة';
+
+  @override
+  String get sheetGradedBy => 'حكم عليه';
+
+  @override
+  String get sheetTranslation => 'الترجمة';
+
+  @override
+  String get sheetReview => 'المراجعة';
+
+  @override
+  String sheetOpen(String host) {
+    return 'فتح في $host';
+  }
+
+  @override
+  String get sheetTextPending => 'يظهر النص هنا بعد مراجعة هذا المرجع على مصدره الأصلي.';
+
+  @override
+  String get statusApproved => 'معتمد من عالم شرعي';
+
+  @override
+  String get gradeSahih => 'صحيح';
+
+  @override
+  String get gradeHasan => 'حسن';
+
+  @override
+  String reviewCheckedBy(String name) {
+    return 'راجعه $name';
+  }
+
+  @override
+  String reviewApprovedBy(String name) {
+    return 'اعتمده $name';
+  }
+
+  @override
+  String checklistProgress(String done, String total) {
+    return '$done من $total';
+  }
+
+  @override
+  String get checklistTitleBedtime => 'قبل النوم';
+
+  @override
+  String get checklistTitleJumuah => 'الجمعة';
+
+  @override
+  String get momentJumuah => 'الجمعة';
+
+  @override
+  String get librarySearch => 'ابحث في الأدعية والمراجع';
+
+  @override
+  String libraryNoMatch(String query) {
+    return 'لا نتائج لـ «$query»';
+  }
+
+  @override
+  String libraryCount(String count) {
+    return '$count عنصر';
+  }
+
+  @override
+  String get libraryOther => 'أخرى';
+
+  @override
+  String get momentLastThirdShort => 'الثلث الأخير';
 }
