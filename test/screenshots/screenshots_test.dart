@@ -4,6 +4,8 @@ library;
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'package:waqt/domain/hijri/hijri_service.dart';
+
 import '../helpers/harness.dart';
 
 /// Renders the real app to PNGs: `flutter test --tags screenshots --update-goldens`.
@@ -184,5 +186,43 @@ void main() {
         await t.tap(find.text('Prayer times and moments, as you choose'));
       },
     ),
+  );
+
+  testWidgets('ramadan night', (t) async {
+    // The evening before the 23rd night of Ramadan 1448.
+    var d = DateTime(2027, 2, 1, 12);
+    while (const HijriService().dateFor(d) != const HijriDate(1448, 9, 22)) {
+      d = d.add(const Duration(days: 1));
+    }
+    await shoot(t, '21_now_ramadan_qadr', await app(at: DateTime(d.year, d.month, d.day, 21, 30), place: dhaka));
+  });
+
+  testWidgets(
+    'counter',
+    (t) async => shoot(
+      t,
+      '22_counter',
+      await app(at: DateTime(2026, 11, 6, 12, 38), place: dhaka),
+      then: () async {
+        await t.tap(find.text('Duas'));
+        await t.pumpAndSettle();
+        await t.tap(find.byTooltip('Open counter'));
+        await t.pumpAndSettle();
+        for (var i = 0; i < 12; i++) {
+          await t.tapAt(const Offset(195, 400));
+          await t.pump(const Duration(milliseconds: 30));
+        }
+      },
+    ),
+  );
+
+  testWidgets(
+    'fajr sky',
+    (t) async => shoot(t, '23_now_fajr_sky', await app(at: DateTime(2026, 11, 6, 5, 40), place: dhaka)),
+  );
+
+  testWidgets(
+    'maghrib sky',
+    (t) async => shoot(t, '24_now_maghrib_sky', await app(at: DateTime(2026, 11, 6, 17, 40), place: dhaka)),
   );
 }

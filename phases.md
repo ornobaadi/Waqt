@@ -51,10 +51,11 @@ Margins awaiting scholar review: see `docs/moment-rules.md`.
 - [ ] Verify on devices: exact alarms (Android 12–15), Xiaomi/Samsung battery behaviour, widget on 2–3 launchers
 
 ## Phase 6 — Delight (weeks 10–11)
-- [ ] Sky fragment shader + moon phase; tilt parallax; reduce-motion fallback
-- [ ] Rive objects (lantern, misbaha counter, prayer mat)
-- [ ] Audio playback for duas (licensed source)
-- [ ] Hijri occasions: Ramadan, Dhul Hijjah, Arafah, Ashura, Ayyam al-Bid, Mon/Thu
+- [x] Sky fragment shader (30 fps cap, gradient fallback) + real moon phase (hemisphere-aware); tilt parallax; static with reduce-motion
+- [x] Misbaha counter (native, haptics, 33/99/100)
+- [ ] Rive lantern + prayer mat: need `.riv` assets from a designer
+- [ ] Audio playback for duas: blocked on a licensed recitation source
+- [x] Hijri occasions: Ramadan (+ suhoor, iftar, odd nights of last ten), Dhul Hijjah, Arafah, Eids, Tashreeq, Ashura/Tasu'a, Ayyam al-Bid, Mon/Thu
 
 ## Phase 7 — Localisation & launch prep (weeks 12–14)
 - [ ] Arabic, Urdu, Bengali, Indonesian, Turkish, French UI strings and translations of content (licensed, reviewed)

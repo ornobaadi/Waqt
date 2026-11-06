@@ -1,12 +1,18 @@
+import '../hijri/hijri_service.dart';
 import '../prayer/prayer_times_service.dart';
 import 'moment.dart';
 import 'moment_config.dart';
 
 /// Inputs for one prayer day: Fajr of [today] to Fajr of [tomorrow].
 class PrayerDay {
-  const PrayerDay({required this.today, required this.tomorrow});
+  const PrayerDay({required this.today, required this.tomorrow, this.hijri, this.hijriNext});
   final DayTimes today;
   final DayTimes tomorrow;
+
+  /// Hijri date of today's daylight hours, and of tomorrow's (user offset
+  /// applied). Tonight (after Maghrib) belongs to [hijriNext].
+  final HijriDate? hijri;
+  final HijriDate? hijriNext;
 
   TimeWindow get span => TimeWindow(today[Waqt.fajr], tomorrow[Waqt.fajr]);
 }
@@ -73,6 +79,40 @@ class JumuahRule extends MomentRule {
   Iterable<Moment> windows(PrayerDay d, MomentConfig c) sync* {
     if (d.today.date.weekday != DateTime.friday) return;
     yield Moment(MomentId.jumuah, MomentKind.devotion, 20, TimeWindow(d.today[Waqt.fajr], d.today[Waqt.maghrib]));
+  }
+}
+
+/// Ramadan: iftar at Maghrib of a fasting day; suhoor before the Fajr that
+/// begins a fasting day.
+class RamadanRule extends MomentRule {
+  const RamadanRule();
+  @override
+  Iterable<Moment> windows(PrayerDay d, MomentConfig c) sync* {
+    if (d.hijri?.month == 9) {
+      final m = d.today[Waqt.maghrib];
+      yield Moment(MomentId.iftar, MomentKind.devotion, 88, TimeWindow(m, m.add(c.iftarLength)));
+    }
+    if (d.hijriNext?.month == 9) {
+      final f = d.tomorrow[Waqt.fajr];
+      yield Moment(MomentId.suhoor, MomentKind.devotion, 86, TimeWindow(f.subtract(c.suhoorLength), f));
+    }
+  }
+}
+
+/// The odd nights of Ramadan's last ten (21st, 23rd … 29th). The night
+/// precedes its day, so tonight is night [PrayerDay.hijriNext].
+class LaylatAlQadrRule extends MomentRule {
+  const LaylatAlQadrRule();
+  @override
+  Iterable<Moment> windows(PrayerDay d, MomentConfig c) sync* {
+    final n = d.hijriNext;
+    if (n == null || n.month != 9 || n.day < 21 || n.day.isEven) return;
+    yield Moment(
+      MomentId.laylatAlQadr,
+      MomentKind.devotion,
+      84,
+      TimeWindow(d.today[Waqt.maghrib], d.tomorrow[Waqt.fajr]),
+    );
   }
 }
 
@@ -180,6 +220,8 @@ const defaultRules = <MomentRule>[
   WaqtRule(),
   LastThirdRule(),
   JumuahRule(),
+  RamadanRule(),
+  LaylatAlQadrRule(),
   FridayLastHourRule(),
   RestrictedTimesRule(),
   SalahRule(),

@@ -592,4 +592,71 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get setupCardDismiss => 'ليس الآن';
+
+  @override
+  String get momentLaylatAlQadr => 'ليلة وترية من العشر الأواخر';
+
+  @override
+  String get momentSuhoor => 'السحور';
+
+  @override
+  String get momentIftar => 'الإفطار';
+
+  @override
+  String get occEidAlFitr => 'عيد الفطر';
+
+  @override
+  String get occEidAlAdha => 'عيد الأضحى';
+
+  @override
+  String get occArafah => 'يوم عرفة';
+
+  @override
+  String get occTashreeq => 'أيام التشريق';
+
+  @override
+  String get occAshura => 'عاشوراء';
+
+  @override
+  String get occTasua => 'تاسوعاء';
+
+  @override
+  String get occLastTen => 'العشر الأواخر';
+
+  @override
+  String occRamadan(String day) {
+    return 'رمضان $day';
+  }
+
+  @override
+  String get occFirstTen => 'عشر ذي الحجة';
+
+  @override
+  String get occBid => 'الأيام البيض';
+
+  @override
+  String get occMonday => 'صيام الاثنين';
+
+  @override
+  String get occThursday => 'صيام الخميس';
+
+  @override
+  String get counterTitle => 'العدّاد';
+
+  @override
+  String get counterTap => 'اضغط في أي مكان للعدّ';
+
+  @override
+  String get counterReset => 'إعادة';
+
+  @override
+  String counterRound(String n) {
+    return 'الدورة $n';
+  }
+
+  @override
+  String get counterTarget => 'عدد الحبات في الدورة';
+
+  @override
+  String get counterOpen => 'فتح العدّاد';
 }

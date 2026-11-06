@@ -9,6 +9,7 @@ import '../data/user/user_prefs.dart';
 import '../domain/hijri/hijri_service.dart';
 import '../domain/moments/moment.dart';
 import '../domain/moments/moment_engine.dart';
+import '../domain/occasions/occasions.dart';
 import '../domain/prayer/prayer_settings.dart';
 import '../domain/prayer/prayer_times_service.dart';
 import '../platform/location/gps.dart';
@@ -66,9 +67,10 @@ final momentSnapshotProvider = Provider<MomentSnapshot?>((ref) {
   final today = day(now, 0);
   final d0 = now.isBefore(today[Waqt.fajr]) ? day(now, -1) : today;
   final d1 = day(d0.date, 1), d2 = day(d0.date, 2);
-  return ref
-      .watch(momentEngineProvider)
-      .snapshot(now, PrayerDay(today: d0, tomorrow: d1), PrayerDay(today: d1, tomorrow: d2));
+  final offset = ref.watch(userPrefsProvider.select((p) => p.hijriOffset));
+  HijriDate h(DayTimes d) => const HijriService().dateFor(d.date.add(const Duration(hours: 12)), offset: offset);
+  PrayerDay pd(DayTimes a, DayTimes b) => PrayerDay(today: a, tomorrow: b, hijri: h(a), hijriNext: h(b));
+  return ref.watch(momentEngineProvider).snapshot(now, pd(d0, d1), pd(d1, d2));
 });
 
 final prayerTimesServiceProvider = Provider((ref) => const PrayerTimesService());
@@ -84,6 +86,16 @@ final prayerStatusProvider = Provider<PrayerStatus?>((ref) {
   if (place == null) return null;
   final now = ref.watch(nowProvider).value ?? readNow(ref.watch(fakeClockProvider));
   return ref.watch(prayerTimesServiceProvider).status(place, now, ref.watch(prayerSettingsProvider));
+});
+
+/// Occasions of the current daylight Hijri day (they don't flip at Maghrib:
+/// "Monday fast" stays Monday's until Monday ends).
+final occasionsProvider = Provider<({HijriDate date, List<OccasionId> list})>((ref) {
+  final now = ref.watch(nowProvider).value ?? readNow(ref.watch(fakeClockProvider));
+  final day = DateTime(now.year, now.month, now.day, 12);
+  final offset = ref.watch(userPrefsProvider.select((p) => p.hijriOffset));
+  final h = const HijriService().dateFor(day, offset: offset);
+  return (date: h, list: occasionsFor(h, now.weekday));
 });
 
 final hijriDateProvider = Provider<HijriDate>((ref) {

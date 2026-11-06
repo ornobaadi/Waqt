@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 
 import '../core/config/flavor.dart';
 import '../core/theme/waqt_theme.dart';
+import '../features/counter/counter_screen.dart';
 import '../features/duas/duas_screen.dart';
 import '../features/now/now_screen.dart';
 import '../features/settings/city_picker_screen.dart';
@@ -18,6 +19,7 @@ final routerProvider = Provider<GoRouter>((ref) {
   return GoRouter(
     initialLocation: '/now',
     routes: [
+      GoRoute(path: '/counter', builder: (_, _) => const CounterScreen()),
       StatefulShellRoute.indexedStack(
         builder: (context, state, shell) => _Shell(shell: shell),
         branches: [

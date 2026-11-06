@@ -1183,6 +1183,132 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Not now'**
   String get setupCardDismiss;
+
+  /// No description provided for @momentLaylatAlQadr.
+  ///
+  /// In en, this message translates to:
+  /// **'An odd night of the last ten'**
+  String get momentLaylatAlQadr;
+
+  /// No description provided for @momentSuhoor.
+  ///
+  /// In en, this message translates to:
+  /// **'Suhoor'**
+  String get momentSuhoor;
+
+  /// No description provided for @momentIftar.
+  ///
+  /// In en, this message translates to:
+  /// **'Iftar'**
+  String get momentIftar;
+
+  /// No description provided for @occEidAlFitr.
+  ///
+  /// In en, this message translates to:
+  /// **'Eid al-Fitr'**
+  String get occEidAlFitr;
+
+  /// No description provided for @occEidAlAdha.
+  ///
+  /// In en, this message translates to:
+  /// **'Eid al-Adha'**
+  String get occEidAlAdha;
+
+  /// No description provided for @occArafah.
+  ///
+  /// In en, this message translates to:
+  /// **'Day of Arafah'**
+  String get occArafah;
+
+  /// No description provided for @occTashreeq.
+  ///
+  /// In en, this message translates to:
+  /// **'Days of Tashreeq'**
+  String get occTashreeq;
+
+  /// No description provided for @occAshura.
+  ///
+  /// In en, this message translates to:
+  /// **'Ashura'**
+  String get occAshura;
+
+  /// No description provided for @occTasua.
+  ///
+  /// In en, this message translates to:
+  /// **'Tasu\'a'**
+  String get occTasua;
+
+  /// No description provided for @occLastTen.
+  ///
+  /// In en, this message translates to:
+  /// **'Last ten nights'**
+  String get occLastTen;
+
+  /// No description provided for @occRamadan.
+  ///
+  /// In en, this message translates to:
+  /// **'Ramadan {day}'**
+  String occRamadan(String day);
+
+  /// No description provided for @occFirstTen.
+  ///
+  /// In en, this message translates to:
+  /// **'First ten of Dhul Hijjah'**
+  String get occFirstTen;
+
+  /// No description provided for @occBid.
+  ///
+  /// In en, this message translates to:
+  /// **'Ayyam al-Bid'**
+  String get occBid;
+
+  /// No description provided for @occMonday.
+  ///
+  /// In en, this message translates to:
+  /// **'Monday fast'**
+  String get occMonday;
+
+  /// No description provided for @occThursday.
+  ///
+  /// In en, this message translates to:
+  /// **'Thursday fast'**
+  String get occThursday;
+
+  /// No description provided for @counterTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Counter'**
+  String get counterTitle;
+
+  /// No description provided for @counterTap.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap anywhere to count'**
+  String get counterTap;
+
+  /// No description provided for @counterReset.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset'**
+  String get counterReset;
+
+  /// No description provided for @counterRound.
+  ///
+  /// In en, this message translates to:
+  /// **'Round {n}'**
+  String counterRound(String n);
+
+  /// No description provided for @counterTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'Beads per round'**
+  String get counterTarget;
+
+  /// No description provided for @counterOpen.
+  ///
+  /// In en, this message translates to:
+  /// **'Open counter'**
+  String get counterOpen;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -20,7 +20,9 @@ import '../../platform/location/gps.dart';
 import '../common/labels.dart';
 import 'checklist_card.dart';
 import 'moment_cards.dart';
+import 'moon_glyph.dart';
 import 'sky_arc.dart';
+import 'sky_background.dart';
 
 /// Home v0: where you are, what time it is in the prayer day, what's next.
 class NowScreen extends ConsumerWidget {
@@ -42,123 +44,147 @@ class NowScreen extends ConsumerWidget {
         .where((id) => checklistMoments.contains(id) && ref.watch(momentContentProvider(id)).isNotEmpty)
         .firstOrNull;
     final hijri = ref.watch(hijriDateProvider);
+    final occ = ref.watch(occasionsProvider);
+    final occasions = occ.list;
     final settings = ref.watch(prayerSettingsProvider);
     final n = LocaleDigits(locale);
 
     final dateLine = '${DateFormat.MMMEd(locale).format(now)}  ·  ${l.hijri(hijri, n.call)}';
 
-    return SafeArea(
-      bottom: false,
-      child: ListView(
-        padding: const EdgeInsets.fromLTRB(WaqtSpace.screen, WaqtSpace.x3, WaqtSpace.screen, WaqtSpace.x8),
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+    final palette = ref.watch(activePaletteProvider);
+    return Stack(
+      children: [
+        Positioned(top: 0, left: 0, right: 0, height: 520, child: SkyBackground(palette: palette)),
+        SafeArea(
+          bottom: false,
+          child: ListView(
+            padding: const EdgeInsets.fromLTRB(WaqtSpace.screen, WaqtSpace.x3, WaqtSpace.screen, WaqtSpace.x8),
             children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      place?.name ?? l.appName,
-                      style: WaqtText.titleSmall.copyWith(color: t.ink),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    const SizedBox(height: WaqtSpace.x1),
-                    Text(dateLine, style: WaqtText.label.copyWith(color: t.inkMuted)),
-                  ],
-                ),
-              ),
-              if (faked) _Pill(text: l.debugClockFaked, color: t.accent, ink: const Color(0xFF14110C)),
-              if (AppConfig.flavor == Flavor.dev) ...[
-                const SizedBox(width: WaqtSpace.x2),
-                _Pill(text: 'DEV', color: t.ink.withValues(alpha: 0.08), ink: t.inkMuted),
-              ],
-            ],
-          ),
-          const SizedBox(height: WaqtSpace.x8),
-          _Clock(now: now, locale: locale),
-          if (status != null) ...[
-            const SizedBox(height: WaqtSpace.x2),
-            _StatusLine(status: status, now: now, numbers: n),
-          ],
-          if (moments != null) ...[const SizedBox(height: WaqtSpace.x8), SkyArc(snapshot: moments)],
-          const SizedBox(height: WaqtSpace.x6),
-          _PrayerStrip(status: status, now: now, locale: locale),
-          if (status?.today.estimated ?? false) ...[
-            const SizedBox(height: WaqtSpace.x3),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: WaqtSpace.x1),
-              child: Text(l.timesEstimated, style: WaqtText.caption.copyWith(color: t.ink)),
-            ),
-          ],
-          if (place != null && !ref.watch(notificationPrefsProvider.select((p) => p.setupDismissed))) ...[
-            const SizedBox(height: WaqtSpace.x4),
-            _SetupCard(
-              onSetup: () {
-                ref.read(notificationPrefsProvider.notifier).dismissSetup();
-                context.push('/settings/notifications');
-              },
-              onDismiss: () => ref.read(notificationPrefsProvider.notifier).dismissSetup(),
-            ),
-          ],
-          if (moments != null && moments.hero.kind != MomentKind.prayer) ...[
-            const SizedBox(height: WaqtSpace.x4),
-            RightNowCard(
-              moment: moments.hero,
-              now: now,
-              // Checklist moments show their items in the checklist instead.
-              items: checklistMoments.contains(moments.hero.id)
-                  ? const []
-                  : ref.watch(momentContentProvider(moments.hero.id)),
-            ),
-          ],
-          if (checklist != null) ...[
-            const SizedBox(height: WaqtSpace.x4),
-            ChecklistCard(
-              moment: checklist,
-              items: ref.watch(momentContentProvider(checklist)),
-              day: prayerDayKey(moments!.timeline.first.window.start),
-            ),
-          ],
-          if (moments != null && moments.upcoming.isNotEmpty) ...[
-            const SizedBox(height: WaqtSpace.x6),
-            ComingUp(moments: moments.upcoming),
-          ],
-          if (place != null) ...[
-            const SizedBox(height: WaqtSpace.x4),
-            Semantics(
-              button: true,
-              child: InkWell(
-                borderRadius: BorderRadius.circular(WaqtRadii.row),
-                onTap: () => context.go('/settings'),
-                child: ConstrainedBox(
-                  constraints: const BoxConstraints(minHeight: WaqtSpace.minTouch),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: WaqtSpace.x1),
-                    child: Row(
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Expanded(
-                          child: Text(
-                            '${l.method(settings.method)}  ·  ${l.settingsAsr}: ${l.asr(settings.asr)}',
-                            style: WaqtText.caption.copyWith(color: t.inkMuted),
-                          ),
+                        Text(
+                          place?.name ?? l.appName,
+                          style: WaqtText.titleSmall.copyWith(color: t.ink),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                         ),
-                        const SizedBox(width: WaqtSpace.x2),
-                        Icon(Icons.tune_rounded, size: 16, color: t.inkMuted),
+                        const SizedBox(height: WaqtSpace.x1),
+                        Text(dateLine, style: WaqtText.label.copyWith(color: t.inkMuted)),
+                        if (occasions.isNotEmpty) ...[
+                          const SizedBox(height: WaqtSpace.x2),
+                          _Pill(
+                            text: l.occasion(occasions.first, ramadanDay: n(occ.date.day)),
+                            color: t.accent,
+                            ink: const Color(0xFF14110C),
+                          ),
+                        ],
                       ],
                     ),
                   ),
-                ),
+                  if (faked) _Pill(text: l.debugClockFaked, color: t.accent, ink: const Color(0xFF14110C)),
+                  if (AppConfig.flavor == Flavor.dev) ...[
+                    const SizedBox(width: WaqtSpace.x2),
+                    _Pill(text: 'DEV', color: t.ink.withValues(alpha: 0.08), ink: t.inkMuted),
+                  ],
+                ],
               ),
-            ),
-          ] else ...[
-            const SizedBox(height: WaqtSpace.x4),
-            const _LocationCard(),
-          ],
-        ],
-      ),
+              const SizedBox(height: WaqtSpace.x8),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: _Clock(now: now, locale: locale),
+                  ),
+                  if (palette.isDark) MoonGlyph(at: now, southern: (place?.latitude ?? 0) < 0),
+                ],
+              ),
+              if (status != null) ...[
+                const SizedBox(height: WaqtSpace.x2),
+                _StatusLine(status: status, now: now, numbers: n),
+              ],
+              if (moments != null) ...[const SizedBox(height: WaqtSpace.x8), SkyArc(snapshot: moments)],
+              const SizedBox(height: WaqtSpace.x6),
+              _PrayerStrip(status: status, now: now, locale: locale),
+              if (status?.today.estimated ?? false) ...[
+                const SizedBox(height: WaqtSpace.x3),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: WaqtSpace.x1),
+                  child: Text(l.timesEstimated, style: WaqtText.caption.copyWith(color: t.ink)),
+                ),
+              ],
+              if (place != null && !ref.watch(notificationPrefsProvider.select((p) => p.setupDismissed))) ...[
+                const SizedBox(height: WaqtSpace.x4),
+                _SetupCard(
+                  onSetup: () {
+                    ref.read(notificationPrefsProvider.notifier).dismissSetup();
+                    context.push('/settings/notifications');
+                  },
+                  onDismiss: () => ref.read(notificationPrefsProvider.notifier).dismissSetup(),
+                ),
+              ],
+              if (moments != null && moments.hero.kind != MomentKind.prayer) ...[
+                const SizedBox(height: WaqtSpace.x4),
+                RightNowCard(
+                  moment: moments.hero,
+                  now: now,
+                  // Checklist moments show their items in the checklist instead.
+                  items: checklistMoments.contains(moments.hero.id)
+                      ? const []
+                      : ref.watch(momentContentProvider(moments.hero.id)),
+                ),
+              ],
+              if (checklist != null) ...[
+                const SizedBox(height: WaqtSpace.x4),
+                ChecklistCard(
+                  moment: checklist,
+                  items: ref.watch(momentContentProvider(checklist)),
+                  day: prayerDayKey(moments!.timeline.first.window.start),
+                ),
+              ],
+              if (moments != null && moments.upcoming.isNotEmpty) ...[
+                const SizedBox(height: WaqtSpace.x6),
+                ComingUp(moments: moments.upcoming),
+              ],
+              if (place != null) ...[
+                const SizedBox(height: WaqtSpace.x4),
+                Semantics(
+                  button: true,
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(WaqtRadii.row),
+                    onTap: () => context.go('/settings'),
+                    child: ConstrainedBox(
+                      constraints: const BoxConstraints(minHeight: WaqtSpace.minTouch),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: WaqtSpace.x1),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                '${l.method(settings.method)}  ·  ${l.settingsAsr}: ${l.asr(settings.asr)}',
+                                style: WaqtText.caption.copyWith(color: t.inkMuted),
+                              ),
+                            ),
+                            const SizedBox(width: WaqtSpace.x2),
+                            Icon(Icons.tune_rounded, size: 16, color: t.inkMuted),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ] else ...[
+                const SizedBox(height: WaqtSpace.x4),
+                const _LocationCard(),
+              ],
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

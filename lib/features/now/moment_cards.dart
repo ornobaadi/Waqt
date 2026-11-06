@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 import '../../core/theme/tokens.dart';
@@ -73,6 +74,22 @@ class RightNowCard extends StatelessWidget {
             if (items.isNotEmpty) ...[
               const SizedBox(height: WaqtSpace.x4),
               for (final item in items.take(3)) _ItemRow(item: item),
+            ],
+            if (moment.id == MomentId.afterSalah) ...[
+              const SizedBox(height: WaqtSpace.x3),
+              TextButton.icon(
+                onPressed: () => context.push('/counter'),
+                style: TextButton.styleFrom(
+                  foregroundColor: ink,
+                  padding: EdgeInsets.zero,
+                  minimumSize: const Size(48, 44),
+                ),
+                icon: Icon(Icons.radio_button_checked_rounded, size: 18, color: t.accent),
+                label: Text(
+                  l.counterOpen,
+                  style: WaqtText.label.copyWith(color: ink, fontWeight: FontWeight.w600),
+                ),
+              ),
             ],
             const SizedBox(height: WaqtSpace.x5),
             // How much of the window has passed. Honest, glanceable, no copy.

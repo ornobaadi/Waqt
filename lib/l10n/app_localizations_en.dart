@@ -597,4 +597,71 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get setupCardDismiss => 'Not now';
+
+  @override
+  String get momentLaylatAlQadr => 'An odd night of the last ten';
+
+  @override
+  String get momentSuhoor => 'Suhoor';
+
+  @override
+  String get momentIftar => 'Iftar';
+
+  @override
+  String get occEidAlFitr => 'Eid al-Fitr';
+
+  @override
+  String get occEidAlAdha => 'Eid al-Adha';
+
+  @override
+  String get occArafah => 'Day of Arafah';
+
+  @override
+  String get occTashreeq => 'Days of Tashreeq';
+
+  @override
+  String get occAshura => 'Ashura';
+
+  @override
+  String get occTasua => 'Tasu\'a';
+
+  @override
+  String get occLastTen => 'Last ten nights';
+
+  @override
+  String occRamadan(String day) {
+    return 'Ramadan $day';
+  }
+
+  @override
+  String get occFirstTen => 'First ten of Dhul Hijjah';
+
+  @override
+  String get occBid => 'Ayyam al-Bid';
+
+  @override
+  String get occMonday => 'Monday fast';
+
+  @override
+  String get occThursday => 'Thursday fast';
+
+  @override
+  String get counterTitle => 'Counter';
+
+  @override
+  String get counterTap => 'Tap anywhere to count';
+
+  @override
+  String get counterReset => 'Reset';
+
+  @override
+  String counterRound(String n) {
+    return 'Round $n';
+  }
+
+  @override
+  String get counterTarget => 'Beads per round';
+
+  @override
+  String get counterOpen => 'Open counter';
 }

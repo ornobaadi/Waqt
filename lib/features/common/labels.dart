@@ -1,6 +1,7 @@
 import '../../data/content/content_repository.dart';
 import '../../domain/hijri/hijri_service.dart';
 import '../../domain/moments/moment.dart';
+import '../../domain/occasions/occasions.dart';
 import '../../domain/prayer/prayer_settings.dart';
 import '../../domain/prayer/prayer_times_service.dart';
 import '../../l10n/app_localizations.dart';
@@ -81,6 +82,9 @@ extension WaqtLabels on AppLocalizations {
     MomentId.duha => momentDuha,
     MomentId.bedtime => momentBedtime,
     MomentId.lastThird => momentLastThird,
+    MomentId.laylatAlQadr => momentLaylatAlQadr,
+    MomentId.suhoor => momentSuhoor,
+    MomentId.iftar => momentIftar,
     MomentId.jumuah => momentJumuah,
     MomentId.fridayLastHour => momentFridayLastHour,
     MomentId.betweenAdhanIqamah => momentAdhanIqamah(''),
@@ -111,4 +115,20 @@ extension WaqtLabels on AppLocalizations {
 
   /// "Bukhari 1145", "Qur'an 51:18".
   String reference(ContentSource s) => '${collection(s.collection)} ${s.number}';
+
+  String occasion(OccasionId o, {required String ramadanDay}) => switch (o) {
+    OccasionId.eidAlFitr => occEidAlFitr,
+    OccasionId.eidAlAdha => occEidAlAdha,
+    OccasionId.arafah => occArafah,
+    OccasionId.tashreeq => occTashreeq,
+    OccasionId.ashura => occAshura,
+    OccasionId.tasua => occTasua,
+    OccasionId.lastTenNights => occLastTen,
+    OccasionId.ramadan => occRamadan(ramadanDay),
+    OccasionId.firstTenDhulHijjah => occFirstTen,
+    OccasionId.ayyamAlBid => occBid,
+    OccasionId.jumuah => momentJumuah,
+    OccasionId.mondayFast => occMonday,
+    OccasionId.thursdayFast => occThursday,
+  };
 }

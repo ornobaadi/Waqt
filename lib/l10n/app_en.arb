@@ -332,5 +332,40 @@
   "setupCardTitle": "Gentle reminders",
   "setupCardBody": "A quiet nudge at each prayer time. You choose which, and nothing leaves your phone.",
   "setupCardAction": "Set up",
-  "setupCardDismiss": "Not now"
+  "setupCardDismiss": "Not now",
+  "momentLaylatAlQadr": "An odd night of the last ten",
+  "momentSuhoor": "Suhoor",
+  "momentIftar": "Iftar",
+  "occEidAlFitr": "Eid al-Fitr",
+  "occEidAlAdha": "Eid al-Adha",
+  "occArafah": "Day of Arafah",
+  "occTashreeq": "Days of Tashreeq",
+  "occAshura": "Ashura",
+  "occTasua": "Tasu'a",
+  "occLastTen": "Last ten nights",
+  "occRamadan": "Ramadan {day}",
+  "@occRamadan": {
+    "placeholders": {
+      "day": {
+        "type": "String"
+      }
+    }
+  },
+  "occFirstTen": "First ten of Dhul Hijjah",
+  "occBid": "Ayyam al-Bid",
+  "occMonday": "Monday fast",
+  "occThursday": "Thursday fast",
+  "counterTitle": "Counter",
+  "counterTap": "Tap anywhere to count",
+  "counterReset": "Reset",
+  "counterRound": "Round {n}",
+  "@counterRound": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "counterTarget": "Beads per round",
+  "counterOpen": "Open counter"
 }

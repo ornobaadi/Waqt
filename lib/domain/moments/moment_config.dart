@@ -20,6 +20,8 @@ class MomentConfig {
     this.bedtimeMinutes = 22 * 60 + 30,
     this.bedtimeLength = const Duration(hours: 2),
     this.fridayLastHour = const Duration(hours: 1),
+    this.suhoorLength = const Duration(minutes: 45),
+    this.iftarLength = const Duration(minutes: 20),
   });
 
   /// Sunrise → sunrise + this: the sun is rising.
@@ -46,4 +48,10 @@ class MomentConfig {
 
   /// The closing span of Friday before Maghrib.
   final Duration fridayLastHour;
+
+  /// Suhoor window before Fajr on fasting days.
+  final Duration suhoorLength;
+
+  /// Iftar window from Maghrib on fasting days.
+  final Duration iftarLength;
 }

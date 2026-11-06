@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../core/theme/tokens.dart';
 import '../../core/theme/waqt_theme.dart';
@@ -68,7 +69,21 @@ class _DuasScreenState extends ConsumerState<DuasScreen> {
       bottom: false,
       child: CustomScrollView(
         slivers: [
-          SliverToBoxAdapter(child: ScreenTitle(l.navDuas)),
+          SliverToBoxAdapter(
+            child: Row(
+              children: [
+                Expanded(child: ScreenTitle(l.navDuas)),
+                Padding(
+                  padding: const EdgeInsetsDirectional.only(end: WaqtSpace.x3),
+                  child: IconButton(
+                    tooltip: l.counterOpen,
+                    onPressed: () => context.push('/counter'),
+                    icon: Icon(Icons.radio_button_checked_rounded, color: t.ink),
+                  ),
+                ),
+              ],
+            ),
+          ),
           SliverPadding(
             padding: const EdgeInsets.symmetric(horizontal: WaqtSpace.screen),
             sliver: SliverToBoxAdapter(
