@@ -191,7 +191,7 @@ void main() {
       then: () async {
         await t.tap(find.text('Settings'));
         await t.pumpAndSettle();
-        await t.tap(find.text('Adhkar, Jumu'ah and night reminders, as you choose'));
+        await t.tap(find.text("Adhkar, Jumu'ah and night reminders, as you choose"));
       },
     ),
   );
