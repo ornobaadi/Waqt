@@ -54,4 +54,13 @@ abstract final class WaqtFonts {
   static const String display = 'SchibstedGrotesk';
   static const String body = 'Inter';
   static const String arabic = 'NotoNaskhArabic';
+  static const String urdu = 'NotoNastaliqUrdu';
+  static const String bengali = 'NotoSansBengali';
+
+  /// Script fallback for UI text, chosen per locale (see [forLocale]).
+  /// Urdu must reach Nastaliq before Naskh, since both cover Arabic script.
+  static List<String> fallback = const [arabic, bengali, urdu];
+
+  static List<String> forLocale(String languageCode) =>
+      languageCode == 'ur' ? const [urdu, arabic, bengali] : const [arabic, bengali, urdu];
 }

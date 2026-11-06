@@ -4,9 +4,6 @@ import 'tokens.dart';
 
 const _tabular = [FontFeature.tabularFigures()];
 
-/// Arabic-script UI text falls back to our bundled Naskh, not the device font.
-const _fallback = [WaqtFonts.arabic];
-
 TextStyle _display(double size, {double weight = 800, double tracking = -0.035}) => TextStyle(
   fontFamily: WaqtFonts.display,
   fontSize: size,
@@ -15,7 +12,7 @@ TextStyle _display(double size, {double weight = 800, double tracking = -0.035})
   letterSpacing: size * tracking,
   height: 1.05,
   fontFeatures: _tabular,
-  fontFamilyFallback: _fallback,
+  fontFamilyFallback: WaqtFonts.fallback,
 );
 
 TextStyle _body(double size, double weight, {double height = 1.4}) => TextStyle(
@@ -25,7 +22,7 @@ TextStyle _body(double size, double weight, {double height = 1.4}) => TextStyle(
   fontWeight: FontWeight.values[((weight / 100).round() - 1).clamp(0, 8)],
   height: height,
   fontFeatures: _tabular,
-  fontFamilyFallback: _fallback,
+  fontFamilyFallback: WaqtFonts.fallback,
 );
 
 /// Everything the UI needs that Material's ColorScheme doesn't express.
@@ -101,14 +98,14 @@ class WaqtTokens extends ThemeExtension<WaqtTokens> {
 }
 
 abstract final class WaqtText {
-  static final clock = _display(64, tracking: -0.04);
-  static final title = _display(26);
-  static final titleSmall = _display(20, weight: 760, tracking: -0.025);
-  static final body = _body(15, 420);
-  static final bodyStrong = _body(15, 580);
-  static final label = _body(13, 540, height: 1.3);
-  static final caption = _body(12, 500, height: 1.3);
-  static final overline = _body(11, 620, height: 1.2).copyWith(letterSpacing: 0.6);
+  static TextStyle get clock => _display(64, tracking: -0.04);
+  static TextStyle get title => _display(26);
+  static TextStyle get titleSmall => _display(20, weight: 760, tracking: -0.025);
+  static TextStyle get body => _body(15, 420);
+  static TextStyle get bodyStrong => _body(15, 580);
+  static TextStyle get label => _body(13, 540, height: 1.3);
+  static TextStyle get caption => _body(12, 500, height: 1.3);
+  static TextStyle get overline => _body(11, 620, height: 1.2).copyWith(letterSpacing: 0.6);
   static const arabic = TextStyle(fontFamily: WaqtFonts.arabic, fontSize: 30, height: 1.65);
 }
 

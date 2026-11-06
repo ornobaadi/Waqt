@@ -367,5 +367,10 @@
     }
   },
   "counterTarget": "Beads per round",
-  "counterOpen": "Open counter"
+  "counterOpen": "Open counter",
+  "reportContent": "Report an issue with this text",
+  "reportProblem": "Report a problem",
+  "reportProblemHint": "Opens a pre-filled form on GitHub. You see everything before it is sent.",
+  "privacyTitle": "Privacy",
+  "privacyBody": "Everything is calculated on this phone. Waqt has no accounts, ads or analytics."
 }

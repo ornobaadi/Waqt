@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../core/diagnostics/reports.dart';
 import '../../core/theme/tokens.dart';
 import '../../core/theme/waqt_theme.dart';
 import '../../data/content/content_repository.dart';
@@ -132,6 +133,15 @@ class DuaDetail extends StatelessWidget {
               shape: const StadiumBorder(),
               side: BorderSide(color: t.ink.withValues(alpha: 0.25)),
             ),
+          ),
+        ),
+        const SizedBox(height: WaqtSpace.x2),
+        Center(
+          child: TextButton.icon(
+            onPressed: () => Reports.reportContent(item),
+            style: TextButton.styleFrom(foregroundColor: t.inkMuted, minimumSize: const Size(48, 48)),
+            icon: Icon(Icons.flag_outlined, size: 18, color: t.inkMuted),
+            label: Text(l.reportContent, style: WaqtText.label.copyWith(color: t.inkMuted)),
           ),
         ),
       ],

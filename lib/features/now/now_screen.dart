@@ -200,18 +200,28 @@ class _Clock extends StatelessWidget {
     final h24 = MediaQuery.alwaysUse24HourFormatOf(context);
     final hm = (h24 ? DateFormat.Hm(locale) : DateFormat('h:mm', locale)).format(now);
     final suffix = h24 ? DateFormat('ss', locale).format(now) : DateFormat('a', locale).format(now);
+    // Some locales' day-period is a single letter ("a"/"p"): drop it, the
+    // prayer context already says morning or evening.
+    final showSuffix = suffix.trim().length > 1 || h24;
 
     return Semantics(
       label: DateFormat.jm(locale).format(now),
       excludeSemantics: true,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.baseline,
-        textBaseline: TextBaseline.alphabetic,
-        children: [
-          Text(hm, style: WaqtText.clock.copyWith(color: t.ink)),
-          const SizedBox(width: WaqtSpace.x2),
-          Text(suffix, style: WaqtText.titleSmall.copyWith(color: t.inkMuted)),
-        ],
+      // Large text: the clock scales down to fit rather than overflow.
+      child: FittedBox(
+        fit: BoxFit.scaleDown,
+        alignment: AlignmentDirectional.centerStart,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.baseline,
+          textBaseline: TextBaseline.alphabetic,
+          children: [
+            Text(hm, style: WaqtText.clock.copyWith(color: t.ink)),
+            if (showSuffix) ...[
+              const SizedBox(width: WaqtSpace.x2),
+              Text(suffix, style: WaqtText.titleSmall.copyWith(color: t.inkMuted)),
+            ],
+          ],
+        ),
       ),
     );
   }
@@ -238,7 +248,8 @@ class _StatusLine extends StatelessWidget {
     return Semantics(
       label: '${l.currentWaqt(status.current)}. ${l.nextIn(l.waqt(status.next), countdown)}',
       excludeSemantics: true,
-      child: Row(
+      child: Wrap(
+        crossAxisAlignment: WrapCrossAlignment.center,
         children: [
           Container(
             width: 8,
@@ -248,14 +259,7 @@ class _StatusLine extends StatelessWidget {
           const SizedBox(width: WaqtSpace.x2),
           Text(l.currentWaqt(status.current), style: WaqtText.bodyStrong.copyWith(color: t.ink)),
           Text('  ·  ', style: WaqtText.body.copyWith(color: t.inkMuted)),
-          Flexible(
-            child: Text(
-              l.nextIn(l.waqt(status.next), countdown),
-              style: WaqtText.body.copyWith(color: t.inkMuted),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
+          Text(l.nextIn(l.waqt(status.next), countdown), style: WaqtText.body.copyWith(color: t.inkMuted)),
         ],
       ),
     );
@@ -276,23 +280,26 @@ class _PrayerStrip extends StatelessWidget {
     final fmt = h24 ? DateFormat.Hm(locale) : DateFormat('h:mm', locale);
     final s = status;
 
+    Widget cell(Waqt w) => _StripCell(
+      label: l.waqt(w),
+      time: s == null ? l.timePending : fmt.format(s.today[w]),
+      pending: s == null,
+      // Before Fajr the running Isha belongs to yesterday, so no cell of
+      // today's strip is current.
+      current: s != null && s.current == w && !s.today[w].isAfter(now),
+      past: s != null && s.isPast(w, now),
+    );
+    // Large text (accessibility): two rows of three instead of one of six.
+    final rows = MediaQuery.textScalerOf(context).scale(10) > 13 ? 2 : 1;
+    final per = Waqt.values.length ~/ rows;
+
     return Container(
       padding: const EdgeInsets.all(WaqtSpace.x1),
       decoration: BoxDecoration(color: t.surface, borderRadius: BorderRadius.circular(WaqtRadii.strip)),
-      child: Row(
+      child: Column(
         children: [
-          for (final w in Waqt.values)
-            Expanded(
-              child: _StripCell(
-                label: l.waqt(w),
-                time: s == null ? l.timePending : fmt.format(s.today[w]),
-                pending: s == null,
-                // Before Fajr the running Isha belongs to yesterday, so no
-                // cell of today's strip is current.
-                current: s != null && s.current == w && !s.today[w].isAfter(now),
-                past: s != null && s.isPast(w, now),
-              ),
-            ),
+          for (var r = 0; r < rows; r++)
+            Row(children: [for (final w in Waqt.values.skip(r * per).take(per)) Expanded(child: cell(w))]),
         ],
       ),
     );
@@ -320,7 +327,8 @@ class _StripCell extends StatelessWidget {
     return AnimatedContainer(
       duration: WaqtMotion.ui,
       curve: WaqtMotion.ease,
-      height: 64,
+      constraints: const BoxConstraints(minHeight: 64),
+      padding: const EdgeInsets.symmetric(vertical: WaqtSpace.x2),
       decoration: BoxDecoration(
         color: current ? t.ink : Colors.transparent,
         borderRadius: BorderRadius.circular(WaqtRadii.row),

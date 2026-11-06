@@ -12,7 +12,11 @@ import '../duas/dua_sheet.dart';
 
 DateFormat clockFormat(BuildContext context) {
   final locale = Localizations.localeOf(context).toLanguageTag();
-  return MediaQuery.alwaysUse24HourFormatOf(context) ? DateFormat.Hm(locale) : DateFormat.jm(locale);
+  if (MediaQuery.alwaysUse24HourFormatOf(context)) return DateFormat.Hm(locale);
+  // Where the day-period is a single letter ("p 5:17"), plain h:mm reads better.
+  return DateFormat('a', locale).format(DateTime(2000)).trim().length > 1
+      ? DateFormat.jm(locale)
+      : DateFormat('h:mm', locale);
 }
 
 /// The hero: the highest-priority moment that is more specific than the
@@ -222,9 +226,11 @@ class ComingUp extends StatelessWidget {
                               ),
                             ),
                             const SizedBox(width: WaqtSpace.x2),
-                            Text(
-                              l.startsAt(fmt.format(moments[i].window.start)),
-                              style: WaqtText.caption.copyWith(color: t.inkMuted),
+                            Flexible(
+                              child: Text(
+                                l.startsAt(fmt.format(moments[i].window.start)),
+                                style: WaqtText.caption.copyWith(color: t.inkMuted),
+                              ),
                             ),
                           ],
                         ),

@@ -1,0 +1,682 @@
+// ignore: unused_import
+import 'package:intl/intl.dart' as intl;
+
+import 'app_localizations.dart';
+
+// ignore_for_file: type=lint
+
+/// The translations for Turkish (`tr`).
+class AppLocalizationsTr extends AppLocalizations {
+  AppLocalizationsTr([String locale = 'tr']) : super(locale);
+
+  @override
+  String get appName => 'Waqt';
+
+  @override
+  String get navNow => 'Şimdi';
+
+  @override
+  String get navToday => 'Bugün';
+
+  @override
+  String get navDuas => 'Dualar';
+
+  @override
+  String get navSettings => 'Ayarlar';
+
+  @override
+  String get prayerFajr => 'İmsak';
+
+  @override
+  String get prayerSunrise => 'Güneş';
+
+  @override
+  String get prayerDhuhr => 'Öğle';
+
+  @override
+  String get prayerAsr => 'İkindi';
+
+  @override
+  String get prayerMaghrib => 'Akşam';
+
+  @override
+  String get prayerIsha => 'Yatsı';
+
+  @override
+  String get momentNight => 'Gece';
+
+  @override
+  String get momentBedtime => 'Uyku vakti';
+
+  @override
+  String get timePending => '–';
+
+  @override
+  String get nowLocationTitle => 'Nerede namaz kılıyorsunuz?';
+
+  @override
+  String get nowLocationBody =>
+      'Namaz vakitleri konumunuza göre telefonunuzda hesaplanır. Hiçbir veri cihazdan çıkmaz.';
+
+  @override
+  String get todayEmptyTitle => 'Gününüz, an an';
+
+  @override
+  String get todayEmptyBody =>
+      'Sabahtan gecenin son üçte birine kadar bugünün her vakti, namaz vakitleri hesaplanınca burada sıralanır.';
+
+  @override
+  String get duasEmptyTitle => 'Yalnızca doğrulanmış kaynaklar';
+
+  @override
+  String get duasEmptyBody =>
+      'Kütüphane, her metin asıl kaynağıyla karşılaştırılıp bir âlim tarafından onaylandığında açılacak.';
+
+  @override
+  String get settingsLanguage => 'Dil';
+
+  @override
+  String get settingsLanguageSystem => 'Cihaz dili';
+
+  @override
+  String get settingsDeveloper => 'Developer';
+
+  @override
+  String get settingsDeveloperHint => 'Fake clock and moment palettes';
+
+  @override
+  String get settingsAbout => 'Waqt hakkında';
+
+  @override
+  String settingsVersion(String version) {
+    return 'Sürüm $version';
+  }
+
+  @override
+  String get debugTitle => 'Developer';
+
+  @override
+  String get debugClock => 'Clock';
+
+  @override
+  String get debugClockReal => 'Real time';
+
+  @override
+  String get debugClockFaked => 'Faked';
+
+  @override
+  String get debugPickDate => 'Date';
+
+  @override
+  String get debugPickTime => 'Time';
+
+  @override
+  String get debugReset => 'Reset';
+
+  @override
+  String get debugPalette => 'Moment palette';
+
+  @override
+  String get debugPaletteAuto => 'Auto';
+
+  @override
+  String get debugDirection => 'Layout direction';
+
+  @override
+  String get debugBuild => 'Build';
+
+  @override
+  String get waqtMorning => 'Kuşluk';
+
+  @override
+  String nextIn(String prayer, String time) {
+    return '$prayer vaktine $time';
+  }
+
+  @override
+  String hijriDate(String day, String month, String year) {
+    return '$day $month $year';
+  }
+
+  @override
+  String get hijriMonth1 => 'Muharrem';
+
+  @override
+  String get hijriMonth2 => 'Safer';
+
+  @override
+  String get hijriMonth3 => 'Rebiülevvel';
+
+  @override
+  String get hijriMonth4 => 'Rebiülahir';
+
+  @override
+  String get hijriMonth5 => 'Cemaziyelevvel';
+
+  @override
+  String get hijriMonth6 => 'Cemaziyelahir';
+
+  @override
+  String get hijriMonth7 => 'Recep';
+
+  @override
+  String get hijriMonth8 => 'Şaban';
+
+  @override
+  String get hijriMonth9 => 'Ramazan';
+
+  @override
+  String get hijriMonth10 => 'Şevval';
+
+  @override
+  String get hijriMonth11 => 'Zilkade';
+
+  @override
+  String get hijriMonth12 => 'Zilhicce';
+
+  @override
+  String get locationUseGps => 'Konumumu kullan';
+
+  @override
+  String get locationChooseCity => 'Şehir seç';
+
+  @override
+  String get locationLocating => 'Konum bulunuyor…';
+
+  @override
+  String get gpsServiceOff => 'Bu telefonda konum kapalı. Açın veya bir şehir seçin.';
+
+  @override
+  String get gpsDenied => 'Konum izni reddedildi. Bunun yerine bir şehir seçebilirsiniz.';
+
+  @override
+  String get gpsDeniedForever => 'Konum izni engellendi. Ayarlardan izin verin veya bir şehir seçin.';
+
+  @override
+  String get gpsTimeout => 'Konum alınamadı. Tekrar deneyin veya bir şehir seçin.';
+
+  @override
+  String get openSettings => 'Ayarları aç';
+
+  @override
+  String get settingsLocation => 'Konum';
+
+  @override
+  String get settingsNotSet => 'Ayarlanmadı';
+
+  @override
+  String get settingsUseGps => 'Şu anki konumu kullan';
+
+  @override
+  String get settingsGpsSource => 'GPS ile';
+
+  @override
+  String get settingsPrayerTimes => 'Namaz vakitleri';
+
+  @override
+  String get settingsMethod => 'Hesaplama yöntemi';
+
+  @override
+  String get settingsRegionalDefault => 'Bölgeniz için varsayılan';
+
+  @override
+  String get settingsAsr => 'İkindi vakti';
+
+  @override
+  String get asrStandard => 'Cumhur';
+
+  @override
+  String get asrStandardHint => 'Şâfiî, Mâlikî, Hanbelî: gölge cismin boyu kadar';
+
+  @override
+  String get asrHanafi => 'Hanefî';
+
+  @override
+  String get asrHanafiHint => 'Gölge cismin iki katı';
+
+  @override
+  String get settingsHighLat => 'Yüksek enlem kuralı';
+
+  @override
+  String get highLatAuto => 'Otomatik';
+
+  @override
+  String get highLatAutoHint => '48° üstünde gecenin yedide biri, altında gece yarısı';
+
+  @override
+  String get highLatMiddle => 'Gece yarısı';
+
+  @override
+  String get highLatSeventh => 'Gecenin yedide biri';
+
+  @override
+  String get highLatTwilight => 'Şafak açısı';
+
+  @override
+  String get settingsCalendar => 'Takvim';
+
+  @override
+  String get settingsHijriAdjust => 'Hicrî tarih düzeltmesi';
+
+  @override
+  String get hijriAdjustHint => 'Bulunduğunuz yerdeki hilal gözlemine uyması için';
+
+  @override
+  String get hijriOffsetNone => 'Yok';
+
+  @override
+  String hijriOffsetDays(String value) {
+    return '$value gün';
+  }
+
+  @override
+  String get settingsAttribution => 'Şehir verileri © GeoNames, CC BY 4.0. Namaz vakitleri cihazda hesaplanır.';
+
+  @override
+  String get citySearchHint => 'Şehir ara';
+
+  @override
+  String cityNoResults(String query) {
+    return '“$query” ile eşleşen şehir yok';
+  }
+
+  @override
+  String get methodMwl => 'Dünya İslam Birliği';
+
+  @override
+  String get methodIsna => 'ISNA, Kuzey Amerika';
+
+  @override
+  String get methodEgypt => 'Mısır Genel Ölçüm Kurumu';
+
+  @override
+  String get methodKarachi => 'İslami İlimler Üniversitesi, Karaçi';
+
+  @override
+  String get methodUmmAlQura => 'Ümmü\'l-Kurâ, Mekke';
+
+  @override
+  String get methodDubai => 'Dubai';
+
+  @override
+  String get methodQatar => 'Katar';
+
+  @override
+  String get methodKuwait => 'Kuveyt';
+
+  @override
+  String get methodSingapore => 'Singapur, Malezya, Endonezya';
+
+  @override
+  String get methodTurkey => 'Diyanet İşleri Başkanlığı';
+
+  @override
+  String get methodTehran => 'Jeofizik Enstitüsü, Tahran';
+
+  @override
+  String get methodMoonsighting => 'Moonsighting Committee';
+
+  @override
+  String get timesEstimated =>
+      'Tahminî. Güneş bugün burada normal doğup batmıyor; vakitler 65° enleme göre hesaplandı.';
+
+  @override
+  String get momentLastThird => 'Gecenin son üçte biri';
+
+  @override
+  String get momentFridayLastHour => 'Cumanın son saati';
+
+  @override
+  String momentAdhanIqamah(String prayer) {
+    return '$prayer kametinden önce';
+  }
+
+  @override
+  String momentAfterSalah(String prayer) {
+    return '$prayer namazından sonra';
+  }
+
+  @override
+  String get momentRestrictedSunrise => 'Güneş doğarken';
+
+  @override
+  String get momentRestrictedZawal => 'Güneş tepedeyken';
+
+  @override
+  String get momentRestrictedSunset => 'Güneş batarken';
+
+  @override
+  String get momentDuha => 'Kuşluk';
+
+  @override
+  String get momentMorningAdhkar => 'Sabah zikirleri';
+
+  @override
+  String get momentEveningAdhkar => 'Akşam zikirleri';
+
+  @override
+  String get kindRestricted => 'Nafile namaz için kerahat vakti';
+
+  @override
+  String get rightNow => 'Şu an';
+
+  @override
+  String until(String time) {
+    return '$time saatine kadar';
+  }
+
+  @override
+  String get comingUp => 'Sıradakiler';
+
+  @override
+  String startsAt(String time) {
+    return '$time';
+  }
+
+  @override
+  String startsIn(String time) {
+    return '$time sonra';
+  }
+
+  @override
+  String get timelineNow => 'Şimdi';
+
+  @override
+  String get debugJump => 'Jump to moment';
+
+  @override
+  String get statusDraft => 'Taslak';
+
+  @override
+  String get statusChecked => 'Kontrol edildi';
+
+  @override
+  String get draftNotice => 'Kontrol edilmemiş taslak, yalnızca geliştirme sürümünde görünür';
+
+  @override
+  String get collectionQuran => 'Kur\'an';
+
+  @override
+  String get collectionBukhari => 'Buhârî';
+
+  @override
+  String get collectionMuslim => 'Müslim';
+
+  @override
+  String get collectionAbudawud => 'Ebû Dâvûd';
+
+  @override
+  String get collectionTirmidhi => 'Tirmizî';
+
+  @override
+  String get collectionNasai => 'Nesâî';
+
+  @override
+  String get collectionIbnmajah => 'İbn Mâce';
+
+  @override
+  String get collectionMalik => 'Muwatta Malik';
+
+  @override
+  String get collectionAhmad => 'Ahmad';
+
+  @override
+  String get collectionDarimi => 'Darimi';
+
+  @override
+  String get collectionAdab => 'al-Adab al-Mufrad';
+
+  @override
+  String get collectionHakim => 'al-Hakim';
+
+  @override
+  String get collectionIbnhibban => 'Ibn Hibban';
+
+  @override
+  String get collectionBayhaqi => 'Bayhaqi';
+
+  @override
+  String get collectionNasaiKubra => 'al-Sunan al-Kubra';
+
+  @override
+  String get sheetSource => 'Kaynak';
+
+  @override
+  String get sheetNarrator => 'Rivayet eden';
+
+  @override
+  String get sheetGrade => 'Derece';
+
+  @override
+  String get sheetGradedBy => 'Hükmeden';
+
+  @override
+  String get sheetTranslation => 'Meal';
+
+  @override
+  String get sheetReview => 'İnceleme';
+
+  @override
+  String sheetOpen(String host) {
+    return '$host üzerinde aç';
+  }
+
+  @override
+  String get sheetTextPending => 'Bu kaynak asıl metinle karşılaştırıldığında metin burada görünecek.';
+
+  @override
+  String get statusApproved => 'Âlim onaylı';
+
+  @override
+  String get gradeSahih => 'Sahih';
+
+  @override
+  String get gradeHasan => 'Hasen';
+
+  @override
+  String reviewCheckedBy(String name) {
+    return 'Kontrol eden: $name';
+  }
+
+  @override
+  String reviewApprovedBy(String name) {
+    return 'Onaylayan: $name';
+  }
+
+  @override
+  String checklistProgress(String done, String total) {
+    return '$done / $total';
+  }
+
+  @override
+  String get checklistTitleBedtime => 'Uyumadan önce';
+
+  @override
+  String get checklistTitleJumuah => 'Cuma';
+
+  @override
+  String get momentJumuah => 'Cuma';
+
+  @override
+  String get librarySearch => 'Dua ve kaynak ara';
+
+  @override
+  String libraryNoMatch(String query) {
+    return '“$query” için sonuç yok';
+  }
+
+  @override
+  String libraryCount(String count) {
+    return '$count öğe';
+  }
+
+  @override
+  String get libraryOther => 'Diğer';
+
+  @override
+  String get momentLastThirdShort => 'Son üçte bir';
+
+  @override
+  String reminderBody(String time, String place) {
+    return '$time · $place';
+  }
+
+  @override
+  String get widgetEmptyBody => 'Konumunuzu ayarlamak için Waqt\'ı açın';
+
+  @override
+  String get notifTitle => 'Hatırlatmalar';
+
+  @override
+  String get notifHint => 'Namaz vakitleri ve anlar, sizin seçiminizle';
+
+  @override
+  String get notifPermission => 'Bildirimler';
+
+  @override
+  String get notifAllowed => 'İzin verildi';
+
+  @override
+  String get notifAllow => 'İzin ver';
+
+  @override
+  String get notifExact => 'Tam zamanında';
+
+  @override
+  String get notifExactHint => 'Namaz hatırlatmalarının dakikasında gelmesi için';
+
+  @override
+  String get notifBattery => 'Pil optimizasyonu';
+
+  @override
+  String get notifBatteryOk => 'Kısıtlamasız';
+
+  @override
+  String get notifBatteryFix => 'Ayarları aç';
+
+  @override
+  String get notifBatteryHint => 'Bazı telefonlar arka planda hatırlatmaları durdurur. Waqt\'ı Kısıtlamasız yapın.';
+
+  @override
+  String notifBatteryHintOem(String maker) {
+    return '$maker telefonlar arka planda hatırlatmaları sık sık durdurur. Waqt\'ı Kısıtlamasız yapın.';
+  }
+
+  @override
+  String get notifPrayers => 'Namaz vakitleri';
+
+  @override
+  String get notifMoments => 'Anlar';
+
+  @override
+  String get notifSound => 'Ses çal';
+
+  @override
+  String get notifSoundHint => 'Lisanslı bir kayıt eklendiğinde ezan seçeneği gelecek';
+
+  @override
+  String notifScheduled(String count, String date) {
+    return '$date tarihine kadar $count hatırlatma planlandı';
+  }
+
+  @override
+  String get notifNone => 'Planlanmış hatırlatma yok';
+
+  @override
+  String get notifStatus => 'Durum';
+
+  @override
+  String get setupCardTitle => 'Sakin hatırlatmalar';
+
+  @override
+  String get setupCardBody =>
+      'Her namaz vaktinde nazik bir hatırlatma. Hangilerini istediğinizi siz seçersiniz ve hiçbir şey telefonunuzdan çıkmaz.';
+
+  @override
+  String get setupCardAction => 'Kur';
+
+  @override
+  String get setupCardDismiss => 'Şimdi değil';
+
+  @override
+  String get momentLaylatAlQadr => 'Son on gecenin tek gecelerinden biri';
+
+  @override
+  String get momentSuhoor => 'Sahur';
+
+  @override
+  String get momentIftar => 'İftar';
+
+  @override
+  String get occEidAlFitr => 'Ramazan Bayramı';
+
+  @override
+  String get occEidAlAdha => 'Kurban Bayramı';
+
+  @override
+  String get occArafah => 'Arefe günü';
+
+  @override
+  String get occTashreeq => 'Teşrik günleri';
+
+  @override
+  String get occAshura => 'Aşure';
+
+  @override
+  String get occTasua => 'Tâsûâ';
+
+  @override
+  String get occLastTen => 'Son on gece';
+
+  @override
+  String occRamadan(String day) {
+    return 'Ramazan $day';
+  }
+
+  @override
+  String get occFirstTen => 'Zilhiccenin ilk on günü';
+
+  @override
+  String get occBid => 'Eyyâm-ı Bîz';
+
+  @override
+  String get occMonday => 'Pazartesi orucu';
+
+  @override
+  String get occThursday => 'Perşembe orucu';
+
+  @override
+  String get counterTitle => 'Sayaç';
+
+  @override
+  String get counterTap => 'Saymak için herhangi bir yere dokunun';
+
+  @override
+  String get counterReset => 'Sıfırla';
+
+  @override
+  String counterRound(String n) {
+    return '$n. tur';
+  }
+
+  @override
+  String get counterTarget => 'Tur başına tane';
+
+  @override
+  String get counterOpen => 'Sayacı aç';
+
+  @override
+  String get reportContent => 'Bu metindeki bir hatayı bildir';
+
+  @override
+  String get reportProblem => 'Sorun bildir';
+
+  @override
+  String get reportProblemHint => 'GitHub\'da önceden doldurulmuş bir form açar. Göndermeden önce her şeyi görürsünüz.';
+
+  @override
+  String get privacyTitle => 'Gizlilik';
+
+  @override
+  String get privacyBody => 'Her şey bu telefonda hesaplanır. Waqt\'ta hesap, reklam veya analiz yoktur.';
+}

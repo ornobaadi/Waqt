@@ -659,4 +659,19 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get counterOpen => 'فتح العدّاد';
+
+  @override
+  String get reportContent => 'الإبلاغ عن خطأ في هذا النص';
+
+  @override
+  String get reportProblem => 'الإبلاغ عن مشكلة';
+
+  @override
+  String get reportProblemHint => 'يفتح نموذجًا جاهزًا على GitHub، وترى كل شيء قبل إرساله.';
+
+  @override
+  String get privacyTitle => 'الخصوصية';
+
+  @override
+  String get privacyBody => 'كل شيء يُحسب على هذا الهاتف. لا حسابات ولا إعلانات ولا تحليلات في وقت.';
 }

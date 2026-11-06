@@ -13,7 +13,15 @@ import '../helpers/harness.dart';
 void main() {
   setUpAll(loadAppFonts);
 
-  Future<void> shoot(WidgetTester tester, String name, Widget app, {Future<void> Function()? then}) async {
+  Future<void> shoot(
+    WidgetTester tester,
+    String name,
+    Widget app, {
+    Future<void> Function()? then,
+    double textScale = 1,
+  }) async {
+    tester.platformDispatcher.textScaleFactorTestValue = textScale;
+    addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
     debugDisableShadows = false; // real soft shadows, as on device
     tester.view.physicalSize = const Size(1170, 2532);
     tester.view.devicePixelRatio = 3;
@@ -224,5 +232,40 @@ void main() {
   testWidgets(
     'maghrib sky',
     (t) async => shoot(t, '24_now_maghrib_sky', await app(at: DateTime(2026, 11, 6, 17, 40), place: dhaka)),
+  );
+
+  for (final lang in ['ur', 'bn', 'tr', 'id', 'fr']) {
+    testWidgets(
+      'lang $lang',
+      (t) async =>
+          shoot(t, '30_now_$lang', await app(at: DateTime(2026, 11, 6, 16, 20), place: dhaka, locale: Locale(lang))),
+    );
+  }
+
+  testWidgets(
+    '200% now',
+    (t) async => shoot(t, '40_a11y_now_200', await app(at: DateTime(2026, 11, 6, 16, 20), place: dhaka), textScale: 2),
+  );
+
+  testWidgets(
+    '200% settings',
+    (t) async => shoot(
+      t,
+      '41_a11y_settings_200',
+      await app(at: DateTime(2026, 11, 6, 16, 20), place: dhaka),
+      textScale: 2,
+      then: () async => t.tap(find.text('Settings')),
+    ),
+  );
+
+  testWidgets(
+    '200% today',
+    (t) async => shoot(
+      t,
+      '42_a11y_today_200',
+      await app(at: DateTime(2026, 11, 6, 16, 20), place: dhaka),
+      textScale: 2,
+      then: () async => t.tap(find.text('Today')),
+    ),
   );
 }

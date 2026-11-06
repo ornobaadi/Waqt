@@ -3,6 +3,7 @@
 The right dua for the moment you are in, with a verified source for every item. Flutter, offline-first, global.
 
 Read `PRD.md`, `architecture.md`, `design.md` and `phases.md` first.
+Releasing: `docs/release.md`. Content workflow: `content/README.md`. Scholar review: `docs/moment-rules.md`.
 
 ## Run
 ```

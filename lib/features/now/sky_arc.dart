@@ -87,10 +87,11 @@ class _DayArc extends StatelessWidget {
             ),
           ),
           const SizedBox(height: WaqtSpace.x2),
-          Row(
+          Wrap(
+            alignment: WrapAlignment.spaceBetween,
+            runSpacing: WaqtSpace.x1,
             children: [
               Text('${l.prayerSunrise} ${fmt.format(sunrise)}', style: WaqtText.caption.copyWith(color: t.inkMuted)),
-              const Spacer(),
               Text('${l.prayerMaghrib} ${fmt.format(sunset)}', style: WaqtText.caption.copyWith(color: t.inkMuted)),
             ],
           ),
@@ -246,10 +247,11 @@ class _NightBar extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: WaqtSpace.x2),
-              Row(
+              Wrap(
+                alignment: WrapAlignment.spaceBetween,
+                runSpacing: WaqtSpace.x1,
                 children: [
                   Text('${l.prayerMaghrib} ${fmt.format(maghrib)}', style: style),
-                  const Spacer(),
                   Text('${l.prayerFajr} ${fmt.format(fajr)}', style: style),
                 ],
               ),

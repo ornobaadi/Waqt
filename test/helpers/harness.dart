@@ -35,6 +35,8 @@ Future<void> loadAppFonts() async {
   await load('SchibstedGrotesk', 'assets/fonts/SchibstedGrotesk.ttf');
   await load('Inter', 'assets/fonts/Inter.ttf');
   await load('NotoNaskhArabic', 'assets/fonts/NotoNaskhArabic.ttf');
+  await load('NotoNastaliqUrdu', 'assets/fonts/NotoNastaliqUrdu.ttf');
+  await load('NotoSansBengali', 'assets/fonts/NotoSansBengali.ttf');
   // flutter/bin/cache/dart-sdk/bin/dart → flutter/
   final root =
       Platform.environment['FLUTTER_ROOT'] ?? File(Platform.resolvedExecutable).parent.parent.parent.parent.parent.path;

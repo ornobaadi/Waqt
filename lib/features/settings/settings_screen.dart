@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../app/app_state.dart';
 import '../../core/config/flavor.dart';
+import '../../core/diagnostics/reports.dart';
 import '../../core/theme/tokens.dart';
 import '../../core/theme/waqt_theme.dart';
 import '../../core/utils/digits.dart';
@@ -19,7 +20,15 @@ import '../../l10n/app_localizations.dart';
 import '../common/labels.dart';
 
 /// Endonyms: each language is named in its own script.
-const supportedLanguageNames = {'en': 'English', 'ar': 'العربية'};
+const supportedLanguageNames = {
+  'en': 'English',
+  'ar': 'العربية',
+  'ur': 'اردو',
+  'bn': 'বাংলা',
+  'id': 'Bahasa Indonesia',
+  'tr': 'Türkçe',
+  'fr': 'Français',
+};
 
 class SettingsScreen extends ConsumerStatefulWidget {
   const SettingsScreen({super.key});
@@ -177,6 +186,14 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                         }
                       },
                     ),
+                  ],
+                ),
+                SectionLabel(l.settingsAbout),
+                RowGroup(
+                  children: [
+                    RowTile(title: l.privacyTitle, subtitle: l.privacyBody),
+                    RowTile(title: l.reportProblem, subtitle: l.reportProblemHint, onTap: Reports.reportProblem),
+                    RowTile(title: l.settingsAbout, value: l.settingsVersion(AppConfig.version)),
                   ],
                 ),
                 if (AppConfig.debugTools) ...[

@@ -664,4 +664,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get counterOpen => 'Open counter';
+
+  @override
+  String get reportContent => 'Report an issue with this text';
+
+  @override
+  String get reportProblem => 'Report a problem';
+
+  @override
+  String get reportProblemHint => 'Opens a pre-filled form on GitHub. You see everything before it is sent.';
+
+  @override
+  String get privacyTitle => 'Privacy';
+
+  @override
+  String get privacyBody => 'Everything is calculated on this phone. Waqt has no accounts, ads or analytics.';
 }

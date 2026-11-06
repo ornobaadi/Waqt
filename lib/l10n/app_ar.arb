@@ -202,5 +202,10 @@
   "counterReset": "إعادة",
   "counterRound": "الدورة {n}",
   "counterTarget": "عدد الحبات في الدورة",
-  "counterOpen": "فتح العدّاد"
+  "counterOpen": "فتح العدّاد",
+  "reportContent": "الإبلاغ عن خطأ في هذا النص",
+  "reportProblem": "الإبلاغ عن مشكلة",
+  "reportProblemHint": "يفتح نموذجًا جاهزًا على GitHub، وترى كل شيء قبل إرساله.",
+  "privacyTitle": "الخصوصية",
+  "privacyBody": "كل شيء يُحسب على هذا الهاتف. لا حسابات ولا إعلانات ولا تحليلات في وقت."
 }

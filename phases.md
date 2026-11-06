@@ -58,11 +58,16 @@ Margins awaiting scholar review: see `docs/moment-rules.md`.
 - [x] Hijri occasions: Ramadan (+ suhoor, iftar, odd nights of last ten), Dhul Hijjah, Arafah, Eids, Tashreeq, Ashura/Tasu'a, Ayyam al-Bid, Mon/Thu
 
 ## Phase 7 — Localisation & launch prep (weeks 12–14)
-- [ ] Arabic, Urdu, Bengali, Indonesian, Turkish, French UI strings and translations of content (licensed, reviewed)
-- [ ] Accessibility pass (TalkBack, contrast, font scaling to 200%)
-- [ ] Performance on budget devices; crash reporting (privacy-respecting)
-- [ ] "Report an issue with this content" flow
-- [ ] Play Store listing, privacy policy (location stays on device)
+- [x] UI strings: Arabic, Urdu, Bengali, Indonesian, Turkish, French; Nastaliq + Bengali fonts, per-locale script fallback
+- [ ] Native-speaker review of UI strings (drafted, not yet reviewed)
+- [ ] Content translations (licensed, reviewed): blocked on Phase 3 approvals
+- [x] Accessibility: 200% text (clock fits, strip becomes 3×2, labels wrap), contrast tests, semantics labels
+- [ ] TalkBack walkthrough on a device
+- [x] Crash log on device + user-reviewed report (no SDK); shader 30 fps cap
+- [ ] Profile on a budget device
+- [x] "Report an issue with this content" flow (pre-filled GitHub issue)
+- [x] Play Store listing draft, privacy policy, release guide, upload-key signing, adaptive + themed app icon
+- [ ] Host privacy policy; feature graphic
 - [ ] Closed beta → public launch
 
 ## Later
