@@ -11,6 +11,7 @@ import '../../core/theme/waqt_theme.dart';
 import '../../core/utils/digits.dart';
 import '../../data/content/content_repository.dart';
 import '../../data/user/checklist.dart';
+import '../../data/user/notification_prefs.dart';
 import '../../data/user/user_prefs.dart';
 import '../../domain/moments/moment.dart';
 import '../../domain/prayer/prayer_times_service.dart';
@@ -90,6 +91,16 @@ class NowScreen extends ConsumerWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: WaqtSpace.x1),
               child: Text(l.timesEstimated, style: WaqtText.caption.copyWith(color: t.ink)),
+            ),
+          ],
+          if (place != null && !ref.watch(notificationPrefsProvider.select((p) => p.setupDismissed))) ...[
+            const SizedBox(height: WaqtSpace.x4),
+            _SetupCard(
+              onSetup: () {
+                ref.read(notificationPrefsProvider.notifier).dismissSetup();
+                context.push('/settings/notifications');
+              },
+              onDismiss: () => ref.read(notificationPrefsProvider.notifier).dismissSetup(),
             ),
           ],
           if (moments != null && moments.hero.kind != MomentKind.prayer) ...[
@@ -460,4 +471,63 @@ class _Pill extends StatelessWidget {
     decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(99)),
     child: Text(text, style: WaqtText.overline.copyWith(color: ink)),
   );
+}
+
+/// Asked once, after a location exists, so the value is obvious.
+class _SetupCard extends StatelessWidget {
+  const _SetupCard({required this.onSetup, required this.onDismiss});
+  final VoidCallback onSetup;
+  final VoidCallback onDismiss;
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+    final t = WaqtTokens.of(context);
+    return Container(
+      padding: const EdgeInsets.fromLTRB(WaqtSpace.x5, WaqtSpace.x5, WaqtSpace.x4, WaqtSpace.x3),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(WaqtRadii.card),
+        border: Border.all(color: t.ink.withValues(alpha: 0.14)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.notifications_none_rounded, size: 20, color: t.ink),
+              const SizedBox(width: WaqtSpace.x2),
+              Text(l.setupCardTitle, style: WaqtText.bodyStrong.copyWith(color: t.ink)),
+            ],
+          ),
+          const SizedBox(height: WaqtSpace.x2),
+          Padding(
+            padding: const EdgeInsetsDirectional.only(end: WaqtSpace.x1),
+            child: Text(l.setupCardBody, style: WaqtText.body.copyWith(color: t.inkMuted)),
+          ),
+          const SizedBox(height: WaqtSpace.x2),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              TextButton(
+                onPressed: onDismiss,
+                style: TextButton.styleFrom(foregroundColor: t.inkMuted, minimumSize: const Size(48, 48)),
+                child: Text(l.setupCardDismiss),
+              ),
+              const SizedBox(width: WaqtSpace.x1),
+              FilledButton(
+                onPressed: onSetup,
+                style: FilledButton.styleFrom(
+                  backgroundColor: t.ink,
+                  foregroundColor: t.ground,
+                  minimumSize: const Size(48, 44),
+                  shape: const StadiumBorder(),
+                ),
+                child: Text(l.setupCardAction),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
 }

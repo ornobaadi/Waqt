@@ -80,7 +80,8 @@ moment_content(moment_id, item_id, order)
 ```
 
 ## Notifications
-- On app open + daily at ~00:05 (and after reboot / timezone / location change): compute next 48 h of windows, schedule enabled ones.
+- **v1:** on app open/resume and on any place, settings, reminder or language change, plan the next **7 days** and replace all scheduled reminders (≤120, far under Android's 500 limit). No background worker: the plugin re-arms alarms after reboot, and a week of runway covers users who don't open the app daily.
+- Widget: the app writes one entry per waqt for the coming days; the native provider picks the entry in effect and home_widget refreshes it at every boundary.
 - Android 12+: request `SCHEDULE_EXACT_ALARM` only for adhan; others use inexact. Android 13+: `POST_NOTIFICATIONS`.
 - Onboarding step for battery-optimisation exemption on aggressive OEMs (Xiaomi, Oppo, Vivo, Samsung).
 

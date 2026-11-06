@@ -280,5 +280,57 @@
     }
   },
   "libraryOther": "Other",
-  "momentLastThirdShort": "Last third"
+  "momentLastThirdShort": "Last third",
+  "reminderBody": "{time} · {place}",
+  "@reminderBody": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      },
+      "place": {
+        "type": "String"
+      }
+    }
+  },
+  "widgetEmptyBody": "Open Waqt to set your location",
+  "notifTitle": "Reminders",
+  "notifHint": "Prayer times and moments, as you choose",
+  "notifPermission": "Notifications",
+  "notifAllowed": "Allowed",
+  "notifAllow": "Allow",
+  "notifExact": "On-time delivery",
+  "notifExactHint": "Lets prayer reminders arrive at the exact minute",
+  "notifBattery": "Battery optimisation",
+  "notifBatteryOk": "Unrestricted",
+  "notifBatteryFix": "Open settings",
+  "notifBatteryHint": "Some phones stop reminders in the background. Set Waqt to Unrestricted.",
+  "notifBatteryHintOem": "{maker} phones often stop reminders in the background. Set Waqt to Unrestricted.",
+  "@notifBatteryHintOem": {
+    "placeholders": {
+      "maker": {
+        "type": "String"
+      }
+    }
+  },
+  "notifPrayers": "Prayer times",
+  "notifMoments": "Moments",
+  "notifSound": "Play sound",
+  "notifSoundHint": "An adhan option will come once a licensed recording is added",
+  "notifScheduled": "{count} reminders scheduled until {date}",
+  "@notifScheduled": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "notifNone": "No reminders scheduled",
+  "notifStatus": "Status",
+  "setupCardTitle": "Gentle reminders",
+  "setupCardBody": "A quiet nudge at each prayer time. You choose which, and nothing leaves your phone.",
+  "setupCardAction": "Set up",
+  "setupCardDismiss": "Not now"
 }

@@ -49,7 +49,7 @@ class _Locale extends LocaleOverride {
 }
 
 /// The whole app at a fixed clock with chosen saved prefs.
-Future<Widget> app({DateTime? at, Place? place, Locale? locale}) async {
+Future<Widget> app({DateTime? at, Place? place, Locale? locale, bool setupCard = false}) async {
   SharedPreferences.setMockInitialValues({if (place != null) 'place.v1': jsonEncode(place.toJson())});
   final prefs = await SharedPreferences.getInstance();
   return ProviderScope(

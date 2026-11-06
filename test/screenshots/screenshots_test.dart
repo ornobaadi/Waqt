@@ -165,4 +165,24 @@ void main() {
     'jumuah morning',
     (t) async => shoot(t, '18_now_jumuah_morning', await app(at: DateTime(2026, 11, 6, 9, 41), place: dhaka)),
   );
+
+  testWidgets(
+    'setup card',
+    (t) async =>
+        shoot(t, '19_now_reminder_setup', await app(at: DateTime(2026, 11, 6, 12, 38), place: dhaka, setupCard: true)),
+  );
+
+  testWidgets(
+    'reminders',
+    (t) async => shoot(
+      t,
+      '20_reminders',
+      await app(at: DateTime(2026, 11, 6, 12, 38), place: dhaka),
+      then: () async {
+        await t.tap(find.text('Settings'));
+        await t.pumpAndSettle();
+        await t.tap(find.text('Prayer times and moments, as you choose'));
+      },
+    ),
+  );
 }

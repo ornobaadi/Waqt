@@ -6,6 +6,7 @@ import '../core/theme/waqt_theme.dart';
 import '../l10n/app_localizations.dart';
 import 'app_state.dart';
 import 'router.dart';
+import 'sync.dart';
 
 class WaqtApp extends ConsumerWidget {
   const WaqtApp({super.key});
@@ -26,6 +27,7 @@ class WaqtApp extends ConsumerWidget {
       supportedLocales: AppLocalizations.supportedLocales,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       routerConfig: ref.watch(routerProvider),
+      builder: (context, child) => SyncHost(child: child ?? const SizedBox.shrink()),
     );
   }
 }

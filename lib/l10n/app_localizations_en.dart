@@ -516,4 +516,85 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get momentLastThirdShort => 'Last third';
+
+  @override
+  String reminderBody(String time, String place) {
+    return '$time · $place';
+  }
+
+  @override
+  String get widgetEmptyBody => 'Open Waqt to set your location';
+
+  @override
+  String get notifTitle => 'Reminders';
+
+  @override
+  String get notifHint => 'Prayer times and moments, as you choose';
+
+  @override
+  String get notifPermission => 'Notifications';
+
+  @override
+  String get notifAllowed => 'Allowed';
+
+  @override
+  String get notifAllow => 'Allow';
+
+  @override
+  String get notifExact => 'On-time delivery';
+
+  @override
+  String get notifExactHint => 'Lets prayer reminders arrive at the exact minute';
+
+  @override
+  String get notifBattery => 'Battery optimisation';
+
+  @override
+  String get notifBatteryOk => 'Unrestricted';
+
+  @override
+  String get notifBatteryFix => 'Open settings';
+
+  @override
+  String get notifBatteryHint => 'Some phones stop reminders in the background. Set Waqt to Unrestricted.';
+
+  @override
+  String notifBatteryHintOem(String maker) {
+    return '$maker phones often stop reminders in the background. Set Waqt to Unrestricted.';
+  }
+
+  @override
+  String get notifPrayers => 'Prayer times';
+
+  @override
+  String get notifMoments => 'Moments';
+
+  @override
+  String get notifSound => 'Play sound';
+
+  @override
+  String get notifSoundHint => 'An adhan option will come once a licensed recording is added';
+
+  @override
+  String notifScheduled(String count, String date) {
+    return '$count reminders scheduled until $date';
+  }
+
+  @override
+  String get notifNone => 'No reminders scheduled';
+
+  @override
+  String get notifStatus => 'Status';
+
+  @override
+  String get setupCardTitle => 'Gentle reminders';
+
+  @override
+  String get setupCardBody => 'A quiet nudge at each prayer time. You choose which, and nothing leaves your phone.';
+
+  @override
+  String get setupCardAction => 'Set up';
+
+  @override
+  String get setupCardDismiss => 'Not now';
 }

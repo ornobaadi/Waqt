@@ -511,4 +511,85 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get momentLastThirdShort => 'الثلث الأخير';
+
+  @override
+  String reminderBody(String time, String place) {
+    return '$time · $place';
+  }
+
+  @override
+  String get widgetEmptyBody => 'افتح وقت لتحديد موقعك';
+
+  @override
+  String get notifTitle => 'التذكيرات';
+
+  @override
+  String get notifHint => 'أوقات الصلاة واللحظات كما تختار';
+
+  @override
+  String get notifPermission => 'الإشعارات';
+
+  @override
+  String get notifAllowed => 'مسموح';
+
+  @override
+  String get notifAllow => 'السماح';
+
+  @override
+  String get notifExact => 'التوقيت الدقيق';
+
+  @override
+  String get notifExactHint => 'ليصل تذكير الصلاة في الدقيقة نفسها';
+
+  @override
+  String get notifBattery => 'تحسين البطارية';
+
+  @override
+  String get notifBatteryOk => 'غير مقيّد';
+
+  @override
+  String get notifBatteryFix => 'فتح الإعدادات';
+
+  @override
+  String get notifBatteryHint => 'بعض الهواتف توقف التذكيرات في الخلفية. اجعل وقت «غير مقيّد».';
+
+  @override
+  String notifBatteryHintOem(String maker) {
+    return 'هواتف $maker كثيرًا ما توقف التذكيرات في الخلفية. اجعل وقت «غير مقيّد».';
+  }
+
+  @override
+  String get notifPrayers => 'أوقات الصلاة';
+
+  @override
+  String get notifMoments => 'اللحظات';
+
+  @override
+  String get notifSound => 'تشغيل الصوت';
+
+  @override
+  String get notifSoundHint => 'سيُتاح خيار الأذان بعد إضافة تسجيل مرخّص';
+
+  @override
+  String notifScheduled(String count, String date) {
+    return '$count تذكيرًا مجدولًا حتى $date';
+  }
+
+  @override
+  String get notifNone => 'لا توجد تذكيرات مجدولة';
+
+  @override
+  String get notifStatus => 'الحالة';
+
+  @override
+  String get setupCardTitle => 'تذكيرات هادئة';
+
+  @override
+  String get setupCardBody => 'تنبيه لطيف عند كل صلاة. أنت تختار، ولا يغادر شيء هاتفك.';
+
+  @override
+  String get setupCardAction => 'إعداد';
+
+  @override
+  String get setupCardDismiss => 'ليس الآن';
 }

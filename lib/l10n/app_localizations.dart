@@ -1033,6 +1033,156 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Last third'**
   String get momentLastThirdShort;
+
+  /// No description provided for @reminderBody.
+  ///
+  /// In en, this message translates to:
+  /// **'{time} · {place}'**
+  String reminderBody(String time, String place);
+
+  /// No description provided for @widgetEmptyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Waqt to set your location'**
+  String get widgetEmptyBody;
+
+  /// No description provided for @notifTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminders'**
+  String get notifTitle;
+
+  /// No description provided for @notifHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Prayer times and moments, as you choose'**
+  String get notifHint;
+
+  /// No description provided for @notifPermission.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications'**
+  String get notifPermission;
+
+  /// No description provided for @notifAllowed.
+  ///
+  /// In en, this message translates to:
+  /// **'Allowed'**
+  String get notifAllowed;
+
+  /// No description provided for @notifAllow.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow'**
+  String get notifAllow;
+
+  /// No description provided for @notifExact.
+  ///
+  /// In en, this message translates to:
+  /// **'On-time delivery'**
+  String get notifExact;
+
+  /// No description provided for @notifExactHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Lets prayer reminders arrive at the exact minute'**
+  String get notifExactHint;
+
+  /// No description provided for @notifBattery.
+  ///
+  /// In en, this message translates to:
+  /// **'Battery optimisation'**
+  String get notifBattery;
+
+  /// No description provided for @notifBatteryOk.
+  ///
+  /// In en, this message translates to:
+  /// **'Unrestricted'**
+  String get notifBatteryOk;
+
+  /// No description provided for @notifBatteryFix.
+  ///
+  /// In en, this message translates to:
+  /// **'Open settings'**
+  String get notifBatteryFix;
+
+  /// No description provided for @notifBatteryHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Some phones stop reminders in the background. Set Waqt to Unrestricted.'**
+  String get notifBatteryHint;
+
+  /// No description provided for @notifBatteryHintOem.
+  ///
+  /// In en, this message translates to:
+  /// **'{maker} phones often stop reminders in the background. Set Waqt to Unrestricted.'**
+  String notifBatteryHintOem(String maker);
+
+  /// No description provided for @notifPrayers.
+  ///
+  /// In en, this message translates to:
+  /// **'Prayer times'**
+  String get notifPrayers;
+
+  /// No description provided for @notifMoments.
+  ///
+  /// In en, this message translates to:
+  /// **'Moments'**
+  String get notifMoments;
+
+  /// No description provided for @notifSound.
+  ///
+  /// In en, this message translates to:
+  /// **'Play sound'**
+  String get notifSound;
+
+  /// No description provided for @notifSoundHint.
+  ///
+  /// In en, this message translates to:
+  /// **'An adhan option will come once a licensed recording is added'**
+  String get notifSoundHint;
+
+  /// No description provided for @notifScheduled.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} reminders scheduled until {date}'**
+  String notifScheduled(String count, String date);
+
+  /// No description provided for @notifNone.
+  ///
+  /// In en, this message translates to:
+  /// **'No reminders scheduled'**
+  String get notifNone;
+
+  /// No description provided for @notifStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get notifStatus;
+
+  /// No description provided for @setupCardTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Gentle reminders'**
+  String get setupCardTitle;
+
+  /// No description provided for @setupCardBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A quiet nudge at each prayer time. You choose which, and nothing leaves your phone.'**
+  String get setupCardBody;
+
+  /// No description provided for @setupCardAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Set up'**
+  String get setupCardAction;
+
+  /// No description provided for @setupCardDismiss.
+  ///
+  /// In en, this message translates to:
+  /// **'Not now'**
+  String get setupCardDismiss;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

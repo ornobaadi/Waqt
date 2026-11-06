@@ -48,7 +48,7 @@ void main() {
   testWidgets('bedtime checklist ticks and resets with the prayer day', (tester) async {
     await tester.pumpWidget(await app(at: DateTime(2026, 11, 6, 22, 45), place: dhaka));
     await tester.pumpAndSettle();
-    expect(find.text('Before you sleep'), findsOneWidget);
+    await tester.scrollUntilVisible(find.text('Before you sleep'), 200);
     expect(find.text('0 of 5'), findsOneWidget);
     await tester.ensureVisible(find.text('Ayat al-Kursi at bedtime'));
     await tester.pumpAndSettle();

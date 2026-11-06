@@ -9,6 +9,7 @@ import '../features/duas/duas_screen.dart';
 import '../features/now/now_screen.dart';
 import '../features/settings/city_picker_screen.dart';
 import '../features/settings/developer_screen.dart';
+import '../features/settings/notifications_screen.dart';
 import '../features/settings/settings_screen.dart';
 import '../features/today/today_screen.dart';
 import '../l10n/app_localizations.dart';
@@ -36,6 +37,7 @@ final routerProvider = Provider<GoRouter>((ref) {
                 builder: (_, _) => const SettingsScreen(),
                 routes: [
                   GoRoute(path: 'city', builder: (_, _) => const CityPickerScreen()),
+                  GoRoute(path: 'notifications', builder: (_, _) => const NotificationsScreen()),
                   if (AppConfig.debugTools) GoRoute(path: 'developer', builder: (_, _) => const DeveloperScreen()),
                 ],
               ),

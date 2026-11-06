@@ -44,10 +44,11 @@ Margins awaiting scholar review: see `docs/moment-rules.md`.
 - [x] Golden tests per moment
 
 ## Phase 5 — Notifications & widget (weeks 8–9)
-- [ ] Scheduler (48 h horizon, reschedule on boot/tz/location change)
-- [ ] Per-moment toggles; adhan sound option
-- [ ] Permission + battery-optimisation onboarding
-- [ ] Home-screen widget (current waqt + next prayer)
+- [x] Scheduler: 7-day horizon instead of 48 h + daily job (no background worker needed); re-plans on launch, resume, place/settings/reminder/language change; plugin re-arms after reboot
+- [x] Per-moment toggles; sound on/off (adhan recording waits for a licensed source, Phase 6)
+- [x] Permission + battery-optimisation onboarding (one-time card on Now, Reminders screen with status + OEM hint)
+- [x] Home-screen widget (current waqt + next prayer, live countdown, moment colours, refreshes at each boundary)
+- [ ] Verify on devices: exact alarms (Android 12–15), Xiaomi/Samsung battery behaviour, widget on 2–3 launchers
 
 ## Phase 6 — Delight (weeks 10–11)
 - [ ] Sky fragment shader + moon phase; tilt parallax; reduce-motion fallback

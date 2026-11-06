@@ -135,6 +135,16 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                     ),
                   ],
                 ),
+                SectionLabel(l.notifTitle),
+                RowGroup(
+                  children: [
+                    RowTile(
+                      title: l.notifTitle,
+                      subtitle: l.notifHint,
+                      onTap: () => context.push('/settings/notifications'),
+                    ),
+                  ],
+                ),
                 SectionLabel(l.settingsCalendar),
                 RowGroup(
                   children: [
