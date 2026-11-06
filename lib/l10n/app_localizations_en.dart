@@ -319,4 +319,68 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get timesEstimated =>
       'Estimated. The sun doesn\'t rise or set normally here today, so times follow latitude 65°.';
+
+  @override
+  String get momentLastThird => 'Last third of the night';
+
+  @override
+  String get momentFridayLastHour => 'Last hour of Friday';
+
+  @override
+  String momentAdhanIqamah(String prayer) {
+    return 'Before the $prayer iqamah';
+  }
+
+  @override
+  String momentAfterSalah(String prayer) {
+    return 'After $prayer';
+  }
+
+  @override
+  String get momentRestrictedSunrise => 'Sun rising';
+
+  @override
+  String get momentRestrictedZawal => 'Sun at its zenith';
+
+  @override
+  String get momentRestrictedSunset => 'Sun setting';
+
+  @override
+  String get momentDuha => 'Duha';
+
+  @override
+  String get momentMorningAdhkar => 'Morning adhkar';
+
+  @override
+  String get momentEveningAdhkar => 'Evening adhkar';
+
+  @override
+  String get kindRestricted => 'Voluntary prayer restricted';
+
+  @override
+  String get rightNow => 'Right now';
+
+  @override
+  String until(String time) {
+    return 'until $time';
+  }
+
+  @override
+  String get comingUp => 'Coming up';
+
+  @override
+  String startsAt(String time) {
+    return 'at $time';
+  }
+
+  @override
+  String startsIn(String time) {
+    return 'in $time';
+  }
+
+  @override
+  String get timelineNow => 'Now';
+
+  @override
+  String get debugJump => 'Jump to moment';
 }

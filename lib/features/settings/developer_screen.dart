@@ -8,6 +8,7 @@ import '../../core/config/flavor.dart';
 import '../../core/theme/tokens.dart';
 import '../../core/theme/waqt_theme.dart';
 import '../../core/widgets/waqt_widgets.dart';
+import '../common/labels.dart';
 import '../../l10n/app_localizations.dart';
 
 /// QA tools: fake clock + moment palette preview. Dev flavor / debug only.
@@ -23,6 +24,7 @@ class DeveloperScreen extends ConsumerWidget {
     final faked = ref.watch(fakeClockProvider) != null;
     final clock = ref.read(fakeClockProvider.notifier);
     final palette = ref.watch(paletteOverrideProvider);
+    final timeline = ref.watch(momentSnapshotProvider.select((s) => s?.timeline));
 
     return Scaffold(
       appBar: AppBar(
@@ -65,6 +67,18 @@ class DeveloperScreen extends ConsumerWidget {
               ],
             ),
           ),
+          if (timeline != null) ...[
+            SectionLabel(l.debugJump),
+            Wrap(
+              spacing: WaqtSpace.x2,
+              runSpacing: WaqtSpace.x2,
+              children: [
+                for (final m in timeline)
+                  // One minute in, so the moment is clearly active.
+                  _Chip(l.moment(m), () => clock.jumpTo(m.window.start.add(const Duration(minutes: 1)))),
+              ],
+            ),
+          ],
           SectionLabel(l.debugPalette),
           Wrap(
             spacing: WaqtSpace.x3,

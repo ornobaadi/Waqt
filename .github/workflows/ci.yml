@@ -17,4 +17,8 @@ jobs:
       - run: dart format --line-length 120 --output=none --set-exit-if-changed lib test
       - run: flutter analyze --fatal-infos
       - run: flutter test --exclude-tags screenshots
+      # The engine works in device-local time; exercise real DST changeovers.
+      - run: TZ=Europe/London flutter test test/domain/moment_engine_test.dart
+      - run: TZ=America/Toronto flutter test test/domain/moment_engine_test.dart
+      - run: TZ=Pacific/Auckland flutter test test/domain/moment_engine_test.dart
       - run: flutter build apk --flavor dev --debug

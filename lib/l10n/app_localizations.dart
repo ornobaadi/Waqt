@@ -685,6 +685,114 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Estimated. The sun doesn\'t rise or set normally here today, so times follow latitude 65°.'**
   String get timesEstimated;
+
+  /// No description provided for @momentLastThird.
+  ///
+  /// In en, this message translates to:
+  /// **'Last third of the night'**
+  String get momentLastThird;
+
+  /// No description provided for @momentFridayLastHour.
+  ///
+  /// In en, this message translates to:
+  /// **'Last hour of Friday'**
+  String get momentFridayLastHour;
+
+  /// No description provided for @momentAdhanIqamah.
+  ///
+  /// In en, this message translates to:
+  /// **'Before the {prayer} iqamah'**
+  String momentAdhanIqamah(String prayer);
+
+  /// No description provided for @momentAfterSalah.
+  ///
+  /// In en, this message translates to:
+  /// **'After {prayer}'**
+  String momentAfterSalah(String prayer);
+
+  /// No description provided for @momentRestrictedSunrise.
+  ///
+  /// In en, this message translates to:
+  /// **'Sun rising'**
+  String get momentRestrictedSunrise;
+
+  /// No description provided for @momentRestrictedZawal.
+  ///
+  /// In en, this message translates to:
+  /// **'Sun at its zenith'**
+  String get momentRestrictedZawal;
+
+  /// No description provided for @momentRestrictedSunset.
+  ///
+  /// In en, this message translates to:
+  /// **'Sun setting'**
+  String get momentRestrictedSunset;
+
+  /// No description provided for @momentDuha.
+  ///
+  /// In en, this message translates to:
+  /// **'Duha'**
+  String get momentDuha;
+
+  /// No description provided for @momentMorningAdhkar.
+  ///
+  /// In en, this message translates to:
+  /// **'Morning adhkar'**
+  String get momentMorningAdhkar;
+
+  /// No description provided for @momentEveningAdhkar.
+  ///
+  /// In en, this message translates to:
+  /// **'Evening adhkar'**
+  String get momentEveningAdhkar;
+
+  /// No description provided for @kindRestricted.
+  ///
+  /// In en, this message translates to:
+  /// **'Voluntary prayer restricted'**
+  String get kindRestricted;
+
+  /// No description provided for @rightNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Right now'**
+  String get rightNow;
+
+  /// No description provided for @until.
+  ///
+  /// In en, this message translates to:
+  /// **'until {time}'**
+  String until(String time);
+
+  /// No description provided for @comingUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Coming up'**
+  String get comingUp;
+
+  /// No description provided for @startsAt.
+  ///
+  /// In en, this message translates to:
+  /// **'at {time}'**
+  String startsAt(String time);
+
+  /// No description provided for @startsIn.
+  ///
+  /// In en, this message translates to:
+  /// **'in {time}'**
+  String startsIn(String time);
+
+  /// No description provided for @timelineNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Now'**
+  String get timelineNow;
+
+  /// No description provided for @debugJump.
+  ///
+  /// In en, this message translates to:
+  /// **'Jump to moment'**
+  String get debugJump;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

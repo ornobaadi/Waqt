@@ -2,7 +2,6 @@
 library;
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart' show debugDisableShadows;
 import 'package:flutter_test/flutter_test.dart';
 
 import '../helpers/harness.dart';
@@ -96,6 +95,46 @@ void main() {
         await t.runAsync(() => Future<void>.delayed(const Duration(milliseconds: 800)));
         await t.enterText(find.byType(TextField), 'ist');
         await t.pump();
+      },
+    ),
+  );
+
+  testWidgets(
+    'today timeline',
+    (t) async => shoot(
+      t,
+      '11_today_timeline',
+      await app(at: DateTime(2026, 11, 6, 16, 20), place: dhaka),
+      then: () async => t.tap(find.text('Today')),
+    ),
+  );
+
+  testWidgets(
+    'last third',
+    (t) async => shoot(t, '12_now_last_third', await app(at: DateTime(2026, 11, 7, 3, 10), place: dhaka)),
+  );
+
+  testWidgets(
+    'bedtime',
+    (t) async => shoot(t, '13_now_bedtime', await app(at: DateTime(2026, 11, 6, 22, 45), place: dhaka)),
+  );
+
+  testWidgets(
+    'restricted',
+    (t) async => shoot(t, '14_now_restricted', await app(at: DateTime(2026, 11, 6, 6, 12), place: dhaka)),
+  );
+
+  testWidgets(
+    'developer',
+    (t) async => shoot(
+      t,
+      '15_developer',
+      await app(at: DateTime(2026, 11, 6, 16, 20), place: dhaka),
+      then: () async {
+        await t.tap(find.text('Settings'));
+        await t.pumpAndSettle();
+        await t.scrollUntilVisible(find.text('Fake clock and moment palettes'), 200);
+        await t.tap(find.text('Fake clock and moment palettes'));
       },
     ),
   );

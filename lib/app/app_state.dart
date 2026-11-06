@@ -7,6 +7,8 @@ import '../core/theme/tokens.dart';
 import '../data/places/place_repository.dart';
 import '../data/user/user_prefs.dart';
 import '../domain/hijri/hijri_service.dart';
+import '../domain/moments/moment.dart';
+import '../domain/moments/moment_engine.dart';
 import '../domain/prayer/prayer_settings.dart';
 import '../domain/prayer/prayer_times_service.dart';
 import '../platform/location/gps.dart';
@@ -20,20 +22,53 @@ class PaletteOverride extends Notifier<MomentPalette?> {
 
 final paletteOverrideProvider = NotifierProvider<PaletteOverride, MomentPalette?>(PaletteOverride.new);
 
-/// Phase 1: palette follows the current waqt. Phase 2's Moment Engine refines
-/// this (last third, bedtime…). Enum equality means dependents rebuild only
-/// when the waqt actually changes, not every second.
+/// The moment drives the sky: the hero moment picks the palette when it has
+/// one of its own, otherwise the running waqt does. Enum equality means
+/// dependents rebuild only when the palette actually changes.
 final activePaletteProvider = Provider<MomentPalette>((ref) {
   final override = ref.watch(paletteOverrideProvider);
   if (override != null) return override;
-  final current = ref.watch(prayerStatusProvider.select((s) => s?.current));
-  return switch (current) {
-    Waqt.fajr => MomentPalette.fajr,
-    Waqt.sunrise || Waqt.dhuhr || null => MomentPalette.dhuhr,
-    Waqt.asr => MomentPalette.asr,
-    Waqt.maghrib => MomentPalette.maghrib,
-    Waqt.isha => MomentPalette.night,
+  final ids = ref.watch(momentSnapshotProvider.select((s) => s == null ? null : (s.hero.id, s.waqt.id)));
+  return paletteFor(ids?.$1, ids?.$2);
+});
+
+MomentPalette paletteFor(MomentId? hero, MomentId? waqt) {
+  switch (hero) {
+    case MomentId.lastThird:
+      return MomentPalette.night;
+    case MomentId.bedtime:
+      return MomentPalette.bedtime;
+    case MomentId.fridayLastHour:
+      return MomentPalette.asr;
+    default:
+  }
+  return switch (waqt) {
+    MomentId.fajr => MomentPalette.fajr,
+    MomentId.asr => MomentPalette.asr,
+    MomentId.maghrib => MomentPalette.maghrib,
+    MomentId.isha => MomentPalette.night,
+    _ => MomentPalette.dhuhr,
   };
+}
+
+final momentEngineProvider = Provider((ref) => const MomentEngine());
+
+/// `null` until a location is set.
+final momentSnapshotProvider = Provider<MomentSnapshot?>((ref) {
+  final place = ref.watch(userPrefsProvider.select((p) => p.place));
+  if (place == null) return null;
+  final now = ref.watch(nowProvider).value ?? readNow(ref.watch(fakeClockProvider));
+  final settings = ref.watch(prayerSettingsProvider);
+  final svc = ref.watch(prayerTimesServiceProvider);
+  DayTimes day(DateTime d, int plus) => svc.forDay(place, DateTime(d.year, d.month, d.day + plus), settings);
+
+  // The prayer day runs Fajr → Fajr; before today's Fajr we're still in yesterday's.
+  final today = day(now, 0);
+  final d0 = now.isBefore(today[Waqt.fajr]) ? day(now, -1) : today;
+  final d1 = day(d0.date, 1), d2 = day(d0.date, 2);
+  return ref
+      .watch(momentEngineProvider)
+      .snapshot(now, PrayerDay(today: d0, tomorrow: d1), PrayerDay(today: d1, tomorrow: d2));
 });
 
 final prayerTimesServiceProvider = Provider((ref) => const PrayerTimesService());

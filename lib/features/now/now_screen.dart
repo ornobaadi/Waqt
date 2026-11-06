@@ -10,10 +10,12 @@ import '../../core/theme/tokens.dart';
 import '../../core/theme/waqt_theme.dart';
 import '../../core/utils/digits.dart';
 import '../../data/user/user_prefs.dart';
+import '../../domain/moments/moment.dart';
 import '../../domain/prayer/prayer_times_service.dart';
 import '../../l10n/app_localizations.dart';
 import '../../platform/location/gps.dart';
 import '../common/labels.dart';
+import 'moment_cards.dart';
 
 /// Home v0: where you are, what time it is in the prayer day, what's next.
 class NowScreen extends ConsumerWidget {
@@ -28,6 +30,7 @@ class NowScreen extends ConsumerWidget {
     final faked = ref.watch(fakeClockProvider) != null;
     final place = ref.watch(userPrefsProvider.select((p) => p.place));
     final status = ref.watch(prayerStatusProvider);
+    final moments = ref.watch(momentSnapshotProvider);
     final hijri = ref.watch(hijriDateProvider);
     final settings = ref.watch(prayerSettingsProvider);
     final n = LocaleDigits(locale);
@@ -79,8 +82,16 @@ class NowScreen extends ConsumerWidget {
               child: Text(l.timesEstimated, style: WaqtText.caption.copyWith(color: t.ink)),
             ),
           ],
+          if (moments != null && moments.hero.kind != MomentKind.prayer) ...[
+            const SizedBox(height: WaqtSpace.x4),
+            RightNowCard(moment: moments.hero, now: now),
+          ],
+          if (moments != null && moments.upcoming.isNotEmpty) ...[
+            const SizedBox(height: WaqtSpace.x6),
+            ComingUp(moments: moments.upcoming),
+          ],
           if (place != null) ...[
-            const SizedBox(height: WaqtSpace.x2),
+            const SizedBox(height: WaqtSpace.x4),
             Semantics(
               button: true,
               child: InkWell(

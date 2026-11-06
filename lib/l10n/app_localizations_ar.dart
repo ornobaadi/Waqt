@@ -315,4 +315,68 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get timesEstimated => 'أوقات تقديرية: لا تشرق الشمس أو تغرب على المعتاد هنا اليوم، فتُحسب على خط عرض 65°.';
+
+  @override
+  String get momentLastThird => 'الثلث الأخير من الليل';
+
+  @override
+  String get momentFridayLastHour => 'الساعة الأخيرة من الجمعة';
+
+  @override
+  String momentAdhanIqamah(String prayer) {
+    return 'قبل إقامة $prayer';
+  }
+
+  @override
+  String momentAfterSalah(String prayer) {
+    return 'بعد صلاة $prayer';
+  }
+
+  @override
+  String get momentRestrictedSunrise => 'وقت الشروق';
+
+  @override
+  String get momentRestrictedZawal => 'وقت الزوال';
+
+  @override
+  String get momentRestrictedSunset => 'وقت الغروب';
+
+  @override
+  String get momentDuha => 'الضحى';
+
+  @override
+  String get momentMorningAdhkar => 'أذكار الصباح';
+
+  @override
+  String get momentEveningAdhkar => 'أذكار المساء';
+
+  @override
+  String get kindRestricted => 'وقت كراهة للنافلة';
+
+  @override
+  String get rightNow => 'الآن';
+
+  @override
+  String until(String time) {
+    return 'حتى $time';
+  }
+
+  @override
+  String get comingUp => 'قريبًا';
+
+  @override
+  String startsAt(String time) {
+    return 'الساعة $time';
+  }
+
+  @override
+  String startsIn(String time) {
+    return 'بعد $time';
+  }
+
+  @override
+  String get timelineNow => 'الآن';
+
+  @override
+  String get debugJump => 'الانتقال إلى وقت';
 }

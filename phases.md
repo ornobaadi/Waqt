@@ -19,10 +19,12 @@ Each phase ends with a shippable internal build. Content work runs in parallel f
 - [ ] Compare against official national tables (human task: collect PDFs per region)
 
 ## Phase 2 — Moment Engine (weeks 3–4)
-- [ ] Rule interface + rules: last third, Friday last hour, adhan↔iqamah, disliked times, Duha, bedtime, morning/evening adhkar, post-salah
-- [ ] Priority resolution → hero / coming up / timeline
-- [ ] Fake-clock debug panel (jump to any date/time) — essential for QA
-- [ ] Unit tests across cities and DST
+- [x] Rule interface + rules: last third, Friday last hour, adhan↔iqamah, disliked times, Duha, bedtime, morning/evening adhkar, post-salah
+- [x] Priority resolution → hero / coming up / timeline
+- [x] Fake-clock debug panel (jump to any date/time) — essential for QA
+- [x] Unit tests across cities and DST
+
+Margins awaiting scholar review: see `docs/moment-rules.md`.
 
 ## Phase 3 — Content system (parallel, weeks 1–6)
 - [ ] YAML schema + validator + build script → `content.db`

@@ -142,5 +142,58 @@
   "methodTurkey": "Diyanet, Türkiye",
   "methodTehran": "Institute of Geophysics, Tehran",
   "methodMoonsighting": "Moonsighting Committee",
-  "timesEstimated": "Estimated. The sun doesn't rise or set normally here today, so times follow latitude 65°."
+  "timesEstimated": "Estimated. The sun doesn't rise or set normally here today, so times follow latitude 65°.",
+  "momentLastThird": "Last third of the night",
+  "momentFridayLastHour": "Last hour of Friday",
+  "momentAdhanIqamah": "Before the {prayer} iqamah",
+  "@momentAdhanIqamah": {
+    "placeholders": {
+      "prayer": {
+        "type": "String"
+      }
+    }
+  },
+  "momentAfterSalah": "After {prayer}",
+  "@momentAfterSalah": {
+    "placeholders": {
+      "prayer": {
+        "type": "String"
+      }
+    }
+  },
+  "momentRestrictedSunrise": "Sun rising",
+  "momentRestrictedZawal": "Sun at its zenith",
+  "momentRestrictedSunset": "Sun setting",
+  "momentDuha": "Duha",
+  "momentMorningAdhkar": "Morning adhkar",
+  "momentEveningAdhkar": "Evening adhkar",
+  "kindRestricted": "Voluntary prayer restricted",
+  "rightNow": "Right now",
+  "until": "until {time}",
+  "@until": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "comingUp": "Coming up",
+  "startsAt": "at {time}",
+  "@startsAt": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "startsIn": "in {time}",
+  "@startsIn": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "timelineNow": "Now",
+  "debugJump": "Jump to moment"
 }

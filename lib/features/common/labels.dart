@@ -1,4 +1,5 @@
 import '../../domain/hijri/hijri_service.dart';
+import '../../domain/moments/moment.dart';
 import '../../domain/prayer/prayer_settings.dart';
 import '../../domain/prayer/prayer_times_service.dart';
 import '../../l10n/app_localizations.dart';
@@ -57,4 +58,33 @@ extension WaqtLabels on AppLocalizations {
   };
 
   String hijriOffset(int d) => d == 0 ? hijriOffsetNone : hijriOffsetDays(d > 0 ? '+$d' : '−${d.abs()}');
+
+  String moment(Moment m) {
+    final prayer = m.prayer == null ? '' : momentId(m.prayer!);
+    return switch (m.id) {
+      MomentId.betweenAdhanIqamah => momentAdhanIqamah(prayer),
+      MomentId.afterSalah => momentAfterSalah(prayer),
+      _ => momentId(m.id),
+    };
+  }
+
+  String momentId(MomentId id) => switch (id) {
+    MomentId.fajr => prayerFajr,
+    MomentId.sunrise => waqtMorning,
+    MomentId.dhuhr => prayerDhuhr,
+    MomentId.asr => prayerAsr,
+    MomentId.maghrib => prayerMaghrib,
+    MomentId.isha => prayerIsha,
+    MomentId.morningAdhkar => momentMorningAdhkar,
+    MomentId.eveningAdhkar => momentEveningAdhkar,
+    MomentId.duha => momentDuha,
+    MomentId.bedtime => momentBedtime,
+    MomentId.lastThird => momentLastThird,
+    MomentId.fridayLastHour => momentFridayLastHour,
+    MomentId.betweenAdhanIqamah => momentAdhanIqamah(''),
+    MomentId.afterSalah => momentAfterSalah(''),
+    MomentId.restrictedSunrise => momentRestrictedSunrise,
+    MomentId.restrictedZawal => momentRestrictedZawal,
+    MomentId.restrictedSunset => momentRestrictedSunset,
+  };
 }
