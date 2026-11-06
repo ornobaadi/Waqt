@@ -793,6 +793,114 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Jump to moment'**
   String get debugJump;
+
+  /// No description provided for @statusDraft.
+  ///
+  /// In en, this message translates to:
+  /// **'Draft'**
+  String get statusDraft;
+
+  /// No description provided for @statusChecked.
+  ///
+  /// In en, this message translates to:
+  /// **'Checked'**
+  String get statusChecked;
+
+  /// No description provided for @draftNotice.
+  ///
+  /// In en, this message translates to:
+  /// **'Unreviewed draft, shown in dev builds only'**
+  String get draftNotice;
+
+  /// No description provided for @collectionQuran.
+  ///
+  /// In en, this message translates to:
+  /// **'Qur\'an'**
+  String get collectionQuran;
+
+  /// No description provided for @collectionBukhari.
+  ///
+  /// In en, this message translates to:
+  /// **'Bukhari'**
+  String get collectionBukhari;
+
+  /// No description provided for @collectionMuslim.
+  ///
+  /// In en, this message translates to:
+  /// **'Muslim'**
+  String get collectionMuslim;
+
+  /// No description provided for @collectionAbudawud.
+  ///
+  /// In en, this message translates to:
+  /// **'Abu Dawud'**
+  String get collectionAbudawud;
+
+  /// No description provided for @collectionTirmidhi.
+  ///
+  /// In en, this message translates to:
+  /// **'Tirmidhi'**
+  String get collectionTirmidhi;
+
+  /// No description provided for @collectionNasai.
+  ///
+  /// In en, this message translates to:
+  /// **'Nasa\'i'**
+  String get collectionNasai;
+
+  /// No description provided for @collectionIbnmajah.
+  ///
+  /// In en, this message translates to:
+  /// **'Ibn Majah'**
+  String get collectionIbnmajah;
+
+  /// No description provided for @collectionMalik.
+  ///
+  /// In en, this message translates to:
+  /// **'Muwatta Malik'**
+  String get collectionMalik;
+
+  /// No description provided for @collectionAhmad.
+  ///
+  /// In en, this message translates to:
+  /// **'Ahmad'**
+  String get collectionAhmad;
+
+  /// No description provided for @collectionDarimi.
+  ///
+  /// In en, this message translates to:
+  /// **'Darimi'**
+  String get collectionDarimi;
+
+  /// No description provided for @collectionAdab.
+  ///
+  /// In en, this message translates to:
+  /// **'al-Adab al-Mufrad'**
+  String get collectionAdab;
+
+  /// No description provided for @collectionHakim.
+  ///
+  /// In en, this message translates to:
+  /// **'al-Hakim'**
+  String get collectionHakim;
+
+  /// No description provided for @collectionIbnhibban.
+  ///
+  /// In en, this message translates to:
+  /// **'Ibn Hibban'**
+  String get collectionIbnhibban;
+
+  /// No description provided for @collectionBayhaqi.
+  ///
+  /// In en, this message translates to:
+  /// **'Bayhaqi'**
+  String get collectionBayhaqi;
+
+  /// No description provided for @collectionNasaiKubra.
+  ///
+  /// In en, this message translates to:
+  /// **'al-Sunan al-Kubra'**
+  String get collectionNasaiKubra;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -1,4 +1,37 @@
-# Content (source of truth)
+# Content: the source of truth
 
-Religious content lives here as reviewed YAML and is compiled to `assets/content.db` (Phase 3).
-Nothing outside this folder may ship religious text. See PRD §7 for required source fields.
+Every word of religious text in Waqt comes from this folder, and nothing else in the app may show any.
+`dart run tool/content.dart build` compiles `items/*.yaml` and `moments.yaml` into `assets/content/content.json`.
+
+## Rules (PRD §7)
+- **No reference, no item.** Every item has `source.collection`, `source.number` and a `source.url` on sunnah.com, quran.com or dorar.net.
+- **Sahih or hasan only.** Weak narrations are excluded, not labelled. The validator rejects any other grade.
+- **An LLM may suggest a reference; it is never the source of text.** Arabic, transliteration and translations are copied by a person from the primary source (or a licensed translation) and credited.
+- **Release builds show approved items only.** This is enforced twice: by `build --release`, and again in the app.
+
+## Review workflow
+| Status | Who | What it means | Required fields |
+|---|---|---|---|
+| `draft` | anyone | A candidate reference. May be wrong. | id, kind, title.en, source.type/collection/number/url |
+| `checked` | trained checker | Every field compared with the primary source. | + arabic, translations.en.text/translator, narrator, grade, graded_by, review.checked_by/checked_on |
+| `approved` | qualified scholar | Signed off for users. | + review.approved_by/approved_on |
+
+To promote an item, a person opens `source.url`, corrects the number if needed, pastes the Arabic and a licensed translation, fills in narrator and grading, and sets `status: checked` with their name and the date.
+A scholar then reviews it and sets `approved`. Each change goes through a PR so the history is the audit trail.
+Bump `version` whenever an item's text changes, and bump `content/VERSION` for every content release.
+
+## Files
+- `items/*.yaml`: items, grouped however is convenient. `v1_candidates.yaml` holds the PRD §6 catalogue as references only, all drafts.
+- `moments.yaml`: moment id (see `lib/domain/moments/moment.dart`) → ordered item ids.
+- `VERSION`: content version shown in the app.
+
+## Commands
+```
+dart run tool/content.dart check            # validate
+dart run tool/content.dart build            # dev bundle: drafts visible in dev builds, marked DRAFT
+dart run tool/content.dart build --release  # approved only, for store builds
+```
+
+## Open decisions
+- English translation and licence (Sahih International? Darussalam? per-language).
+- Who the scholar reviewer(s) are and how sign-off is recorded beyond the YAML fields.

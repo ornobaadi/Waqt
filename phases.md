@@ -27,8 +27,9 @@ Each phase ends with a shippable internal build. Content work runs in parallel f
 Margins awaiting scholar review: see `docs/moment-rules.md`.
 
 ## Phase 3 — Content system (parallel, weeks 1–6)
-- [ ] YAML schema + validator + build script → `content.db`
-- [ ] Research & draft v1 catalogue (PRD §6), every item with full source fields
+- [x] YAML schema + validator + build script → `assets/content/content.json` (JSON instead of SQLite for v1; see architecture.md)
+- [x] Draft v1 catalogue as candidate references (23 items, all `draft`, no text)
+- [ ] Fill text + grading from primary sources (human)
 - [ ] Human verification against sunnah.com / quran.com (status `checked`)
 - [ ] Scholar review (status `approved`)
 

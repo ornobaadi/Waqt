@@ -65,7 +65,7 @@ abstract class MomentRule {
 ## Content pipeline
 1. Content authored in `content/*.yaml` (one file per moment / collection), reviewed via PRs.
 2. CI script validates schema: every item must have source fields; `review_status` must be `approved` for release builds.
-3. Script compiles to `assets/content.db` + content version number.
+3. `dart run tool/content.dart build` compiles to `assets/content/content.json` + content version (`content/VERSION`). **v1 decision:** a JSON bundle instead of a Drift/SQLite DB. ~100 items need no query engine, and this avoids native SQLite and codegen in the build. The schema maps 1:1 to the tables below, so moving to Drift later is mechanical.
 4. Optional later: OTA content updates (signed DB download), still offline-first.
 
 ### Schema (simplified)

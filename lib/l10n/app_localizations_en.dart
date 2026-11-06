@@ -383,4 +383,58 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get debugJump => 'Jump to moment';
+
+  @override
+  String get statusDraft => 'Draft';
+
+  @override
+  String get statusChecked => 'Checked';
+
+  @override
+  String get draftNotice => 'Unreviewed draft, shown in dev builds only';
+
+  @override
+  String get collectionQuran => 'Qur\'an';
+
+  @override
+  String get collectionBukhari => 'Bukhari';
+
+  @override
+  String get collectionMuslim => 'Muslim';
+
+  @override
+  String get collectionAbudawud => 'Abu Dawud';
+
+  @override
+  String get collectionTirmidhi => 'Tirmidhi';
+
+  @override
+  String get collectionNasai => 'Nasa\'i';
+
+  @override
+  String get collectionIbnmajah => 'Ibn Majah';
+
+  @override
+  String get collectionMalik => 'Muwatta Malik';
+
+  @override
+  String get collectionAhmad => 'Ahmad';
+
+  @override
+  String get collectionDarimi => 'Darimi';
+
+  @override
+  String get collectionAdab => 'al-Adab al-Mufrad';
+
+  @override
+  String get collectionHakim => 'al-Hakim';
+
+  @override
+  String get collectionIbnhibban => 'Ibn Hibban';
+
+  @override
+  String get collectionBayhaqi => 'Bayhaqi';
+
+  @override
+  String get collectionNasaiKubra => 'al-Sunan al-Kubra';
 }

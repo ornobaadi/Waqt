@@ -1,0 +1,50 @@
+# moment id (MomentId) → ordered item ids. Order = display order.
+
+lastThird:
+  - last_third_descent_bukhari
+  - last_third_descent_muslim
+  - seeking_forgiveness_before_dawn
+
+fridayLastHour:
+  - friday_hour_of_response
+  - friday_hour_after_asr
+  - friday_salawat
+
+betweenAdhanIqamah:
+  - dua_between_adhan_iqamah_abudawud
+  - dua_between_adhan_iqamah_tirmidhi
+
+afterSalah:
+  - after_salah_istighfar
+  - after_salah_tasbih
+  - after_salah_ayat_al_kursi
+
+morningAdhkar:
+  - sayyid_al_istighfar
+  - protection_by_the_name
+
+eveningAdhkar:
+  - sayyid_al_istighfar
+  - protection_by_the_name
+
+duha:
+  - duha_charity_of_joints
+  - duha_prayer_of_the_oft_returning
+
+restrictedSunrise:
+  - restricted_three_times
+  - restricted_after_fajr_asr
+
+restrictedZawal:
+  - restricted_three_times
+
+restrictedSunset:
+  - restricted_three_times
+  - restricted_after_fajr_asr
+
+bedtime:
+  - bedtime_wudu_right_side
+  - bedtime_bismika
+  - bedtime_three_quls
+  - bedtime_ayat_al_kursi
+  - bedtime_tasbih_fatimah

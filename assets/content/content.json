@@ -1,0 +1,702 @@
+{
+ "schema": 1,
+ "version": "0.1.0",
+ "release": false,
+ "items": {
+  "last_third_descent_bukhari": {
+   "id": "last_third_descent_bukhari",
+   "kind": "action",
+   "title": {
+    "en": "Calling upon Allah in the last third of the night"
+   },
+   "arabic": null,
+   "transliteration": null,
+   "translations": {},
+   "source": {
+    "type": "hadith",
+    "collection": "bukhari",
+    "number": "1145",
+    "narrator": null,
+    "grade": null,
+    "graded_by": null,
+    "url": "https://sunnah.com/bukhari:1145"
+   },
+   "review": {
+    "status": "draft",
+    "checked_by": null,
+    "checked_on": null,
+    "approved_by": null,
+    "approved_on": null,
+    "notes": "Candidate reference drafted from memory by an LLM. Verify collection, number, wording, narrator and grade against the primary source before marking checked."
+   },
+   "version": 1
+  },
+  "last_third_descent_muslim": {
+   "id": "last_third_descent_muslim",
+   "kind": "action",
+   "title": {
+    "en": "Calling upon Allah in the last third of the night"
+   },
+   "arabic": null,
+   "transliteration": null,
+   "translations": {},
+   "source": {
+    "type": "hadith",
+    "collection": "muslim",
+    "number": "758",
+    "narrator": null,
+    "grade": null,
+    "graded_by": null,
+    "url": "https://sunnah.com/muslim:758"
+   },
+   "review": {
+    "status": "draft",
+    "checked_by": null,
+    "checked_on": null,
+    "approved_by": null,
+    "approved_on": null,
+    "notes": "Candidate reference drafted from memory by an LLM. Verify collection, number, wording, narrator and grade against the primary source before marking checked."
+   },
+   "version": 1
+  },
+  "seeking_forgiveness_before_dawn": {
+   "id": "seeking_forgiveness_before_dawn",
+   "kind": "recitation",
+   "title": {
+    "en": "Those who seek forgiveness before dawn"
+   },
+   "arabic": null,
+   "transliteration": null,
+   "translations": {},
+   "source": {
+    "type": "quran",
+    "collection": "quran",
+    "number": "51:18",
+    "narrator": null,
+    "grade": null,
+    "graded_by": null,
+    "url": "https://quran.com/51/18"
+   },
+   "review": {
+    "status": "draft",
+    "checked_by": null,
+    "checked_on": null,
+    "approved_by": null,
+    "approved_on": null,
+    "notes": "Candidate reference drafted from memory by an LLM. Verify collection, number, wording, narrator and grade against the primary source before marking checked."
+   },
+   "version": 1
+  },
+  "friday_hour_of_response": {
+   "id": "friday_hour_of_response",
+   "kind": "action",
+   "title": {
+    "en": "The hour of response on Friday"
+   },
+   "arabic": null,
+   "transliteration": null,
+   "translations": {},
+   "source": {
+    "type": "hadith",
+    "collection": "bukhari",
+    "number": "935",
+    "narrator": null,
+    "grade": null,
+    "graded_by": null,
+    "url": "https://sunnah.com/bukhari:935"
+   },
+   "review": {
+    "status": "draft",
+    "checked_by": null,
+    "checked_on": null,
+    "approved_by": null,
+    "approved_on": null,
+    "notes": "Candidate reference drafted from memory by an LLM. Verify collection, number, wording, narrator and grade against the primary source before marking checked."
+   },
+   "version": 1
+  },
+  "friday_hour_after_asr": {
+   "id": "friday_hour_after_asr",
+   "kind": "action",
+   "title": {
+    "en": "Seeking the Friday hour after Asr"
+   },
+   "arabic": null,
+   "transliteration": null,
+   "translations": {},
+   "source": {
+    "type": "hadith",
+    "collection": "abudawud",
+    "number": "1048",
+    "narrator": null,
+    "grade": null,
+    "graded_by": null,
+    "url": "https://sunnah.com/abudawud:1048"
+   },
+   "review": {
+    "status": "draft",
+    "checked_by": null,
+    "checked_on": null,
+    "approved_by": null,
+    "approved_on": null,
+    "notes": "Candidate reference drafted from memory by an LLM. Verify collection, number, wording, narrator and grade against the primary source before marking checked."
+   },
+   "version": 1
+  },
+  "friday_salawat": {
+   "id": "friday_salawat",
+   "kind": "dhikr",
+   "title": {
+    "en": "Sending blessings on the Prophet on Friday"
+   },
+   "arabic": null,
+   "transliteration": null,
+   "translations": {},
+   "source": {
+    "type": "hadith",
+    "collection": "abudawud",
+    "number": "1047",
+    "narrator": null,
+    "grade": null,
+    "graded_by": null,
+    "url": "https://sunnah.com/abudawud:1047"
+   },
+   "review": {
+    "status": "draft",
+    "checked_by": null,
+    "checked_on": null,
+    "approved_by": null,
+    "approved_on": null,
+    "notes": "Candidate reference drafted from memory by an LLM. Verify collection, number, wording, narrator and grade against the primary source before marking checked."
+   },
+   "version": 1
+  },
+  "dua_between_adhan_iqamah_abudawud": {
+   "id": "dua_between_adhan_iqamah_abudawud",
+   "kind": "dua",
+   "title": {
+    "en": "Supplication between the adhan and iqamah"
+   },
+   "arabic": null,
+   "transliteration": null,
+   "translations": {},
+   "source": {
+    "type": "hadith",
+    "collection": "abudawud",
+    "number": "521",
+    "narrator": null,
+    "grade": null,
+    "graded_by": null,
+    "url": "https://sunnah.com/abudawud:521"
+   },
+   "review": {
+    "status": "draft",
+    "checked_by": null,
+    "checked_on": null,
+    "approved_by": null,
+    "approved_on": null,
+    "notes": "Candidate reference drafted from memory by an LLM. Verify collection, number, wording, narrator and grade against the primary source before marking checked."
+   },
+   "version": 1
+  },
+  "dua_between_adhan_iqamah_tirmidhi": {
+   "id": "dua_between_adhan_iqamah_tirmidhi",
+   "kind": "dua",
+   "title": {
+    "en": "Supplication between the adhan and iqamah"
+   },
+   "arabic": null,
+   "transliteration": null,
+   "translations": {},
+   "source": {
+    "type": "hadith",
+    "collection": "tirmidhi",
+    "number": "212",
+    "narrator": null,
+    "grade": null,
+    "graded_by": null,
+    "url": "https://sunnah.com/tirmidhi:212"
+   },
+   "review": {
+    "status": "draft",
+    "checked_by": null,
+    "checked_on": null,
+    "approved_by": null,
+    "approved_on": null,
+    "notes": "Candidate reference drafted from memory by an LLM. Verify collection, number, wording, narrator and grade against the primary source before marking checked."
+   },
+   "version": 1
+  },
+  "after_salah_istighfar": {
+   "id": "after_salah_istighfar",
+   "kind": "dhikr",
+   "title": {
+    "en": "Seeking forgiveness after the prayer"
+   },
+   "arabic": null,
+   "transliteration": null,
+   "translations": {},
+   "source": {
+    "type": "hadith",
+    "collection": "muslim",
+    "number": "591",
+    "narrator": null,
+    "grade": null,
+    "graded_by": null,
+    "url": "https://sunnah.com/muslim:591"
+   },
+   "review": {
+    "status": "draft",
+    "checked_by": null,
+    "checked_on": null,
+    "approved_by": null,
+    "approved_on": null,
+    "notes": "Candidate reference drafted from memory by an LLM. Verify collection, number, wording, narrator and grade against the primary source before marking checked."
+   },
+   "version": 1
+  },
+  "after_salah_tasbih": {
+   "id": "after_salah_tasbih",
+   "kind": "dhikr",
+   "title": {
+    "en": "Glorification after the prayer"
+   },
+   "arabic": null,
+   "transliteration": null,
+   "translations": {},
+   "source": {
+    "type": "hadith",
+    "collection": "muslim",
+    "number": "597",
+    "narrator": null,
+    "grade": null,
+    "graded_by": null,
+    "url": "https://sunnah.com/muslim:597"
+   },
+   "review": {
+    "status": "draft",
+    "checked_by": null,
+    "checked_on": null,
+    "approved_by": null,
+    "approved_on": null,
+    "notes": "Candidate reference drafted from memory by an LLM. Verify collection, number, wording, narrator and grade against the primary source before marking checked."
+   },
+   "version": 1
+  },
+  "after_salah_ayat_al_kursi": {
+   "id": "after_salah_ayat_al_kursi",
+   "kind": "recitation",
+   "title": {
+    "en": "Ayat al-Kursi after the prayer"
+   },
+   "arabic": null,
+   "transliteration": null,
+   "translations": {},
+   "source": {
+    "type": "hadith",
+    "collection": "nasai_kubra",
+    "number": "9928",
+    "narrator": null,
+    "grade": null,
+    "graded_by": null,
+    "url": "https://dorar.net/hadith/search?q=%D8%A2%D9%8A%D8%A9%20%D8%A7%D9%84%D9%83%D8%B1%D8%B3%D9%8A%20%D8%AF%D8%A8%D8%B1%20%D9%83%D9%84%20%D8%B5%D9%84%D8%A7%D8%A9"
+   },
+   "review": {
+    "status": "draft",
+    "checked_by": null,
+    "checked_on": null,
+    "approved_by": null,
+    "approved_on": null,
+    "notes": "Candidate reference drafted from memory by an LLM. Verify collection, number, wording, narrator and grade against the primary source before marking checked."
+   },
+   "version": 1
+  },
+  "sayyid_al_istighfar": {
+   "id": "sayyid_al_istighfar",
+   "kind": "dua",
+   "title": {
+    "en": "The master supplication for forgiveness"
+   },
+   "arabic": null,
+   "transliteration": null,
+   "translations": {},
+   "source": {
+    "type": "hadith",
+    "collection": "bukhari",
+    "number": "6306",
+    "narrator": null,
+    "grade": null,
+    "graded_by": null,
+    "url": "https://sunnah.com/bukhari:6306"
+   },
+   "review": {
+    "status": "draft",
+    "checked_by": null,
+    "checked_on": null,
+    "approved_by": null,
+    "approved_on": null,
+    "notes": "Candidate reference drafted from memory by an LLM. Verify collection, number, wording, narrator and grade against the primary source before marking checked."
+   },
+   "version": 1
+  },
+  "protection_by_the_name": {
+   "id": "protection_by_the_name",
+   "kind": "dhikr",
+   "title": {
+    "en": "Seeking protection by the Name of Allah"
+   },
+   "arabic": null,
+   "transliteration": null,
+   "translations": {},
+   "source": {
+    "type": "hadith",
+    "collection": "abudawud",
+    "number": "5088",
+    "narrator": null,
+    "grade": null,
+    "graded_by": null,
+    "url": "https://sunnah.com/abudawud:5088"
+   },
+   "review": {
+    "status": "draft",
+    "checked_by": null,
+    "checked_on": null,
+    "approved_by": null,
+    "approved_on": null,
+    "notes": "Candidate reference drafted from memory by an LLM. Verify collection, number, wording, narrator and grade against the primary source before marking checked."
+   },
+   "version": 1
+  },
+  "duha_charity_of_joints": {
+   "id": "duha_charity_of_joints",
+   "kind": "action",
+   "title": {
+    "en": "Duha prayer as charity for every joint"
+   },
+   "arabic": null,
+   "transliteration": null,
+   "translations": {},
+   "source": {
+    "type": "hadith",
+    "collection": "muslim",
+    "number": "720",
+    "narrator": null,
+    "grade": null,
+    "graded_by": null,
+    "url": "https://sunnah.com/muslim:720"
+   },
+   "review": {
+    "status": "draft",
+    "checked_by": null,
+    "checked_on": null,
+    "approved_by": null,
+    "approved_on": null,
+    "notes": "Candidate reference drafted from memory by an LLM. Verify collection, number, wording, narrator and grade against the primary source before marking checked."
+   },
+   "version": 1
+  },
+  "duha_prayer_of_the_oft_returning": {
+   "id": "duha_prayer_of_the_oft_returning",
+   "kind": "action",
+   "title": {
+    "en": "The preferred time for Duha"
+   },
+   "arabic": null,
+   "transliteration": null,
+   "translations": {},
+   "source": {
+    "type": "hadith",
+    "collection": "muslim",
+    "number": "748",
+    "narrator": null,
+    "grade": null,
+    "graded_by": null,
+    "url": "https://sunnah.com/muslim:748"
+   },
+   "review": {
+    "status": "draft",
+    "checked_by": null,
+    "checked_on": null,
+    "approved_by": null,
+    "approved_on": null,
+    "notes": "Candidate reference drafted from memory by an LLM. Verify collection, number, wording, narrator and grade against the primary source before marking checked."
+   },
+   "version": 1
+  },
+  "restricted_three_times": {
+   "id": "restricted_three_times",
+   "kind": "etiquette",
+   "title": {
+    "en": "Three times in which prayer is restricted"
+   },
+   "arabic": null,
+   "transliteration": null,
+   "translations": {},
+   "source": {
+    "type": "hadith",
+    "collection": "muslim",
+    "number": "831",
+    "narrator": null,
+    "grade": null,
+    "graded_by": null,
+    "url": "https://sunnah.com/muslim:831"
+   },
+   "review": {
+    "status": "draft",
+    "checked_by": null,
+    "checked_on": null,
+    "approved_by": null,
+    "approved_on": null,
+    "notes": "Candidate reference drafted from memory by an LLM. Verify collection, number, wording, narrator and grade against the primary source before marking checked."
+   },
+   "version": 1
+  },
+  "restricted_after_fajr_asr": {
+   "id": "restricted_after_fajr_asr",
+   "kind": "etiquette",
+   "title": {
+    "en": "No voluntary prayer after Fajr and after Asr"
+   },
+   "arabic": null,
+   "transliteration": null,
+   "translations": {},
+   "source": {
+    "type": "hadith",
+    "collection": "bukhari",
+    "number": "586",
+    "narrator": null,
+    "grade": null,
+    "graded_by": null,
+    "url": "https://sunnah.com/bukhari:586"
+   },
+   "review": {
+    "status": "draft",
+    "checked_by": null,
+    "checked_on": null,
+    "approved_by": null,
+    "approved_on": null,
+    "notes": "Candidate reference drafted from memory by an LLM. Verify collection, number, wording, narrator and grade against the primary source before marking checked."
+   },
+   "version": 1
+  },
+  "bedtime_wudu_right_side": {
+   "id": "bedtime_wudu_right_side",
+   "kind": "dua",
+   "title": {
+    "en": "Wudu and lying on the right side at bedtime"
+   },
+   "arabic": null,
+   "transliteration": null,
+   "translations": {},
+   "source": {
+    "type": "hadith",
+    "collection": "bukhari",
+    "number": "247",
+    "narrator": null,
+    "grade": null,
+    "graded_by": null,
+    "url": "https://sunnah.com/bukhari:247"
+   },
+   "review": {
+    "status": "draft",
+    "checked_by": null,
+    "checked_on": null,
+    "approved_by": null,
+    "approved_on": null,
+    "notes": "Candidate reference drafted from memory by an LLM. Verify collection, number, wording, narrator and grade against the primary source before marking checked."
+   },
+   "version": 1
+  },
+  "bedtime_bismika": {
+   "id": "bedtime_bismika",
+   "kind": "dua",
+   "title": {
+    "en": "Supplication on lying down to sleep"
+   },
+   "arabic": null,
+   "transliteration": null,
+   "translations": {},
+   "source": {
+    "type": "hadith",
+    "collection": "bukhari",
+    "number": "6324",
+    "narrator": null,
+    "grade": null,
+    "graded_by": null,
+    "url": "https://sunnah.com/bukhari:6324"
+   },
+   "review": {
+    "status": "draft",
+    "checked_by": null,
+    "checked_on": null,
+    "approved_by": null,
+    "approved_on": null,
+    "notes": "Candidate reference drafted from memory by an LLM. Verify collection, number, wording, narrator and grade against the primary source before marking checked."
+   },
+   "version": 1
+  },
+  "bedtime_three_quls": {
+   "id": "bedtime_three_quls",
+   "kind": "recitation",
+   "title": {
+    "en": "The last three surahs at bedtime"
+   },
+   "arabic": null,
+   "transliteration": null,
+   "translations": {},
+   "source": {
+    "type": "hadith",
+    "collection": "bukhari",
+    "number": "5017",
+    "narrator": null,
+    "grade": null,
+    "graded_by": null,
+    "url": "https://sunnah.com/bukhari:5017"
+   },
+   "review": {
+    "status": "draft",
+    "checked_by": null,
+    "checked_on": null,
+    "approved_by": null,
+    "approved_on": null,
+    "notes": "Candidate reference drafted from memory by an LLM. Verify collection, number, wording, narrator and grade against the primary source before marking checked."
+   },
+   "version": 1
+  },
+  "bedtime_ayat_al_kursi": {
+   "id": "bedtime_ayat_al_kursi",
+   "kind": "recitation",
+   "title": {
+    "en": "Ayat al-Kursi at bedtime"
+   },
+   "arabic": null,
+   "transliteration": null,
+   "translations": {},
+   "source": {
+    "type": "hadith",
+    "collection": "bukhari",
+    "number": "2311",
+    "narrator": null,
+    "grade": null,
+    "graded_by": null,
+    "url": "https://sunnah.com/bukhari:2311"
+   },
+   "review": {
+    "status": "draft",
+    "checked_by": null,
+    "checked_on": null,
+    "approved_by": null,
+    "approved_on": null,
+    "notes": "Candidate reference drafted from memory by an LLM. Verify collection, number, wording, narrator and grade against the primary source before marking checked."
+   },
+   "version": 1
+  },
+  "bedtime_tasbih_fatimah": {
+   "id": "bedtime_tasbih_fatimah",
+   "kind": "dhikr",
+   "title": {
+    "en": "The tasbih taught to Fatimah at bedtime"
+   },
+   "arabic": null,
+   "transliteration": null,
+   "translations": {},
+   "source": {
+    "type": "hadith",
+    "collection": "bukhari",
+    "number": "3705",
+    "narrator": null,
+    "grade": null,
+    "graded_by": null,
+    "url": "https://sunnah.com/bukhari:3705"
+   },
+   "review": {
+    "status": "draft",
+    "checked_by": null,
+    "checked_on": null,
+    "approved_by": null,
+    "approved_on": null,
+    "notes": "Candidate reference drafted from memory by an LLM. Verify collection, number, wording, narrator and grade against the primary source before marking checked."
+   },
+   "version": 1
+  },
+  "friday_surah_al_kahf": {
+   "id": "friday_surah_al_kahf",
+   "kind": "recitation",
+   "title": {
+    "en": "Reciting Surat al-Kahf on Friday"
+   },
+   "arabic": null,
+   "transliteration": null,
+   "translations": {},
+   "source": {
+    "type": "hadith",
+    "collection": "hakim",
+    "number": "3392",
+    "narrator": null,
+    "grade": null,
+    "graded_by": null,
+    "url": "https://dorar.net/hadith/search?q=%D9%85%D9%86%20%D9%82%D8%B1%D8%A3%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D9%83%D9%87%D9%81%20%D9%8A%D9%88%D9%85%20%D8%A7%D9%84%D8%AC%D9%85%D8%B9%D8%A9"
+   },
+   "review": {
+    "status": "draft",
+    "checked_by": null,
+    "checked_on": null,
+    "approved_by": null,
+    "approved_on": null,
+    "notes": "Candidate reference drafted from memory by an LLM. Verify collection, number, wording, narrator and grade against the primary source before marking checked."
+   },
+   "version": 1
+  }
+ },
+ "moments": {
+  "lastThird": [
+   "last_third_descent_bukhari",
+   "last_third_descent_muslim",
+   "seeking_forgiveness_before_dawn"
+  ],
+  "fridayLastHour": [
+   "friday_hour_of_response",
+   "friday_hour_after_asr",
+   "friday_salawat"
+  ],
+  "betweenAdhanIqamah": [
+   "dua_between_adhan_iqamah_abudawud",
+   "dua_between_adhan_iqamah_tirmidhi"
+  ],
+  "afterSalah": [
+   "after_salah_istighfar",
+   "after_salah_tasbih",
+   "after_salah_ayat_al_kursi"
+  ],
+  "morningAdhkar": [
+   "sayyid_al_istighfar",
+   "protection_by_the_name"
+  ],
+  "eveningAdhkar": [
+   "sayyid_al_istighfar",
+   "protection_by_the_name"
+  ],
+  "duha": [
+   "duha_charity_of_joints",
+   "duha_prayer_of_the_oft_returning"
+  ],
+  "restrictedSunrise": [
+   "restricted_three_times",
+   "restricted_after_fajr_asr"
+  ],
+  "restrictedZawal": [
+   "restricted_three_times"
+  ],
+  "restrictedSunset": [
+   "restricted_three_times",
+   "restricted_after_fajr_asr"
+  ],
+  "bedtime": [
+   "bedtime_wudu_right_side",
+   "bedtime_bismika",
+   "bedtime_three_quls",
+   "bedtime_ayat_al_kursi",
+   "bedtime_tasbih_fatimah"
+  ]
+ }
+}

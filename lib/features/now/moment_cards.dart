@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 
 import '../../core/theme/tokens.dart';
 import '../../core/theme/waqt_theme.dart';
+import '../../data/content/content_repository.dart';
 import '../../domain/moments/moment.dart';
 import '../../l10n/app_localizations.dart';
 import '../common/labels.dart';
@@ -16,9 +17,12 @@ DateFormat clockFormat(BuildContext context) {
 /// waqt itself. Content (duas, actions with references) arrives in Phase 3;
 /// until then the card names the moment and how long it lasts.
 class RightNowCard extends StatelessWidget {
-  const RightNowCard({super.key, required this.moment, required this.now});
+  const RightNowCard({super.key, required this.moment, required this.now, this.items = const []});
   final Moment moment;
   final DateTime now;
+
+  /// Linked content (reviewed only in release builds). At most three show.
+  final List<ContentItem> items;
 
   @override
   Widget build(BuildContext context) {
@@ -65,6 +69,10 @@ class RightNowCard extends StatelessWidget {
                 child: Text(l.kindRestricted, style: WaqtText.caption.copyWith(color: ink)),
               ),
             ],
+            if (items.isNotEmpty) ...[
+              const SizedBox(height: WaqtSpace.x4),
+              for (final item in items.take(3)) _ItemRow(item: item),
+            ],
             const SizedBox(height: WaqtSpace.x5),
             // How much of the window has passed. Honest, glanceable, no copy.
             LinearProgressIndicator(
@@ -79,6 +87,75 @@ class RightNowCard extends StatelessWidget {
       ),
     );
   }
+}
+
+/// One action row: what to do, and where it comes from.
+class _ItemRow extends StatelessWidget {
+  const _ItemRow({required this.item});
+  final ContentItem item;
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+    final t = WaqtTokens.of(context);
+    final ink = t.heroInk;
+    final lang = Localizations.localeOf(context).languageCode;
+    return Semantics(
+      label: '${item.titleFor(lang)}. ${l.reference(item.source)}${item.approved ? '' : '. ${l.draftNotice}'}',
+      excludeSemantics: true,
+      child: Container(
+        width: double.infinity,
+        margin: const EdgeInsets.only(top: WaqtSpace.x2),
+        padding: const EdgeInsets.fromLTRB(WaqtSpace.x3, WaqtSpace.x3, WaqtSpace.x3, WaqtSpace.x3),
+        decoration: BoxDecoration(
+          color: ink.withValues(alpha: 0.07),
+          borderRadius: BorderRadius.circular(WaqtRadii.card - WaqtSpace.x5 + WaqtSpace.x1),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(item.titleFor(lang), style: WaqtText.bodyStrong.copyWith(color: ink)),
+            const SizedBox(height: WaqtSpace.x2),
+            Wrap(
+              spacing: WaqtSpace.x2,
+              runSpacing: WaqtSpace.x1,
+              children: [
+                _Chip(text: l.reference(item.source), fg: ink, border: ink.withValues(alpha: 0.3)),
+                if (!item.approved)
+                  _Chip(
+                    text: (item.status == ReviewStatus.checked ? l.statusChecked : l.statusDraft).toUpperCase(),
+                    fg: const Color(0xFF14110C),
+                    fill: t.accent,
+                  ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _Chip extends StatelessWidget {
+  const _Chip({required this.text, required this.fg, this.border, this.fill});
+  final String text;
+  final Color fg;
+  final Color? border;
+  final Color? fill;
+
+  @override
+  Widget build(BuildContext context) => Container(
+    padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 3),
+    decoration: BoxDecoration(
+      color: fill,
+      border: border == null ? null : Border.all(color: border!),
+      borderRadius: BorderRadius.circular(99),
+    ),
+    child: Text(
+      text,
+      style: WaqtText.caption.copyWith(color: fg, fontWeight: FontWeight.w600),
+    ),
+  );
 }
 
 class ComingUp extends StatelessWidget {

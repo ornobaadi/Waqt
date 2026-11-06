@@ -12,10 +12,12 @@ flutter run --flavor prod    # com.ornobaadi.waqt
 
 ## Build
 ```
+dart run tool/content.dart build --release      # before any prod build: approved content only
 flutter build apk --flavor dev --debug          # quick test install
 flutter build apk --flavor prod --release --split-per-abi
 flutter build appbundle --flavor prod --release  # Play Store
 ```
+After a prod build, run `dart run tool/content.dart build` again to restore the dev bundle (drafts visible).
 Release builds are still signed with the debug key; add a keystore before publishing.
 
 ## Screenshots

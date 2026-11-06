@@ -16,6 +16,9 @@ jobs:
       - run: flutter pub get
       - run: dart format --line-length 120 --output=none --set-exit-if-changed lib test
       - run: flutter analyze --fatal-infos
+      - run: dart run tool/content.dart check
+      # A release bundle must build too (approved items only).
+      - run: dart run tool/content.dart build --release && git checkout assets/content/content.json
       - run: flutter test --exclude-tags screenshots
       # The engine works in device-local time; exercise real DST changeovers.
       - run: TZ=Europe/London flutter test test/domain/moment_engine_test.dart

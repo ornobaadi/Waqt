@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:waqt/app/app.dart';
 import 'package:waqt/app/app_state.dart';
 import 'package:waqt/core/clock/clock.dart';
+import 'package:waqt/data/content/content_repository.dart';
 import 'package:waqt/data/user/user_prefs.dart';
 import 'package:waqt/domain/location/place.dart';
 
@@ -54,6 +55,13 @@ Future<Widget> app({DateTime? at, Place? place, Locale? locale}) async {
   return ProviderScope(
     overrides: [
       sharedPrefsProvider.overrideWithValue(prefs),
+      // Real bundle, read synchronously: asset I/O doesn't complete inside pumps.
+      contentProvider.overrideWith(
+        (ref) => ContentBundle.parse(
+          File('assets/content/content.json').readAsStringSync(),
+          includeUnreviewed: true,
+        ),
+      ),
       if (at != null) nowProvider.overrideWith((ref) => Stream.value(at)),
       if (locale != null) localeOverrideProvider.overrideWith(() => _Locale(locale)),
     ],

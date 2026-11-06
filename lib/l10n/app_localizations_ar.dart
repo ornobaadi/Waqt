@@ -379,4 +379,58 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get debugJump => 'الانتقال إلى وقت';
+
+  @override
+  String get statusDraft => 'مسودة';
+
+  @override
+  String get statusChecked => 'مُراجَع';
+
+  @override
+  String get draftNotice => 'مسودة غير مراجعة، تظهر في نسخ التطوير فقط';
+
+  @override
+  String get collectionQuran => 'القرآن';
+
+  @override
+  String get collectionBukhari => 'البخاري';
+
+  @override
+  String get collectionMuslim => 'مسلم';
+
+  @override
+  String get collectionAbudawud => 'أبو داود';
+
+  @override
+  String get collectionTirmidhi => 'الترمذي';
+
+  @override
+  String get collectionNasai => 'النسائي';
+
+  @override
+  String get collectionIbnmajah => 'ابن ماجه';
+
+  @override
+  String get collectionMalik => 'موطأ مالك';
+
+  @override
+  String get collectionAhmad => 'أحمد';
+
+  @override
+  String get collectionDarimi => 'الدارمي';
+
+  @override
+  String get collectionAdab => 'الأدب المفرد';
+
+  @override
+  String get collectionHakim => 'الحاكم';
+
+  @override
+  String get collectionIbnhibban => 'ابن حبان';
+
+  @override
+  String get collectionBayhaqi => 'البيهقي';
+
+  @override
+  String get collectionNasaiKubra => 'السنن الكبرى';
 }

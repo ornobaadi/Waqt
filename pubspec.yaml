@@ -29,6 +29,7 @@ dev_dependencies:
   flutter_lints: ^6.0.0
   riverpod_generator: ^4.0.9
   build_runner: ^2.16.2
+  yaml: ^3.1.4
 
 flutter:
 
@@ -36,6 +37,7 @@ flutter:
   generate: true
   assets:
     - assets/data/
+    - assets/content/
   fonts:
     - family: SchibstedGrotesk
       fonts:

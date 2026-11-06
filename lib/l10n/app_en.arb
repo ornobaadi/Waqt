@@ -195,5 +195,23 @@
     }
   },
   "timelineNow": "Now",
-  "debugJump": "Jump to moment"
+  "debugJump": "Jump to moment",
+  "statusDraft": "Draft",
+  "statusChecked": "Checked",
+  "draftNotice": "Unreviewed draft, shown in dev builds only",
+  "collectionQuran": "Qur'an",
+  "collectionBukhari": "Bukhari",
+  "collectionMuslim": "Muslim",
+  "collectionAbudawud": "Abu Dawud",
+  "collectionTirmidhi": "Tirmidhi",
+  "collectionNasai": "Nasa'i",
+  "collectionIbnmajah": "Ibn Majah",
+  "collectionMalik": "Muwatta Malik",
+  "collectionAhmad": "Ahmad",
+  "collectionDarimi": "Darimi",
+  "collectionAdab": "al-Adab al-Mufrad",
+  "collectionHakim": "al-Hakim",
+  "collectionIbnhibban": "Ibn Hibban",
+  "collectionBayhaqi": "Bayhaqi",
+  "collectionNasaiKubra": "al-Sunan al-Kubra"
 }

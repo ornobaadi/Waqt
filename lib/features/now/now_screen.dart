@@ -9,6 +9,7 @@ import '../../core/config/flavor.dart';
 import '../../core/theme/tokens.dart';
 import '../../core/theme/waqt_theme.dart';
 import '../../core/utils/digits.dart';
+import '../../data/content/content_repository.dart';
 import '../../data/user/user_prefs.dart';
 import '../../domain/moments/moment.dart';
 import '../../domain/prayer/prayer_times_service.dart';
@@ -84,7 +85,7 @@ class NowScreen extends ConsumerWidget {
           ],
           if (moments != null && moments.hero.kind != MomentKind.prayer) ...[
             const SizedBox(height: WaqtSpace.x4),
-            RightNowCard(moment: moments.hero, now: now),
+            RightNowCard(moment: moments.hero, now: now, items: ref.watch(momentContentProvider(moments.hero.id))),
           ],
           if (moments != null && moments.upcoming.isNotEmpty) ...[
             const SizedBox(height: WaqtSpace.x6),

@@ -1,3 +1,4 @@
+import '../../data/content/content_repository.dart';
 import '../../domain/hijri/hijri_service.dart';
 import '../../domain/moments/moment.dart';
 import '../../domain/prayer/prayer_settings.dart';
@@ -87,4 +88,26 @@ extension WaqtLabels on AppLocalizations {
     MomentId.restrictedZawal => momentRestrictedZawal,
     MomentId.restrictedSunset => momentRestrictedSunset,
   };
+
+  String collection(String c) => switch (c) {
+    'quran' => collectionQuran,
+    'bukhari' => collectionBukhari,
+    'muslim' => collectionMuslim,
+    'abudawud' => collectionAbudawud,
+    'tirmidhi' => collectionTirmidhi,
+    'nasai' => collectionNasai,
+    'ibnmajah' => collectionIbnmajah,
+    'malik' => collectionMalik,
+    'ahmad' => collectionAhmad,
+    'darimi' => collectionDarimi,
+    'adab' => collectionAdab,
+    'hakim' => collectionHakim,
+    'ibnhibban' => collectionIbnhibban,
+    'bayhaqi' => collectionBayhaqi,
+    'nasai_kubra' => collectionNasaiKubra,
+    _ => c,
+  };
+
+  /// "Bukhari 1145", "Qur'an 51:18".
+  String reference(ContentSource s) => '${collection(s.collection)} ${s.number}';
 }
