@@ -43,20 +43,6 @@ android {
         resValues = true
     }
 
-    flavorDimensions += "env"
-    productFlavors {
-        create("dev") {
-            dimension = "env"
-            applicationIdSuffix = ".dev"
-            versionNameSuffix = "-dev"
-            resValue("string", "app_name", "Waqt Dev")
-        }
-        create("prod") {
-            dimension = "env"
-            resValue("string", "app_name", "Waqt")
-        }
-    }
-
     signingConfigs {
         if (hasReleaseKey) {
             create("release") {
@@ -68,10 +54,25 @@ android {
         }
     }
 
+    // No product flavors: the build mode is the environment.
+    //   flutter build apk --profile      → "Waqt Dev" (.dev id, debug tools on), installs beside release
+    //   flutter build apk --release      → "Waqt"
+    //   flutter build appbundle --release → Play Store
     buildTypes {
+        getByName("debug") {
+            applicationIdSuffix = ".dev"
+            versionNameSuffix = "-dev"
+            resValue("string", "app_name", "Waqt Dev")
+        }
+        maybeCreate("profile").apply {
+            applicationIdSuffix = ".dev"
+            versionNameSuffix = "-dev"
+            resValue("string", "app_name", "Waqt Dev")
+        }
         release {
+            resValue("string", "app_name", "Waqt")
             // Your upload key when android/key.properties exists; otherwise the
-            // debug key, so `flutter run --release` still works locally.
+            // debug key, so local release builds still install.
             signingConfig = signingConfigs.getByName(if (hasReleaseKey) "release" else "debug")
         }
     }

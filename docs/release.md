@@ -19,19 +19,12 @@ Back up the keystore: Play App Signing keeps your app key, but the upload key is
 
 ## 2. Every release
 1. Bump `version:` in `pubspec.yaml` (e.g. `1.0.1+2`) **and** `AppConfig.version` in `lib/core/config/flavor.dart`.
-2. Approved content only:
+2. Build the bundle:
    ```
-   dart run tool/content.dart build --release
+   flutter build appbundle --release
    ```
-3. Build the bundle:
-   ```
-   flutter build appbundle --flavor prod --release
-   ```
-   Output: `build/app/outputs/bundle/prodRelease/app-prod-release.aab`
-4. Restore the dev bundle (drafts visible in dev builds):
-   ```
-   dart run tool/content.dart build
-   ```
+   Output: `build/app/outputs/bundle/release/app-release.aab`.
+   Release builds never show unapproved content. To also strip drafts from the file itself, run `dart run tool/content.dart build --release` first and `dart run tool/content.dart build` afterwards.
 
 ## 3. Checks before uploading
 - `flutter analyze && flutter test --exclude-tags screenshots` passes

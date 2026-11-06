@@ -5,21 +5,16 @@ The right dua for the moment you are in, with a verified source for every item. 
 Read `PRD.md`, `architecture.md`, `design.md` and `phases.md` first.
 Releasing: `docs/release.md`. Content workflow: `content/README.md`. Scholar review: `docs/moment-rules.md`.
 
-## Run
-```
-flutter run --flavor dev     # com.ornobaadi.waqt.dev, debug tools on
-flutter run --flavor prod    # com.ornobaadi.waqt
-```
-
 ## Build
 ```
-dart run tool/content.dart build --release      # before any prod build: approved content only
-flutter build apk --flavor dev --debug          # quick test install
-flutter build apk --flavor prod --release --split-per-abi
-flutter build appbundle --flavor prod --release  # Play Store
+flutter build apk --profile         # Waqt Dev: debug tools, drafts visible, installs beside release
+flutter build apk --release         # Waqt: production APK
+flutter build appbundle --release   # Play Store bundle
 ```
-After a prod build, run `dart run tool/content.dart build` again to restore the dev bundle (drafts visible).
-Release builds are still signed with the debug key; add a keystore before publishing.
+Outputs: `build/app/outputs/flutter-apk/app-profile.apk`, `app-release.apk`, and `build/app/outputs/bundle/release/app-release.aab`.
+Release builds hide unreviewed content automatically. Without `android/key.properties` they are signed with the debug key (see `docs/release.md`).
+
+To run on a connected phone: `flutter run --profile`.
 
 ## Screenshots
 ```
