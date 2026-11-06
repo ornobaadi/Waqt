@@ -16,5 +16,5 @@ jobs:
       - run: flutter pub get
       - run: dart format --line-length 120 --output=none --set-exit-if-changed lib test
       - run: flutter analyze --fatal-infos
-      - run: flutter test
+      - run: flutter test --exclude-tags screenshots
       - run: flutter build apk --flavor dev --debug

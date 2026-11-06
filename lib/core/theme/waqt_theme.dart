@@ -4,6 +4,9 @@ import 'tokens.dart';
 
 const _tabular = [FontFeature.tabularFigures()];
 
+/// Arabic-script UI text falls back to our bundled Naskh, not the device font.
+const _fallback = [WaqtFonts.arabic];
+
 TextStyle _display(double size, {double weight = 800, double tracking = -0.035}) => TextStyle(
   fontFamily: WaqtFonts.display,
   fontSize: size,
@@ -12,6 +15,7 @@ TextStyle _display(double size, {double weight = 800, double tracking = -0.035})
   letterSpacing: size * tracking,
   height: 1.05,
   fontFeatures: _tabular,
+  fontFamilyFallback: _fallback,
 );
 
 TextStyle _body(double size, double weight, {double height = 1.4}) => TextStyle(
@@ -21,6 +25,7 @@ TextStyle _body(double size, double weight, {double height = 1.4}) => TextStyle(
   fontWeight: FontWeight.values[((weight / 100).round() - 1).clamp(0, 8)],
   height: height,
   fontFeatures: _tabular,
+  fontFamilyFallback: _fallback,
 );
 
 /// Everything the UI needs that Material's ColorScheme doesn't express.

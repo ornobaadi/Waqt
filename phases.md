@@ -3,19 +3,20 @@
 Each phase ends with a shippable internal build. Content work runs in parallel from Phase 0.
 
 ## Phase 0 — Foundations (week 1)
-- [ ] Flutter project, flavors (dev/prod), lint, CI (format, analyze, test)
-- [ ] Folder structure per `architecture.md`; Riverpod + go_router
-- [ ] Theme tokens from `design.md` (moment palettes, type, radii) as `ThemeExtension`
-- [ ] ARB localisation set up (en only), RTL check with Arabic strings
+- [x] Flutter project, flavors (dev/prod), lint, CI (format, analyze, test)
+- [x] Folder structure per `architecture.md`; Riverpod + go_router
+- [x] Theme tokens from `design.md` (moment palettes, type, radii) as `ThemeExtension`
+- [x] ARB localisation set up (en only), RTL check with Arabic strings
 - [ ] Decide: translation licence, scholar reviewer, weak-hadith policy
 
 ## Phase 1 — Prayer times & clock (weeks 2–3)
-- [ ] `PrayerTimesService` (adhan), calculation method + Asr setting
-- [ ] Location: GPS + manual city picker, cache last location
-- [ ] `HijriService` + offset setting
-- [ ] Live clock stream (minute tick, second precision for countdown)
-- [ ] Home v0: header, clock, current waqt, countdown, prayer strip
-- [ ] Tests vs official national tables across regions; high-latitude handling
+- [x] `PrayerTimesService` (adhan), calculation method + Asr setting
+- [x] Location: GPS + manual city picker, cache last location
+- [x] `HijriService` + offset setting
+- [x] Live clock stream (minute tick, second precision for countdown)
+- [x] Home v0: header, clock, current waqt, countdown, prayer strip
+- [x] High-latitude handling (auto rule + polar nearest-latitude fallback); cross-checked vs AlAdhan in 6 cities
+- [ ] Compare against official national tables (human task: collect PDFs per region)
 
 ## Phase 2 — Moment Engine (weeks 3–4)
 - [ ] Rule interface + rules: last third, Friday last hour, adhan↔iqamah, disliked times, Duha, bedtime, morning/evening adhkar, post-salah

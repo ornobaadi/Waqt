@@ -313,6 +313,378 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Build'**
   String get debugBuild;
+
+  /// No description provided for @waqtMorning.
+  ///
+  /// In en, this message translates to:
+  /// **'Morning'**
+  String get waqtMorning;
+
+  /// No description provided for @nextIn.
+  ///
+  /// In en, this message translates to:
+  /// **'{prayer} in {time}'**
+  String nextIn(String prayer, String time);
+
+  /// No description provided for @hijriDate.
+  ///
+  /// In en, this message translates to:
+  /// **'{day} {month} {year} AH'**
+  String hijriDate(String day, String month, String year);
+
+  /// No description provided for @hijriMonth1.
+  ///
+  /// In en, this message translates to:
+  /// **'Muharram'**
+  String get hijriMonth1;
+
+  /// No description provided for @hijriMonth2.
+  ///
+  /// In en, this message translates to:
+  /// **'Safar'**
+  String get hijriMonth2;
+
+  /// No description provided for @hijriMonth3.
+  ///
+  /// In en, this message translates to:
+  /// **'Rabi al-Awwal'**
+  String get hijriMonth3;
+
+  /// No description provided for @hijriMonth4.
+  ///
+  /// In en, this message translates to:
+  /// **'Rabi al-Thani'**
+  String get hijriMonth4;
+
+  /// No description provided for @hijriMonth5.
+  ///
+  /// In en, this message translates to:
+  /// **'Jumada al-Ula'**
+  String get hijriMonth5;
+
+  /// No description provided for @hijriMonth6.
+  ///
+  /// In en, this message translates to:
+  /// **'Jumada al-Akhirah'**
+  String get hijriMonth6;
+
+  /// No description provided for @hijriMonth7.
+  ///
+  /// In en, this message translates to:
+  /// **'Rajab'**
+  String get hijriMonth7;
+
+  /// No description provided for @hijriMonth8.
+  ///
+  /// In en, this message translates to:
+  /// **'Sha\'ban'**
+  String get hijriMonth8;
+
+  /// No description provided for @hijriMonth9.
+  ///
+  /// In en, this message translates to:
+  /// **'Ramadan'**
+  String get hijriMonth9;
+
+  /// No description provided for @hijriMonth10.
+  ///
+  /// In en, this message translates to:
+  /// **'Shawwal'**
+  String get hijriMonth10;
+
+  /// No description provided for @hijriMonth11.
+  ///
+  /// In en, this message translates to:
+  /// **'Dhu al-Qa\'dah'**
+  String get hijriMonth11;
+
+  /// No description provided for @hijriMonth12.
+  ///
+  /// In en, this message translates to:
+  /// **'Dhu al-Hijjah'**
+  String get hijriMonth12;
+
+  /// No description provided for @locationUseGps.
+  ///
+  /// In en, this message translates to:
+  /// **'Use my location'**
+  String get locationUseGps;
+
+  /// No description provided for @locationChooseCity.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a city'**
+  String get locationChooseCity;
+
+  /// No description provided for @locationLocating.
+  ///
+  /// In en, this message translates to:
+  /// **'Finding you…'**
+  String get locationLocating;
+
+  /// No description provided for @gpsServiceOff.
+  ///
+  /// In en, this message translates to:
+  /// **'Location is turned off on this phone. Turn it on, or choose a city.'**
+  String get gpsServiceOff;
+
+  /// No description provided for @gpsDenied.
+  ///
+  /// In en, this message translates to:
+  /// **'Location permission was declined. You can choose a city instead.'**
+  String get gpsDenied;
+
+  /// No description provided for @gpsDeniedForever.
+  ///
+  /// In en, this message translates to:
+  /// **'Location permission is blocked. Allow it in settings, or choose a city.'**
+  String get gpsDeniedForever;
+
+  /// No description provided for @gpsTimeout.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t get a fix. Try again, or choose a city.'**
+  String get gpsTimeout;
+
+  /// No description provided for @openSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Open settings'**
+  String get openSettings;
+
+  /// No description provided for @settingsLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Location'**
+  String get settingsLocation;
+
+  /// No description provided for @settingsNotSet.
+  ///
+  /// In en, this message translates to:
+  /// **'Not set'**
+  String get settingsNotSet;
+
+  /// No description provided for @settingsUseGps.
+  ///
+  /// In en, this message translates to:
+  /// **'Use current location'**
+  String get settingsUseGps;
+
+  /// No description provided for @settingsGpsSource.
+  ///
+  /// In en, this message translates to:
+  /// **'From GPS'**
+  String get settingsGpsSource;
+
+  /// No description provided for @settingsPrayerTimes.
+  ///
+  /// In en, this message translates to:
+  /// **'Prayer times'**
+  String get settingsPrayerTimes;
+
+  /// No description provided for @settingsMethod.
+  ///
+  /// In en, this message translates to:
+  /// **'Calculation method'**
+  String get settingsMethod;
+
+  /// No description provided for @settingsRegionalDefault.
+  ///
+  /// In en, this message translates to:
+  /// **'Default for your region'**
+  String get settingsRegionalDefault;
+
+  /// No description provided for @settingsAsr.
+  ///
+  /// In en, this message translates to:
+  /// **'Asr time'**
+  String get settingsAsr;
+
+  /// No description provided for @asrStandard.
+  ///
+  /// In en, this message translates to:
+  /// **'Standard'**
+  String get asrStandard;
+
+  /// No description provided for @asrStandardHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Shafi\'i, Maliki, Hanbali: shadow equals object length'**
+  String get asrStandardHint;
+
+  /// No description provided for @asrHanafi.
+  ///
+  /// In en, this message translates to:
+  /// **'Hanafi'**
+  String get asrHanafi;
+
+  /// No description provided for @asrHanafiHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Shadow twice the object length'**
+  String get asrHanafiHint;
+
+  /// No description provided for @settingsHighLat.
+  ///
+  /// In en, this message translates to:
+  /// **'High-latitude rule'**
+  String get settingsHighLat;
+
+  /// No description provided for @highLatAuto.
+  ///
+  /// In en, this message translates to:
+  /// **'Automatic'**
+  String get highLatAuto;
+
+  /// No description provided for @highLatAutoHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Seventh of the night above 48°, middle of the night below'**
+  String get highLatAutoHint;
+
+  /// No description provided for @highLatMiddle.
+  ///
+  /// In en, this message translates to:
+  /// **'Middle of the night'**
+  String get highLatMiddle;
+
+  /// No description provided for @highLatSeventh.
+  ///
+  /// In en, this message translates to:
+  /// **'Seventh of the night'**
+  String get highLatSeventh;
+
+  /// No description provided for @highLatTwilight.
+  ///
+  /// In en, this message translates to:
+  /// **'Twilight angle'**
+  String get highLatTwilight;
+
+  /// No description provided for @settingsCalendar.
+  ///
+  /// In en, this message translates to:
+  /// **'Calendar'**
+  String get settingsCalendar;
+
+  /// No description provided for @settingsHijriAdjust.
+  ///
+  /// In en, this message translates to:
+  /// **'Hijri date adjustment'**
+  String get settingsHijriAdjust;
+
+  /// No description provided for @hijriAdjustHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Match the moon sighting where you live'**
+  String get hijriAdjustHint;
+
+  /// No description provided for @hijriOffsetNone.
+  ///
+  /// In en, this message translates to:
+  /// **'None'**
+  String get hijriOffsetNone;
+
+  /// No description provided for @hijriOffsetDays.
+  ///
+  /// In en, this message translates to:
+  /// **'{value} d'**
+  String hijriOffsetDays(String value);
+
+  /// No description provided for @settingsAttribution.
+  ///
+  /// In en, this message translates to:
+  /// **'City data © GeoNames, CC BY 4.0. Prayer times calculated on device.'**
+  String get settingsAttribution;
+
+  /// No description provided for @citySearchHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search for a city'**
+  String get citySearchHint;
+
+  /// No description provided for @cityNoResults.
+  ///
+  /// In en, this message translates to:
+  /// **'No cities match “{query}”'**
+  String cityNoResults(String query);
+
+  /// No description provided for @methodMwl.
+  ///
+  /// In en, this message translates to:
+  /// **'Muslim World League'**
+  String get methodMwl;
+
+  /// No description provided for @methodIsna.
+  ///
+  /// In en, this message translates to:
+  /// **'ISNA, North America'**
+  String get methodIsna;
+
+  /// No description provided for @methodEgypt.
+  ///
+  /// In en, this message translates to:
+  /// **'Egyptian General Authority of Survey'**
+  String get methodEgypt;
+
+  /// No description provided for @methodKarachi.
+  ///
+  /// In en, this message translates to:
+  /// **'University of Islamic Sciences, Karachi'**
+  String get methodKarachi;
+
+  /// No description provided for @methodUmmAlQura.
+  ///
+  /// In en, this message translates to:
+  /// **'Umm al-Qura, Makkah'**
+  String get methodUmmAlQura;
+
+  /// No description provided for @methodDubai.
+  ///
+  /// In en, this message translates to:
+  /// **'Dubai'**
+  String get methodDubai;
+
+  /// No description provided for @methodQatar.
+  ///
+  /// In en, this message translates to:
+  /// **'Qatar'**
+  String get methodQatar;
+
+  /// No description provided for @methodKuwait.
+  ///
+  /// In en, this message translates to:
+  /// **'Kuwait'**
+  String get methodKuwait;
+
+  /// No description provided for @methodSingapore.
+  ///
+  /// In en, this message translates to:
+  /// **'Singapore, Malaysia, Indonesia'**
+  String get methodSingapore;
+
+  /// No description provided for @methodTurkey.
+  ///
+  /// In en, this message translates to:
+  /// **'Diyanet, Türkiye'**
+  String get methodTurkey;
+
+  /// No description provided for @methodTehran.
+  ///
+  /// In en, this message translates to:
+  /// **'Institute of Geophysics, Tehran'**
+  String get methodTehran;
+
+  /// No description provided for @methodMoonsighting.
+  ///
+  /// In en, this message translates to:
+  /// **'Moonsighting Committee'**
+  String get methodMoonsighting;
+
+  /// No description provided for @timesEstimated.
+  ///
+  /// In en, this message translates to:
+  /// **'Estimated. The sun doesn\'t rise or set normally here today, so times follow latitude 65°.'**
+  String get timesEstimated;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

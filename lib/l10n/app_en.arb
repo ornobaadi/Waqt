@@ -26,7 +26,13 @@
   "settingsDeveloperHint": "Fake clock and moment palettes",
   "settingsAbout": "About Waqt",
   "settingsVersion": "Version {version}",
-  "@settingsVersion": { "placeholders": { "version": { "type": "String" } } },
+  "@settingsVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
   "debugTitle": "Developer",
   "debugClock": "Clock",
   "debugClockReal": "Real time",
@@ -37,5 +43,104 @@
   "debugPalette": "Moment palette",
   "debugPaletteAuto": "Auto",
   "debugDirection": "Layout direction",
-  "debugBuild": "Build"
+  "debugBuild": "Build",
+  "waqtMorning": "Morning",
+  "nextIn": "{prayer} in {time}",
+  "@nextIn": {
+    "placeholders": {
+      "prayer": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "hijriDate": "{day} {month} {year} AH",
+  "@hijriDate": {
+    "placeholders": {
+      "day": {
+        "type": "String"
+      },
+      "month": {
+        "type": "String"
+      },
+      "year": {
+        "type": "String"
+      }
+    }
+  },
+  "hijriMonth1": "Muharram",
+  "hijriMonth2": "Safar",
+  "hijriMonth3": "Rabi al-Awwal",
+  "hijriMonth4": "Rabi al-Thani",
+  "hijriMonth5": "Jumada al-Ula",
+  "hijriMonth6": "Jumada al-Akhirah",
+  "hijriMonth7": "Rajab",
+  "hijriMonth8": "Sha'ban",
+  "hijriMonth9": "Ramadan",
+  "hijriMonth10": "Shawwal",
+  "hijriMonth11": "Dhu al-Qa'dah",
+  "hijriMonth12": "Dhu al-Hijjah",
+  "locationUseGps": "Use my location",
+  "locationChooseCity": "Choose a city",
+  "locationLocating": "Finding you…",
+  "gpsServiceOff": "Location is turned off on this phone. Turn it on, or choose a city.",
+  "gpsDenied": "Location permission was declined. You can choose a city instead.",
+  "gpsDeniedForever": "Location permission is blocked. Allow it in settings, or choose a city.",
+  "gpsTimeout": "Couldn't get a fix. Try again, or choose a city.",
+  "openSettings": "Open settings",
+  "settingsLocation": "Location",
+  "settingsNotSet": "Not set",
+  "settingsUseGps": "Use current location",
+  "settingsGpsSource": "From GPS",
+  "settingsPrayerTimes": "Prayer times",
+  "settingsMethod": "Calculation method",
+  "settingsRegionalDefault": "Default for your region",
+  "settingsAsr": "Asr time",
+  "asrStandard": "Standard",
+  "asrStandardHint": "Shafi'i, Maliki, Hanbali: shadow equals object length",
+  "asrHanafi": "Hanafi",
+  "asrHanafiHint": "Shadow twice the object length",
+  "settingsHighLat": "High-latitude rule",
+  "highLatAuto": "Automatic",
+  "highLatAutoHint": "Seventh of the night above 48°, middle of the night below",
+  "highLatMiddle": "Middle of the night",
+  "highLatSeventh": "Seventh of the night",
+  "highLatTwilight": "Twilight angle",
+  "settingsCalendar": "Calendar",
+  "settingsHijriAdjust": "Hijri date adjustment",
+  "hijriAdjustHint": "Match the moon sighting where you live",
+  "hijriOffsetNone": "None",
+  "hijriOffsetDays": "{value} d",
+  "@hijriOffsetDays": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsAttribution": "City data © GeoNames, CC BY 4.0. Prayer times calculated on device.",
+  "citySearchHint": "Search for a city",
+  "cityNoResults": "No cities match “{query}”",
+  "@cityNoResults": {
+    "placeholders": {
+      "query": {
+        "type": "String"
+      }
+    }
+  },
+  "methodMwl": "Muslim World League",
+  "methodIsna": "ISNA, North America",
+  "methodEgypt": "Egyptian General Authority of Survey",
+  "methodKarachi": "University of Islamic Sciences, Karachi",
+  "methodUmmAlQura": "Umm al-Qura, Makkah",
+  "methodDubai": "Dubai",
+  "methodQatar": "Qatar",
+  "methodKuwait": "Kuwait",
+  "methodSingapore": "Singapore, Malaysia, Indonesia",
+  "methodTurkey": "Diyanet, Türkiye",
+  "methodTehran": "Institute of Geophysics, Tehran",
+  "methodMoonsighting": "Moonsighting Committee",
+  "timesEstimated": "Estimated. The sun doesn't rise or set normally here today, so times follow latitude 65°."
 }

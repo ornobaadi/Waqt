@@ -121,4 +121,198 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get debugBuild => 'البناء';
+
+  @override
+  String get waqtMorning => 'الضحى';
+
+  @override
+  String nextIn(String prayer, String time) {
+    return '$prayer بعد $time';
+  }
+
+  @override
+  String hijriDate(String day, String month, String year) {
+    return '$day $month $year هـ';
+  }
+
+  @override
+  String get hijriMonth1 => 'محرم';
+
+  @override
+  String get hijriMonth2 => 'صفر';
+
+  @override
+  String get hijriMonth3 => 'ربيع الأول';
+
+  @override
+  String get hijriMonth4 => 'ربيع الآخر';
+
+  @override
+  String get hijriMonth5 => 'جمادى الأولى';
+
+  @override
+  String get hijriMonth6 => 'جمادى الآخرة';
+
+  @override
+  String get hijriMonth7 => 'رجب';
+
+  @override
+  String get hijriMonth8 => 'شعبان';
+
+  @override
+  String get hijriMonth9 => 'رمضان';
+
+  @override
+  String get hijriMonth10 => 'شوال';
+
+  @override
+  String get hijriMonth11 => 'ذو القعدة';
+
+  @override
+  String get hijriMonth12 => 'ذو الحجة';
+
+  @override
+  String get locationUseGps => 'استخدم موقعي';
+
+  @override
+  String get locationChooseCity => 'اختر مدينة';
+
+  @override
+  String get locationLocating => 'جارٍ تحديد موقعك…';
+
+  @override
+  String get gpsServiceOff => 'خدمة الموقع متوقفة على هذا الهاتف. شغّلها أو اختر مدينة.';
+
+  @override
+  String get gpsDenied => 'تم رفض إذن الموقع. يمكنك اختيار مدينة بدلاً من ذلك.';
+
+  @override
+  String get gpsDeniedForever => 'إذن الموقع محظور. اسمح به من الإعدادات أو اختر مدينة.';
+
+  @override
+  String get gpsTimeout => 'تعذّر تحديد الموقع. حاول مجددًا أو اختر مدينة.';
+
+  @override
+  String get openSettings => 'فتح الإعدادات';
+
+  @override
+  String get settingsLocation => 'الموقع';
+
+  @override
+  String get settingsNotSet => 'غير محدد';
+
+  @override
+  String get settingsUseGps => 'استخدم الموقع الحالي';
+
+  @override
+  String get settingsGpsSource => 'من GPS';
+
+  @override
+  String get settingsPrayerTimes => 'أوقات الصلاة';
+
+  @override
+  String get settingsMethod => 'طريقة الحساب';
+
+  @override
+  String get settingsRegionalDefault => 'الافتراضي لمنطقتك';
+
+  @override
+  String get settingsAsr => 'وقت العصر';
+
+  @override
+  String get asrStandard => 'الجمهور';
+
+  @override
+  String get asrStandardHint => 'الشافعي والمالكي والحنبلي: ظل الشيء مثله';
+
+  @override
+  String get asrHanafi => 'الحنفي';
+
+  @override
+  String get asrHanafiHint => 'ظل الشيء مثلاه';
+
+  @override
+  String get settingsHighLat => 'قاعدة خطوط العرض العليا';
+
+  @override
+  String get highLatAuto => 'تلقائي';
+
+  @override
+  String get highLatAutoHint => 'سُبع الليل فوق خط عرض 48°، ومنتصف الليل دونه';
+
+  @override
+  String get highLatMiddle => 'منتصف الليل';
+
+  @override
+  String get highLatSeventh => 'سُبع الليل';
+
+  @override
+  String get highLatTwilight => 'زاوية الشفق';
+
+  @override
+  String get settingsCalendar => 'التقويم';
+
+  @override
+  String get settingsHijriAdjust => 'تعديل التاريخ الهجري';
+
+  @override
+  String get hijriAdjustHint => 'ليوافق رؤية الهلال في بلدك';
+
+  @override
+  String get hijriOffsetNone => 'بدون';
+
+  @override
+  String hijriOffsetDays(String value) {
+    return '$value يوم';
+  }
+
+  @override
+  String get settingsAttribution => 'بيانات المدن © GeoNames بترخيص CC BY 4.0. تُحسب أوقات الصلاة على الجهاز.';
+
+  @override
+  String get citySearchHint => 'ابحث عن مدينة';
+
+  @override
+  String cityNoResults(String query) {
+    return 'لا توجد مدن تطابق «$query»';
+  }
+
+  @override
+  String get methodMwl => 'رابطة العالم الإسلامي';
+
+  @override
+  String get methodIsna => 'الجمعية الإسلامية لأمريكا الشمالية';
+
+  @override
+  String get methodEgypt => 'الهيئة المصرية العامة للمساحة';
+
+  @override
+  String get methodKarachi => 'جامعة العلوم الإسلامية، كراتشي';
+
+  @override
+  String get methodUmmAlQura => 'أم القرى، مكة المكرمة';
+
+  @override
+  String get methodDubai => 'دبي';
+
+  @override
+  String get methodQatar => 'قطر';
+
+  @override
+  String get methodKuwait => 'الكويت';
+
+  @override
+  String get methodSingapore => 'سنغافورة وماليزيا وإندونيسيا';
+
+  @override
+  String get methodTurkey => 'رئاسة الشؤون الدينية، تركيا';
+
+  @override
+  String get methodTehran => 'معهد الجيوفيزياء، طهران';
+
+  @override
+  String get methodMoonsighting => 'لجنة رؤية الهلال';
+
+  @override
+  String get timesEstimated => 'أوقات تقديرية: لا تشرق الشمس أو تغرب على المعتاد هنا اليوم، فتُحسب على خط عرض 65°.';
 }

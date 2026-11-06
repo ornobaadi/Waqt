@@ -6,24 +6,57 @@ import '../../app/app_state.dart';
 import '../../core/config/flavor.dart';
 import '../../core/theme/tokens.dart';
 import '../../core/theme/waqt_theme.dart';
+import '../../core/utils/digits.dart';
+import '../../core/widgets/option_sheet.dart';
 import '../../core/widgets/waqt_widgets.dart';
+import '../../data/user/user_prefs.dart';
+import '../../domain/hijri/hijri_service.dart';
+import '../../domain/location/place.dart';
+import '../../domain/prayer/prayer_settings.dart';
+import '../../domain/prayer/prayer_times_service.dart';
+import '../../core/clock/clock.dart';
 import '../../l10n/app_localizations.dart';
+import '../common/labels.dart';
 
 /// Endonyms: each language is named in its own script.
 const supportedLanguageNames = {'en': 'English', 'ar': 'العربية'};
 
-class SettingsScreen extends ConsumerWidget {
+class SettingsScreen extends ConsumerStatefulWidget {
   const SettingsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<SettingsScreen> createState() => _SettingsScreenState();
+}
+
+class _SettingsScreenState extends ConsumerState<SettingsScreen> {
+  bool _locating = false;
+
+  Future<void> _useGps() async {
+    setState(() => _locating = true);
+    final err = await locateWithGps(ref);
+    if (!mounted) return;
+    setState(() => _locating = false);
+    if (err != null) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(AppLocalizations.of(context).gps(err))));
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
-    final override = ref.watch(localeOverrideProvider);
+    final t = WaqtTokens.of(context);
+    final prefs = ref.watch(userPrefsProvider);
+    final settings = ref.watch(prayerSettingsProvider);
+    final locale = ref.watch(localeOverrideProvider);
+    final notifier = ref.read(userPrefsProvider.notifier);
+    final place = prefs.place;
+
+    void update(PrayerSettings s) => notifier.setPrayer(s);
 
     return SafeArea(
       bottom: false,
       child: ListView(
-        padding: const EdgeInsets.fromLTRB(0, 0, 0, WaqtSpace.x8),
+        padding: const EdgeInsets.only(bottom: WaqtSpace.x8),
         children: [
           ScreenTitle(l.navSettings),
           Padding(
@@ -31,14 +64,108 @@ class SettingsScreen extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
+                SectionLabel(l.settingsLocation),
+                RowGroup(
+                  children: [
+                    RowTile(
+                      title: place == null ? l.settingsNotSet : place.name,
+                      subtitle: place == null
+                          ? null
+                          : [
+                              place.country ?? place.countryCode,
+                              if (place.source == PlaceSource.gps) l.settingsGpsSource,
+                            ].join('  ·  '),
+                      onTap: () => context.push('/settings/city'),
+                    ),
+                    RowTile(
+                      title: _locating ? l.locationLocating : l.settingsUseGps,
+                      onTap: _locating ? null : _useGps,
+                    ),
+                  ],
+                ),
+                SectionLabel(l.settingsPrayerTimes),
+                RowGroup(
+                  children: [
+                    RowTile(
+                      title: l.settingsMethod,
+                      subtitle: prefs.prayer == null
+                          ? '${l.method(settings.method)}  ·  ${l.settingsRegionalDefault}'
+                          : l.method(settings.method),
+                      onTap: () async {
+                        final m = await showOptionSheet(
+                          context,
+                          title: l.settingsMethod,
+                          selected: settings.method,
+                          options: [for (final m in CalcMethod.values) SheetOption(m, l.method(m), hint: m.angles)],
+                        );
+                        if (m != null) update(settings.copyWith(method: m));
+                      },
+                    ),
+                    RowTile(
+                      title: l.settingsAsr,
+                      value: l.asr(settings.asr),
+                      onTap: () async {
+                        final a = await showOptionSheet(
+                          context,
+                          title: l.settingsAsr,
+                          selected: settings.asr,
+                          options: [
+                            SheetOption(AsrSchool.standard, l.asrStandard, hint: l.asrStandardHint),
+                            SheetOption(AsrSchool.hanafi, l.asrHanafi, hint: l.asrHanafiHint),
+                          ],
+                        );
+                        if (a != null) update(settings.copyWith(asr: a));
+                      },
+                    ),
+                    RowTile(
+                      title: l.settingsHighLat,
+                      value: l.highLat(settings.highLatitude),
+                      onTap: () async {
+                        final r = await showOptionSheet(
+                          context,
+                          title: l.settingsHighLat,
+                          selected: settings.highLatitude,
+                          options: [
+                            for (final r in HighLatitudeRule.values)
+                              SheetOption(r, l.highLat(r), hint: r == HighLatitudeRule.auto ? l.highLatAutoHint : null),
+                          ],
+                        );
+                        if (r != null) update(settings.copyWith(highLatitude: r));
+                      },
+                    ),
+                  ],
+                ),
+                SectionLabel(l.settingsCalendar),
+                RowGroup(
+                  children: [
+                    RowTile(
+                      title: l.settingsHijriAdjust,
+                      subtitle: l.hijriAdjustHint,
+                      value: l.hijriOffset(prefs.hijriOffset),
+                      onTap: () => _pickHijriOffset(context, prefs.hijriOffset),
+                    ),
+                  ],
+                ),
+                SectionLabel(l.settingsLanguage),
                 RowGroup(
                   children: [
                     RowTile(
                       title: l.settingsLanguage,
-                      value: override == null
-                          ? l.settingsLanguageSystem
-                          : supportedLanguageNames[override.languageCode],
-                      onTap: () => _pickLanguage(context, ref),
+                      value: locale == null ? l.settingsLanguageSystem : supportedLanguageNames[locale.languageCode],
+                      onTap: () async {
+                        final picked = await showOptionSheet<String>(
+                          context,
+                          title: l.settingsLanguage,
+                          selected: locale?.languageCode ?? '',
+                          options: [
+                            SheetOption('', l.settingsLanguageSystem),
+                            for (final e in supportedLanguageNames.entries) SheetOption(e.key, e.value),
+                          ],
+                        );
+                        if (picked != null) {
+                          ref.read(localeOverrideProvider.notifier).set(picked.isEmpty ? null : Locale(picked));
+                        }
+                      },
                     ),
                   ],
                 ),
@@ -54,6 +181,11 @@ class SettingsScreen extends ConsumerWidget {
                     ],
                   ),
                 ],
+                const SizedBox(height: WaqtSpace.x6),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: WaqtSpace.x1),
+                  child: Text(l.settingsAttribution, style: WaqtText.caption.copyWith(color: t.inkMuted)),
+                ),
               ],
             ),
           ),
@@ -62,44 +194,27 @@ class SettingsScreen extends ConsumerWidget {
     );
   }
 
-  Future<void> _pickLanguage(BuildContext context, WidgetRef ref) {
+  /// Each option previews the resulting Hijri date, so the user can match
+  /// the announced date without doing arithmetic.
+  Future<void> _pickHijriOffset(BuildContext context, int current) async {
     final l = AppLocalizations.of(context);
-    final t = WaqtTokens.of(context);
-    final current = ref.read(localeOverrideProvider);
-    return showModalBottomSheet<void>(
-      context: context,
-      backgroundColor: t.ground,
-      showDragHandle: true,
-      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(WaqtRadii.card))),
-      builder: (sheet) {
-        Widget option(String label, Locale? value) => RowTile(
-          title: label,
-          value: current == value ? '✓' : null,
-          onTap: () {
-            ref.read(localeOverrideProvider.notifier).set(value);
-            Navigator.of(sheet).pop();
-          },
-        );
-        return SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(WaqtSpace.screen, 0, WaqtSpace.screen, WaqtSpace.x4),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Text(l.settingsLanguage, style: WaqtText.titleSmall.copyWith(color: t.ink)),
-                const SizedBox(height: WaqtSpace.x4),
-                RowGroup(
-                  children: [
-                    option(l.settingsLanguageSystem, null),
-                    for (final e in supportedLanguageNames.entries) option(e.value, Locale(e.key)),
-                  ],
-                ),
-              ],
-            ),
+    final n = LocaleDigits(Localizations.localeOf(context).toLanguageTag());
+    final now = readNow(ref.read(fakeClockProvider));
+    final maghrib = ref.read(prayerStatusProvider)?.today;
+    const service = HijriService();
+    final picked = await showOptionSheet<int>(
+      context,
+      title: l.settingsHijriAdjust,
+      selected: current,
+      options: [
+        for (var d = -HijriService.maxOffset; d <= HijriService.maxOffset; d++)
+          SheetOption(
+            d,
+            l.hijriOffset(d),
+            hint: l.hijri(service.dateFor(now, maghrib: maghrib?[Waqt.maghrib], offset: d), n.call),
           ),
-        );
-      },
+      ],
     );
+    if (picked != null) ref.read(userPrefsProvider.notifier).setHijriOffset(picked);
   }
 }

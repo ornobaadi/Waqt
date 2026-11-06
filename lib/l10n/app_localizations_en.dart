@@ -124,4 +124,199 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get debugBuild => 'Build';
+
+  @override
+  String get waqtMorning => 'Morning';
+
+  @override
+  String nextIn(String prayer, String time) {
+    return '$prayer in $time';
+  }
+
+  @override
+  String hijriDate(String day, String month, String year) {
+    return '$day $month $year AH';
+  }
+
+  @override
+  String get hijriMonth1 => 'Muharram';
+
+  @override
+  String get hijriMonth2 => 'Safar';
+
+  @override
+  String get hijriMonth3 => 'Rabi al-Awwal';
+
+  @override
+  String get hijriMonth4 => 'Rabi al-Thani';
+
+  @override
+  String get hijriMonth5 => 'Jumada al-Ula';
+
+  @override
+  String get hijriMonth6 => 'Jumada al-Akhirah';
+
+  @override
+  String get hijriMonth7 => 'Rajab';
+
+  @override
+  String get hijriMonth8 => 'Sha\'ban';
+
+  @override
+  String get hijriMonth9 => 'Ramadan';
+
+  @override
+  String get hijriMonth10 => 'Shawwal';
+
+  @override
+  String get hijriMonth11 => 'Dhu al-Qa\'dah';
+
+  @override
+  String get hijriMonth12 => 'Dhu al-Hijjah';
+
+  @override
+  String get locationUseGps => 'Use my location';
+
+  @override
+  String get locationChooseCity => 'Choose a city';
+
+  @override
+  String get locationLocating => 'Finding you…';
+
+  @override
+  String get gpsServiceOff => 'Location is turned off on this phone. Turn it on, or choose a city.';
+
+  @override
+  String get gpsDenied => 'Location permission was declined. You can choose a city instead.';
+
+  @override
+  String get gpsDeniedForever => 'Location permission is blocked. Allow it in settings, or choose a city.';
+
+  @override
+  String get gpsTimeout => 'Couldn\'t get a fix. Try again, or choose a city.';
+
+  @override
+  String get openSettings => 'Open settings';
+
+  @override
+  String get settingsLocation => 'Location';
+
+  @override
+  String get settingsNotSet => 'Not set';
+
+  @override
+  String get settingsUseGps => 'Use current location';
+
+  @override
+  String get settingsGpsSource => 'From GPS';
+
+  @override
+  String get settingsPrayerTimes => 'Prayer times';
+
+  @override
+  String get settingsMethod => 'Calculation method';
+
+  @override
+  String get settingsRegionalDefault => 'Default for your region';
+
+  @override
+  String get settingsAsr => 'Asr time';
+
+  @override
+  String get asrStandard => 'Standard';
+
+  @override
+  String get asrStandardHint => 'Shafi\'i, Maliki, Hanbali: shadow equals object length';
+
+  @override
+  String get asrHanafi => 'Hanafi';
+
+  @override
+  String get asrHanafiHint => 'Shadow twice the object length';
+
+  @override
+  String get settingsHighLat => 'High-latitude rule';
+
+  @override
+  String get highLatAuto => 'Automatic';
+
+  @override
+  String get highLatAutoHint => 'Seventh of the night above 48°, middle of the night below';
+
+  @override
+  String get highLatMiddle => 'Middle of the night';
+
+  @override
+  String get highLatSeventh => 'Seventh of the night';
+
+  @override
+  String get highLatTwilight => 'Twilight angle';
+
+  @override
+  String get settingsCalendar => 'Calendar';
+
+  @override
+  String get settingsHijriAdjust => 'Hijri date adjustment';
+
+  @override
+  String get hijriAdjustHint => 'Match the moon sighting where you live';
+
+  @override
+  String get hijriOffsetNone => 'None';
+
+  @override
+  String hijriOffsetDays(String value) {
+    return '$value d';
+  }
+
+  @override
+  String get settingsAttribution => 'City data © GeoNames, CC BY 4.0. Prayer times calculated on device.';
+
+  @override
+  String get citySearchHint => 'Search for a city';
+
+  @override
+  String cityNoResults(String query) {
+    return 'No cities match “$query”';
+  }
+
+  @override
+  String get methodMwl => 'Muslim World League';
+
+  @override
+  String get methodIsna => 'ISNA, North America';
+
+  @override
+  String get methodEgypt => 'Egyptian General Authority of Survey';
+
+  @override
+  String get methodKarachi => 'University of Islamic Sciences, Karachi';
+
+  @override
+  String get methodUmmAlQura => 'Umm al-Qura, Makkah';
+
+  @override
+  String get methodDubai => 'Dubai';
+
+  @override
+  String get methodQatar => 'Qatar';
+
+  @override
+  String get methodKuwait => 'Kuwait';
+
+  @override
+  String get methodSingapore => 'Singapore, Malaysia, Indonesia';
+
+  @override
+  String get methodTurkey => 'Diyanet, Türkiye';
+
+  @override
+  String get methodTehran => 'Institute of Geophysics, Tehran';
+
+  @override
+  String get methodMoonsighting => 'Moonsighting Committee';
+
+  @override
+  String get timesEstimated =>
+      'Estimated. The sun doesn\'t rise or set normally here today, so times follow latitude 65°.';
 }

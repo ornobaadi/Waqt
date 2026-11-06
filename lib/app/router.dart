@@ -7,6 +7,7 @@ import '../core/config/flavor.dart';
 import '../core/theme/waqt_theme.dart';
 import '../features/duas/duas_screen.dart';
 import '../features/now/now_screen.dart';
+import '../features/settings/city_picker_screen.dart';
 import '../features/settings/developer_screen.dart';
 import '../features/settings/settings_screen.dart';
 import '../features/today/today_screen.dart';
@@ -34,6 +35,7 @@ final routerProvider = Provider<GoRouter>((ref) {
                 path: '/settings',
                 builder: (_, _) => const SettingsScreen(),
                 routes: [
+                  GoRoute(path: 'city', builder: (_, _) => const CityPickerScreen()),
                   if (AppConfig.debugTools) GoRoute(path: 'developer', builder: (_, _) => const DeveloperScreen()),
                 ],
               ),
