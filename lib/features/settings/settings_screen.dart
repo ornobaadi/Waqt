@@ -169,6 +169,11 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 RowGroup(
                   children: [
                     RowTile(
+                      title: l.readingTitle,
+                      subtitle: l.readingHint,
+                      onTap: () => context.push('/settings/reading'),
+                    ),
+                    RowTile(
                       title: l.settingsLanguage,
                       value: locale == null ? l.settingsLanguageSystem : supportedLanguageNames[locale.languageCode],
                       onTap: () async {

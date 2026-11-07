@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../core/diagnostics/reports.dart';
 import '../../core/theme/tokens.dart';
 import '../../core/theme/waqt_theme.dart';
 import '../../data/content/content_repository.dart';
+import '../../data/user/reading_prefs.dart';
 import '../../l10n/app_localizations.dart';
 import '../common/labels.dart';
 
@@ -28,13 +30,14 @@ Future<void> showDuaSheet(BuildContext context, ContentItem item) {
   );
 }
 
-class DuaDetail extends StatelessWidget {
+class DuaDetail extends ConsumerWidget {
   const DuaDetail({super.key, required this.item, this.controller});
   final ContentItem item;
   final ScrollController? controller;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final rp = ref.watch(readingPrefsProvider);
     final l = AppLocalizations.of(context);
     final t = WaqtTokens.of(context);
     final lang = Localizations.localeOf(context).languageCode;
@@ -65,19 +68,25 @@ class DuaDetail extends StatelessWidget {
               item.arabic!,
               textDirection: TextDirection.rtl,
               textAlign: TextAlign.right,
-              style: WaqtText.arabic.copyWith(color: t.ink),
+              style: ReadingPrefs.scaled(WaqtText.arabic.copyWith(color: t.ink), rp.arabic),
             ),
           ),
           if (item.transliteration != null) ...[
             const SizedBox(height: WaqtSpace.x4),
             Text(
               item.transliteration!,
-              style: WaqtText.body.copyWith(color: t.inkMuted, fontStyle: FontStyle.italic),
+              style: ReadingPrefs.scaled(
+                WaqtText.body.copyWith(color: t.inkMuted, fontStyle: FontStyle.italic),
+                rp.transliteration,
+              ),
             ),
           ],
           if (translation != null) ...[
             const SizedBox(height: WaqtSpace.x4),
-            Text(translation.text, style: WaqtText.body.copyWith(color: t.ink, height: 1.55)),
+            Text(
+              translation.text,
+              style: ReadingPrefs.scaled(WaqtText.body.copyWith(color: t.ink, height: 1.55), rp.meaning),
+            ),
             if (translation.translator != null) ...[
               const SizedBox(height: WaqtSpace.x2),
               Text('— ${translation.translator}', style: WaqtText.caption.copyWith(color: t.inkMuted)),

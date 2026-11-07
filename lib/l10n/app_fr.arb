@@ -205,5 +205,10 @@
   "hisnNumber": "Hisn al-Muslim {n}",
   "copyText": "Copier",
   "copied": "Copié",
-  "openSource": "Ouvrir la source"
+  "openSource": "Ouvrir la source",
+  "readingTitle": "Taille de lecture",
+  "readingHint": "Arabe, translittération et sens, chacun à part",
+  "readingArabic": "Arabe",
+  "readingTransliteration": "Translittération",
+  "readingMeaning": "Sens"
 }

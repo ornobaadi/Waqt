@@ -428,5 +428,10 @@
   "@hisnNumber": {"placeholders": {"n": {"type": "String"}}},
   "copyText": "Copy",
   "copied": "Copied",
-  "openSource": "Open source"
+  "openSource": "Open source",
+  "readingTitle": "Reading size",
+  "readingHint": "Arabic, transliteration and meaning, each on its own",
+  "readingArabic": "Arabic",
+  "readingTransliteration": "Transliteration",
+  "readingMeaning": "Meaning"
 }

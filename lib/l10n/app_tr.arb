@@ -211,5 +211,10 @@
   "hisnNumber": "Hisnul Müslim {n}",
   "copyText": "Kopyala",
   "copied": "Kopyalandı",
-  "openSource": "Kaynağı aç"
+  "openSource": "Kaynağı aç",
+  "readingTitle": "Okuma boyutu",
+  "readingHint": "Arapça, okunuş ve anlam, ayrı ayrı",
+  "readingArabic": "Arapça",
+  "readingTransliteration": "Okunuş",
+  "readingMeaning": "Anlam"
 }

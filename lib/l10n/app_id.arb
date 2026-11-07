@@ -205,5 +205,10 @@
   "hisnNumber": "Hisnul Muslim {n}",
   "copyText": "Salin",
   "copied": "Disalin",
-  "openSource": "Buka sumber"
+  "openSource": "Buka sumber",
+  "readingTitle": "Ukuran bacaan",
+  "readingHint": "Arab, transliterasi dan arti, masing-masing",
+  "readingArabic": "Arab",
+  "readingTransliteration": "Transliterasi",
+  "readingMeaning": "Arti"
 }

@@ -233,5 +233,10 @@
   "hisnNumber": "حصن المسلم {n}",
   "copyText": "نسخ",
   "copied": "تم النسخ",
-  "openSource": "فتح المصدر"
+  "openSource": "فتح المصدر",
+  "readingTitle": "حجم القراءة",
+  "readingHint": "العربية والنطق والمعنى، كل على حدة",
+  "readingArabic": "العربية",
+  "readingTransliteration": "النطق",
+  "readingMeaning": "المعنى"
 }

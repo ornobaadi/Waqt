@@ -188,6 +188,22 @@ void main() {
   );
 
   testWidgets(
+    'reading size',
+    (t) async => shoot(
+      t,
+      '41b_reading_size',
+      await app(at: DateTime(2026, 11, 6, 9, 41), place: dhaka),
+      then: () async {
+        await t.tap(find.text('Settings'));
+        await t.pumpAndSettle();
+        await t.scrollUntilVisible(find.text('Hijri date adjustment'), 200);
+        await t.pumpAndSettle();
+        await t.tap(find.text('Reading size'));
+      },
+    ),
+  );
+
+  testWidgets(
     'sheet',
     (t) async => shoot(
       t,

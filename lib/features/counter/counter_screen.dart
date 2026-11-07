@@ -61,13 +61,13 @@ class CounterNotifier extends Notifier<CounterState> {
 
 final counterProvider = NotifierProvider<CounterNotifier, CounterState>(CounterNotifier.new);
 
-/// Vibrate on each count. Off by default: the count is felt in the words, and
-/// only the end of a round is marked.
+/// Vibrate on each count, so the counter can be used without looking. On by
+/// default; the end of a round is always felt, as a stronger double pulse.
 class CounterHaptics extends Notifier<bool> {
-  static const _key = 'counter.haptics.v1';
+  static const _key = 'counter.haptics.v2';
 
   @override
-  bool build() => ref.read(sharedPrefsProvider).getBool(_key) ?? false;
+  bool build() => ref.read(sharedPrefsProvider).getBool(_key) ?? true;
 
   void toggle() {
     state = !state;
@@ -103,9 +103,11 @@ class _CounterScreenState extends ConsumerState<CounterScreen> with TickerProvid
   void _count() {
     final done = ref.read(counterProvider.notifier).tap();
     if (done) {
-      HapticFeedback.mediumImpact();
+      // Milestone: two heavy pulses, unmistakable from a single count.
+      HapticFeedback.heavyImpact();
+      Future.delayed(const Duration(milliseconds: 140), HapticFeedback.heavyImpact);
     } else if (ref.read(counterHapticsProvider)) {
-      HapticFeedback.selectionClick();
+      HapticFeedback.lightImpact();
     }
     if (MediaQuery.disableAnimationsOf(context)) return;
     final c = AnimationController(vsync: this, duration: const Duration(milliseconds: 900));

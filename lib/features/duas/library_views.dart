@@ -7,6 +7,7 @@ import '../../core/theme/tokens.dart';
 import '../../core/theme/waqt_theme.dart';
 import '../../data/sources/hadith_db.dart';
 import '../../data/sources/hisn.dart';
+import '../../data/user/reading_prefs.dart';
 import '../../l10n/app_localizations.dart';
 
 /// One chapter of Hisn al-Muslim, read top to bottom.
@@ -47,7 +48,7 @@ class HisnChapterScreen extends ConsumerWidget {
 
 /// A dua as the book gives it: Arabic, how to say it, what it means, and
 /// where it comes from.
-class HisnDuaCard extends StatelessWidget {
+class HisnDuaCard extends ConsumerWidget {
   const HisnDuaCard({super.key, required this.dua, this.chapter});
   final HisnDua dua;
 
@@ -55,7 +56,8 @@ class HisnDuaCard extends StatelessWidget {
   final String? chapter;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final rp = ref.watch(readingPrefsProvider);
     final l = AppLocalizations.of(context);
     final t = WaqtTokens.of(context);
     return Container(
@@ -76,7 +78,7 @@ class HisnDuaCard extends StatelessWidget {
             dua.arabic,
             textDirection: TextDirection.rtl,
             textAlign: TextAlign.right,
-            style: WaqtText.arabic.copyWith(color: t.ink, fontSize: 24, height: 1.85),
+            style: ReadingPrefs.scaled(WaqtText.arabic.copyWith(color: t.ink, fontSize: 24, height: 1.85), rp.arabic),
           ),
           if (dua.transliteration case final tr? when tr.isNotEmpty) ...[
             const SizedBox(height: WaqtSpace.x3),
@@ -87,7 +89,7 @@ class HisnDuaCard extends StatelessWidget {
           ],
           if (dua.translation case final en? when en.isNotEmpty) ...[
             const SizedBox(height: WaqtSpace.x3),
-            Text(en, style: WaqtText.body.copyWith(color: t.ink)),
+            Text(en, style: ReadingPrefs.scaled(WaqtText.body.copyWith(color: t.ink), rp.meaning)),
           ],
           const SizedBox(height: WaqtSpace.x4),
           Divider(height: 1, color: t.hairline),
@@ -177,55 +179,67 @@ Future<void> showHadithSheet(BuildContext context, Hadith h) {
     isScrollControlled: true,
     showDragHandle: true,
     backgroundColor: t.ground,
-    builder: (ctx) => DraggableScrollableSheet(
-      expand: false,
-      initialChildSize: 0.75,
-      maxChildSize: 0.95,
-      builder: (ctx, scroll) => ListView(
-        controller: scroll,
-        padding: const EdgeInsets.fromLTRB(WaqtSpace.screen, 0, WaqtSpace.screen, WaqtSpace.x12),
-        children: [
-          Row(
+    builder: (ctx) => Consumer(
+      builder: (ctx, ref, _) {
+        final rp = ref.watch(readingPrefsProvider);
+        return DraggableScrollableSheet(
+          expand: false,
+          initialChildSize: 0.75,
+          maxChildSize: 0.95,
+          builder: (ctx, scroll) => ListView(
+            controller: scroll,
+            padding: const EdgeInsets.fromLTRB(WaqtSpace.screen, 0, WaqtSpace.screen, WaqtSpace.x12),
             children: [
-              Expanded(
-                child: Text(h.reference, style: WaqtText.titleSmall.copyWith(color: t.ink)),
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(h.reference, style: WaqtText.titleSmall.copyWith(color: t.ink)),
+                  ),
+                  if (h.grade case final g? when g.isNotEmpty) _Grade(g),
+                ],
               ),
-              if (h.grade case final g? when g.isNotEmpty) _Grade(g),
-            ],
-          ),
-          const SizedBox(height: WaqtSpace.x5),
-          if (h.arabic.isNotEmpty)
-            SelectableText(
-              h.arabic,
-              textDirection: TextDirection.rtl,
-              textAlign: TextAlign.right,
-              style: WaqtText.arabic.copyWith(color: t.ink, fontSize: 22, height: 1.9),
-            ),
-          if (h.english.isNotEmpty) ...[
-            const SizedBox(height: WaqtSpace.x5),
-            SelectableText(h.english, style: WaqtText.body.copyWith(color: t.ink, height: 1.55)),
-          ],
-          const SizedBox(height: WaqtSpace.x5),
-          Wrap(
-            spacing: WaqtSpace.x2,
-            children: [
-              OutlinedButton.icon(
-                onPressed: () => _copy(ctx, [h.arabic, h.english, h.reference].where((s) => s.isNotEmpty).join('\n\n')),
-                icon: const Icon(Icons.copy_rounded, size: 18),
-                label: Text(l.copyText),
-              ),
-              if (h.url != null)
-                OutlinedButton.icon(
-                  onPressed: () => launchUrl(Uri.parse(h.url!), mode: LaunchMode.externalApplication),
-                  icon: const Icon(Icons.open_in_new_rounded, size: 18),
-                  label: Text(l.openSource),
+              const SizedBox(height: WaqtSpace.x5),
+              if (h.arabic.isNotEmpty)
+                SelectableText(
+                  h.arabic,
+                  textDirection: TextDirection.rtl,
+                  textAlign: TextAlign.right,
+                  style: ReadingPrefs.scaled(
+                    WaqtText.arabic.copyWith(color: t.ink, fontSize: 22, height: 1.9),
+                    rp.arabic,
+                  ),
                 ),
+              if (h.english.isNotEmpty) ...[
+                const SizedBox(height: WaqtSpace.x5),
+                SelectableText(
+                  h.english,
+                  style: ReadingPrefs.scaled(WaqtText.body.copyWith(color: t.ink, height: 1.55), rp.meaning),
+                ),
+              ],
+              const SizedBox(height: WaqtSpace.x5),
+              Wrap(
+                spacing: WaqtSpace.x2,
+                children: [
+                  OutlinedButton.icon(
+                    onPressed: () =>
+                        _copy(ctx, [h.arabic, h.english, h.reference].where((s) => s.isNotEmpty).join('\n\n')),
+                    icon: const Icon(Icons.copy_rounded, size: 18),
+                    label: Text(l.copyText),
+                  ),
+                  if (h.url != null)
+                    OutlinedButton.icon(
+                      onPressed: () => launchUrl(Uri.parse(h.url!), mode: LaunchMode.externalApplication),
+                      icon: const Icon(Icons.open_in_new_rounded, size: 18),
+                      label: Text(l.openSource),
+                    ),
+                ],
+              ),
+              const SizedBox(height: WaqtSpace.x4),
+              _Attribution(text: l.sourceHadith),
             ],
           ),
-          const SizedBox(height: WaqtSpace.x4),
-          _Attribution(text: l.sourceHadith),
-        ],
-      ),
+        );
+      },
     ),
   );
 }

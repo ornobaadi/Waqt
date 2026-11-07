@@ -211,5 +211,10 @@
   "hisnNumber": "হিসনুল মুসলিম {n}",
   "copyText": "কপি",
   "copied": "কপি হয়েছে",
-  "openSource": "উৎস খুলুন"
+  "openSource": "উৎস খুলুন",
+  "readingTitle": "পড়ার আকার",
+  "readingHint": "আরবি, উচ্চারণ ও অর্থ, আলাদাভাবে",
+  "readingArabic": "আরবি",
+  "readingTransliteration": "উচ্চারণ",
+  "readingMeaning": "অর্থ"
 }

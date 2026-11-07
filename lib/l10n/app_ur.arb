@@ -219,5 +219,10 @@
   "hisnNumber": "حصن المسلم {n}",
   "copyText": "کاپی",
   "copied": "کاپی ہو گیا",
-  "openSource": "ماخذ کھولیں"
+  "openSource": "ماخذ کھولیں",
+  "readingTitle": "پڑھنے کا سائز",
+  "readingHint": "عربی، تلفظ اور معنی، الگ الگ",
+  "readingArabic": "عربی",
+  "readingTransliteration": "تلفظ",
+  "readingMeaning": "معنی"
 }
