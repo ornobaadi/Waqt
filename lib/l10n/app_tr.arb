@@ -186,5 +186,14 @@
   "reportProblemHint": "Bir e-posta taslağı açar. Göndermeden önce her şeyi görürsünüz.",
   "privacyTitle": "Gizlilik",
   "privacyBody": "Her şey bu telefonda hesaplanır. Waqt'ta hesap, reklam veya analiz yoktur.",
-  "placeTime": "{city} saati"
+  "placeTime": "{city} saati",
+  "windowLeft": "{time} kaldı",
+  "windowPreferred": "en iyisi {time} öncesi",
+  "durHm": "{h} sa {m} dk",
+  "durM": "{m} dk",
+  "counterChoose": "Zikri değiştir",
+  "counterStep": "Adım {n}/{total}",
+  "counterFree": "Serbest sayım",
+  "counterFreeHint": "Kendi hedefinle her şeyi say",
+  "counterAfterSalah": "Namazdan sonra: 33 · 33 · 34"
 }

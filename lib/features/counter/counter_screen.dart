@@ -8,33 +8,59 @@ import '../../core/theme/tokens.dart';
 import '../../core/theme/waqt_theme.dart';
 import '../../core/utils/digits.dart';
 import '../../l10n/app_localizations.dart';
+import 'dhikr.dart';
 
 class CounterState {
-  const CounterState({this.count = 0, this.target = 33});
+  const CounterState({this.routine = 0, this.step = 0, this.count = 0, this.freeTarget = 33});
+  final int routine;
+  final int step;
   final int count;
-  final int target;
-  int get inRound => count % target;
-  int get round => count ~/ target + 1;
+  final int freeTarget;
+
+  DhikrRoutine get r => dhikrRoutines[routine];
+  Dhikr get dhikr => r.steps[step];
+  bool get free => dhikr.arabic == null;
+  int get target => free ? freeTarget : dhikr.target;
+
+  /// A set runs once through its steps; a single dhikr counts rounds.
+  int get inRound => r.isSet ? count : count % target;
+  int get round => r.isSet ? 1 : count ~/ target + 1;
+  bool get finished => r.isSet && step == r.steps.length - 1 && count >= target;
+
+  CounterState copy({int? routine, int? step, int? count, int? freeTarget}) => CounterState(
+    routine: routine ?? this.routine,
+    step: step ?? this.step,
+    count: count ?? this.count,
+    freeTarget: freeTarget ?? this.freeTarget,
+  );
 }
 
 class CounterNotifier extends Notifier<CounterState> {
   @override
   CounterState build() => const CounterState();
 
-  /// Returns true when this tap completed a round.
+  /// Returns true when this tap completed a round or a step.
   bool tap() {
-    state = CounterState(count: state.count + 1, target: state.target);
-    return state.inRound == 0;
+    final s = state;
+    if (s.finished) return false;
+    final c = s.count + 1;
+    if (s.r.isSet && c >= s.target && s.step < s.r.steps.length - 1) {
+      state = s.copy(step: s.step + 1, count: 0);
+      return true;
+    }
+    state = s.copy(count: c);
+    return s.r.isSet ? state.finished : state.inRound == 0;
   }
 
-  void reset() => state = CounterState(target: state.target);
-  void setTarget(int t) => state = CounterState(target: t);
+  void reset() => state = state.copy(step: 0, count: 0);
+  void setTarget(int t) => state = state.copy(freeTarget: t, count: 0);
+  void choose(int routine) => state = CounterState(routine: routine, freeTarget: state.freeTarget);
 }
 
 final counterProvider = NotifierProvider<CounterNotifier, CounterState>(CounterNotifier.new);
 
 /// A misbaha: the whole screen is the button, so it works without looking.
-/// It counts; what to say is the user's (and, later, reviewed content's).
+/// The chosen dhikr is shown above the beads; tap its name to change it.
 class CounterScreen extends ConsumerWidget {
   const CounterScreen({super.key});
 
@@ -60,25 +86,26 @@ class CounterScreen extends ConsumerWidget {
         foregroundColor: t.ink,
         title: Text(l.counterTitle, style: WaqtText.titleSmall.copyWith(color: t.ink)),
         actions: [
-          PopupMenuButton<int>(
-            tooltip: l.counterTarget,
-            initialValue: s.target,
-            onSelected: ref.read(counterProvider.notifier).setTarget,
-            itemBuilder: (_) => [for (final x in targets) PopupMenuItem(value: x, child: Text(n(x)))],
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: WaqtSpace.x3),
-              child: Center(
-                child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(99),
-                    border: Border.all(color: t.ink.withValues(alpha: 0.2)),
+          if (s.free)
+            PopupMenuButton<int>(
+              tooltip: l.counterTarget,
+              initialValue: s.target,
+              onSelected: ref.read(counterProvider.notifier).setTarget,
+              itemBuilder: (_) => [for (final x in targets) PopupMenuItem(value: x, child: Text(n(x)))],
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: WaqtSpace.x3),
+                child: Center(
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(99),
+                      border: Border.all(color: t.ink.withValues(alpha: 0.2)),
+                    ),
+                    child: Text('× ${n(s.target)}', style: WaqtText.label.copyWith(color: t.ink)),
                   ),
-                  child: Text('× ${n(s.target)}', style: WaqtText.label.copyWith(color: t.ink)),
                 ),
               ),
             ),
-          ),
           IconButton(
             tooltip: l.counterReset,
             onPressed: s.count == 0 ? null : ref.read(counterProvider.notifier).reset,
@@ -97,6 +124,7 @@ class CounterScreen extends ConsumerWidget {
           child: SafeArea(
             child: Column(
               children: [
+                _DhikrHeader(state: s, numbers: n),
                 Expanded(
                   child: Center(
                     child: AspectRatio(
@@ -120,7 +148,7 @@ class CounterScreen extends ConsumerWidget {
                                 children: [
                                   Text(n(s.inRound), style: WaqtText.clock.copyWith(color: t.ink)),
                                   const SizedBox(height: WaqtSpace.x1),
-                                  Text(l.counterRound(n(s.round)), style: WaqtText.label.copyWith(color: t.inkMuted)),
+                                  Text(s.r.isSet ? '/ ${n(s.target)}' : l.counterRound(n(s.round)), style: WaqtText.label.copyWith(color: t.inkMuted)),
                                 ],
                               ),
                             ),
@@ -182,4 +210,84 @@ class _BeadsPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(_BeadsPainter o) => o.progress != progress || o.beads != beads || o.ink != ink;
+}
+
+/// What is being said, and the way to change it.
+class _DhikrHeader extends ConsumerWidget {
+  const _DhikrHeader({required this.state, required this.numbers});
+  final CounterState state;
+  final LocaleDigits numbers;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l = AppLocalizations.of(context);
+    final t = WaqtTokens.of(context);
+    final d = state.dhikr;
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(WaqtSpace.screen, WaqtSpace.x4, WaqtSpace.screen, 0),
+      child: Column(
+        children: [
+          if (d.arabic != null) ...[
+            AnimatedSwitcher(
+              duration: WaqtMotion.ui,
+              child: Text(
+                d.arabic!,
+                key: ValueKey(d.id),
+                textDirection: TextDirection.rtl,
+                textAlign: TextAlign.center,
+                style: WaqtText.arabic.copyWith(color: t.ink, fontSize: 34),
+              ),
+            ),
+            const SizedBox(height: WaqtSpace.x1),
+            Text(
+              state.r.isSet
+                  ? '${d.latin} · ${l.counterStep(numbers(state.step + 1), numbers(state.r.steps.length))}'
+                  : d.latin,
+              style: WaqtText.label.copyWith(color: t.inkMuted),
+            ),
+          ],
+          const SizedBox(height: WaqtSpace.x3),
+          ActionChip(
+            avatar: Icon(Icons.swap_horiz_rounded, size: 18, color: t.ink),
+            label: Text(l.counterChoose),
+            onPressed: () => _pick(context, ref),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<void> _pick(BuildContext context, WidgetRef ref) async {
+    final l = AppLocalizations.of(context);
+    final t = WaqtTokens.of(context);
+    final i = await showModalBottomSheet<int>(
+      context: context,
+      showDragHandle: true,
+      backgroundColor: t.ground,
+      isScrollControlled: true,
+      builder: (ctx) => SafeArea(
+        child: ListView(
+          shrinkWrap: true,
+          children: [
+            for (final (i, r) in dhikrRoutines.indexed)
+              ListTile(
+                selected: i == state.routine,
+                title: Text(
+                  r.id == 'free' ? l.counterFree : (r.isSet ? l.counterAfterSalah : r.steps.single.latin),
+                  style: WaqtText.bodyStrong.copyWith(color: t.ink),
+                ),
+                subtitle: Text(
+                  r.id == 'free'
+                      ? l.counterFreeHint
+                      : r.steps.map((d) => '${d.arabic} ×${numbers(d.target)}').join('  ·  '),
+                  style: WaqtText.label.copyWith(color: t.inkMuted),
+                ),
+                onTap: () => Navigator.pop(ctx, i),
+              ),
+          ],
+        ),
+      ),
+    );
+    if (i != null) ref.read(counterProvider.notifier).choose(i);
+  }
 }

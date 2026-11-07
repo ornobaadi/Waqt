@@ -396,5 +396,19 @@
   "checkerCorrect": "Correct",
   "checkerWrong": "Wrong",
   "checkerWrongHint": "What is wrong, and the correct reference if you know it",
-  "checkerSend": "Email results"
+  "checkerSend": "Email results",
+  "windowLeft": "{time} left",
+  "@windowLeft": {"placeholders": {"time": {"type": "String"}}},
+  "windowPreferred": "best before {time}",
+  "@windowPreferred": {"placeholders": {"time": {"type": "String"}}},
+  "durHm": "{h} h {m} min",
+  "@durHm": {"placeholders": {"h": {"type": "String"}, "m": {"type": "String"}}},
+  "durM": "{m} min",
+  "@durM": {"placeholders": {"m": {"type": "String"}}},
+  "counterChoose": "Change dhikr",
+  "counterStep": "Step {n} of {total}",
+  "@counterStep": {"placeholders": {"n": {"type": "String"}, "total": {"type": "String"}}},
+  "counterFree": "Free count",
+  "counterFreeHint": "Count anything, with your own target",
+  "counterAfterSalah": "After salah: 33 · 33 · 34"
 }

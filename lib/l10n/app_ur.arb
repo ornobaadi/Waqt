@@ -194,5 +194,14 @@
   "reportProblemHint": "ای میل کا مسودہ کھلتا ہے، بھیجنے سے پہلے آپ سب کچھ دیکھ سکتے ہیں۔",
   "privacyTitle": "رازداری",
   "privacyBody": "سب کچھ اسی فون پر حساب ہوتا ہے۔ وقت میں نہ اکاؤنٹ ہیں، نہ اشتہارات، نہ اینالیٹکس۔",
-  "placeTime": "{city} کا وقت"
+  "placeTime": "{city} کا وقت",
+  "windowLeft": "{time} باقی",
+  "windowPreferred": "بہتر ہے {time} سے پہلے",
+  "durHm": "{h} گھنٹے {m} منٹ",
+  "durM": "{m} منٹ",
+  "counterChoose": "ذکر بدلیں",
+  "counterStep": "مرحلہ {n} از {total}",
+  "counterFree": "آزاد گنتی",
+  "counterFreeHint": "اپنے ہدف کے ساتھ کچھ بھی گنیں",
+  "counterAfterSalah": "نماز کے بعد: ۳۳ · ۳۳ · ۳۴"
 }

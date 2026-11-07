@@ -67,8 +67,7 @@ import 'app_localizations_ur.dart';
 /// be consistent with the languages listed in the AppLocalizations.supportedLocales
 /// property.
 abstract class AppLocalizations {
-  AppLocalizations(String locale)
-    : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+  AppLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -76,8 +75,7 @@ abstract class AppLocalizations {
     return Localizations.of<AppLocalizations>(context, AppLocalizations)!;
   }
 
-  static const LocalizationsDelegate<AppLocalizations> delegate =
-      _AppLocalizationsDelegate();
+  static const LocalizationsDelegate<AppLocalizations> delegate = _AppLocalizationsDelegate();
 
   /// A list of this localizations delegate along with the default localizations
   /// delegates.
@@ -89,13 +87,12 @@ abstract class AppLocalizations {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
-      <LocalizationsDelegate<dynamic>>[
-        delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ];
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
+    delegate,
+    GlobalMaterialLocalizations.delegate,
+    GlobalCupertinoLocalizations.delegate,
+    GlobalWidgetsLocalizations.delegate,
+  ];
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
@@ -1451,10 +1448,63 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Email results'**
   String get checkerSend;
+
+  /// No description provided for @windowLeft.
+  ///
+  /// In en, this message translates to:
+  /// **'{time} left'**
+  String windowLeft(String time);
+
+  /// No description provided for @windowPreferred.
+  ///
+  /// In en, this message translates to:
+  /// **'best before {time}'**
+  String windowPreferred(String time);
+
+  /// No description provided for @durHm.
+  ///
+  /// In en, this message translates to:
+  /// **'{h} h {m} min'**
+  String durHm(String h, String m);
+
+  /// No description provided for @durM.
+  ///
+  /// In en, this message translates to:
+  /// **'{m} min'**
+  String durM(String m);
+
+  /// No description provided for @counterChoose.
+  ///
+  /// In en, this message translates to:
+  /// **'Change dhikr'**
+  String get counterChoose;
+
+  /// No description provided for @counterStep.
+  ///
+  /// In en, this message translates to:
+  /// **'Step {n} of {total}'**
+  String counterStep(String n, String total);
+
+  /// No description provided for @counterFree.
+  ///
+  /// In en, this message translates to:
+  /// **'Free count'**
+  String get counterFree;
+
+  /// No description provided for @counterFreeHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Count anything, with your own target'**
+  String get counterFreeHint;
+
+  /// No description provided for @counterAfterSalah.
+  ///
+  /// In en, this message translates to:
+  /// **'After salah: 33 · 33 · 34'**
+  String get counterAfterSalah;
 }
 
-class _AppLocalizationsDelegate
-    extends LocalizationsDelegate<AppLocalizations> {
+class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
   const _AppLocalizationsDelegate();
 
   @override
@@ -1463,15 +1513,7 @@ class _AppLocalizationsDelegate
   }
 
   @override
-  bool isSupported(Locale locale) => <String>[
-    'ar',
-    'bn',
-    'en',
-    'fr',
-    'id',
-    'tr',
-    'ur',
-  ].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>['ar', 'bn', 'en', 'fr', 'id', 'tr', 'ur'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;

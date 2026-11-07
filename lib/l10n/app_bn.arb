@@ -186,5 +186,14 @@
   "reportProblemHint": "একটি ইমেইল খসড়া খোলে। পাঠানোর আগে আপনি সব দেখতে পাবেন।",
   "privacyTitle": "গোপনীয়তা",
   "privacyBody": "সবকিছু এই ফোনেই হিসাব হয়। Waqt-এ কোনো অ্যাকাউন্ট, বিজ্ঞাপন বা অ্যানালিটিক্স নেই।",
-  "placeTime": "{city}-এর সময়"
+  "placeTime": "{city}-এর সময়",
+  "windowLeft": "{time} বাকি",
+  "windowPreferred": "{time}-এর আগে উত্তম",
+  "durHm": "{h} ঘ {m} মি",
+  "durM": "{m} মি",
+  "counterChoose": "জিকির বদলান",
+  "counterStep": "ধাপ {n}/{total}",
+  "counterFree": "মুক্ত গণনা",
+  "counterFreeHint": "নিজের লক্ষ্য দিয়ে যেকোনো কিছু গুনুন",
+  "counterAfterSalah": "সালাতের পর: ৩৩ · ৩৩ · ৩৪"
 }

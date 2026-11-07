@@ -180,5 +180,14 @@
   "reportProblemHint": "Membuka draf email. Anda melihat semuanya sebelum dikirim.",
   "privacyTitle": "Privasi",
   "privacyBody": "Semuanya dihitung di ponsel ini. Waqt tanpa akun, iklan, atau analitik.",
-  "placeTime": "Waktu {city}"
+  "placeTime": "Waktu {city}",
+  "windowLeft": "sisa {time}",
+  "windowPreferred": "sebaiknya sebelum {time}",
+  "durHm": "{h} j {m} mnt",
+  "durM": "{m} mnt",
+  "counterChoose": "Ganti zikir",
+  "counterStep": "Langkah {n} dari {total}",
+  "counterFree": "Hitung bebas",
+  "counterFreeHint": "Hitung apa saja dengan target sendiri",
+  "counterAfterSalah": "Setelah salat: 33 · 33 · 34"
 }

@@ -82,8 +82,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get settingsDeveloper => 'Test mode';
 
   @override
-  String get settingsDeveloperHint =>
-      'Fake clock, day jumps and the reference checker';
+  String get settingsDeveloperHint => 'Fake clock, day jumps and the reference checker';
 
   @override
   String get settingsAbout => 'Waqt hakkında';
@@ -185,20 +184,16 @@ class AppLocalizationsTr extends AppLocalizations {
   String get locationLocating => 'Konum bulunuyor…';
 
   @override
-  String get gpsServiceOff =>
-      'Bu telefonda konum kapalı. Açın veya bir şehir seçin.';
+  String get gpsServiceOff => 'Bu telefonda konum kapalı. Açın veya bir şehir seçin.';
 
   @override
-  String get gpsDenied =>
-      'Konum izni reddedildi. Bunun yerine bir şehir seçebilirsiniz.';
+  String get gpsDenied => 'Konum izni reddedildi. Bunun yerine bir şehir seçebilirsiniz.';
 
   @override
-  String get gpsDeniedForever =>
-      'Konum izni engellendi. Ayarlardan izin verin veya bir şehir seçin.';
+  String get gpsDeniedForever => 'Konum izni engellendi. Ayarlardan izin verin veya bir şehir seçin.';
 
   @override
-  String get gpsTimeout =>
-      'Konum alınamadı. Tekrar deneyin veya bir şehir seçin.';
+  String get gpsTimeout => 'Konum alınamadı. Tekrar deneyin veya bir şehir seçin.';
 
   @override
   String get openSettings => 'Ayarları aç';
@@ -231,8 +226,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get asrStandard => 'Cumhur';
 
   @override
-  String get asrStandardHint =>
-      'Şâfiî, Mâlikî, Hanbelî: gölge cismin boyu kadar';
+  String get asrStandardHint => 'Şâfiî, Mâlikî, Hanbelî: gölge cismin boyu kadar';
 
   @override
   String get asrHanafi => 'Hanefî';
@@ -247,8 +241,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get highLatAuto => 'Otomatik';
 
   @override
-  String get highLatAutoHint =>
-      '48° üstünde gecenin yedide biri, altında gece yarısı';
+  String get highLatAutoHint => '48° üstünde gecenin yedide biri, altında gece yarısı';
 
   @override
   String get highLatMiddle => 'Gece yarısı';
@@ -266,8 +259,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get settingsHijriAdjust => 'Hicrî tarih düzeltmesi';
 
   @override
-  String get hijriAdjustHint =>
-      'Bulunduğunuz yerdeki hilal gözlemine uyması için';
+  String get hijriAdjustHint => 'Bulunduğunuz yerdeki hilal gözlemine uyması için';
 
   @override
   String get hijriOffsetNone => 'Yok';
@@ -278,8 +270,7 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String get settingsAttribution =>
-      'Şehir verileri © GeoNames, CC BY 4.0. Namaz vakitleri cihazda hesaplanır.';
+  String get settingsAttribution => 'Şehir verileri © GeoNames, CC BY 4.0. Namaz vakitleri cihazda hesaplanır.';
 
   @override
   String get citySearchHint => 'Şehir ara';
@@ -400,8 +391,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get statusChecked => 'Kontrol edildi';
 
   @override
-  String get draftNotice =>
-      'Kontrol edilmemiş taslak, yalnızca geliştirme sürümünde görünür';
+  String get draftNotice => 'Kontrol edilmemiş taslak, yalnızca geliştirme sürümünde görünür';
 
   @override
   String get collectionQuran => 'Kur\'an';
@@ -472,8 +462,7 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String get sheetTextPending =>
-      'Bu kaynak asıl metinle karşılaştırıldığında metin burada görünecek.';
+  String get sheetTextPending => 'Bu kaynak asıl metinle karşılaştırıldığında metin burada görünecek.';
 
   @override
   String get statusApproved => 'Âlim onaylı';
@@ -554,8 +543,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get notifExact => 'Tam zamanında';
 
   @override
-  String get notifExactHint =>
-      'Namaz hatırlatmalarının dakikasında gelmesi için';
+  String get notifExactHint => 'Namaz hatırlatmalarının dakikasında gelmesi için';
 
   @override
   String get notifBattery => 'Pil optimizasyonu';
@@ -567,8 +555,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get notifBatteryFix => 'Ayarları aç';
 
   @override
-  String get notifBatteryHint =>
-      'Bazı telefonlar arka planda hatırlatmaları durdurur. Waqt\'ı Kısıtlamasız yapın.';
+  String get notifBatteryHint => 'Bazı telefonlar arka planda hatırlatmaları durdurur. Waqt\'ı Kısıtlamasız yapın.';
 
   @override
   String notifBatteryHintOem(String maker) {
@@ -685,15 +672,13 @@ class AppLocalizationsTr extends AppLocalizations {
   String get reportProblem => 'Sorun bildir';
 
   @override
-  String get reportProblemHint =>
-      'Bir e-posta taslağı açar. Göndermeden önce her şeyi görürsünüz.';
+  String get reportProblemHint => 'Bir e-posta taslağı açar. Göndermeden önce her şeyi görürsünüz.';
 
   @override
   String get privacyTitle => 'Gizlilik';
 
   @override
-  String get privacyBody =>
-      'Her şey bu telefonda hesaplanır. Waqt\'ta hesap, reklam veya analiz yoktur.';
+  String get privacyBody => 'Her şey bu telefonda hesaplanır. Waqt\'ta hesap, reklam veya analiz yoktur.';
 
   @override
   String placeTime(String city) {
@@ -701,8 +686,7 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String get testModeUnlocked =>
-      'Test mode is on. Find it at the bottom of Settings.';
+  String get testModeUnlocked => 'Test mode is on. Find it at the bottom of Settings.';
 
   @override
   String get debugJumpDay => 'Jump to a day';
@@ -717,8 +701,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get debugShowUnchecked => 'Show unchecked content';
 
   @override
-  String get debugShowUncheckedHint =>
-      'On this phone only. Unchecked items are marked as drafts.';
+  String get debugShowUncheckedHint => 'On this phone only. Unchecked items are marked as drafts.';
 
   @override
   String get debugLock => 'Turn off test mode';
@@ -744,9 +727,45 @@ class AppLocalizationsTr extends AppLocalizations {
   String get checkerWrong => 'Wrong';
 
   @override
-  String get checkerWrongHint =>
-      'What is wrong, and the correct reference if you know it';
+  String get checkerWrongHint => 'What is wrong, and the correct reference if you know it';
 
   @override
   String get checkerSend => 'Email results';
+
+  @override
+  String windowLeft(String time) {
+    return '$time kaldı';
+  }
+
+  @override
+  String windowPreferred(String time) {
+    return 'en iyisi $time öncesi';
+  }
+
+  @override
+  String durHm(String h, String m) {
+    return '$h sa $m dk';
+  }
+
+  @override
+  String durM(String m) {
+    return '$m dk';
+  }
+
+  @override
+  String get counterChoose => 'Zikri değiştir';
+
+  @override
+  String counterStep(String n, String total) {
+    return 'Adım $n/$total';
+  }
+
+  @override
+  String get counterFree => 'Serbest sayım';
+
+  @override
+  String get counterFreeHint => 'Kendi hedefinle her şeyi say';
+
+  @override
+  String get counterAfterSalah => 'Namazdan sonra: 33 · 33 · 34';
 }

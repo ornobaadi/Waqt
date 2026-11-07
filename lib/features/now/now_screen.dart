@@ -21,6 +21,7 @@ import '../common/labels.dart';
 import 'checklist_card.dart';
 import 'moment_cards.dart';
 import 'celestial.dart';
+import 'prayer_windows.dart';
 import 'sky_background.dart';
 
 /// Home v0: where you are, what time it is in the prayer day, what's next.
@@ -126,7 +127,7 @@ class NowScreen extends ConsumerWidget {
               const SizedBox(height: WaqtSpace.x3),
               Text(dateLine, style: WaqtText.label.copyWith(color: t.inkMuted)),
               const SizedBox(height: WaqtSpace.x6),
-              _PrayerStrip(status: status, now: now, locale: locale),
+              if (status != null) PrayerWindows(status: status, now: now),
               if (status?.today.estimated ?? false) ...[
                 const SizedBox(height: WaqtSpace.x3),
                 Padding(
@@ -251,107 +252,6 @@ class _HeroLines extends StatelessWidget {
           const SizedBox(height: WaqtSpace.x1),
           Text(l.nextIn(l.waqt(status.next), countdown), style: WaqtText.body.copyWith(color: t.inkMuted)),
         ],
-      ),
-    );
-  }
-}
-
-class _PrayerStrip extends StatelessWidget {
-  const _PrayerStrip({required this.status, required this.now, required this.locale});
-  final PrayerStatus? status;
-  final DateTime now;
-  final String locale;
-
-  @override
-  Widget build(BuildContext context) {
-    final l = AppLocalizations.of(context);
-    final t = WaqtTokens.of(context);
-    final h24 = MediaQuery.alwaysUse24HourFormatOf(context);
-    final fmt = h24 ? DateFormat.Hm(locale) : DateFormat('h:mm', locale);
-    final s = status;
-
-    Widget cell(Waqt w) => _StripCell(
-      label: l.waqt(w),
-      time: s == null ? l.timePending : fmt.format(s.today[w]),
-      pending: s == null,
-      // Before Fajr the running Isha belongs to yesterday, so no cell of
-      // today's strip is current.
-      current: s != null && s.current == w && !s.today[w].isAfter(now),
-      past: s != null && s.isPast(w, now),
-    );
-    // Large text (accessibility): two rows of three instead of one of six.
-    final rows = MediaQuery.textScalerOf(context).scale(10) > 13 ? 2 : 1;
-    final per = Waqt.values.length ~/ rows;
-
-    // The whole day is one tap away.
-    return Material(
-      color: t.surface,
-      borderRadius: BorderRadius.circular(WaqtRadii.strip),
-      clipBehavior: Clip.antiAlias,
-      child: InkWell(
-        onTap: () => context.go('/today'),
-        child: Padding(
-          padding: const EdgeInsets.all(WaqtSpace.x1),
-          child: Column(
-            children: [
-              for (var r = 0; r < rows; r++)
-                Row(children: [for (final w in Waqt.values.skip(r * per).take(per)) Expanded(child: cell(w))]),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _StripCell extends StatelessWidget {
-  const _StripCell({
-    required this.label,
-    required this.time,
-    required this.pending,
-    required this.current,
-    required this.past,
-  });
-  final String label;
-  final String time;
-  final bool pending;
-  final bool current;
-  final bool past;
-
-  @override
-  Widget build(BuildContext context) {
-    final t = WaqtTokens.of(context);
-    final fg = current ? t.ground : t.ink;
-    return AnimatedContainer(
-      duration: WaqtMotion.ui,
-      curve: WaqtMotion.ease,
-      constraints: const BoxConstraints(minHeight: 64),
-      padding: const EdgeInsets.symmetric(vertical: WaqtSpace.x2),
-      decoration: BoxDecoration(
-        color: current ? t.ink : Colors.transparent,
-        borderRadius: BorderRadius.circular(WaqtRadii.row),
-      ),
-      child: Semantics(
-        selected: current,
-        label: '$label $time',
-        excludeSemantics: true,
-        child: Opacity(
-          opacity: past ? 0.45 : 1,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                label,
-                style: WaqtText.caption.copyWith(color: current ? fg.withValues(alpha: 0.75) : t.inkMuted),
-                maxLines: 1,
-                overflow: TextOverflow.fade,
-                softWrap: false,
-              ),
-              const SizedBox(height: WaqtSpace.x1),
-              Text(time, style: WaqtText.bodyStrong.copyWith(color: pending ? t.ink.withValues(alpha: 0.35) : fg)),
-            ],
-          ),
-        ),
       ),
     );
   }

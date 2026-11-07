@@ -208,5 +208,14 @@
   "reportProblemHint": "يفتح مسودة بريد. ترى كل شيء قبل إرساله.",
   "privacyTitle": "الخصوصية",
   "privacyBody": "كل شيء يُحسب على هذا الهاتف. لا حسابات ولا إعلانات ولا تحليلات في وقت.",
-  "placeTime": "توقيت {city}"
+  "placeTime": "توقيت {city}",
+  "windowLeft": "بقي {time}",
+  "windowPreferred": "الأفضل قبل {time}",
+  "durHm": "{h} س {m} د",
+  "durM": "{m} د",
+  "counterChoose": "تغيير الذكر",
+  "counterStep": "الخطوة {n} من {total}",
+  "counterFree": "عدّ حر",
+  "counterFreeHint": "عدّ أي شيء بالهدف الذي تختاره",
+  "counterAfterSalah": "بعد الصلاة: ٣٣ · ٣٣ · ٣٤"
 }
