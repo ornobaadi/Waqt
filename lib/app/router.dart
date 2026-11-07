@@ -11,6 +11,7 @@ import '../features/duas/library_views.dart';
 import '../features/now/now_screen.dart';
 import '../features/settings/city_picker_screen.dart';
 import '../features/settings/checker_screen.dart';
+import '../features/settings/adjust_screen.dart';
 import '../features/settings/developer_screen.dart';
 import '../features/settings/reading_screen.dart';
 import '../features/settings/notifications_screen.dart';
@@ -55,6 +56,7 @@ final routerProvider = Provider<GoRouter>((ref) {
                 routes: [
                   GoRoute(path: 'city', builder: (_, _) => const CityPickerScreen()),
                   GoRoute(path: 'reading', builder: (_, _) => const ReadingScreen()),
+                  GoRoute(path: 'adjust', builder: (_, _) => const AdjustScreen()),
                   GoRoute(path: 'notifications', builder: (_, _) => const NotificationsScreen()),
                   GoRoute(
                     path: 'developer',

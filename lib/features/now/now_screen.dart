@@ -56,6 +56,8 @@ class NowScreen extends ConsumerWidget {
     final dateLine = '${DateFormat.MMMEd(locale).format(now)}  ·  ${l.hijri(hijri, n.call)}';
 
     final palette = ref.watch(activePaletteProvider);
+    // Ramadan's count follows the date on screen, which turns at Maghrib.
+    final ramadanDay = hijri.month == 9 ? hijri.day : occ.date.day;
     final guides = ref.watch(dayGuidesProvider).value;
     final guideOcc = guides?.featured(occasions);
     final sighting = sightingQuestion(ref);
@@ -73,7 +75,7 @@ class NowScreen extends ConsumerWidget {
         : (afterMaghrib ? ref.watch(tomorrowOccasionsProvider) : occasions).where(guides.fasts.contains).firstOrNull;
     final fastText = fastOcc == null
         ? null
-        : (afterMaghrib ? l.fastTomorrow : l.fastToday)(l.occasion(fastOcc, ramadanDay: n(occ.date.day)));
+        : (afterMaghrib ? l.fastTomorrow : l.fastToday)(l.occasion(fastOcc, ramadanDay: n(ramadanDay)));
     return Stack(
       children: [
         Positioned(top: 0, left: 0, right: 0, height: 520, child: SkyBackground(palette: palette)),
@@ -113,7 +115,7 @@ class NowScreen extends ConsumerWidget {
                     _Pill(text: l.debugClockFaked, color: t.ink, ink: t.ground)
                   else if (occasions.isNotEmpty)
                     _Pill(
-                      text: l.occasion(occasions.first, ramadanDay: n(occ.date.day)),
+                      text: l.occasion(occasions.first, ramadanDay: n(ramadanDay)),
                       color: t.accent,
                       ink: const Color(0xFF14110C),
                     ),
@@ -208,15 +210,6 @@ class NowScreen extends ConsumerWidget {
                 AnnouncementCard(month: announcement.month, tomorrow: announcement.tomorrow, known: announcement.known),
               ],
               if (sighting != null) ...[const SizedBox(height: WaqtSpace.x4), SightingCard(next: sighting)],
-              if (guideOcc != null && guides != null) ...[
-                const SizedBox(height: WaqtSpace.x4),
-                DayGuideCard(
-                  occasion: guideOcc,
-                  items: guides.itemsFor(guideOcc, occasions),
-                  day: '${now.year}-${now.month}-${now.day}',
-                  ramadanDay: n(occ.date.day),
-                ),
-              ],
               // A checklist moment is shown by its checklist alone.
               if (moments != null && moments.hero.kind != MomentKind.prayer && moments.hero.id != checklist) ...[
                 const SizedBox(height: WaqtSpace.x4),
@@ -227,6 +220,8 @@ class NowScreen extends ConsumerWidget {
                   items: checklistMoments.contains(moments.hero.id)
                       ? const []
                       : ref.watch(momentContentProvider(moments.hero.id)),
+                  sourced: guides?.forMoment(moments.hero.id) ?? const [],
+                  onSourced: (i) => openDayItem(context, ref, i),
                 ),
               ],
               if (checklist != null) ...[
@@ -235,6 +230,24 @@ class NowScreen extends ConsumerWidget {
                   moment: checklist,
                   items: ref.watch(momentContentProvider(checklist)),
                   day: prayerDayKey(moments!.timeline.first.window.start),
+                ),
+              ],
+              if (guideOcc != null && guides != null) ...[
+                const SizedBox(height: WaqtSpace.x4),
+                DayGuideCard(
+                  occasion: guideOcc,
+                  items: guides.itemsFor(guideOcc, occasions),
+                  day: '${now.year}-${now.month}-${now.day}',
+                  ramadanDay: n(ramadanDay),
+                  phase: status == null
+                      ? null
+                      : now.isBefore(status.today[Waqt.fajr])
+                      ? 'suhoor'
+                      : now.isBefore(status.today[Waqt.asr])
+                      ? 'day'
+                      : now.isBefore(status.today[Waqt.isha])
+                      ? 'iftar'
+                      : 'night',
                 ),
               ],
               if (moments != null && moments.upcoming.isNotEmpty) ...[

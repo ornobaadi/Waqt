@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import '../../core/theme/tokens.dart';
 import '../../core/theme/waqt_theme.dart';
 import '../../data/content/content_repository.dart';
+import '../../data/sources/days.dart';
 import '../../domain/moments/moment.dart';
 import '../../l10n/app_localizations.dart';
 import '../common/labels.dart';
@@ -23,9 +24,21 @@ DateFormat clockFormat(BuildContext context) {
 /// waqt itself. Content (duas, actions with references) arrives in Phase 3;
 /// until then the card names the moment and how long it lasts.
 class RightNowCard extends StatelessWidget {
-  const RightNowCard({super.key, required this.moment, required this.now, this.items = const []});
+  const RightNowCard({
+    super.key,
+    required this.moment,
+    required this.now,
+    this.items = const [],
+    this.sourced = const [],
+    this.onSourced,
+  });
   final Moment moment;
   final DateTime now;
+
+  /// Items tied to a hadith in the bundled collections, shown before any
+  /// unreviewed content. Tapping one calls [onSourced].
+  final List<DayItem> sourced;
+  final void Function(DayItem)? onSourced;
 
   /// Linked content (reviewed only in release builds). At most three show.
   final List<ContentItem> items;
@@ -75,7 +88,10 @@ class RightNowCard extends StatelessWidget {
                 child: Text(l.kindRestricted, style: WaqtText.caption.copyWith(color: ink)),
               ),
             ],
-            if (items.isNotEmpty) ...[
+            if (sourced.isNotEmpty) ...[
+              const SizedBox(height: WaqtSpace.x3),
+              for (final i in sourced.take(4)) _SourcedRow(item: i, onTap: () => onSourced?.call(i)),
+            ] else if (items.isNotEmpty) ...[
               const SizedBox(height: WaqtSpace.x4),
               for (final item in items.take(3)) _ItemRow(item: item),
             ],
@@ -105,6 +121,55 @@ class RightNowCard extends StatelessWidget {
               color: t.accent,
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+/// What to do now, and the hadith it comes from.
+class _SourcedRow extends StatelessWidget {
+  const _SourcedRow({required this.item, required this.onTap});
+  final DayItem item;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = WaqtTokens.of(context);
+    final ink = t.heroInk;
+    return Semantics(
+      button: true,
+      label: '${item.title}. ${item.reference}',
+      excludeSemantics: true,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(WaqtRadii.row),
+        child: Container(
+          width: double.infinity,
+          margin: const EdgeInsets.only(top: WaqtSpace.x2),
+          padding: const EdgeInsets.all(WaqtSpace.x3),
+          decoration: BoxDecoration(
+            color: ink.withValues(alpha: 0.07),
+            borderRadius: BorderRadius.circular(WaqtRadii.row),
+          ),
+          child: Row(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(item.title, style: WaqtText.bodyStrong.copyWith(color: ink)),
+                    const SizedBox(height: 2),
+                    Text(
+                      [item.reference, if (item.grade != null) item.grade!].join('  ·  '),
+                      style: WaqtText.caption.copyWith(color: t.accent),
+                    ),
+                  ],
+                ),
+              ),
+              Icon(Icons.chevron_right_rounded, color: ink.withValues(alpha: 0.4)),
+            ],
+          ),
         ),
       ),
     );

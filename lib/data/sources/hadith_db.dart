@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
+
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path_provider/path_provider.dart';
@@ -50,12 +52,15 @@ class Hadith {
 /// Every hadith collection in open-hadith-data, searchable offline.
 ///
 /// The asset is a compressed SQLite file without a search index (to keep the
-/// APK small). On first use it is unpacked and indexed once, which takes a
-/// few seconds and reports progress.
+/// APK small). Opening it unpacks it once, off the UI thread; lookups by
+/// reference work straight away. The search index is built the first time
+/// someone searches, with the text work done in a background isolate.
 class HadithDb {
-  HadithDb._(this._db, this.collections);
+  HadithDb._(this._db, this.collections, this._onProgress);
   final Database _db;
   final List<HadithCollection> collections;
+  final void Function(double)? _onProgress;
+  Future<void>? _indexing;
 
   static const _file = 'hadith-v1.db';
   static const _ready = 'index_ready';
@@ -65,27 +70,38 @@ class HadithDb {
     final path = '${dir.path}/$_file';
     if (!File(path).existsSync()) {
       final gz = await rootBundle.load('assets/sources/hadith.db.gz');
-      final bytes = gzip.decode(gz.buffer.asUint8List(gz.offsetInBytes, gz.lengthInBytes));
-      await File('$path.tmp').writeAsBytes(bytes, flush: true);
-      await File('$path.tmp').rename(path);
+      await compute(_unpack, (gz.buffer.asUint8List(gz.offsetInBytes, gz.lengthInBytes), path));
     }
     return fromDatabase(await openDatabase(path), onProgress: onProgress);
   }
 
-  /// Index (if needed) and wrap an open database. Tests use it directly.
+  static Future<void> _unpack((Uint8List, String) job) async {
+    final (gz, path) = job;
+    final tmp = File('$path.tmp');
+    await tmp.writeAsBytes(gzip.decode(gz), flush: true);
+    await tmp.rename(path);
+  }
+
+  /// Wrap an open database. Tests use it directly.
   static Future<HadithDb> fromDatabase(Database db, {void Function(double)? onProgress}) async {
-    await _index(db, onProgress);
+    await db.execute('CREATE INDEX IF NOT EXISTS hadith_ref ON hadith(col, num)');
     final cols = await db.query('collection', orderBy: 'ord');
     return HadithDb._(db, [
       for (final c in cols)
         HadithCollection(c['id']! as String, '${c['name_en']}', '${c['name_ar']}', c['count']! as int),
-    ]);
+    ], onProgress);
   }
+
+  /// Builds the search index once; later calls return at once.
+  Future<void> ensureIndex() => _indexing ??= _index(_db, _onProgress);
 
   static Future<void> _index(Database db, void Function(double)? onProgress) async {
     await db.execute('CREATE TABLE IF NOT EXISTS meta(k TEXT PRIMARY KEY, v TEXT)');
     final done = await db.query('meta', where: 'k = ?', whereArgs: [_ready]);
-    if (done.isNotEmpty) return;
+    if (done.isNotEmpty) {
+      onProgress?.call(1);
+      return;
+    }
     await db.execute('DROP TABLE IF EXISTS hadith_fts');
     // Android's SQLite has FTS4; some desktop builds (tests) only FTS5. Both
     // take the same contentless table, inserts by rowid and prefix queries.
@@ -98,19 +114,23 @@ class HadithDb {
     const page = 2000;
     for (var off = 0; off < total; off += page) {
       final rows = await db.rawQuery('SELECT id, ar, en, ref FROM hadith LIMIT $page OFFSET $off');
+      // Normalising Arabic is regex work: off the UI thread.
+      final norm = await compute(_normalize, [
+        for (final r in rows) [r['id'], r['ar'] as String? ?? '', '${r['en'] ?? ''} ${r['ref'] ?? ''}'],
+      ]);
       final batch = db.batch();
-      for (final r in rows) {
-        batch.rawInsert('INSERT INTO hadith_fts(rowid, ar, en) VALUES(?,?,?)', [
-          r['id'],
-          SearchText.normalize(r['ar'] as String?),
-          SearchText.normalize('${r['en'] ?? ''} ${r['ref'] ?? ''}'),
-        ]);
+      for (final r in norm) {
+        batch.rawInsert('INSERT INTO hadith_fts(rowid, ar, en) VALUES(?,?,?)', r);
       }
       await batch.commit(noResult: true);
       onProgress?.call((off + rows.length) / total);
     }
     await db.insert('meta', {'k': _ready, 'v': '1'});
   }
+
+  static List<List<Object?>> _normalize(List<List<Object?>> rows) => [
+    for (final r in rows) [r[0], SearchText.normalize(r[1]! as String), SearchText.normalize(r[2]! as String)],
+  ];
 
   /// One hadith by collection and number as the source numbers it.
   Future<Hadith?> byRef(String col, String num) async {
@@ -154,6 +174,7 @@ class HadithDb {
     }
     final words = SearchText.words(q);
     if (words.isEmpty) return const [];
+    await ensureIndex();
     final match = words.map((w) => '$w*').join(' ');
     final rows = await _db.rawQuery(
       'SELECT h.* FROM hadith_fts f JOIN hadith h ON h.id = f.rowid '
@@ -164,18 +185,16 @@ class HadithDb {
   }
 }
 
-/// Indexing progress on first open, 0..1; null once ready.
+/// Search-index progress while it is first built, 0..1; null otherwise.
 final hadithIndexProgressProvider = NotifierProvider<_Progress, double?>(_Progress.new);
 
 class _Progress extends Notifier<double?> {
   @override
-  double? build() => 0;
+  double? build() => null;
   void set(double? v) => state = v;
 }
 
 final hadithDbProvider = FutureProvider<HadithDb>((ref) async {
   final p = ref.read(hadithIndexProgressProvider.notifier);
-  final db = await HadithDb.open(onProgress: p.set);
-  p.set(null);
-  return db;
+  return HadithDb.open(onProgress: (v) => p.set(v >= 1 ? null : v));
 });

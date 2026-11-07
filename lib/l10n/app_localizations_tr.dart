@@ -958,4 +958,44 @@ class AppLocalizationsTr extends AppLocalizations {
   String announceUnknown(String month) {
     return 'Duyuru henüz Waqt\'a ulaşmadı. Hilal bu gece görülürse $month yarın başlar; görülmezse bu ay 30 güne tamamlanır.';
   }
+
+  @override
+  String get adjustTitle => 'Vakitleri ayarla';
+
+  @override
+  String get adjustRowHint => 'Yerel takvime veya camiye uydur';
+
+  @override
+  String get adjustNone => 'Yok';
+
+  @override
+  String adjustSome(int count) {
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$count vakit', one: '1 vakit');
+    return '$_temp0';
+  }
+
+  @override
+  String get adjustHint =>
+      'Vakitler tam konumunuza göre hesaplanır. Yerel takvim (ör. Diyanet ya da caminiz) bir iki dakika farklıysa burada eşitleyin.';
+
+  @override
+  String get adjustNote =>
+      'Sahur imsakta biter, iftar akşamdadır; bunları ayarlamak sahur ve iftarı da kaydırır. Hatırlatmalar ve widget da uyar.';
+
+  @override
+  String get adjustEarlier => '1 dakika erken';
+
+  @override
+  String get adjustLater => '1 dakika geç';
+
+  @override
+  String get momentTaraweeh => 'Teravih';
+
+  @override
+  String get showLess => 'Daha az';
+
+  @override
+  String showAll(int count) {
+    return 'Tümünü göster ($count)';
+  }
 }

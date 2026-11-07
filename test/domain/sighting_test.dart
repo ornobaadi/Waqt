@@ -41,5 +41,11 @@ void main() {
     }
     expect(d.featured([OccasionId.eidAlFitr, OccasionId.jumuah]), OccasionId.eidAlFitr);
     expect(d.featured([OccasionId.jumuah]), isNull);
+    // Every moment link names an item that exists.
+    for (final MapEntry(:key, :value) in DayGuides.momentItems.entries) {
+      expect(d.forMoment(key).length, value.length, reason: key.name);
+    }
+    // Ramadan items carry when they matter, for the folded checklist.
+    expect(d.forOccasion(OccasionId.ramadan).every((i) => i.when != null), isTrue);
   });
 }

@@ -1814,6 +1814,72 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The announcement has not reached Waqt yet. If the crescent is seen tonight, {month} begins tomorrow; if not, this month completes 30 days.'**
   String announceUnknown(String month);
+
+  /// No description provided for @adjustTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Adjust times'**
+  String get adjustTitle;
+
+  /// No description provided for @adjustRowHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Match your local timetable or mosque'**
+  String get adjustRowHint;
+
+  /// No description provided for @adjustNone.
+  ///
+  /// In en, this message translates to:
+  /// **'None'**
+  String get adjustNone;
+
+  /// No description provided for @adjustSome.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 time} other{{count} times}}'**
+  String adjustSome(int count);
+
+  /// No description provided for @adjustHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Times are calculated for your exact position. If your local timetable (for example your country\'s Islamic Foundation, or your mosque) differs by a minute or two, match it here.'**
+  String get adjustHint;
+
+  /// No description provided for @adjustNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Suhoor ends at Fajr and iftar is at Maghrib, so adjusting those moves suhoor and iftar too. Reminders and the widget follow.'**
+  String get adjustNote;
+
+  /// No description provided for @adjustEarlier.
+  ///
+  /// In en, this message translates to:
+  /// **'1 minute earlier'**
+  String get adjustEarlier;
+
+  /// No description provided for @adjustLater.
+  ///
+  /// In en, this message translates to:
+  /// **'1 minute later'**
+  String get adjustLater;
+
+  /// No description provided for @momentTaraweeh.
+  ///
+  /// In en, this message translates to:
+  /// **'Taraweeh'**
+  String get momentTaraweeh;
+
+  /// No description provided for @showLess.
+  ///
+  /// In en, this message translates to:
+  /// **'Show less'**
+  String get showLess;
+
+  /// No description provided for @showAll.
+  ///
+  /// In en, this message translates to:
+  /// **'Show all {count}'**
+  String showAll(int count);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

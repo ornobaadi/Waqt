@@ -247,5 +247,16 @@
   "authorityLocalHint": "Ümmü'l-Kurâ; 29'unda hilalin görülüp görülmediğini siz söylersiniz",
   "calendarSourceLine": "{authority} · {time} kontrol edildi",
   "calendarSourceLocal": "Ümmü'l-Kurâ ve düzeltmeniz. Şaban, Ramazan ve Zilkade'nin 29'unda ana ekran hilali sorar.",
-  "announceUnknown": "Duyuru henüz Waqt'a ulaşmadı. Hilal bu gece görülürse {month} yarın başlar; görülmezse bu ay 30 güne tamamlanır."
+  "announceUnknown": "Duyuru henüz Waqt'a ulaşmadı. Hilal bu gece görülürse {month} yarın başlar; görülmezse bu ay 30 güne tamamlanır.",
+  "adjustTitle": "Vakitleri ayarla",
+  "adjustRowHint": "Yerel takvime veya camiye uydur",
+  "adjustNone": "Yok",
+  "adjustSome": "{count, plural, =1{1 vakit} other{{count} vakit}}",
+  "adjustHint": "Vakitler tam konumunuza göre hesaplanır. Yerel takvim (ör. Diyanet ya da caminiz) bir iki dakika farklıysa burada eşitleyin.",
+  "adjustNote": "Sahur imsakta biter, iftar akşamdadır; bunları ayarlamak sahur ve iftarı da kaydırır. Hatırlatmalar ve widget da uyar.",
+  "adjustEarlier": "1 dakika erken",
+  "adjustLater": "1 dakika geç",
+  "momentTaraweeh": "Teravih",
+  "showLess": "Daha az",
+  "showAll": "Tümünü göster ({count})"
 }

@@ -15,6 +15,7 @@ enum MomentId {
   bedtime,
   lastThird,
   laylatAlQadr,
+  taraweeh,
   suhoor,
   iftar,
   jumuah,

@@ -956,4 +956,44 @@ class AppLocalizationsBn extends AppLocalizations {
   String announceUnknown(String month) {
     return 'ঘোষণা এখনও ওয়াক্তে পৌঁছায়নি। আজ রাতে চাঁদ দেখা গেলে আগামীকাল $month শুরু; না দেখা গেলে এই মাস ৩০ দিন পূর্ণ করবে।';
   }
+
+  @override
+  String get adjustTitle => 'সময় সমন্বয়';
+
+  @override
+  String get adjustRowHint => 'স্থানীয় সময়সূচি বা মসজিদের সাথে মেলান';
+
+  @override
+  String get adjustNone => 'নেই';
+
+  @override
+  String adjustSome(int count) {
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$countটি সময়', one: '১টি সময়');
+    return '$_temp0';
+  }
+
+  @override
+  String get adjustHint =>
+      'সময়গুলো আপনার সঠিক অবস্থান অনুযায়ী হিসাব করা হয়। আপনার স্থানীয় সময়সূচি (যেমন ইসলামিক ফাউন্ডেশন বা মসজিদ) এক-দুই মিনিট আলাদা হলে এখানে মেলান।';
+
+  @override
+  String get adjustNote =>
+      'সাহরি ফজরে শেষ এবং ইফতার মাগরিবে, তাই এগুলো সমন্বয় করলে সাহরি ও ইফতারও বদলায়। রিমাইন্ডার ও উইজেটও অনুসরণ করে।';
+
+  @override
+  String get adjustEarlier => '১ মিনিট আগে';
+
+  @override
+  String get adjustLater => '১ মিনিট পরে';
+
+  @override
+  String get momentTaraweeh => 'তারাবিহ';
+
+  @override
+  String get showLess => 'কম দেখান';
+
+  @override
+  String showAll(int count) {
+    return 'সব দেখান ($count)';
+  }
 }

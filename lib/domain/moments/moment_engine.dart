@@ -117,6 +117,20 @@ class LaylatAlQadrRule extends MomentRule {
   }
 }
 
+/// Ramadan nights: taraweeh (qiyam of Ramadan) from Isha to the middle of
+/// the night. Later in the night the last third takes over. Tonight is a
+/// Ramadan night when [PrayerDay.hijriNext] is in Ramadan.
+class TaraweehRule extends MomentRule {
+  const TaraweehRule();
+  @override
+  Iterable<Moment> windows(PrayerDay d, MomentConfig c) sync* {
+    if (d.hijriNext?.month != 9) return;
+    final isha = d.today[Waqt.isha], maghrib = d.today[Waqt.maghrib], fajr = d.tomorrow[Waqt.fajr];
+    final middle = maghrib.add(fajr.difference(maghrib) ~/ 2);
+    if (middle.isAfter(isha)) yield Moment(MomentId.taraweeh, MomentKind.devotion, 82, TimeWindow(isha, middle));
+  }
+}
+
 class RestrictedTimesRule extends MomentRule {
   const RestrictedTimesRule();
   @override
@@ -223,6 +237,7 @@ const defaultRules = <MomentRule>[
   JumuahRule(),
   RamadanRule(),
   LaylatAlQadrRule(),
+  TaraweehRule(),
   FridayLastHourRule(),
   RestrictedTimesRule(),
   SalahRule(),

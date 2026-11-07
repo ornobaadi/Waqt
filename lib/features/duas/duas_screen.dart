@@ -9,7 +9,11 @@ import '../../core/theme/tokens.dart';
 import '../../core/theme/waqt_theme.dart';
 import '../../core/widgets/waqt_widgets.dart';
 import '../../data/sources/hadith_db.dart';
+import '../../data/sources/days.dart';
 import '../../data/sources/hisn.dart';
+import '../../domain/occasions/occasions.dart';
+import '../common/labels.dart';
+import '../now/day_guide_card.dart';
 import '../../domain/moments/moment.dart';
 import '../../l10n/app_localizations.dart';
 import 'library_views.dart';
@@ -25,6 +29,9 @@ const momentChapters = <MomentId, List<int>>{
   MomentId.bedtime: [28, 29, 30],
   MomentId.lastThird: [32, 129],
   MomentId.iftar: [68, 73],
+  MomentId.suhoor: [129],
+  MomentId.taraweeh: [32, 33],
+  MomentId.laylatAlQadr: [129, 130],
   MomentId.jumuah: [107],
   MomentId.fridayLastHour: [107, 132],
 };
@@ -150,16 +157,38 @@ class _DuasScreenState extends ConsumerState<DuasScreen> {
           ] else if (book != null) ...[
             ..._forNow(context, book, name),
             _pad(SectionLabel(l.librarySituations)),
-            _pad(
-              RowGroup(
-                children: [
-                  for (final c in book.chapters)
-                    RowTile(
-                      title: name(c),
-                      value: '${book.inChapter(c.number).length}',
-                      onTap: () => context.push('/duas/hisn/${c.number}'),
+            // Built lazily: only the rows on screen exist, so scrolling the
+            // 132 situations stays smooth.
+            SliverPadding(
+              padding: const EdgeInsets.symmetric(horizontal: WaqtSpace.screen),
+              sliver: SliverList.builder(
+                itemCount: book.chapters.length,
+                itemBuilder: (context, i) {
+                  final c = book.chapters[i];
+                  final last = i == book.chapters.length - 1;
+                  return DecoratedBox(
+                    decoration: BoxDecoration(
+                      color: t.surface,
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(i == 0 ? WaqtRadii.strip : 0),
+                        bottom: Radius.circular(last ? WaqtRadii.strip : 0),
+                      ),
                     ),
-                ],
+                    child: Padding(
+                      padding: EdgeInsets.fromLTRB(
+                        WaqtSpace.x1,
+                        i == 0 ? WaqtSpace.x1 : 0,
+                        WaqtSpace.x1,
+                        last ? WaqtSpace.x1 : 0,
+                      ),
+                      child: RowTile(
+                        title: name(c),
+                        value: '${book.inChapter(c.number).length}',
+                        onTap: () => context.push('/duas/hisn/${c.number}'),
+                      ),
+                    ),
+                  );
+                },
               ),
             ),
             _pad(
@@ -179,59 +208,81 @@ class _DuasScreenState extends ConsumerState<DuasScreen> {
   List<Widget> _forNow(BuildContext context, HisnBook book, String Function(HisnChapter) name) {
     final l = AppLocalizations.of(context);
     final t = WaqtTokens.of(context);
-    final active = ref.watch(momentSnapshotProvider.select((s) => s?.active.map((m) => m.id).toList()));
-    final chapters = <int>{for (final id in (active ?? const <MomentId>[]).reversed) ...?momentChapters[id]}
+    // Select a string, not a list: a new list every clock tick would rebuild
+    // the whole library each second and make scrolling stutter.
+    final key = ref.watch(momentSnapshotProvider.select((s) => s?.active.map((m) => m.id.name).join(',') ?? ''));
+    final active = [for (final n in key.split(',')) ?MomentId.values.asNameMap()[n]];
+    final chapters = <int>{for (final id in active.reversed) ...?momentChapters[id]}
         .map(book.chapter)
         .nonNulls
         .toList();
-    if (chapters.isEmpty) return const [];
+    // Today's special-day Sunnah, sourced, as a short list under the chapters.
+    final occasions = ref.watch(occasionsProvider.select((o) => o.list.map((x) => x.name).join(',')));
+    final guides = ref.watch(dayGuidesProvider).value;
+    final occList = [for (final n in occasions.split(',')) ?OccasionId.values.asNameMap()[n]];
+    final featured = guides?.featured(occList);
+    final today = featured == null ? const <DayItem>[] : guides!.itemsFor(featured, occList);
+    if (chapters.isEmpty && today.isEmpty) return const [];
     return [
-      _pad(SectionLabel(l.libraryForNow)),
-      SliverToBoxAdapter(
-        child: SizedBox(
-          height: 112,
-          child: ListView.separated(
-            scrollDirection: Axis.horizontal,
-            padding: const EdgeInsets.symmetric(horizontal: WaqtSpace.screen),
-            itemCount: chapters.length,
-            separatorBuilder: (_, _) => const SizedBox(width: WaqtSpace.x3),
-            itemBuilder: (context, i) {
-              final c = chapters[i];
-              return SizedBox(
-                width: 220,
-                child: Material(
-                  color: t.heroSurface,
-                  borderRadius: BorderRadius.circular(WaqtRadii.strip),
-                  child: InkWell(
+      if (today.isNotEmpty) ...[
+        _pad(SectionLabel(l.occasion(featured!, ramadanDay: ''))),
+        _pad(
+          RowGroup(
+            children: [
+              for (final i in today.take(4))
+                RowTile(title: i.title, subtitle: i.reference, onTap: () => openDayItem(context, ref, i)),
+            ],
+          ),
+        ),
+      ],
+      if (chapters.isNotEmpty) ...[
+        _pad(SectionLabel(l.libraryForNow)),
+        SliverToBoxAdapter(
+          child: SizedBox(
+            height: 112,
+            child: ListView.separated(
+              scrollDirection: Axis.horizontal,
+              padding: const EdgeInsets.symmetric(horizontal: WaqtSpace.screen),
+              itemCount: chapters.length,
+              separatorBuilder: (_, _) => const SizedBox(width: WaqtSpace.x3),
+              itemBuilder: (context, i) {
+                final c = chapters[i];
+                return SizedBox(
+                  width: 220,
+                  child: Material(
+                    color: t.heroSurface,
                     borderRadius: BorderRadius.circular(WaqtRadii.strip),
-                    onTap: () => context.push('/duas/hisn/${c.number}'),
-                    child: Padding(
-                      padding: const EdgeInsets.all(WaqtSpace.x4),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(
-                            child: Text(
-                              name(c),
-                              maxLines: 3,
-                              overflow: TextOverflow.ellipsis,
-                              style: WaqtText.bodyStrong.copyWith(color: t.heroInk),
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(WaqtRadii.strip),
+                      onTap: () => context.push('/duas/hisn/${c.number}'),
+                      child: Padding(
+                        padding: const EdgeInsets.all(WaqtSpace.x4),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: Text(
+                                name(c),
+                                maxLines: 3,
+                                overflow: TextOverflow.ellipsis,
+                                style: WaqtText.bodyStrong.copyWith(color: t.heroInk),
+                              ),
                             ),
-                          ),
-                          Text(
-                            l.duaCount(book.inChapter(c.number).length),
-                            style: WaqtText.caption.copyWith(color: t.heroInk.withValues(alpha: 0.7)),
-                          ),
-                        ],
+                            Text(
+                              l.duaCount(book.inChapter(c.number).length),
+                              style: WaqtText.caption.copyWith(color: t.heroInk.withValues(alpha: 0.7)),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-              );
-            },
+                );
+              },
+            ),
           ),
         ),
-      ),
+      ],
     ];
   }
 
@@ -280,23 +331,6 @@ class _DuasScreenState extends ConsumerState<DuasScreen> {
   List<Widget> _hadithResults(BuildContext context, String q) {
     final l = AppLocalizations.of(context);
     final progress = ref.watch(hadithIndexProgressProvider);
-    final db = ref.watch(hadithDbProvider);
-    if (db.isLoading || _hadith == null) {
-      return [
-        _pad(
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: WaqtSpace.x6),
-            child: Column(
-              children: [
-                LinearProgressIndicator(value: progress == 0 ? null : progress),
-                const SizedBox(height: WaqtSpace.x3),
-                _Note(l.libraryPreparing),
-              ],
-            ),
-          ),
-        ),
-      ];
-    }
     return [
       SliverToBoxAdapter(
         child: FutureBuilder<List<Hadith>>(
@@ -304,9 +338,15 @@ class _DuasScreenState extends ConsumerState<DuasScreen> {
           builder: (context, snap) {
             final list = snap.data;
             if (list == null) {
-              return const Padding(
-                padding: EdgeInsets.all(WaqtSpace.x8),
-                child: Center(child: CircularProgressIndicator()),
+              // First search only: the index is being built.
+              return Padding(
+                padding: const EdgeInsets.fromLTRB(WaqtSpace.screen, WaqtSpace.x6, WaqtSpace.screen, 0),
+                child: Column(
+                  children: [
+                    LinearProgressIndicator(value: progress),
+                    if (progress != null) ...[const SizedBox(height: WaqtSpace.x3), _Note(l.libraryPreparing)],
+                  ],
+                ),
               );
             }
             if (list.isEmpty) {

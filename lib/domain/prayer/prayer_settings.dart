@@ -28,11 +28,25 @@ enum AsrSchool { standard, hanafi }
 enum HighLatitudeRule { auto, middleOfNight, seventhOfNight, twilightAngle }
 
 class PrayerSettings {
-  const PrayerSettings({required this.method, required this.asr, this.highLatitude = HighLatitudeRule.auto});
+  const PrayerSettings({
+    required this.method,
+    required this.asr,
+    this.highLatitude = HighLatitudeRule.auto,
+    this.minutes = const {},
+  });
 
   final CalcMethod method;
   final AsrSchool asr;
   final HighLatitudeRule highLatitude;
+
+  /// Minutes added to each time ('fajr', 'sunrise', 'dhuhr', 'asr',
+  /// 'maghrib', 'isha'), to match a local timetable or mosque. Negative
+  /// moves a time earlier. Suhoor ends at Fajr and iftar is at Maghrib, so
+  /// these move them too.
+  final Map<String, int> minutes;
+
+  static const adjustable = ['fajr', 'sunrise', 'dhuhr', 'asr', 'maghrib', 'isha'];
+  static const maxMinutes = 30;
 
   /// Sensible regional defaults. Users can always change them; nothing about
   /// the app assumes one region.
@@ -56,10 +70,16 @@ class PrayerSettings {
     return PrayerSettings(method: method, asr: hanafi.contains(cc) ? AsrSchool.hanafi : AsrSchool.standard);
   }
 
-  PrayerSettings copyWith({CalcMethod? method, AsrSchool? asr, HighLatitudeRule? highLatitude}) => PrayerSettings(
+  PrayerSettings copyWith({
+    CalcMethod? method,
+    AsrSchool? asr,
+    HighLatitudeRule? highLatitude,
+    Map<String, int>? minutes,
+  }) => PrayerSettings(
     method: method ?? this.method,
     asr: asr ?? this.asr,
     highLatitude: highLatitude ?? this.highLatitude,
+    minutes: minutes ?? this.minutes,
   );
 
   adhan.CalculationParameters parametersFor(double latitude) {
@@ -73,10 +93,23 @@ class PrayerSettings {
       HighLatitudeRule.seventhOfNight => adhan.HighLatitudeRule.seventh_of_the_night,
       HighLatitudeRule.twilightAngle => adhan.HighLatitudeRule.twilight_angle,
     };
+    p.adjustments = adhan.PrayerAdjustments(
+      fajr: minutes['fajr'] ?? 0,
+      sunrise: minutes['sunrise'] ?? 0,
+      dhuhr: minutes['dhuhr'] ?? 0,
+      asr: minutes['asr'] ?? 0,
+      maghrib: minutes['maghrib'] ?? 0,
+      isha: minutes['isha'] ?? 0,
+    );
     return p;
   }
 
-  Map<String, Object?> toJson() => {'method': method.name, 'asr': asr.name, 'highLat': highLatitude.name};
+  Map<String, Object?> toJson() => {
+    'method': method.name,
+    'asr': asr.name,
+    'highLat': highLatitude.name,
+    if (minutes.isNotEmpty) 'minutes': minutes,
+  };
 
   static PrayerSettings? fromJson(Object? j) {
     if (j is! Map) return null;
@@ -86,13 +119,24 @@ class PrayerSettings {
       method: m,
       asr: j['asr'] == 'hanafi' ? AsrSchool.hanafi : AsrSchool.standard,
       highLatitude: HighLatitudeRule.values.where((r) => r.name == j['highLat']).firstOrNull ?? HighLatitudeRule.auto,
+      minutes: {
+        if (j['minutes'] case final Map<Object?, Object?> m)
+          for (final MapEntry(:key, :value) in m.entries)
+            if (key is String && adjustable.contains(key) && value is int && value != 0)
+              key: value.clamp(-maxMinutes, maxMinutes),
+      },
     );
   }
 
   @override
   bool operator ==(Object other) =>
-      other is PrayerSettings && other.method == method && other.asr == asr && other.highLatitude == highLatitude;
+      other is PrayerSettings &&
+      other.method == method &&
+      other.asr == asr &&
+      other.highLatitude == highLatitude &&
+      adjustable.every((k) => (other.minutes[k] ?? 0) == (minutes[k] ?? 0));
 
   @override
-  int get hashCode => Object.hash(method, asr, highLatitude);
+  int get hashCode =>
+      Object.hash(method, asr, highLatitude, Object.hashAll([for (final k in adjustable) minutes[k] ?? 0]));
 }

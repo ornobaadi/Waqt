@@ -3,13 +3,17 @@ import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../domain/moments/moment.dart';
 import '../../domain/occasions/occasions.dart';
 import '../user/user_prefs.dart';
 
 /// One thing the Sunnah teaches for a day, tied to the hadith that teaches it.
 class DayItem {
-  const DayItem(this.title, this.collection, this.number, this.reference, this.grade);
+  const DayItem(this.title, this.collection, this.number, this.reference, this.grade, {this.when});
   final String title;
+
+  /// When it matters most: 'suhoor', 'day', 'iftar' or 'night'; null = any time.
+  final String? when;
   final String collection;
   final String number;
   final String reference;
@@ -27,6 +31,23 @@ class DayGuides {
   final Set<OccasionId> fasts;
 
   List<DayItem> forOccasion(OccasionId o) => _days[o] ?? const [];
+
+  /// Sourced items for a moment of the day, by hadith reference.
+  List<DayItem> forMoment(MomentId m) => [for (final id in momentItems[m] ?? const <String>[]) ?_byId[id]];
+
+  late final Map<String, DayItem> _byId = {
+    for (final list in _days.values)
+      for (final i in list) i.id: i,
+  };
+
+  /// Which day items speak to which moment. Every id must exist in days.json
+  /// (checked by a test).
+  static const momentItems = <MomentId, List<String>>{
+    MomentId.suhoor: ['bukhari:1923', 'bukhari:1921'],
+    MomentId.iftar: ['tirmidhi:3598', 'bukhari:1957', 'abudawud:2356', 'abudawud:2357', 'tirmidhi:807'],
+    MomentId.taraweeh: ['bukhari:2009', 'bukhari:6'],
+    MomentId.laylatAlQadr: ['bukhari:2014', 'tirmidhi:3513', 'bukhari:2024'],
+  };
 
   /// Everything for the featured occasion. In the last ten nights the
   /// daily Ramadan practices still apply, so they follow.
@@ -57,6 +78,7 @@ class DayGuides {
               m['num']! as String,
               m['ref']! as String,
               m['grade'] as String?,
+              when: m['when'] as String?,
             ),
       ];
     }

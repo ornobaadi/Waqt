@@ -958,4 +958,44 @@ class AppLocalizationsUr extends AppLocalizations {
   String announceUnknown(String month) {
     return 'اعلان ابھی وقت تک نہیں پہنچا۔ اگر آج رات چاند نظر آیا تو $month کل سے، ورنہ یہ مہینہ 30 دن کا ہوگا۔';
   }
+
+  @override
+  String get adjustTitle => 'اوقات میں ترمیم';
+
+  @override
+  String get adjustRowHint => 'اپنے مقامی ٹائم ٹیبل یا مسجد سے ملائیں';
+
+  @override
+  String get adjustNone => 'کوئی نہیں';
+
+  @override
+  String adjustSome(int count) {
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$count اوقات', one: '1 وقت');
+    return '$_temp0';
+  }
+
+  @override
+  String get adjustHint =>
+      'اوقات آپ کے بالکل درست مقام کے لیے حساب ہوتے ہیں۔ اگر مقامی ٹائم ٹیبل (جیسے اسلامک فاؤنڈیشن یا مسجد) ایک دو منٹ مختلف ہو تو یہاں ملا لیں۔';
+
+  @override
+  String get adjustNote =>
+      'سحری فجر پر ختم اور افطار مغرب پر ہوتی ہے، لہٰذا ان کی ترمیم سحری و افطار کو بھی بدلتی ہے۔ یاددہانیاں اور ویجیٹ بھی۔';
+
+  @override
+  String get adjustEarlier => '1 منٹ پہلے';
+
+  @override
+  String get adjustLater => '1 منٹ بعد';
+
+  @override
+  String get momentTaraweeh => 'تراویح';
+
+  @override
+  String get showLess => 'کم دکھائیں';
+
+  @override
+  String showAll(int count) {
+    return 'سب دکھائیں ($count)';
+  }
 }

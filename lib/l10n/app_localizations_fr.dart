@@ -960,4 +960,44 @@ class AppLocalizationsFr extends AppLocalizations {
   String announceUnknown(String month) {
     return 'L\'annonce n\'est pas encore parvenue à Waqt. Si le croissant est vu ce soir, $month commence demain ; sinon, ce mois compte 30 jours.';
   }
+
+  @override
+  String get adjustTitle => 'Ajuster les horaires';
+
+  @override
+  String get adjustRowHint => 'Aligner sur l\'horaire local ou la mosquée';
+
+  @override
+  String get adjustNone => 'Aucun';
+
+  @override
+  String adjustSome(int count) {
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$count horaires', one: '1 horaire');
+    return '$_temp0';
+  }
+
+  @override
+  String get adjustHint =>
+      'Les horaires sont calculés pour votre position exacte. Si l\'horaire local (fédération, mosquée) diffère d\'une ou deux minutes, alignez-le ici.';
+
+  @override
+  String get adjustNote =>
+      'Le suhour finit à Fajr et l\'iftar est à Maghrib : les ajuster déplace aussi suhour et iftar. Rappels et widget suivent.';
+
+  @override
+  String get adjustEarlier => '1 minute plus tôt';
+
+  @override
+  String get adjustLater => '1 minute plus tard';
+
+  @override
+  String get momentTaraweeh => 'Tarawih';
+
+  @override
+  String get showLess => 'Moins';
+
+  @override
+  String showAll(int count) {
+    return 'Tout afficher ($count)';
+  }
 }

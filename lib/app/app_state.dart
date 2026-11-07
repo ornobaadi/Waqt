@@ -11,6 +11,7 @@ import '../data/user/user_prefs.dart';
 import 'package:timezone/timezone.dart' as tz;
 
 import '../domain/hijri/hijri_service.dart';
+import '../domain/location/place.dart';
 import '../domain/time/place_zone.dart';
 import '../domain/moments/moment.dart';
 import '../domain/moments/moment_engine.dart';
@@ -161,7 +162,12 @@ Future<GpsError?> locateWithGps(WidgetRef ref) async {
   try {
     final fix = await currentFix();
     final repo = await ref.read(placeRepositoryProvider.future);
-    ref.read(userPrefsProvider.notifier).setPlace(repo.nearest(fix.lat, fix.lng));
+    // The nearest city names the place; the times use the phone's own
+    // position, so two towns in one district get their own minutes.
+    final city = repo.nearest(fix.lat, fix.lng);
+    ref
+        .read(userPrefsProvider.notifier)
+        .setPlace(city.copyWith(latitude: fix.lat, longitude: fix.lng, source: PlaceSource.gps));
     return null;
   } on GpsException catch (e) {
     return e.error;

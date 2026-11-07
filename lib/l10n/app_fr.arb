@@ -241,5 +241,16 @@
   "authorityLocalHint": "Umm al-Qura ; le 29, vous dites si le croissant a été vu",
   "calendarSourceLine": "{authority} · vérifié {time}",
   "calendarSourceLocal": "Umm al-Qura avec votre ajustement. Le 29 de Chaabane, Ramadan et Dhou al-Qi'da, l'accueil demande si le croissant a été vu.",
-  "announceUnknown": "L'annonce n'est pas encore parvenue à Waqt. Si le croissant est vu ce soir, {month} commence demain ; sinon, ce mois compte 30 jours."
+  "announceUnknown": "L'annonce n'est pas encore parvenue à Waqt. Si le croissant est vu ce soir, {month} commence demain ; sinon, ce mois compte 30 jours.",
+  "adjustTitle": "Ajuster les horaires",
+  "adjustRowHint": "Aligner sur l'horaire local ou la mosquée",
+  "adjustNone": "Aucun",
+  "adjustSome": "{count, plural, =1{1 horaire} other{{count} horaires}}",
+  "adjustHint": "Les horaires sont calculés pour votre position exacte. Si l'horaire local (fédération, mosquée) diffère d'une ou deux minutes, alignez-le ici.",
+  "adjustNote": "Le suhour finit à Fajr et l'iftar est à Maghrib : les ajuster déplace aussi suhour et iftar. Rappels et widget suivent.",
+  "adjustEarlier": "1 minute plus tôt",
+  "adjustLater": "1 minute plus tard",
+  "momentTaraweeh": "Tarawih",
+  "showLess": "Moins",
+  "showAll": "Tout afficher ({count})"
 }

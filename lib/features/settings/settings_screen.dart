@@ -144,6 +144,12 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                         if (r != null) update(settings.copyWith(highLatitude: r));
                       },
                     ),
+                    RowTile(
+                      title: l.adjustTitle,
+                      subtitle: l.adjustRowHint,
+                      value: settings.minutes.isEmpty ? l.adjustNone : l.adjustSome(settings.minutes.length),
+                      onTap: () => context.push('/settings/adjust'),
+                    ),
                   ],
                 ),
                 SectionLabel(l.notifTitle),

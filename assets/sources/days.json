@@ -196,77 +196,88 @@
     "col": "bukhari",
     "num": "1923",
     "ref": "Sahih al-Bukhari 1923",
-    "grade": null
+    "grade": null,
+    "when": "suhoor"
    },
    {
     "title": "Take suhoor late, close to Fajr",
     "col": "bukhari",
     "num": "1921",
     "ref": "Sahih al-Bukhari 1921",
-    "grade": null
+    "grade": null,
+    "when": "suhoor"
    },
    {
     "title": "Fast with faith, hoping for reward",
     "col": "bukhari",
     "num": "38",
     "ref": "Sahih al-Bukhari 38",
-    "grade": null
+    "grade": null,
+    "when": "day"
    },
    {
     "title": "Guard your tongue and your actions",
     "col": "bukhari",
     "num": "1903",
     "ref": "Sahih al-Bukhari 1903",
-    "grade": null
+    "grade": null,
+    "when": "day"
    },
    {
     "title": "Make dua before you break your fast",
     "col": "tirmidhi",
     "num": "3598",
     "ref": "Jami` at-Tirmidhi 3598",
-    "grade": "Hasan (Darussalam)"
+    "grade": "Hasan (Darussalam)",
+    "when": "iftar"
    },
    {
     "title": "Break the fast as soon as the sun sets",
     "col": "bukhari",
     "num": "1957",
     "ref": "Sahih al-Bukhari 1957",
-    "grade": null
+    "grade": null,
+    "when": "iftar"
    },
    {
     "title": "Break it with dates, or else water",
     "col": "abudawud",
     "num": "2356",
     "ref": "Sunan Abi Dawud 2356",
-    "grade": "Hasan Sahih (Al-Albani)"
+    "grade": "Hasan Sahih (Al-Albani)",
+    "when": "iftar"
    },
    {
     "title": "Say the dua of iftar",
     "col": "abudawud",
     "num": "2357",
     "ref": "Sunan Abi Dawud 2357",
-    "grade": "Hasan (Al-Albani)"
+    "grade": "Hasan (Al-Albani)",
+    "when": "iftar"
    },
    {
     "title": "Feed someone who is fasting",
     "col": "tirmidhi",
     "num": "807",
     "ref": "Jami` at-Tirmidhi 807",
-    "grade": "Sahih (Darussalam)"
+    "grade": "Sahih (Darussalam)",
+    "when": "iftar"
    },
    {
     "title": "Pray at night (taraweeh)",
     "col": "bukhari",
     "num": "2009",
     "ref": "Sahih al-Bukhari 2009",
-    "grade": null
+    "grade": null,
+    "when": "night"
    },
    {
     "title": "Read and study the Qur'an, give generously",
     "col": "bukhari",
     "num": "6",
     "ref": "Sahih al-Bukhari 6",
-    "grade": null
+    "grade": null,
+    "when": "day"
    }
   ],
   "lastTenNights": [
@@ -275,35 +286,40 @@
     "col": "bukhari",
     "num": "2024",
     "ref": "Sahih al-Bukhari 2024",
-    "grade": null
+    "grade": null,
+    "when": "night"
    },
    {
     "title": "Seek Laylat al-Qadr in the odd nights",
     "col": "bukhari",
     "num": "2017",
     "ref": "Sahih al-Bukhari 2017",
-    "grade": null
+    "grade": null,
+    "when": "night"
    },
    {
     "title": "Stand in prayer on Laylat al-Qadr",
     "col": "bukhari",
     "num": "2014",
     "ref": "Sahih al-Bukhari 2014",
-    "grade": null
+    "grade": null,
+    "when": "night"
    },
    {
     "title": "The dua for Laylat al-Qadr",
     "col": "tirmidhi",
     "num": "3513",
     "ref": "Jami` at-Tirmidhi 3513",
-    "grade": "Sahih (Darussalam)"
+    "grade": "Sahih (Darussalam)",
+    "when": "night"
    },
    {
     "title": "I'tikaf in the last ten days",
     "col": "bukhari",
     "num": "2026",
     "ref": "Sahih al-Bukhari 2026",
-    "grade": null
+    "grade": null,
+    "when": "day"
    }
   ],
   "ayyamAlBid": [

@@ -476,5 +476,18 @@
   "@calendarSourceLine": {"placeholders": {"authority": {"type": "String"}, "time": {"type": "String"}}},
   "calendarSourceLocal": "Umm al-Qura with your adjustment. On the 29th of Shaban, Ramadan and Dhul Qadah, Home asks whether the new moon was seen.",
   "announceUnknown": "The announcement has not reached Waqt yet. If the crescent is seen tonight, {month} begins tomorrow; if not, this month completes 30 days.",
-  "@announceUnknown": {"placeholders": {"month": {"type": "String"}}}
+  "@announceUnknown": {"placeholders": {"month": {"type": "String"}}},
+  "adjustTitle": "Adjust times",
+  "adjustRowHint": "Match your local timetable or mosque",
+  "adjustNone": "None",
+  "adjustSome": "{count, plural, =1{1 time} other{{count} times}}",
+  "@adjustSome": {"placeholders": {"count": {"type": "int"}}},
+  "adjustHint": "Times are calculated for your exact position. If your local timetable (for example your country's Islamic Foundation, or your mosque) differs by a minute or two, match it here.",
+  "adjustNote": "Suhoor ends at Fajr and iftar is at Maghrib, so adjusting those moves suhoor and iftar too. Reminders and the widget follow.",
+  "adjustEarlier": "1 minute earlier",
+  "adjustLater": "1 minute later",
+  "momentTaraweeh": "Taraweeh",
+  "showLess": "Show less",
+  "showAll": "Show all {count}",
+  "@showAll": {"placeholders": {"count": {"type": "int"}}}
 }

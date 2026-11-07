@@ -952,4 +952,44 @@ class AppLocalizationsAr extends AppLocalizations {
   String announceUnknown(String month) {
     return 'لم يصل الإعلان إلى وقت بعد. إن رُئي الهلال الليلة يبدأ $month غدًا، وإلا أكمل هذا الشهر ثلاثين يومًا.';
   }
+
+  @override
+  String get adjustTitle => 'ضبط الأوقات';
+
+  @override
+  String get adjustRowHint => 'طابق جدول بلدك أو مسجدك';
+
+  @override
+  String get adjustNone => 'لا شيء';
+
+  @override
+  String adjustSome(int count) {
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$count أوقات', one: 'وقت واحد');
+    return '$_temp0';
+  }
+
+  @override
+  String get adjustHint =>
+      'تُحسب الأوقات لموقعك الدقيق. إن اختلف جدولك المحلي (مثل جهة الشؤون الإسلامية أو مسجدك) بدقيقة أو اثنتين فطابقه هنا.';
+
+  @override
+  String get adjustNote =>
+      'ينتهي السحور عند الفجر والإفطار عند المغرب، فضبطهما يحرك السحور والإفطار أيضًا. التذكيرات والأداة تتبع ذلك.';
+
+  @override
+  String get adjustEarlier => 'دقيقة أبكر';
+
+  @override
+  String get adjustLater => 'دقيقة أخر';
+
+  @override
+  String get momentTaraweeh => 'التراويح';
+
+  @override
+  String get showLess => 'عرض أقل';
+
+  @override
+  String showAll(int count) {
+    return 'عرض الكل ($count)';
+  }
 }

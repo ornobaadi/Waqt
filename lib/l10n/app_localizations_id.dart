@@ -959,4 +959,44 @@ class AppLocalizationsId extends AppLocalizations {
   String announceUnknown(String month) {
     return 'Pengumuman belum sampai ke Waqt. Jika hilal terlihat malam ini, $month dimulai besok; jika tidak, bulan ini genap 30 hari.';
   }
+
+  @override
+  String get adjustTitle => 'Sesuaikan waktu';
+
+  @override
+  String get adjustRowHint => 'Cocokkan dengan jadwal lokal atau masjid';
+
+  @override
+  String get adjustNone => 'Tidak ada';
+
+  @override
+  String adjustSome(int count) {
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$count waktu', one: '1 waktu');
+    return '$_temp0';
+  }
+
+  @override
+  String get adjustHint =>
+      'Waktu dihitung untuk posisi tepat Anda. Jika jadwal lokal (misalnya Kemenag atau masjid Anda) berbeda satu-dua menit, cocokkan di sini.';
+
+  @override
+  String get adjustNote =>
+      'Sahur berakhir saat Subuh dan berbuka saat Magrib, jadi menyesuaikannya juga menggeser sahur dan berbuka. Pengingat dan widget mengikuti.';
+
+  @override
+  String get adjustEarlier => '1 menit lebih awal';
+
+  @override
+  String get adjustLater => '1 menit lebih lambat';
+
+  @override
+  String get momentTaraweeh => 'Tarawih';
+
+  @override
+  String get showLess => 'Lebih sedikit';
+
+  @override
+  String showAll(int count) {
+    return 'Tampilkan semua $count';
+  }
 }

@@ -959,4 +959,44 @@ class AppLocalizationsEn extends AppLocalizations {
   String announceUnknown(String month) {
     return 'The announcement has not reached Waqt yet. If the crescent is seen tonight, $month begins tomorrow; if not, this month completes 30 days.';
   }
+
+  @override
+  String get adjustTitle => 'Adjust times';
+
+  @override
+  String get adjustRowHint => 'Match your local timetable or mosque';
+
+  @override
+  String get adjustNone => 'None';
+
+  @override
+  String adjustSome(int count) {
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$count times', one: '1 time');
+    return '$_temp0';
+  }
+
+  @override
+  String get adjustHint =>
+      'Times are calculated for your exact position. If your local timetable (for example your country\'s Islamic Foundation, or your mosque) differs by a minute or two, match it here.';
+
+  @override
+  String get adjustNote =>
+      'Suhoor ends at Fajr and iftar is at Maghrib, so adjusting those moves suhoor and iftar too. Reminders and the widget follow.';
+
+  @override
+  String get adjustEarlier => '1 minute earlier';
+
+  @override
+  String get adjustLater => '1 minute later';
+
+  @override
+  String get momentTaraweeh => 'Taraweeh';
+
+  @override
+  String get showLess => 'Show less';
+
+  @override
+  String showAll(int count) {
+    return 'Show all $count';
+  }
 }

@@ -58,24 +58,24 @@ DAYS = {
         ("The best fasting after Ramadan is in Muharram", "muslim", "1163a"),
     ],
     "ramadan": [
-        ("Eat suhoor, there is blessing in it", "bukhari", "1923"),
-        ("Take suhoor late, close to Fajr", "bukhari", "1921"),
-        ("Fast with faith, hoping for reward", "bukhari", "38"),
-        ("Guard your tongue and your actions", "bukhari", "1903"),
-        ("Make dua before you break your fast", "tirmidhi", "3598"),
-        ("Break the fast as soon as the sun sets", "bukhari", "1957"),
-        ("Break it with dates, or else water", "abudawud", "2356"),
-        ("Say the dua of iftar", "abudawud", "2357"),
-        ("Feed someone who is fasting", "tirmidhi", "807"),
-        ("Pray at night (taraweeh)", "bukhari", "2009"),
-        ("Read and study the Qur'an, give generously", "bukhari", "6"),
+        ("Eat suhoor, there is blessing in it", "bukhari", "1923", "suhoor"),
+        ("Take suhoor late, close to Fajr", "bukhari", "1921", "suhoor"),
+        ("Fast with faith, hoping for reward", "bukhari", "38", "day"),
+        ("Guard your tongue and your actions", "bukhari", "1903", "day"),
+        ("Make dua before you break your fast", "tirmidhi", "3598", "iftar"),
+        ("Break the fast as soon as the sun sets", "bukhari", "1957", "iftar"),
+        ("Break it with dates, or else water", "abudawud", "2356", "iftar"),
+        ("Say the dua of iftar", "abudawud", "2357", "iftar"),
+        ("Feed someone who is fasting", "tirmidhi", "807", "iftar"),
+        ("Pray at night (taraweeh)", "bukhari", "2009", "night"),
+        ("Read and study the Qur'an, give generously", "bukhari", "6", "day"),
     ],
     "lastTenNights": [
-        ("Strive in worship and wake your family", "bukhari", "2024"),
-        ("Seek Laylat al-Qadr in the odd nights", "bukhari", "2017"),
-        ("Stand in prayer on Laylat al-Qadr", "bukhari", "2014"),
-        ("The dua for Laylat al-Qadr", "tirmidhi", "3513"),
-        ("I'tikaf in the last ten days", "bukhari", "2026"),
+        ("Strive in worship and wake your family", "bukhari", "2024", "night"),
+        ("Seek Laylat al-Qadr in the odd nights", "bukhari", "2017", "night"),
+        ("Stand in prayer on Laylat al-Qadr", "bukhari", "2014", "night"),
+        ("The dua for Laylat al-Qadr", "tirmidhi", "3513", "night"),
+        ("I'tikaf in the last ten days", "bukhari", "2026", "day"),
     ],
     "ayyamAlBid": [
         ("Fast the 13th, 14th and 15th", "tirmidhi", "761"),
@@ -106,14 +106,17 @@ def main():
     days = {}
     for occ, items in DAYS.items():
         rows = []
-        for title, col, num in items:
+        for title, col, num, *when in items:
             r = db.execute("SELECT ref, grade FROM hadith WHERE col=? AND num=?", (col, num)).fetchone()
             if r is None:
                 raise SystemExit(f"{occ}: {col} {num} not in the database")
             ref, grade = r
             if grade and grade.lower().startswith(WEAK):
                 raise SystemExit(f"{occ}: {ref} is graded {grade}")
-            rows.append({"title": title, "col": col, "num": num, "ref": ref, "grade": grade})
+            row = {"title": title, "col": col, "num": num, "ref": ref, "grade": grade}
+            if when:
+                row["when"] = when[0]  # suhoor, day, iftar or night: when it is most relevant
+            rows.append(row)
         days[occ] = rows
     with open(os.path.join(ROOT, "assets", "sources", "days.json"), "w", encoding="utf8") as f:
         json.dump({"fasts": FASTS, "days": days}, f, ensure_ascii=False, indent=1)

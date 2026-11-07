@@ -241,5 +241,16 @@
   "authorityLocalHint": "Umm al-Qura; tanggal 29 Anda menjawab apakah hilal terlihat",
   "calendarSourceLine": "{authority} · diperiksa {time}",
   "calendarSourceLocal": "Umm al-Qura dengan penyesuaian Anda. Tanggal 29 Syakban, Ramadan dan Zulkaidah, Beranda menanyakan rukyat.",
-  "announceUnknown": "Pengumuman belum sampai ke Waqt. Jika hilal terlihat malam ini, {month} dimulai besok; jika tidak, bulan ini genap 30 hari."
+  "announceUnknown": "Pengumuman belum sampai ke Waqt. Jika hilal terlihat malam ini, {month} dimulai besok; jika tidak, bulan ini genap 30 hari.",
+  "adjustTitle": "Sesuaikan waktu",
+  "adjustRowHint": "Cocokkan dengan jadwal lokal atau masjid",
+  "adjustNone": "Tidak ada",
+  "adjustSome": "{count, plural, =1{1 waktu} other{{count} waktu}}",
+  "adjustHint": "Waktu dihitung untuk posisi tepat Anda. Jika jadwal lokal (misalnya Kemenag atau masjid Anda) berbeda satu-dua menit, cocokkan di sini.",
+  "adjustNote": "Sahur berakhir saat Subuh dan berbuka saat Magrib, jadi menyesuaikannya juga menggeser sahur dan berbuka. Pengingat dan widget mengikuti.",
+  "adjustEarlier": "1 menit lebih awal",
+  "adjustLater": "1 menit lebih lambat",
+  "momentTaraweeh": "Tarawih",
+  "showLess": "Lebih sedikit",
+  "showAll": "Tampilkan semua {count}"
 }

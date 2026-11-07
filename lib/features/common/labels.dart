@@ -94,6 +94,7 @@ extension WaqtLabels on AppLocalizations {
     MomentId.bedtime => momentBedtime,
     MomentId.lastThird => momentLastThird,
     MomentId.laylatAlQadr => momentLaylatAlQadr,
+    MomentId.taraweeh => momentTaraweeh,
     MomentId.suhoor => momentSuhoor,
     MomentId.iftar => momentIftar,
     MomentId.jumuah => momentJumuah,

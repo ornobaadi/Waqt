@@ -14,20 +14,41 @@ import '../duas/library_views.dart';
 
 /// Today's special day as a checklist: each Sunnah, ticked as it is done,
 /// opening the hadith it comes from.
-class DayGuideCard extends ConsumerWidget {
-  const DayGuideCard({super.key, required this.occasion, required this.items, required this.day, this.ramadanDay});
+class DayGuideCard extends ConsumerStatefulWidget {
+  const DayGuideCard({
+    super.key,
+    required this.occasion,
+    required this.items,
+    required this.day,
+    this.ramadanDay,
+    this.phase,
+  });
   final OccasionId occasion;
   final List<DayItem> items;
+
+  /// Part of the day ('suhoor', 'day', 'iftar', 'night'): its items come
+  /// first, so the folded card shows what matters now.
+  final String? phase;
 
   /// Civil date key; ticks reset with it.
   final String day;
   final String? ramadanDay;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<DayGuideCard> createState() => _DayGuideCardState();
+}
+
+class _DayGuideCardState extends ConsumerState<DayGuideCard> {
+  /// Folded by default: the three most relevant items still to do.
+  bool _open = false;
+  static const _folded = 3;
+
+  @override
+  Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
     final t = WaqtTokens.of(context);
     final n = LocaleDigits(Localizations.localeOf(context).toLanguageTag());
+    final items = widget.items, day = widget.day, occasion = widget.occasion, ramadanDay = widget.ramadanDay;
     ref.watch(dayTicksProvider);
     final done = ref.read(dayTicksProvider.notifier).doneOn(day);
     final count = items.where((i) => done.contains(i.id)).length;
@@ -72,7 +93,29 @@ class DayGuideCard extends ConsumerWidget {
             ),
           ),
           const SizedBox(height: WaqtSpace.x2),
-          for (final i in items) _Row(item: i, done: done.contains(i.id), day: day),
+          ...() {
+            // Now's items first, then any-time ones, then the rest; ticked last.
+            int rank(DayItem i) => done.contains(i.id)
+                ? 3
+                : i.when == widget.phase
+                ? 0
+                : i.when == null
+                ? 1
+                : 2;
+            final ordered = [...items]..sort((a, b) => rank(a).compareTo(rank(b)));
+            final shown = _open ? items : ordered.where((i) => !done.contains(i.id)).take(_folded).toList();
+            return [for (final i in shown) _Row(item: i, done: done.contains(i.id), day: day)];
+          }(),
+          if (items.length > _folded)
+            Align(
+              alignment: AlignmentDirectional.centerStart,
+              child: TextButton.icon(
+                onPressed: () => setState(() => _open = !_open),
+                style: TextButton.styleFrom(foregroundColor: t.heroInk),
+                icon: Icon(_open ? Icons.expand_less_rounded : Icons.expand_more_rounded, size: 20),
+                label: Text(_open ? l.showLess : l.showAll(items.length)),
+              ),
+            ),
         ],
       ),
     );

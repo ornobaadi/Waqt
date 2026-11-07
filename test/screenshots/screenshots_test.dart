@@ -248,6 +248,30 @@ void main() {
     return g;
   }
 
+  testWidgets('ramadan taraweeh', (t) async {
+    final d = civilOf(1448, 9, 10);
+    await shoot(t, '64_now_taraweeh', await app(at: DateTime(d.year, d.month, d.day, 20, 45), place: dhaka));
+  });
+
+  testWidgets('ramadan afternoon', (t) async {
+    final d = civilOf(1448, 9, 10);
+    await shoot(t, '65_now_ramadan_asr', await app(at: DateTime(d.year, d.month, d.day, 17, 30), place: dhaka));
+  });
+
+  testWidgets(
+    'adjust times',
+    (t) async => shoot(
+      t,
+      '66_adjust_times',
+      await app(at: DateTime(2026, 11, 6, 9, 41), place: dhaka),
+      then: () async {
+        await t.tap(find.text('Settings'));
+        await t.pumpAndSettle();
+        await t.tap(find.text('Adjust times'));
+      },
+    ),
+  );
+
   testWidgets('eid al-fitr', (t) async {
     final d = civilOf(1448, 10, 1);
     await shoot(t, '60_now_eid_fitr', await app(at: DateTime(d.year, d.month, d.day, 6, 40), place: dhaka));
