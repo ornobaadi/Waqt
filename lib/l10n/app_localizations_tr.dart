@@ -1142,4 +1142,54 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get libraryAllTopics => 'Tüm konular';
+
+  @override
+  String get qiblaTitle => 'Kıble';
+
+  @override
+  String qiblaFrom(String city) {
+    return '$city konumundan';
+  }
+
+  @override
+  String get qiblaFacing => 'Kıbleye dönüksünüz';
+
+  @override
+  String get qiblaTurnRight => 'Sağa dönün';
+
+  @override
+  String get qiblaTurnLeft => 'Sola dönün';
+
+  @override
+  String get qiblaDirection => 'Yön';
+
+  @override
+  String qiblaBearing(String deg) {
+    return 'Kuzeyden $deg°';
+  }
+
+  @override
+  String get qiblaDistance => 'Kâbe\'ye uzaklık';
+
+  @override
+  String qiblaKm(String km) {
+    return '$km km';
+  }
+
+  @override
+  String get qiblaHoldFlat => 'Telefonu düz tutun';
+
+  @override
+  String get qiblaCalibrate => 'Yön kayarsa telefonu metal ve mıknatıslardan uzakta 8 çizerek hareket ettirin.';
+
+  @override
+  String qiblaNoCompass(String deg) {
+    return 'Bu cihazda pusula yok. Bir yer işaretine ya da güneşe bakarak kuzeyden $deg° yöne dönün.';
+  }
+
+  @override
+  String get qiblaNoPlace => 'Kıbleyi bulmak için bir şehir seçin.';
+
+  @override
+  String get qiblaNorthShort => 'K';
 }

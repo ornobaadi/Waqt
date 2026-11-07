@@ -1143,4 +1143,54 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get libraryAllTopics => 'Semua topik';
+
+  @override
+  String get qiblaTitle => 'Kiblat';
+
+  @override
+  String qiblaFrom(String city) {
+    return 'Dari $city';
+  }
+
+  @override
+  String get qiblaFacing => 'Anda menghadap kiblat';
+
+  @override
+  String get qiblaTurnRight => 'Putar ke kanan';
+
+  @override
+  String get qiblaTurnLeft => 'Putar ke kiri';
+
+  @override
+  String get qiblaDirection => 'Arah';
+
+  @override
+  String qiblaBearing(String deg) {
+    return '$deg° dari utara';
+  }
+
+  @override
+  String get qiblaDistance => 'Jarak ke Ka\'bah';
+
+  @override
+  String qiblaKm(String km) {
+    return '$km km';
+  }
+
+  @override
+  String get qiblaHoldFlat => 'Letakkan ponsel mendatar';
+
+  @override
+  String get qiblaCalibrate => 'Jika arahnya bergeser, gerakkan ponsel membentuk angka 8, jauh dari logam dan magnet.';
+
+  @override
+  String qiblaNoCompass(String deg) {
+    return 'Perangkat ini tidak punya kompas. Hadap $deg° dari utara dengan patokan bangunan atau matahari.';
+  }
+
+  @override
+  String get qiblaNoPlace => 'Pilih kota untuk menemukan kiblat.';
+
+  @override
+  String get qiblaNorthShort => 'U';
 }

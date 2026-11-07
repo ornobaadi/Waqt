@@ -391,23 +391,68 @@
   "checkerTitle": "Check references",
   "checkerHint": "Open each reference at its source and confirm it",
   "checkerProgress": "{done} of {total} checked",
-  "@checkerProgress": {"placeholders": {"done": {"type": "int"}, "total": {"type": "int"}}},
+  "@checkerProgress": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
   "checkerOpen": "Open source",
   "checkerCorrect": "Correct",
   "checkerWrong": "Wrong",
   "checkerWrongHint": "What is wrong, and the correct reference if you know it",
   "checkerSend": "Email results",
   "windowLeft": "{time} left",
-  "@windowLeft": {"placeholders": {"time": {"type": "String"}}},
+  "@windowLeft": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "windowPreferred": "best before {time}",
-  "@windowPreferred": {"placeholders": {"time": {"type": "String"}}},
+  "@windowPreferred": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "durHm": "{h} h {m} min",
-  "@durHm": {"placeholders": {"h": {"type": "String"}, "m": {"type": "String"}}},
+  "@durHm": {
+    "placeholders": {
+      "h": {
+        "type": "String"
+      },
+      "m": {
+        "type": "String"
+      }
+    }
+  },
   "durM": "{m} min",
-  "@durM": {"placeholders": {"m": {"type": "String"}}},
+  "@durM": {
+    "placeholders": {
+      "m": {
+        "type": "String"
+      }
+    }
+  },
   "counterChoose": "Change dhikr",
   "counterStep": "Step {n} of {total}",
-  "@counterStep": {"placeholders": {"n": {"type": "String"}, "total": {"type": "String"}}},
+  "@counterStep": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
   "counterFree": "Free count",
   "counterFreeHint": "Count anything, with your own target",
   "counterAfterSalah": "After salah: 33 · 33 · 34",
@@ -419,13 +464,25 @@
   "librarySituations": "Every situation",
   "libraryForNow": "For now",
   "duaCount": "{count, plural, =1{1 dua} other{{count} duas}}",
-  "@duaCount": {"placeholders": {"count": {"type": "int"}}},
+  "@duaCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "libraryPreparing": "Preparing hadith search. This happens once.",
   "libraryRefine": "Showing the first 60. Add a word to narrow it.",
   "sourceHisn": "Hisn al-Muslim by Sa'id bin Ali bin Wahf al-Qahtani. Text, transliteration and translation as published on sunnah.com, via open-hadith-data.",
   "sourceHadith": "Arabic and English as published on sunnah.com, via open-hadith-data. Grades as given by the source.",
   "hisnNumber": "Hisn al-Muslim {n}",
-  "@hisnNumber": {"placeholders": {"n": {"type": "String"}}},
+  "@hisnNumber": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "copyText": "Copy",
   "copied": "Copied",
   "openSource": "Open source",
@@ -435,37 +492,106 @@
   "readingTransliteration": "Transliteration",
   "readingMeaning": "Meaning",
   "stripLeft": "{time} until {prayer}",
-  "@stripLeft": {"placeholders": {"time": {"type": "String"}, "prayer": {"type": "String"}}},
+  "@stripLeft": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      },
+      "prayer": {
+        "type": "String"
+      }
+    }
+  },
   "dayGuideToday": "Today's Sunnah",
   "fastToday": "Sunnah fast today · {day}",
-  "@fastToday": {"placeholders": {"day": {"type": "String"}}},
+  "@fastToday": {
+    "placeholders": {
+      "day": {
+        "type": "String"
+      }
+    }
+  },
   "fastTomorrow": "Fast tomorrow · {day}",
-  "@fastTomorrow": {"placeholders": {"day": {"type": "String"}}},
+  "@fastTomorrow": {
+    "placeholders": {
+      "day": {
+        "type": "String"
+      }
+    }
+  },
   "calendarTitle": "Calendar",
   "calendarLegendGuide": "Has a guide",
   "calendarLegendFast": "Sunnah fast",
   "calendarNote": "Dates follow Umm al-Qura with your Hijri adjustment. On the 29th of Shaban, Ramadan and Dhul Qadah, Home asks whether the new moon was seen.",
   "sightingTitle": "Was the new moon of {month} seen where you are?",
-  "@sightingTitle": {"placeholders": {"month": {"type": "String"}}},
+  "@sightingTitle": {
+    "placeholders": {
+      "month": {
+        "type": "String"
+      }
+    }
+  },
   "sightingBody": "Your answer moves the calendar so Ramadan, Eid and Arafah fall on the days your community keeps.",
   "sightingSeen": "Seen: {month} begins",
-  "@sightingSeen": {"placeholders": {"month": {"type": "String"}}},
+  "@sightingSeen": {
+    "placeholders": {
+      "month": {
+        "type": "String"
+      }
+    }
+  },
   "sightingNotSeen": "Not seen: 30 days",
   "sightingUnsure": "Not sure",
   "ramadanSuhoor": "Suhoor ends",
   "ramadanIftar": "Iftar",
   "ramadanIn": "in {time}",
-  "@ramadanIn": {"placeholders": {"time": {"type": "String"}}},
+  "@ramadanIn": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "ramadanDone": "done",
   "announceTitle": "Tonight decides {month}",
-  "@announceTitle": {"placeholders": {"month": {"type": "String"}}},
+  "@announceTitle": {
+    "placeholders": {
+      "month": {
+        "type": "String"
+      }
+    }
+  },
   "announceBegins": "By the {authority}, {month} begins tomorrow.",
-  "@announceBegins": {"placeholders": {"month": {"type": "String"}, "authority": {"type": "String"}}},
+  "@announceBegins": {
+    "placeholders": {
+      "month": {
+        "type": "String"
+      },
+      "authority": {
+        "type": "String"
+      }
+    }
+  },
   "announceThirty": "By the {authority}, {month} completes 30 days: tomorrow is the 30th.",
-  "@announceThirty": {"placeholders": {"month": {"type": "String"}, "authority": {"type": "String"}}},
+  "@announceThirty": {
+    "placeholders": {
+      "month": {
+        "type": "String"
+      },
+      "authority": {
+        "type": "String"
+      }
+    }
+  },
   "announceOffline": "Offline: showing the last downloaded dates. Waqt will check again when you are connected.",
   "announceChecking": "Waqt checks for the announcement every 30 minutes tonight. Last checked {time}.",
-  "@announceChecking": {"placeholders": {"time": {"type": "String"}}},
+  "@announceChecking": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "authoritySaudi": "Saudi High Judiciary Council",
   "authorityDiyanet": "Diyanet (Türkiye)",
   "authorityLocal": "Local moon sighting",
@@ -473,15 +599,36 @@
   "authorityDiyanetHint": "Türkiye's official calendar, updated online",
   "authorityLocalHint": "Umm al-Qura; on the 29th you say whether the moon was seen",
   "calendarSourceLine": "{authority} · checked {time}",
-  "@calendarSourceLine": {"placeholders": {"authority": {"type": "String"}, "time": {"type": "String"}}},
+  "@calendarSourceLine": {
+    "placeholders": {
+      "authority": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "calendarSourceLocal": "Umm al-Qura with your adjustment. On the 29th of Shaban, Ramadan and Dhul Qadah, Home asks whether the new moon was seen.",
   "announceUnknown": "The announcement has not reached Waqt yet. If the crescent is seen tonight, {month} begins tomorrow; if not, this month completes 30 days.",
-  "@announceUnknown": {"placeholders": {"month": {"type": "String"}}},
+  "@announceUnknown": {
+    "placeholders": {
+      "month": {
+        "type": "String"
+      }
+    }
+  },
   "adjustTitle": "Adjust times",
   "adjustRowHint": "Match your local timetable or mosque",
   "adjustNone": "None",
   "adjustSome": "{count, plural, =1{1 time} other{{count} times}}",
-  "@adjustSome": {"placeholders": {"count": {"type": "int"}}},
+  "@adjustSome": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "adjustHint": "Times are calculated for your exact position. If your local timetable (for example your country's Islamic Foundation, or your mosque) differs by a minute or two, match it here.",
   "adjustNote": "Suhoor ends at Fajr and iftar is at Maghrib, so adjusting those moves suhoor and iftar too. Reminders and the widget follow.",
   "adjustEarlier": "1 minute earlier",
@@ -489,19 +636,43 @@
   "momentTaraweeh": "Taraweeh",
   "showLess": "Show less",
   "showAll": "Show all {count}",
-  "@showAll": {"placeholders": {"count": {"type": "int"}}},
+  "@showAll": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "hadithUnavailable": "Hadith search isn't available here. It works in the Android app.",
   "hadithLibraryTitle": "Hadith library",
   "hadithLibraryBody": "HadeethEnc's encyclopedia in your language: authentic hadiths with the Arabic, grade and explanation, searchable offline. Downloaded once.",
   "hadithLibraryDownload": "Download ({mb} MB)",
-  "@hadithLibraryDownload": {"placeholders": {"mb": {"type": "String"}}},
+  "@hadithLibraryDownload": {
+    "placeholders": {
+      "mb": {
+        "type": "String"
+      }
+    }
+  },
   "hadithLibraryProgress": "Downloading… {percent}%",
-  "@hadithLibraryProgress": {"placeholders": {"percent": {"type": "int"}}},
+  "@hadithLibraryProgress": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
   "hadithLibraryFailed": "The download didn't finish. Check your connection.",
   "hadithLibraryRetry": "Try again",
   "hadithLibraryNote": "From HadeethEnc.com, shown unchanged. Home, the checklists and the counter work without it.",
   "counterToday": "Today {count}",
-  "@counterToday": {"placeholders": {"count": {"type": "String"}}},
+  "@counterToday": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
   "counterTodayTitle": "Said today",
   "counterTodayAll": "All dhikr",
   "counterResetRound": "Restart this round",
@@ -534,9 +705,63 @@
   "sheetExplanation": "Explanation",
   "sheetEnglishOriginal": "English (sunnah.com)",
   "sourceHadeethEnc": "Translation and explanation: HadeethEnc.com, shown unchanged (retrieved {date}).",
-  "@sourceHadeethEnc": {"placeholders": {"date": {"type": "String"}}},
+  "@sourceHadeethEnc": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
   "openHadeethEnc": "HadeethEnc",
   "heNotTranslated": "HadeethEnc hasn't translated this hadith into {language} yet, so the Arabic is shown.",
-  "@heNotTranslated": {"placeholders": {"language": {"type": "String"}}},
-  "libraryAllTopics": "All topics"
+  "@heNotTranslated": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "libraryAllTopics": "All topics",
+  "qiblaTitle": "Qibla",
+  "qiblaFrom": "From {city}",
+  "@qiblaFrom": {
+    "placeholders": {
+      "city": {
+        "type": "String"
+      }
+    }
+  },
+  "qiblaFacing": "Facing the Qibla",
+  "qiblaTurnRight": "Turn right",
+  "qiblaTurnLeft": "Turn left",
+  "qiblaDirection": "Direction",
+  "qiblaBearing": "{deg}° from north",
+  "@qiblaBearing": {
+    "placeholders": {
+      "deg": {
+        "type": "String"
+      }
+    }
+  },
+  "qiblaDistance": "Distance to the Kaaba",
+  "qiblaKm": "{km} km",
+  "@qiblaKm": {
+    "placeholders": {
+      "km": {
+        "type": "String"
+      }
+    }
+  },
+  "qiblaHoldFlat": "Hold your phone flat",
+  "qiblaCalibrate": "If the direction drifts, move your phone in a figure eight, away from metal and magnets.",
+  "qiblaNoCompass": "No compass on this device. Face {deg}° from north using a landmark or the sun.",
+  "@qiblaNoCompass": {
+    "placeholders": {
+      "deg": {
+        "type": "String"
+      }
+    }
+  },
+  "qiblaNoPlace": "Choose a city to find the Qibla.",
+  "qiblaNorthShort": "N"
 }

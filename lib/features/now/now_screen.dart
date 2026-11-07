@@ -117,6 +117,11 @@ class NowScreen extends ConsumerWidget {
                       color: t.accent,
                       ink: const Color(0xFF14110C),
                     ),
+                  IconButton(
+                    tooltip: l.qiblaTitle,
+                    onPressed: () => context.push('/qibla'),
+                    icon: Icon(Icons.explore_outlined, color: t.ink),
+                  ),
                 ],
               ),
               // Another city's clock: say so, so the big time isn't mistaken

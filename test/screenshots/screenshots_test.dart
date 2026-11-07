@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:waqt/domain/hijri/hijri_service.dart';
+import 'package:waqt/platform/sensors/heading.dart';
 
 import '../helpers/harness.dart';
 
@@ -469,4 +470,23 @@ void main() {
     'other city',
     (t) async => shoot(t, '50_now_london_from_dhaka', await app(at: DateTime.utc(2026, 11, 6, 16), place: london)),
   );
+
+  for (final (name, heading, locale) in [
+    ('30_qibla_turn', const Heading(240, 4), null),
+    ('31_qibla_aligned', const Heading(277.5, 3), null),
+    ('32_qibla_ar', const Heading(330, 5), const Locale('ar')),
+    ('33_qibla_tilted', const Heading(200, 60), null),
+  ]) {
+    testWidgets(
+      name,
+      (t) async => shoot(
+        t,
+        name,
+        await app(at: DateTime(2026, 11, 6, 9, 41), place: dhaka, heading: heading, locale: locale),
+        then: () async {
+          await t.tap(find.byIcon(Icons.explore_outlined));
+        },
+      ),
+    );
+  }
 }

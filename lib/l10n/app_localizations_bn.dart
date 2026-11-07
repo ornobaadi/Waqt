@@ -1139,4 +1139,54 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get libraryAllTopics => 'সব বিষয়';
+
+  @override
+  String get qiblaTitle => 'কিবলা';
+
+  @override
+  String qiblaFrom(String city) {
+    return '$city থেকে';
+  }
+
+  @override
+  String get qiblaFacing => 'আপনি কিবলামুখী';
+
+  @override
+  String get qiblaTurnRight => 'ডানে ঘুরুন';
+
+  @override
+  String get qiblaTurnLeft => 'বাঁয়ে ঘুরুন';
+
+  @override
+  String get qiblaDirection => 'দিক';
+
+  @override
+  String qiblaBearing(String deg) {
+    return 'উত্তর থেকে $deg°';
+  }
+
+  @override
+  String get qiblaDistance => 'কাবা পর্যন্ত দূরত্ব';
+
+  @override
+  String qiblaKm(String km) {
+    return '$km কিমি';
+  }
+
+  @override
+  String get qiblaHoldFlat => 'ফোনটি সমতলে রাখুন';
+
+  @override
+  String get qiblaCalibrate => 'দিক সরে গেলে ফোনটি ইংরেজি 8-এর মতো করে ঘোরান, ধাতু ও চুম্বক থেকে দূরে।';
+
+  @override
+  String qiblaNoCompass(String deg) {
+    return 'এই ডিভাইসে কম্পাস নেই। কোনো চিহ্ন বা সূর্য দেখে উত্তর থেকে $deg° দিকে মুখ করুন।';
+  }
+
+  @override
+  String get qiblaNoPlace => 'কিবলা খুঁজতে একটি শহর বেছে নিন।';
+
+  @override
+  String get qiblaNorthShort => 'উ';
 }

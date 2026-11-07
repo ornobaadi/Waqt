@@ -9,6 +9,7 @@ import '../features/counter/counter_screen.dart';
 import '../features/duas/duas_screen.dart';
 import '../features/duas/library_views.dart';
 import '../features/now/now_screen.dart';
+import '../features/qibla/qibla_screen.dart';
 import '../features/settings/city_picker_screen.dart';
 import '../features/settings/checker_screen.dart';
 import '../features/settings/adjust_screen.dart';
@@ -25,6 +26,7 @@ final routerProvider = Provider<GoRouter>((ref) {
     routes: [
       GoRoute(path: '/counter', builder: (_, _) => const CounterScreen()),
       GoRoute(path: '/calendar', builder: (_, _) => const CalendarScreen()),
+      GoRoute(path: '/qibla', builder: (_, _) => const QiblaScreen()),
       StatefulShellRoute.indexedStack(
         builder: (context, state, shell) => _Shell(shell: shell),
         branches: [

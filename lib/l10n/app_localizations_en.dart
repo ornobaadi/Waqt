@@ -1143,4 +1143,55 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get libraryAllTopics => 'All topics';
+
+  @override
+  String get qiblaTitle => 'Qibla';
+
+  @override
+  String qiblaFrom(String city) {
+    return 'From $city';
+  }
+
+  @override
+  String get qiblaFacing => 'Facing the Qibla';
+
+  @override
+  String get qiblaTurnRight => 'Turn right';
+
+  @override
+  String get qiblaTurnLeft => 'Turn left';
+
+  @override
+  String get qiblaDirection => 'Direction';
+
+  @override
+  String qiblaBearing(String deg) {
+    return '$deg° from north';
+  }
+
+  @override
+  String get qiblaDistance => 'Distance to the Kaaba';
+
+  @override
+  String qiblaKm(String km) {
+    return '$km km';
+  }
+
+  @override
+  String get qiblaHoldFlat => 'Hold your phone flat';
+
+  @override
+  String get qiblaCalibrate =>
+      'If the direction drifts, move your phone in a figure eight, away from metal and magnets.';
+
+  @override
+  String qiblaNoCompass(String deg) {
+    return 'No compass on this device. Face $deg° from north using a landmark or the sun.';
+  }
+
+  @override
+  String get qiblaNoPlace => 'Choose a city to find the Qibla.';
+
+  @override
+  String get qiblaNorthShort => 'N';
 }

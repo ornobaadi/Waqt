@@ -51,7 +51,7 @@ Everyone. No user-generated content, no ads, no in-app purchases.
 - Feature graphic (1024×500): to make. Use the night sky + clock.
 
 ## Before submitting
-- [ ] Privacy policy hosted at a public URL (e.g. GitHub Pages from `docs/privacy-policy.md`)
+- [x] Privacy policy hosted at https://ornobaadi.github.io/Waqt/privacy/ (GitHub Pages from `docs/`)
 - [ ] At least the v1 bedtime + after-salah items **approved** (otherwise the release shows no duas)
 - [ ] Upload key created and `android/key.properties` set (see `docs/release.md`)
 - [ ] Closed testing track with 12+ testers for 14 days (required for new personal developer accounts)

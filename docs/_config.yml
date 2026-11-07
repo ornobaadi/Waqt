@@ -1,0 +1,10 @@
+title: Waqt
+description: The right dua for the moment you are in, with a verified source for every item.
+theme: jekyll-theme-primer
+exclude:
+  - screenshots
+  - store
+  - release.md
+  - moment-rules.md
+  - play-store-listing.md
+  - timetables

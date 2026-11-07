@@ -306,5 +306,19 @@
   "sourceHadeethEnc": "الترجمة والشرح: موسوعة الأحاديث المترجمة HadeethEnc.com، دون تغيير (جُلبت {date}).",
   "openHadeethEnc": "HadeethEnc",
   "heNotTranslated": "HadeethEnc hasn't translated this hadith into {language} yet, so the Arabic is shown.",
-  "libraryAllTopics": "جميع الموضوعات"
+  "libraryAllTopics": "جميع الموضوعات",
+  "qiblaTitle": "القبلة",
+  "qiblaFrom": "من {city}",
+  "qiblaFacing": "أنت متجه إلى القبلة",
+  "qiblaTurnRight": "استدر يمينًا",
+  "qiblaTurnLeft": "استدر يسارًا",
+  "qiblaDirection": "الاتجاه",
+  "qiblaBearing": "{deg}° من الشمال",
+  "qiblaDistance": "المسافة إلى الكعبة",
+  "qiblaKm": "{km} كم",
+  "qiblaHoldFlat": "ضع الهاتف مستويًا",
+  "qiblaCalibrate": "إذا انحرف الاتجاه، حرّك هاتفك على شكل الرقم 8 بعيدًا عن المعادن والمغناطيس.",
+  "qiblaNoCompass": "لا توجد بوصلة في هذا الجهاز. اتجه {deg}° من الشمال مستعينًا بمَعلم أو بالشمس.",
+  "qiblaNoPlace": "اختر مدينة لتحديد القبلة.",
+  "qiblaNorthShort": "ش"
 }

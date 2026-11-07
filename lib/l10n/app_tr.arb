@@ -284,5 +284,19 @@
   "sourceHadeethEnc": "Çeviri ve açıklama: HadeethEnc.com, değiştirilmeden ({date} tarihinde alındı).",
   "openHadeethEnc": "HadeethEnc",
   "heNotTranslated": "HadeethEnc bu hadisi henüz {language} diline çevirmedi; bu yüzden Arapçası gösteriliyor.",
-  "libraryAllTopics": "Tüm konular"
+  "libraryAllTopics": "Tüm konular",
+  "qiblaTitle": "Kıble",
+  "qiblaFrom": "{city} konumundan",
+  "qiblaFacing": "Kıbleye dönüksünüz",
+  "qiblaTurnRight": "Sağa dönün",
+  "qiblaTurnLeft": "Sola dönün",
+  "qiblaDirection": "Yön",
+  "qiblaBearing": "Kuzeyden {deg}°",
+  "qiblaDistance": "Kâbe'ye uzaklık",
+  "qiblaKm": "{km} km",
+  "qiblaHoldFlat": "Telefonu düz tutun",
+  "qiblaCalibrate": "Yön kayarsa telefonu metal ve mıknatıslardan uzakta 8 çizerek hareket ettirin.",
+  "qiblaNoCompass": "Bu cihazda pusula yok. Bir yer işaretine ya da güneşe bakarak kuzeyden {deg}° yöne dönün.",
+  "qiblaNoPlace": "Kıbleyi bulmak için bir şehir seçin.",
+  "qiblaNorthShort": "K"
 }

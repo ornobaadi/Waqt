@@ -1,6 +1,11 @@
+---
+title: Waqt privacy policy
+permalink: /privacy/
+---
+
 # Waqt privacy policy
 
-_Last updated: 7 November 2026_
+_Last updated: 8 November 2026_
 
 Waqt is built to work entirely on your phone. Here is exactly what that means.
 
@@ -12,6 +17,9 @@ Waqt is built to work entirely on your phone. Here is exactly what that means.
 - That position is used on the phone to calculate prayer times and to name your nearest city from a list stored inside the app.
 - It is saved only on your phone, so prayer times keep working offline. It is never transmitted.
 - You can choose a city by hand instead and never grant location permission.
+
+## Qibla
+The Qibla finder reads the phone's compass and motion sensors on the phone, only while the Qibla screen is open. The direction is worked out from your chosen city. Sensor readings are never stored or sent.
 
 ## Islamic calendar
 Hijri months begin when the crescent is sighted, so Waqt downloads the announced start dates of the months around today from api.aladhan.com, for the authority you choose in Settings (Saudi High Judiciary Council or Diyanet). The request contains only a Hijri month, a year and the authority's name: no location, no identifier, nothing about you. Choose **Local moon sighting** and Waqt makes no network request at all.

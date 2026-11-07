@@ -1135,4 +1135,54 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get libraryAllTopics => 'جميع الموضوعات';
+
+  @override
+  String get qiblaTitle => 'القبلة';
+
+  @override
+  String qiblaFrom(String city) {
+    return 'من $city';
+  }
+
+  @override
+  String get qiblaFacing => 'أنت متجه إلى القبلة';
+
+  @override
+  String get qiblaTurnRight => 'استدر يمينًا';
+
+  @override
+  String get qiblaTurnLeft => 'استدر يسارًا';
+
+  @override
+  String get qiblaDirection => 'الاتجاه';
+
+  @override
+  String qiblaBearing(String deg) {
+    return '$deg° من الشمال';
+  }
+
+  @override
+  String get qiblaDistance => 'المسافة إلى الكعبة';
+
+  @override
+  String qiblaKm(String km) {
+    return '$km كم';
+  }
+
+  @override
+  String get qiblaHoldFlat => 'ضع الهاتف مستويًا';
+
+  @override
+  String get qiblaCalibrate => 'إذا انحرف الاتجاه، حرّك هاتفك على شكل الرقم 8 بعيدًا عن المعادن والمغناطيس.';
+
+  @override
+  String qiblaNoCompass(String deg) {
+    return 'لا توجد بوصلة في هذا الجهاز. اتجه $deg° من الشمال مستعينًا بمَعلم أو بالشمس.';
+  }
+
+  @override
+  String get qiblaNoPlace => 'اختر مدينة لتحديد القبلة.';
+
+  @override
+  String get qiblaNorthShort => 'ش';
 }

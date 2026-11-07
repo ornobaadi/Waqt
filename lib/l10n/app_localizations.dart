@@ -2144,6 +2144,90 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'All topics'**
   String get libraryAllTopics;
+
+  /// No description provided for @qiblaTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Qibla'**
+  String get qiblaTitle;
+
+  /// No description provided for @qiblaFrom.
+  ///
+  /// In en, this message translates to:
+  /// **'From {city}'**
+  String qiblaFrom(String city);
+
+  /// No description provided for @qiblaFacing.
+  ///
+  /// In en, this message translates to:
+  /// **'Facing the Qibla'**
+  String get qiblaFacing;
+
+  /// No description provided for @qiblaTurnRight.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn right'**
+  String get qiblaTurnRight;
+
+  /// No description provided for @qiblaTurnLeft.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn left'**
+  String get qiblaTurnLeft;
+
+  /// No description provided for @qiblaDirection.
+  ///
+  /// In en, this message translates to:
+  /// **'Direction'**
+  String get qiblaDirection;
+
+  /// No description provided for @qiblaBearing.
+  ///
+  /// In en, this message translates to:
+  /// **'{deg}° from north'**
+  String qiblaBearing(String deg);
+
+  /// No description provided for @qiblaDistance.
+  ///
+  /// In en, this message translates to:
+  /// **'Distance to the Kaaba'**
+  String get qiblaDistance;
+
+  /// No description provided for @qiblaKm.
+  ///
+  /// In en, this message translates to:
+  /// **'{km} km'**
+  String qiblaKm(String km);
+
+  /// No description provided for @qiblaHoldFlat.
+  ///
+  /// In en, this message translates to:
+  /// **'Hold your phone flat'**
+  String get qiblaHoldFlat;
+
+  /// No description provided for @qiblaCalibrate.
+  ///
+  /// In en, this message translates to:
+  /// **'If the direction drifts, move your phone in a figure eight, away from metal and magnets.'**
+  String get qiblaCalibrate;
+
+  /// No description provided for @qiblaNoCompass.
+  ///
+  /// In en, this message translates to:
+  /// **'No compass on this device. Face {deg}° from north using a landmark or the sun.'**
+  String qiblaNoCompass(String deg);
+
+  /// No description provided for @qiblaNoPlace.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a city to find the Qibla.'**
+  String get qiblaNoPlace;
+
+  /// No description provided for @qiblaNorthShort.
+  ///
+  /// In en, this message translates to:
+  /// **'N'**
+  String get qiblaNorthShort;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

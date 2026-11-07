@@ -278,5 +278,19 @@
   "sourceHadeethEnc": "Traduction et explication : HadeethEnc.com, sans modification (récupéré le {date}).",
   "openHadeethEnc": "HadeethEnc",
   "heNotTranslated": "HadeethEnc n'a pas encore traduit ce hadith en {language} ; le texte arabe est affiché.",
-  "libraryAllTopics": "Tous les thèmes"
+  "libraryAllTopics": "Tous les thèmes",
+  "qiblaTitle": "Qibla",
+  "qiblaFrom": "Depuis {city}",
+  "qiblaFacing": "Vous faites face à la qibla",
+  "qiblaTurnRight": "Tournez à droite",
+  "qiblaTurnLeft": "Tournez à gauche",
+  "qiblaDirection": "Direction",
+  "qiblaBearing": "{deg}° depuis le nord",
+  "qiblaDistance": "Distance jusqu'à la Kaaba",
+  "qiblaKm": "{km} km",
+  "qiblaHoldFlat": "Tenez le téléphone à plat",
+  "qiblaCalibrate": "Si la direction dérive, décrivez un 8 avec le téléphone, loin du métal et des aimants.",
+  "qiblaNoCompass": "Cet appareil n'a pas de boussole. Orientez-vous à {deg}° du nord à l'aide d'un repère ou du soleil.",
+  "qiblaNoPlace": "Choisissez une ville pour trouver la qibla.",
+  "qiblaNorthShort": "N"
 }

@@ -284,5 +284,19 @@
   "sourceHadeethEnc": "অনুবাদ ও ব্যাখ্যা: HadeethEnc.com, হুবহু ({date} তারিখে নেওয়া)।",
   "openHadeethEnc": "HadeethEnc",
   "heNotTranslated": "HadeethEnc এখনও এই হাদিসের {language} অনুবাদ প্রকাশ করেনি, তাই আরবি দেখানো হলো।",
-  "libraryAllTopics": "সব বিষয়"
+  "libraryAllTopics": "সব বিষয়",
+  "qiblaTitle": "কিবলা",
+  "qiblaFrom": "{city} থেকে",
+  "qiblaFacing": "আপনি কিবলামুখী",
+  "qiblaTurnRight": "ডানে ঘুরুন",
+  "qiblaTurnLeft": "বাঁয়ে ঘুরুন",
+  "qiblaDirection": "দিক",
+  "qiblaBearing": "উত্তর থেকে {deg}°",
+  "qiblaDistance": "কাবা পর্যন্ত দূরত্ব",
+  "qiblaKm": "{km} কিমি",
+  "qiblaHoldFlat": "ফোনটি সমতলে রাখুন",
+  "qiblaCalibrate": "দিক সরে গেলে ফোনটি ইংরেজি 8-এর মতো করে ঘোরান, ধাতু ও চুম্বক থেকে দূরে।",
+  "qiblaNoCompass": "এই ডিভাইসে কম্পাস নেই। কোনো চিহ্ন বা সূর্য দেখে উত্তর থেকে {deg}° দিকে মুখ করুন।",
+  "qiblaNoPlace": "কিবলা খুঁজতে একটি শহর বেছে নিন।",
+  "qiblaNorthShort": "উ"
 }

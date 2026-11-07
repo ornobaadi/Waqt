@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:waqt/platform/sensors/heading.dart';
 import 'package:waqt/data/sources/days.dart';
 import 'package:waqt/data/sources/hadeethenc.dart';
 import 'package:waqt/app/app.dart';
@@ -63,7 +64,7 @@ class _Locale extends LocaleOverride {
 }
 
 /// The whole app at a fixed clock with chosen saved prefs.
-Future<Widget> app({DateTime? at, Place? place, Locale? locale, bool setupCard = false}) async {
+Future<Widget> app({DateTime? at, Place? place, Locale? locale, bool setupCard = false, Heading? heading}) async {
   SharedPreferences.setMockInitialValues({
     if (place != null) 'place.v1': jsonEncode(place.toJson()),
     // Screenshots show the reminder card only when asked to.
@@ -80,6 +81,7 @@ Future<Widget> app({DateTime? at, Place? place, Locale? locale, bool setupCard =
       dayGuidesProvider.overrideWith((ref) => DayGuides.parse(File('assets/sources/days.json').readAsStringSync())),
       heBundleProvider.overrideWith((ref) => HeBundle.parse(File('assets/sources/hadeethenc.json').readAsStringSync())),
       if (at != null) nowProvider.overrideWith((ref) => Stream.value(at)),
+      if (heading != null) headingProvider.overrideWith((ref) => Stream.value(heading)),
       if (locale != null) localeOverrideProvider.overrideWith(() => _Locale(locale)),
     ],
     child: const WaqtApp(),

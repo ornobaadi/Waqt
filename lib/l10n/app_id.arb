@@ -278,5 +278,19 @@
   "sourceHadeethEnc": "Terjemahan dan penjelasan: HadeethEnc.com, tanpa diubah (diambil {date}).",
   "openHadeethEnc": "HadeethEnc",
   "heNotTranslated": "HadeethEnc belum menerjemahkan hadis ini ke {language}, jadi teks Arabnya yang ditampilkan.",
-  "libraryAllTopics": "Semua topik"
+  "libraryAllTopics": "Semua topik",
+  "qiblaTitle": "Kiblat",
+  "qiblaFrom": "Dari {city}",
+  "qiblaFacing": "Anda menghadap kiblat",
+  "qiblaTurnRight": "Putar ke kanan",
+  "qiblaTurnLeft": "Putar ke kiri",
+  "qiblaDirection": "Arah",
+  "qiblaBearing": "{deg}° dari utara",
+  "qiblaDistance": "Jarak ke Ka'bah",
+  "qiblaKm": "{km} km",
+  "qiblaHoldFlat": "Letakkan ponsel mendatar",
+  "qiblaCalibrate": "Jika arahnya bergeser, gerakkan ponsel membentuk angka 8, jauh dari logam dan magnet.",
+  "qiblaNoCompass": "Perangkat ini tidak punya kompas. Hadap {deg}° dari utara dengan patokan bangunan atau matahari.",
+  "qiblaNoPlace": "Pilih kota untuk menemukan kiblat.",
+  "qiblaNorthShort": "U"
 }

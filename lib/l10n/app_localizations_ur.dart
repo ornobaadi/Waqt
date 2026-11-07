@@ -1141,4 +1141,54 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get libraryAllTopics => 'تمام موضوعات';
+
+  @override
+  String get qiblaTitle => 'قبلہ';
+
+  @override
+  String qiblaFrom(String city) {
+    return '$city سے';
+  }
+
+  @override
+  String get qiblaFacing => 'آپ کا رخ قبلہ کی طرف ہے';
+
+  @override
+  String get qiblaTurnRight => 'دائیں مڑیں';
+
+  @override
+  String get qiblaTurnLeft => 'بائیں مڑیں';
+
+  @override
+  String get qiblaDirection => 'سمت';
+
+  @override
+  String qiblaBearing(String deg) {
+    return 'شمال سے $deg°';
+  }
+
+  @override
+  String get qiblaDistance => 'کعبہ تک فاصلہ';
+
+  @override
+  String qiblaKm(String km) {
+    return '$km کلومیٹر';
+  }
+
+  @override
+  String get qiblaHoldFlat => 'فون کو سیدھا لٹا کر رکھیں';
+
+  @override
+  String get qiblaCalibrate => 'اگر سمت بدلتی رہے تو فون کو 8 کی شکل میں گھمائیں، دھات اور مقناطیس سے دور۔';
+
+  @override
+  String qiblaNoCompass(String deg) {
+    return 'اس ڈیوائس میں کمپاس نہیں ہے۔ کسی نشانی یا سورج کی مدد سے شمال سے $deg° کی طرف رخ کریں۔';
+  }
+
+  @override
+  String get qiblaNoPlace => 'قبلہ معلوم کرنے کے لیے شہر منتخب کریں۔';
+
+  @override
+  String get qiblaNorthShort => 'ش';
 }

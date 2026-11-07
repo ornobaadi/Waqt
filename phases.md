@@ -67,7 +67,8 @@ Margins awaiting scholar review: see `docs/moment-rules.md`.
 - [ ] Profile on a budget device
 - [x] "Report an issue with this content" flow (pre-filled GitHub issue)
 - [x] Play Store listing draft, privacy policy, release guide, upload-key signing, adaptive + themed app icon
-- [ ] Host privacy policy; feature graphic
+- [x] Host privacy policy (https://ornobaadi.github.io/Waqt/privacy/)
+- [ ] Feature graphic
 - [ ] Closed beta → public launch
 
 ## Phase 8 — Place time zones
@@ -75,8 +76,23 @@ Margins awaiting scholar review: see `docs/moment-rules.md`.
 - [x] "{city} time" note on Now when the city's clock differs from the phone's
 - [x] Tests: London/Toronto from a Dhaka-time machine, both DST changeovers, bedtime at 22:30 local, unknown-zone fallback
 
+## Phase 9 — Home first, reports, release test mode
+- [x] Home-first layout, email problem reports, no adhan alerts, test mode in release builds
+
+## Phase 10 — Library, special days, Ramadan, HadeethEnc
+- [x] Prayer windows on Home, dhikr picker, haptics, reading sizes
+- [x] Special-day guides, Hijri calendar, moon sighting, Ramadan mode
+- [x] HadeethEnc hadith in the app's language (bundled for Home, library downloaded per language)
+
+## Phase 11 — Qibla and content trust
+- [x] Qibla finder: tilt-compensated heading, turn arc, aligned haptic, no-compass fallback, 7 languages
+- [x] Privacy policy on GitHub Pages
+- [x] Reviewer sign-off table in `docs/moment-rules.md`; official-timetable comparison test (`test/fixtures/timetables/`)
+- [ ] Collect official timetables (Diyanet, JAKIM, Kemenag, Islamic Foundation BD, UOIF…) as CSVs
+- [ ] Magnetic declination (Qibla uses magnetic north; error up to a few degrees in some regions)
+
 ## Later
-iOS · OTA signed content updates · more languages · Qibla · cloud backup.
+iOS · OTA signed content updates · more languages · cloud backup.
 
 ## First prompt for Claude Code
 > Read PRD.md, architecture.md, design.md, phases.md. Start Phase 0 and Phase 1: scaffold the Flutter app with the structure in architecture.md, implement theme tokens from design.md, PrayerTimesService with adhan, and Home v0. Add a fake-clock debug override from the start. Do not add any religious text that isn't in the content DB.

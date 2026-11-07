@@ -1145,4 +1145,54 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get libraryAllTopics => 'Tous les thèmes';
+
+  @override
+  String get qiblaTitle => 'Qibla';
+
+  @override
+  String qiblaFrom(String city) {
+    return 'Depuis $city';
+  }
+
+  @override
+  String get qiblaFacing => 'Vous faites face à la qibla';
+
+  @override
+  String get qiblaTurnRight => 'Tournez à droite';
+
+  @override
+  String get qiblaTurnLeft => 'Tournez à gauche';
+
+  @override
+  String get qiblaDirection => 'Direction';
+
+  @override
+  String qiblaBearing(String deg) {
+    return '$deg° depuis le nord';
+  }
+
+  @override
+  String get qiblaDistance => 'Distance jusqu\'à la Kaaba';
+
+  @override
+  String qiblaKm(String km) {
+    return '$km km';
+  }
+
+  @override
+  String get qiblaHoldFlat => 'Tenez le téléphone à plat';
+
+  @override
+  String get qiblaCalibrate => 'Si la direction dérive, décrivez un 8 avec le téléphone, loin du métal et des aimants.';
+
+  @override
+  String qiblaNoCompass(String deg) {
+    return 'Cet appareil n\'a pas de boussole. Orientez-vous à $deg° du nord à l\'aide d\'un repère ou du soleil.';
+  }
+
+  @override
+  String get qiblaNoPlace => 'Choisissez une ville pour trouver la qibla.';
+
+  @override
+  String get qiblaNorthShort => 'N';
 }
