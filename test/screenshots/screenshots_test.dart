@@ -228,7 +228,10 @@ void main() {
       then: () async {
         // The bedtime checklist, sourced; a tap on a title offers the library.
         await t.scrollUntilVisible(find.text('Before you sleep'), 200);
-        await t.tap(find.text('Wudu, and lie on your right side'));
+        await t.runAsync(() async {
+          await t.tap(find.text('Wudu, and lie on your right side'));
+          await Future<void>.delayed(const Duration(milliseconds: 500));
+        });
       },
     ),
   );
