@@ -258,5 +258,6 @@
   "adjustLater": "1 dakika geç",
   "momentTaraweeh": "Teravih",
   "showLess": "Daha az",
-  "showAll": "Tümünü göster ({count})"
+  "showAll": "Tümünü göster ({count})",
+  "hadithUnavailable": "Hadis araması burada yok. Android uygulamasında çalışır."
 }

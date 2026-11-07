@@ -87,30 +87,34 @@ class NowScreen extends ConsumerWidget {
               Row(
                 children: [
                   // The city is the one thing on Home you may want to change.
-                  Flexible(
-                    child: InkWell(
-                      borderRadius: BorderRadius.circular(WaqtRadii.row),
-                      onTap: () => context.push('/settings/city'),
-                      child: ConstrainedBox(
-                        constraints: const BoxConstraints(minHeight: WaqtSpace.minTouch),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Flexible(
-                              child: Text(
-                                place?.name ?? l.appName,
-                                style: WaqtText.bodyStrong.copyWith(color: t.ink),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
+                  // Expanded, not Flexible + Spacer: those split the free
+                  // space and left the pill in the middle.
+                  Expanded(
+                    child: Align(
+                      alignment: AlignmentDirectional.centerStart,
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(WaqtRadii.row),
+                        onTap: () => context.push('/settings/city'),
+                        child: ConstrainedBox(
+                          constraints: const BoxConstraints(minHeight: WaqtSpace.minTouch),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Flexible(
+                                child: Text(
+                                  place?.name ?? l.appName,
+                                  style: WaqtText.bodyStrong.copyWith(color: t.ink),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ),
-                            ),
-                            if (place != null) Icon(Icons.expand_more_rounded, size: 20, color: t.inkMuted),
-                          ],
+                              if (place != null) Icon(Icons.expand_more_rounded, size: 20, color: t.inkMuted),
+                            ],
+                          ),
                         ),
                       ),
                     ),
                   ),
-                  const Spacer(),
                   if (faked)
                     _Pill(text: l.debugClockFaked, color: t.ink, ink: t.ground)
                   else if (occasions.isNotEmpty)

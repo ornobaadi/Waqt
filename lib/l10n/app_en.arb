@@ -489,5 +489,6 @@
   "momentTaraweeh": "Taraweeh",
   "showLess": "Show less",
   "showAll": "Show all {count}",
-  "@showAll": {"placeholders": {"count": {"type": "int"}}}
+  "@showAll": {"placeholders": {"count": {"type": "int"}}},
+  "hadithUnavailable": "Hadith search isn't available here. It works in the Android app."
 }

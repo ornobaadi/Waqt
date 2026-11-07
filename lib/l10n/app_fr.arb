@@ -252,5 +252,6 @@
   "adjustLater": "1 minute plus tard",
   "momentTaraweeh": "Tarawih",
   "showLess": "Moins",
-  "showAll": "Tout afficher ({count})"
+  "showAll": "Tout afficher ({count})",
+  "hadithUnavailable": "La recherche de hadiths n'est pas disponible ici. Elle fonctionne dans l'application Android."
 }

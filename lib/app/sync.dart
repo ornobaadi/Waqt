@@ -1,11 +1,11 @@
 import 'dart:async';
-import 'dart:io' show Platform;
 import 'dart:ui' show Locale, PlatformDispatcher;
 
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
+import '../core/config/runtime.dart';
 import '../data/hijri/calendar_sync.dart';
 import '../data/user/notification_prefs.dart';
 import '../data/user/user_prefs.dart';
@@ -37,7 +37,7 @@ class LastSync extends Notifier<SyncResult?> {
 final lastSyncProvider = NotifierProvider<LastSync, SyncResult?>(LastSync.new);
 
 /// Platform plugins don't exist under `flutter test`.
-final bool _platformAvailable = !Platform.environment.containsKey('FLUTTER_TEST');
+final bool _platformAvailable = Runtime.hasPlatformPlugins;
 
 /// Keeps reminders and the home-screen widget in step with the app: on
 /// launch, on resume (clock, zone or day may have changed), and whenever the
@@ -76,7 +76,7 @@ class _SyncHostState extends ConsumerState<SyncHost> with WidgetsBindingObserver
   void _schedule() {
     // The calendar download needs no platform plugins; it runs everywhere
     // except tests, which have no network.
-    if (!Platform.environment.containsKey('FLUTTER_TEST')) {
+    if (!Runtime.isTest) {
       unawaited(ref.read(calendarSyncProvider.notifier).refresh());
     }
     if (!_platformAvailable) return;

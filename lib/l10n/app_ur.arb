@@ -266,5 +266,6 @@
   "adjustLater": "1 منٹ بعد",
   "momentTaraweeh": "تراویح",
   "showLess": "کم دکھائیں",
-  "showAll": "سب دکھائیں ({count})"
+  "showAll": "سب دکھائیں ({count})",
+  "hadithUnavailable": "احادیث کی تلاش یہاں دستیاب نہیں۔ اینڈرائیڈ ایپ میں کام کرتی ہے۔"
 }

@@ -280,5 +280,6 @@
   "adjustLater": "دقيقة أخر",
   "momentTaraweeh": "التراويح",
   "showLess": "عرض أقل",
-  "showAll": "عرض الكل ({count})"
+  "showAll": "عرض الكل ({count})",
+  "hadithUnavailable": "البحث في الأحاديث غير متاح هنا. يعمل في تطبيق أندرويد."
 }

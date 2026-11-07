@@ -252,5 +252,6 @@
   "adjustLater": "1 menit lebih lambat",
   "momentTaraweeh": "Tarawih",
   "showLess": "Lebih sedikit",
-  "showAll": "Tampilkan semua {count}"
+  "showAll": "Tampilkan semua {count}",
+  "hadithUnavailable": "Pencarian hadis tidak tersedia di sini. Berfungsi di aplikasi Android."
 }

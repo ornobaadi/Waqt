@@ -258,5 +258,6 @@
   "adjustLater": "১ মিনিট পরে",
   "momentTaraweeh": "তারাবিহ",
   "showLess": "কম দেখান",
-  "showAll": "সব দেখান ({count})"
+  "showAll": "সব দেখান ({count})",
+  "hadithUnavailable": "হাদিস খোঁজা এখানে নেই। অ্যান্ড্রয়েড অ্যাপে কাজ করে।"
 }

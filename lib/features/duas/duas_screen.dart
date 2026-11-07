@@ -337,6 +337,10 @@ class _DuasScreenState extends ConsumerState<DuasScreen> {
           future: _hadith,
           builder: (context, snap) {
             final list = snap.data;
+            if (snap.hasError) {
+              // The hadith database needs the phone's SQLite (not in a browser).
+              return Padding(padding: const EdgeInsets.all(WaqtSpace.screen), child: _Note(l.hadithUnavailable));
+            }
             if (list == null) {
               // First search only: the index is being built.
               return Padding(

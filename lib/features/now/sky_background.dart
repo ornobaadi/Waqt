@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io' show Platform;
 import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
@@ -7,6 +6,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 
+import '../../core/config/runtime.dart';
 import '../../core/theme/tokens.dart';
 
 /// Sky look per moment palette, derived from the palette so it can never
@@ -47,7 +47,7 @@ final _skyProgram = FutureProvider<ui.FragmentProgram?>((ref) async {
 
 /// Sensors and the twinkle ticker are off under `flutter test` (no plugins,
 /// and a never-ending ticker would keep the test from settling).
-final bool _live = !Platform.environment.containsKey('FLUTTER_TEST');
+final bool _live = !Runtime.isTest;
 
 /// The sky behind the Now screen. Fades into the ground colour so content
 /// sits on it without a seam. 30 fps cap; static with reduce-motion.
