@@ -217,5 +217,7 @@
   "counterStep": "الخطوة {n} من {total}",
   "counterFree": "عدّ حر",
   "counterFreeHint": "عدّ أي شيء بالهدف الذي تختاره",
-  "counterAfterSalah": "بعد الصلاة: ٣٣ · ٣٣ · ٣٤"
+  "counterAfterSalah": "بعد الصلاة: ٣٣ · ٣٣ · ٣٤",
+  "counterHaptics": "اهتزاز مع كل عدّة",
+  "counterAfterSalahName": "بعد الصلاة"
 }

@@ -195,5 +195,7 @@
   "counterStep": "Adım {n}/{total}",
   "counterFree": "Serbest sayım",
   "counterFreeHint": "Kendi hedefinle her şeyi say",
-  "counterAfterSalah": "Namazdan sonra: 33 · 33 · 34"
+  "counterAfterSalah": "Namazdan sonra: 33 · 33 · 34",
+  "counterHaptics": "Her sayımda titreşim",
+  "counterAfterSalahName": "Namazdan sonra"
 }

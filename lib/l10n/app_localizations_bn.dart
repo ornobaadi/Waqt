@@ -82,7 +82,8 @@ class AppLocalizationsBn extends AppLocalizations {
   String get settingsDeveloper => 'Test mode';
 
   @override
-  String get settingsDeveloperHint => 'Fake clock, day jumps and the reference checker';
+  String get settingsDeveloperHint =>
+      'Fake clock, day jumps and the reference checker';
 
   @override
   String get settingsAbout => 'Waqt সম্পর্কে';
@@ -184,16 +185,20 @@ class AppLocalizationsBn extends AppLocalizations {
   String get locationLocating => 'অবস্থান খোঁজা হচ্ছে…';
 
   @override
-  String get gpsServiceOff => 'এই ফোনে লোকেশন বন্ধ। চালু করুন, অথবা একটি শহর বেছে নিন।';
+  String get gpsServiceOff =>
+      'এই ফোনে লোকেশন বন্ধ। চালু করুন, অথবা একটি শহর বেছে নিন।';
 
   @override
-  String get gpsDenied => 'লোকেশনের অনুমতি দেওয়া হয়নি। আপনি একটি শহর বেছে নিতে পারেন।';
+  String get gpsDenied =>
+      'লোকেশনের অনুমতি দেওয়া হয়নি। আপনি একটি শহর বেছে নিতে পারেন।';
 
   @override
-  String get gpsDeniedForever => 'লোকেশনের অনুমতি বন্ধ করা আছে। সেটিংসে অনুমতি দিন, অথবা একটি শহর বেছে নিন।';
+  String get gpsDeniedForever =>
+      'লোকেশনের অনুমতি বন্ধ করা আছে। সেটিংসে অনুমতি দিন, অথবা একটি শহর বেছে নিন।';
 
   @override
-  String get gpsTimeout => 'অবস্থান পাওয়া যায়নি। আবার চেষ্টা করুন, অথবা একটি শহর বেছে নিন।';
+  String get gpsTimeout =>
+      'অবস্থান পাওয়া যায়নি। আবার চেষ্টা করুন, অথবা একটি শহর বেছে নিন।';
 
   @override
   String get openSettings => 'সেটিংস খুলুন';
@@ -270,7 +275,8 @@ class AppLocalizationsBn extends AppLocalizations {
   }
 
   @override
-  String get settingsAttribution => 'শহরের তথ্য © GeoNames, CC BY 4.0। নামাজের সময় ডিভাইসেই হিসাব হয়।';
+  String get settingsAttribution =>
+      'শহরের তথ্য © GeoNames, CC BY 4.0। নামাজের সময় ডিভাইসেই হিসাব হয়।';
 
   @override
   String get citySearchHint => 'শহর খুঁজুন';
@@ -317,7 +323,8 @@ class AppLocalizationsBn extends AppLocalizations {
   String get methodMoonsighting => 'চাঁদ দেখা কমিটি';
 
   @override
-  String get timesEstimated => 'আনুমানিক। আজ এখানে সূর্য স্বাভাবিকভাবে ওঠে বা ডোবে না, তাই সময় ৬৫° অক্ষাংশ অনুযায়ী।';
+  String get timesEstimated =>
+      'আনুমানিক। আজ এখানে সূর্য স্বাভাবিকভাবে ওঠে বা ডোবে না, তাই সময় ৬৫° অক্ষাংশ অনুযায়ী।';
 
   @override
   String get momentLastThird => 'রাতের শেষ তৃতীয়াংশ';
@@ -390,7 +397,8 @@ class AppLocalizationsBn extends AppLocalizations {
   String get statusChecked => 'যাচাইকৃত';
 
   @override
-  String get draftNotice => 'যাচাই না করা খসড়া, শুধু ডেভেলপমেন্ট সংস্করণে দেখা যায়';
+  String get draftNotice =>
+      'যাচাই না করা খসড়া, শুধু ডেভেলপমেন্ট সংস্করণে দেখা যায়';
 
   @override
   String get collectionQuran => 'কুরআন';
@@ -461,7 +469,8 @@ class AppLocalizationsBn extends AppLocalizations {
   }
 
   @override
-  String get sheetTextPending => 'এই সূত্রটি মূল উৎসের সাথে যাচাই হলে লেখাটি এখানে দেখা যাবে।';
+  String get sheetTextPending =>
+      'এই সূত্রটি মূল উৎসের সাথে যাচাই হলে লেখাটি এখানে দেখা যাবে।';
 
   @override
   String get statusApproved => 'আলেম কর্তৃক অনুমোদিত';
@@ -554,7 +563,8 @@ class AppLocalizationsBn extends AppLocalizations {
   String get notifBatteryFix => 'সেটিংস খুলুন';
 
   @override
-  String get notifBatteryHint => 'কিছু ফোন ব্যাকগ্রাউন্ডে রিমাইন্ডার বন্ধ করে দেয়। Waqt-কে সীমাবদ্ধ নয় হিসেবে রাখুন।';
+  String get notifBatteryHint =>
+      'কিছু ফোন ব্যাকগ্রাউন্ডে রিমাইন্ডার বন্ধ করে দেয়। Waqt-কে সীমাবদ্ধ নয় হিসেবে রাখুন।';
 
   @override
   String notifBatteryHintOem(String maker) {
@@ -671,13 +681,15 @@ class AppLocalizationsBn extends AppLocalizations {
   String get reportProblem => 'সমস্যা জানান';
 
   @override
-  String get reportProblemHint => 'একটি ইমেইল খসড়া খোলে। পাঠানোর আগে আপনি সব দেখতে পাবেন।';
+  String get reportProblemHint =>
+      'একটি ইমেইল খসড়া খোলে। পাঠানোর আগে আপনি সব দেখতে পাবেন।';
 
   @override
   String get privacyTitle => 'গোপনীয়তা';
 
   @override
-  String get privacyBody => 'সবকিছু এই ফোনেই হিসাব হয়। Waqt-এ কোনো অ্যাকাউন্ট, বিজ্ঞাপন বা অ্যানালিটিক্স নেই।';
+  String get privacyBody =>
+      'সবকিছু এই ফোনেই হিসাব হয়। Waqt-এ কোনো অ্যাকাউন্ট, বিজ্ঞাপন বা অ্যানালিটিক্স নেই।';
 
   @override
   String placeTime(String city) {
@@ -685,7 +697,8 @@ class AppLocalizationsBn extends AppLocalizations {
   }
 
   @override
-  String get testModeUnlocked => 'Test mode is on. Find it at the bottom of Settings.';
+  String get testModeUnlocked =>
+      'Test mode is on. Find it at the bottom of Settings.';
 
   @override
   String get debugJumpDay => 'Jump to a day';
@@ -700,7 +713,8 @@ class AppLocalizationsBn extends AppLocalizations {
   String get debugShowUnchecked => 'Show unchecked content';
 
   @override
-  String get debugShowUncheckedHint => 'On this phone only. Unchecked items are marked as drafts.';
+  String get debugShowUncheckedHint =>
+      'On this phone only. Unchecked items are marked as drafts.';
 
   @override
   String get debugLock => 'Turn off test mode';
@@ -726,7 +740,8 @@ class AppLocalizationsBn extends AppLocalizations {
   String get checkerWrong => 'Wrong';
 
   @override
-  String get checkerWrongHint => 'What is wrong, and the correct reference if you know it';
+  String get checkerWrongHint =>
+      'What is wrong, and the correct reference if you know it';
 
   @override
   String get checkerSend => 'Email results';
@@ -767,4 +782,10 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get counterAfterSalah => 'সালাতের পর: ৩৩ · ৩৩ · ৩৪';
+
+  @override
+  String get counterHaptics => 'প্রতি গণনায় কম্পন';
+
+  @override
+  String get counterAfterSalahName => 'সালাতের পর';
 }

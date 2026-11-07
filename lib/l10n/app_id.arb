@@ -189,5 +189,7 @@
   "counterStep": "Langkah {n} dari {total}",
   "counterFree": "Hitung bebas",
   "counterFreeHint": "Hitung apa saja dengan target sendiri",
-  "counterAfterSalah": "Setelah salat: 33 · 33 · 34"
+  "counterAfterSalah": "Setelah salat: 33 · 33 · 34",
+  "counterHaptics": "Getar setiap hitungan",
+  "counterAfterSalahName": "Setelah salat"
 }

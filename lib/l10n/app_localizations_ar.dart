@@ -55,19 +55,22 @@ class AppLocalizationsAr extends AppLocalizations {
   String get nowLocationTitle => 'من أين تصلي؟';
 
   @override
-  String get nowLocationBody => 'تُحسب أوقات الصلاة على هاتفك من موقعك. لا يغادر شيء جهازك.';
+  String get nowLocationBody =>
+      'تُحسب أوقات الصلاة على هاتفك من موقعك. لا يغادر شيء جهازك.';
 
   @override
   String get todayEmptyTitle => 'يومك، لحظةً بلحظة';
 
   @override
-  String get todayEmptyBody => 'ستظهر هنا كل أوقات اليوم، من الفجر إلى الثلث الأخير من الليل، بعد حساب أوقات الصلاة.';
+  String get todayEmptyBody =>
+      'ستظهر هنا كل أوقات اليوم، من الفجر إلى الثلث الأخير من الليل، بعد حساب أوقات الصلاة.';
 
   @override
   String get duasEmptyTitle => 'مصادر موثّقة فقط';
 
   @override
-  String get duasEmptyBody => 'تُفتح المكتبة بعد مراجعة كل نص على مصدره الأصلي واعتماده من عالم شرعي.';
+  String get duasEmptyBody =>
+      'تُفتح المكتبة بعد مراجعة كل نص على مصدره الأصلي واعتماده من عالم شرعي.';
 
   @override
   String get settingsLanguage => 'اللغة';
@@ -181,13 +184,15 @@ class AppLocalizationsAr extends AppLocalizations {
   String get locationLocating => 'جارٍ تحديد موقعك…';
 
   @override
-  String get gpsServiceOff => 'خدمة الموقع متوقفة على هذا الهاتف. شغّلها أو اختر مدينة.';
+  String get gpsServiceOff =>
+      'خدمة الموقع متوقفة على هذا الهاتف. شغّلها أو اختر مدينة.';
 
   @override
   String get gpsDenied => 'تم رفض إذن الموقع. يمكنك اختيار مدينة بدلاً من ذلك.';
 
   @override
-  String get gpsDeniedForever => 'إذن الموقع محظور. اسمح به من الإعدادات أو اختر مدينة.';
+  String get gpsDeniedForever =>
+      'إذن الموقع محظور. اسمح به من الإعدادات أو اختر مدينة.';
 
   @override
   String get gpsTimeout => 'تعذّر تحديد الموقع. حاول مجددًا أو اختر مدينة.';
@@ -267,7 +272,8 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
-  String get settingsAttribution => 'بيانات المدن © GeoNames بترخيص CC BY 4.0. تُحسب أوقات الصلاة على الجهاز.';
+  String get settingsAttribution =>
+      'بيانات المدن © GeoNames بترخيص CC BY 4.0. تُحسب أوقات الصلاة على الجهاز.';
 
   @override
   String get citySearchHint => 'ابحث عن مدينة';
@@ -314,7 +320,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get methodMoonsighting => 'لجنة رؤية الهلال';
 
   @override
-  String get timesEstimated => 'أوقات تقديرية: لا تشرق الشمس أو تغرب على المعتاد هنا اليوم، فتُحسب على خط عرض 65°.';
+  String get timesEstimated =>
+      'أوقات تقديرية: لا تشرق الشمس أو تغرب على المعتاد هنا اليوم، فتُحسب على خط عرض 65°.';
 
   @override
   String get momentLastThird => 'الثلث الأخير من الليل';
@@ -458,7 +465,8 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
-  String get sheetTextPending => 'يظهر النص هنا بعد مراجعة هذا المرجع على مصدره الأصلي.';
+  String get sheetTextPending =>
+      'يظهر النص هنا بعد مراجعة هذا المرجع على مصدره الأصلي.';
 
   @override
   String get statusApproved => 'معتمد من عالم شرعي';
@@ -551,7 +559,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get notifBatteryFix => 'فتح الإعدادات';
 
   @override
-  String get notifBatteryHint => 'بعض الهواتف توقف التذكيرات في الخلفية. اجعل وقت «غير مقيّد».';
+  String get notifBatteryHint =>
+      'بعض الهواتف توقف التذكيرات في الخلفية. اجعل وقت «غير مقيّد».';
 
   @override
   String notifBatteryHintOem(String maker) {
@@ -585,7 +594,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get setupCardTitle => 'تذكيرات هادئة';
 
   @override
-  String get setupCardBody => 'تنبيه لطيف عند كل صلاة. أنت تختار، ولا يغادر شيء هاتفك.';
+  String get setupCardBody =>
+      'تنبيه لطيف عند كل صلاة. أنت تختار، ولا يغادر شيء هاتفك.';
 
   @override
   String get setupCardAction => 'إعداد';
@@ -673,7 +683,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get privacyTitle => 'الخصوصية';
 
   @override
-  String get privacyBody => 'كل شيء يُحسب على هذا الهاتف. لا حسابات ولا إعلانات ولا تحليلات في وقت.';
+  String get privacyBody =>
+      'كل شيء يُحسب على هذا الهاتف. لا حسابات ولا إعلانات ولا تحليلات في وقت.';
 
   @override
   String placeTime(String city) {
@@ -681,7 +692,8 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
-  String get testModeUnlocked => 'Test mode is on. Find it at the bottom of Settings.';
+  String get testModeUnlocked =>
+      'Test mode is on. Find it at the bottom of Settings.';
 
   @override
   String get debugJumpDay => 'Jump to a day';
@@ -696,7 +708,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get debugShowUnchecked => 'Show unchecked content';
 
   @override
-  String get debugShowUncheckedHint => 'On this phone only. Unchecked items are marked as drafts.';
+  String get debugShowUncheckedHint =>
+      'On this phone only. Unchecked items are marked as drafts.';
 
   @override
   String get debugLock => 'Turn off test mode';
@@ -722,7 +735,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get checkerWrong => 'Wrong';
 
   @override
-  String get checkerWrongHint => 'What is wrong, and the correct reference if you know it';
+  String get checkerWrongHint =>
+      'What is wrong, and the correct reference if you know it';
 
   @override
   String get checkerSend => 'Email results';
@@ -763,4 +777,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get counterAfterSalah => 'بعد الصلاة: ٣٣ · ٣٣ · ٣٤';
+
+  @override
+  String get counterHaptics => 'اهتزاز مع كل عدّة';
+
+  @override
+  String get counterAfterSalahName => 'بعد الصلاة';
 }

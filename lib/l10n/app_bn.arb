@@ -195,5 +195,7 @@
   "counterStep": "ধাপ {n}/{total}",
   "counterFree": "মুক্ত গণনা",
   "counterFreeHint": "নিজের লক্ষ্য দিয়ে যেকোনো কিছু গুনুন",
-  "counterAfterSalah": "সালাতের পর: ৩৩ · ৩৩ · ৩৪"
+  "counterAfterSalah": "সালাতের পর: ৩৩ · ৩৩ · ৩৪",
+  "counterHaptics": "প্রতি গণনায় কম্পন",
+  "counterAfterSalahName": "সালাতের পর"
 }

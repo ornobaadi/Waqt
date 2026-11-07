@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../data/user/user_prefs.dart';
+
 import '../../core/theme/tokens.dart';
 import '../../core/theme/waqt_theme.dart';
 import '../../core/utils/digits.dart';
@@ -59,205 +61,186 @@ class CounterNotifier extends Notifier<CounterState> {
 
 final counterProvider = NotifierProvider<CounterNotifier, CounterState>(CounterNotifier.new);
 
-/// A misbaha: the whole screen is the button, so it works without looking.
-/// The chosen dhikr is shown above the beads; tap its name to change it.
-class CounterScreen extends ConsumerWidget {
+/// Vibrate on each count. Off by default: the count is felt in the words, and
+/// only the end of a round is marked.
+class CounterHaptics extends Notifier<bool> {
+  static const _key = 'counter.haptics.v1';
+
+  @override
+  bool build() => ref.read(sharedPrefsProvider).getBool(_key) ?? false;
+
+  void toggle() {
+    state = !state;
+    ref.read(sharedPrefsProvider).setBool(_key, state);
+  }
+}
+
+final counterHapticsProvider = NotifierProvider<CounterHaptics, bool>(CounterHaptics.new);
+
+/// A misbaha built around the words, not a number. The phrase sits in a
+/// slowly brightening light; each count sends one soft ring outward; the
+/// round closes as a thin circle. The whole screen is the button.
+class CounterScreen extends ConsumerStatefulWidget {
   const CounterScreen({super.key});
 
   static const targets = [33, 99, 100];
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<CounterScreen> createState() => _CounterScreenState();
+}
+
+class _CounterScreenState extends ConsumerState<CounterScreen> with TickerProviderStateMixin {
+  final _ripples = <AnimationController>[];
+
+  @override
+  void dispose() {
+    for (final c in _ripples) {
+      c.dispose();
+    }
+    super.dispose();
+  }
+
+  void _count() {
+    final done = ref.read(counterProvider.notifier).tap();
+    if (done) {
+      HapticFeedback.mediumImpact();
+    } else if (ref.read(counterHapticsProvider)) {
+      HapticFeedback.selectionClick();
+    }
+    if (MediaQuery.disableAnimationsOf(context)) return;
+    final c = AnimationController(vsync: this, duration: const Duration(milliseconds: 900));
+    c.addStatusListener((s) {
+      if (s == AnimationStatus.completed && mounted) {
+        setState(() => _ripples.remove(c));
+        c.dispose();
+      }
+    });
+    setState(() => _ripples.add(c));
+    c.forward();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
     final t = WaqtTokens.of(context);
     final s = ref.watch(counterProvider);
+    final haptics = ref.watch(counterHapticsProvider);
     final n = LocaleDigits(Localizations.localeOf(context).toLanguageTag());
     final reduce = MediaQuery.disableAnimationsOf(context);
-
-    void onTap() {
-      final done = ref.read(counterProvider.notifier).tap();
-      done ? HapticFeedback.heavyImpact() : HapticFeedback.selectionClick();
-    }
+    final d = s.dhikr;
+    final progress = s.finished ? 1.0 : s.inRound / s.target;
 
     return Scaffold(
+      backgroundColor: t.ground,
       appBar: AppBar(
-        backgroundColor: t.ground,
+        backgroundColor: Colors.transparent,
         surfaceTintColor: Colors.transparent,
         foregroundColor: t.ink,
-        title: Text(l.counterTitle, style: WaqtText.titleSmall.copyWith(color: t.ink)),
+        title: TextButton.icon(
+          onPressed: () => _pick(context, s, n),
+          style: TextButton.styleFrom(foregroundColor: t.ink),
+          icon: const Icon(Icons.expand_more_rounded),
+          iconAlignment: IconAlignment.end,
+          label: Text(
+            _routineName(l, s.r),
+            style: WaqtText.bodyStrong.copyWith(color: t.ink),
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
         actions: [
           if (s.free)
             PopupMenuButton<int>(
               tooltip: l.counterTarget,
               initialValue: s.target,
               onSelected: ref.read(counterProvider.notifier).setTarget,
-              itemBuilder: (_) => [for (final x in targets) PopupMenuItem(value: x, child: Text(n(x)))],
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: WaqtSpace.x3),
-                child: Center(
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(99),
-                      border: Border.all(color: t.ink.withValues(alpha: 0.2)),
-                    ),
-                    child: Text('× ${n(s.target)}', style: WaqtText.label.copyWith(color: t.ink)),
-                  ),
-                ),
-              ),
+              itemBuilder: (_) => [for (final x in CounterScreen.targets) PopupMenuItem(value: x, child: Text(n(x)))],
+              icon: Text('×${n(s.target)}', style: WaqtText.label.copyWith(color: t.ink)),
             ),
           IconButton(
+            tooltip: l.counterHaptics,
+            onPressed: ref.read(counterHapticsProvider.notifier).toggle,
+            icon: Icon(haptics ? Icons.vibration_rounded : Icons.mobile_off_rounded, color: t.inkMuted),
+          ),
+          IconButton(
             tooltip: l.counterReset,
-            onPressed: s.count == 0 ? null : ref.read(counterProvider.notifier).reset,
-            icon: Icon(Icons.restart_alt_rounded, color: s.count == 0 ? t.inkMuted : t.ink),
+            onPressed: s.count == 0 && s.step == 0 ? null : ref.read(counterProvider.notifier).reset,
+            icon: Icon(Icons.restart_alt_rounded, color: t.inkMuted),
           ),
         ],
       ),
       body: Semantics(
         button: true,
-        label: l.counterTap,
-        value: n(s.count),
-        onTap: onTap,
+        label: '${d.latin.isEmpty ? l.counterTap : d.latin}, ${n(s.inRound)} / ${n(s.target)}',
+        onTap: _count,
+        excludeSemantics: true,
         child: GestureDetector(
           behavior: HitTestBehavior.opaque,
-          onTap: onTap,
+          onTap: _count,
           child: SafeArea(
-            child: Column(
-              children: [
-                _DhikrHeader(state: s, numbers: n),
-                Expanded(
-                  child: Center(
-                    child: AspectRatio(
-                      aspectRatio: 1,
-                      child: Padding(
-                        padding: const EdgeInsets.all(WaqtSpace.x6),
-                        child: TweenAnimationBuilder<double>(
-                          tween: Tween(end: s.inRound.toDouble()),
-                          duration: reduce ? Duration.zero : const Duration(milliseconds: 220),
-                          curve: Curves.easeOutCubic,
-                          builder: (context, v, _) => CustomPaint(
-                            painter: _BeadsPainter(
-                              beads: s.target > 40 ? 33 : s.target,
-                              progress: v / s.target,
-                              ink: t.ink,
-                              accent: t.accent,
+            child: LayoutBuilder(
+              builder: (context, box) {
+                final size = math.min(box.maxWidth - 2 * WaqtSpace.screen, box.maxHeight * 0.62);
+                return Column(
+                  children: [
+                    Expanded(
+                      child: Center(
+                        child: SizedBox.square(
+                          dimension: size,
+                          child: TweenAnimationBuilder<double>(
+                            tween: Tween(end: progress),
+                            duration: reduce ? Duration.zero : const Duration(milliseconds: 420),
+                            curve: Curves.easeOutCubic,
+                            builder: (context, p, child) => CustomPaint(
+                              painter: _LightPainter(
+                                progress: p,
+                                ripples: List.of(_ripples),
+                                ink: t.ink,
+                                accent: t.accent,
+                                repaint: Listenable.merge(_ripples),
+                              ),
+                              child: child,
                             ),
                             child: Center(
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text(n(s.inRound), style: WaqtText.clock.copyWith(color: t.ink)),
-                                  const SizedBox(height: WaqtSpace.x1),
-                                  Text(s.r.isSet ? '/ ${n(s.target)}' : l.counterRound(n(s.round)), style: WaqtText.label.copyWith(color: t.inkMuted)),
-                                ],
+                              child: Padding(
+                                padding: EdgeInsets.all(size * 0.16),
+                                child: AnimatedSwitcher(
+                                  duration: reduce ? Duration.zero : const Duration(milliseconds: 600),
+                                  child: _Words(key: ValueKey(d.id), dhikr: d),
+                                ),
                               ),
                             ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: WaqtSpace.x8),
-                  child: Text(l.counterTap, style: WaqtText.label.copyWith(color: t.inkMuted)),
-                ),
-              ],
+                    Text(
+                      '${n(s.finished ? s.target : s.inRound)} / ${n(s.target)}',
+                      style: WaqtText.title.copyWith(color: t.ink, fontFeatures: const [FontFeature.tabularFigures()]),
+                    ),
+                    const SizedBox(height: WaqtSpace.x1),
+                    Text(
+                      s.r.isSet
+                          ? l.counterStep(n(s.step + 1), n(s.r.steps.length))
+                          : s.round > 1
+                          ? l.counterRound(n(s.round))
+                          : l.counterTap,
+                      style: WaqtText.label.copyWith(color: t.inkMuted),
+                    ),
+                    const SizedBox(height: WaqtSpace.x8),
+                  ],
+                );
+              },
             ),
           ),
         ),
       ),
     );
   }
-}
 
-/// A ring of beads; counted beads fill in, the next one is lit.
-class _BeadsPainter extends CustomPainter {
-  _BeadsPainter({required this.beads, required this.progress, required this.ink, required this.accent});
-  final int beads;
-  final double progress;
-  final Color ink, accent;
+  static String _routineName(AppLocalizations l, DhikrRoutine r) =>
+      r.id == 'free' ? l.counterFree : (r.isSet ? l.counterAfterSalahName : r.steps.single.latin);
 
-  @override
-  void paint(Canvas canvas, Size size) {
-    final c = size.center(Offset.zero);
-    final r = size.width / 2 - 10;
-    final bead = math.min(9.0, math.pi * r / beads * 0.62);
-    canvas.drawCircle(
-      c,
-      r,
-      Paint()
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = 1.5
-        ..color = ink.withValues(alpha: 0.10),
-    );
-    final filled = progress * beads;
-    for (var i = 0; i < beads; i++) {
-      final a = -math.pi / 2 + 2 * math.pi * i / beads;
-      final p = c + Offset(math.cos(a), math.sin(a)) * r;
-      final on = i < filled.floor();
-      final next = i == filled.floor();
-      if (next) {
-        canvas.drawCircle(p, bead + 5, Paint()..color = accent.withValues(alpha: 0.3));
-      }
-      canvas.drawCircle(
-        p,
-        next ? bead + 1.5 : bead,
-        Paint()..color = on ? ink : (next ? accent : ink.withValues(alpha: 0.14)),
-      );
-    }
-  }
-
-  @override
-  bool shouldRepaint(_BeadsPainter o) => o.progress != progress || o.beads != beads || o.ink != ink;
-}
-
-/// What is being said, and the way to change it.
-class _DhikrHeader extends ConsumerWidget {
-  const _DhikrHeader({required this.state, required this.numbers});
-  final CounterState state;
-  final LocaleDigits numbers;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final l = AppLocalizations.of(context);
-    final t = WaqtTokens.of(context);
-    final d = state.dhikr;
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(WaqtSpace.screen, WaqtSpace.x4, WaqtSpace.screen, 0),
-      child: Column(
-        children: [
-          if (d.arabic != null) ...[
-            AnimatedSwitcher(
-              duration: WaqtMotion.ui,
-              child: Text(
-                d.arabic!,
-                key: ValueKey(d.id),
-                textDirection: TextDirection.rtl,
-                textAlign: TextAlign.center,
-                style: WaqtText.arabic.copyWith(color: t.ink, fontSize: 34),
-              ),
-            ),
-            const SizedBox(height: WaqtSpace.x1),
-            Text(
-              state.r.isSet
-                  ? '${d.latin} · ${l.counterStep(numbers(state.step + 1), numbers(state.r.steps.length))}'
-                  : d.latin,
-              style: WaqtText.label.copyWith(color: t.inkMuted),
-            ),
-          ],
-          const SizedBox(height: WaqtSpace.x3),
-          ActionChip(
-            avatar: Icon(Icons.swap_horiz_rounded, size: 18, color: t.ink),
-            label: Text(l.counterChoose),
-            onPressed: () => _pick(context, ref),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Future<void> _pick(BuildContext context, WidgetRef ref) async {
+  Future<void> _pick(BuildContext context, CounterState s, LocaleDigits n) async {
     final l = AppLocalizations.of(context);
     final t = WaqtTokens.of(context);
     final i = await showModalBottomSheet<int>(
@@ -268,20 +251,22 @@ class _DhikrHeader extends ConsumerWidget {
       builder: (ctx) => SafeArea(
         child: ListView(
           shrinkWrap: true,
+          padding: const EdgeInsets.only(bottom: WaqtSpace.x4),
           children: [
             for (final (i, r) in dhikrRoutines.indexed)
               ListTile(
-                selected: i == state.routine,
-                title: Text(
-                  r.id == 'free' ? l.counterFree : (r.isSet ? l.counterAfterSalah : r.steps.single.latin),
-                  style: WaqtText.bodyStrong.copyWith(color: t.ink),
-                ),
-                subtitle: Text(
-                  r.id == 'free'
-                      ? l.counterFreeHint
-                      : r.steps.map((d) => '${d.arabic} ×${numbers(d.target)}').join('  ·  '),
-                  style: WaqtText.label.copyWith(color: t.inkMuted),
-                ),
+                selected: i == s.routine,
+                selectedTileColor: t.ink.withValues(alpha: 0.06),
+                title: Text(_routineName(l, r), style: WaqtText.bodyStrong.copyWith(color: t.ink)),
+                subtitle: r.id == 'free'
+                    ? Text(l.counterFreeHint, style: WaqtText.label.copyWith(color: t.inkMuted))
+                    : null,
+                trailing: r.id == 'free'
+                    ? null
+                    : Text(
+                        r.steps.map((d) => n(d.target)).join(' · '),
+                        style: WaqtText.label.copyWith(color: t.inkMuted),
+                      ),
                 onTap: () => Navigator.pop(ctx, i),
               ),
           ],
@@ -290,4 +275,111 @@ class _DhikrHeader extends ConsumerWidget {
     );
     if (i != null) ref.read(counterProvider.notifier).choose(i);
   }
+}
+
+/// The phrase itself, large, with how it is said beneath.
+class _Words extends StatelessWidget {
+  const _Words({super.key, required this.dhikr});
+  final Dhikr dhikr;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = WaqtTokens.of(context);
+    if (dhikr.arabic == null) return const SizedBox.shrink();
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Text(
+            dhikr.arabic!,
+            textDirection: TextDirection.rtl,
+            textAlign: TextAlign.center,
+            style: WaqtText.arabic.copyWith(color: t.ink, fontSize: 44, height: 1.5),
+          ),
+        ),
+        const SizedBox(height: WaqtSpace.x2),
+        Text(
+          dhikr.latin,
+          textAlign: TextAlign.center,
+          style: WaqtText.body.copyWith(color: t.inkMuted, fontStyle: FontStyle.italic),
+        ),
+      ],
+    );
+  }
+}
+
+/// A light that grows as the round fills, the round as a fine circle, and a
+/// soft ring for each count.
+class _LightPainter extends CustomPainter {
+  _LightPainter({
+    required this.progress,
+    required this.ripples,
+    required this.ink,
+    required this.accent,
+    super.repaint,
+  });
+  final double progress;
+  final List<Animation<double>> ripples;
+  final Color ink, accent;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final c = size.center(Offset.zero);
+    final r = size.width / 2;
+
+    // The light: faint at the start of a round, warm by its end.
+    canvas.drawCircle(
+      c,
+      r,
+      Paint()
+        ..shader = RadialGradient(
+          colors: [
+            accent.withValues(alpha: 0.10 + 0.32 * progress),
+            accent.withValues(alpha: 0),
+          ],
+        ).createShader(Rect.fromCircle(center: c, radius: r)),
+    );
+
+    // The round: a hairline track and the part already said.
+    final ring = r * 0.86;
+    canvas.drawCircle(
+      c,
+      ring,
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 1
+        ..color = ink.withValues(alpha: 0.12),
+    );
+    if (progress > 0) {
+      canvas.drawArc(
+        Rect.fromCircle(center: c, radius: ring),
+        -math.pi / 2,
+        2 * math.pi * progress,
+        false,
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 3
+          ..strokeCap = StrokeCap.round
+          ..color = ink,
+      );
+    }
+
+    // One ring per count, rising from the words and fading.
+    for (final a in ripples) {
+      final e = Curves.easeOut.transform(a.value);
+      canvas.drawCircle(
+        c,
+        ring * (0.45 + 0.55 * e),
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 1.5
+          ..color = accent.withValues(alpha: (1 - e) * 0.7),
+      );
+    }
+  }
+
+  @override
+  bool shouldRepaint(_LightPainter o) =>
+      o.progress != progress || o.ripples.length != ripples.length || o.ink != ink || o.accent != accent;
 }

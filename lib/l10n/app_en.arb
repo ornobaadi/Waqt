@@ -410,5 +410,7 @@
   "@counterStep": {"placeholders": {"n": {"type": "String"}, "total": {"type": "String"}}},
   "counterFree": "Free count",
   "counterFreeHint": "Count anything, with your own target",
-  "counterAfterSalah": "After salah: 33 · 33 · 34"
+  "counterAfterSalah": "After salah: 33 · 33 · 34",
+  "counterHaptics": "Vibrate on each count",
+  "counterAfterSalahName": "After salah"
 }

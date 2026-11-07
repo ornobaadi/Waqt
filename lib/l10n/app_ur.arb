@@ -203,5 +203,7 @@
   "counterStep": "مرحلہ {n} از {total}",
   "counterFree": "آزاد گنتی",
   "counterFreeHint": "اپنے ہدف کے ساتھ کچھ بھی گنیں",
-  "counterAfterSalah": "نماز کے بعد: ۳۳ · ۳۳ · ۳۴"
+  "counterAfterSalah": "نماز کے بعد: ۳۳ · ۳۳ · ۳۴",
+  "counterHaptics": "ہر گنتی پر ارتعاش",
+  "counterAfterSalahName": "نماز کے بعد"
 }

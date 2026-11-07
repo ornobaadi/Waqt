@@ -189,5 +189,7 @@
   "counterStep": "Étape {n} sur {total}",
   "counterFree": "Comptage libre",
   "counterFreeHint": "Comptez ce que vous voulez, avec votre objectif",
-  "counterAfterSalah": "Après la prière : 33 · 33 · 34"
+  "counterAfterSalah": "Après la prière : 33 · 33 · 34",
+  "counterHaptics": "Vibrer à chaque compte",
+  "counterAfterSalahName": "Après la prière"
 }
