@@ -264,5 +264,13 @@
   "counterToday": "Hari ini {count}",
   "counterTodayTitle": "Diucapkan hari ini",
   "counterTodayAll": "Semua zikir",
-  "counterResetRound": "Ulangi putaran ini"
+  "counterResetRound": "Ulangi putaran ini",
+  "counterAddOwn": "Tambah zikir sendiri",
+  "counterOwnName": "Yang akan Anda ucapkan",
+  "counterOwnArabic": "Arab (opsional)",
+  "counterOwnTarget": "Berapa kali",
+  "counterSave": "Simpan",
+  "counterRemove": "Hapus",
+  "counterSectionReward": "Zikir dengan keutamaan",
+  "counterSectionYours": "Zikir Anda"
 }

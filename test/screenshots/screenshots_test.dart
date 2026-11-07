@@ -343,6 +343,49 @@ void main() {
     ),
   );
 
+  Future<void> openCounter(WidgetTester t) async {
+    await t.tap(find.text('Duas'));
+    await t.pumpAndSettle();
+    await t.tap(find.byTooltip('Open counter'));
+    await t.pumpAndSettle();
+  }
+
+  testWidgets(
+    'counter picker',
+    (t) async => shoot(
+      t,
+      '22b_counter_picker',
+      await app(at: DateTime(2026, 11, 6, 12, 38), place: dhaka),
+      then: () async {
+        await openCounter(t);
+        await t.tap(find.byIcon(Icons.expand_more_rounded));
+      },
+    ),
+  );
+
+  testWidgets(
+    'counter today',
+    (t) async => shoot(
+      t,
+      '22c_counter_today',
+      await app(at: DateTime(2026, 11, 6, 12, 38), place: dhaka),
+      then: () async {
+        await openCounter(t);
+        for (var i = 0; i < 40; i++) {
+          await t.tapAt(const Offset(195, 400));
+          await t.pump(const Duration(milliseconds: 30));
+        }
+        await t.pumpAndSettle();
+        await t.tap(find.byIcon(Icons.today_rounded));
+      },
+    ),
+  );
+
+  testWidgets('eid al-fitr afternoon', (t) async {
+    final d = civilOf(1448, 10, 1);
+    await shoot(t, '60b_now_eid_afternoon', await app(at: DateTime(d.year, d.month, d.day, 15, 0), place: dhaka));
+  });
+
   testWidgets(
     'fajr sky',
     (t) async => shoot(t, '23_now_fajr_sky', await app(at: DateTime(2026, 11, 6, 5, 40), place: dhaka)),

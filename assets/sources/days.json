@@ -14,42 +14,48 @@
     "col": "bukhari",
     "num": "953",
     "ref": "Sahih al-Bukhari 953",
-    "grade": null
+    "grade": null,
+    "when": "morning"
    },
    {
     "title": "Pay Zakat al-Fitr before the Eid prayer",
     "col": "bukhari",
     "num": "1509",
     "ref": "Sahih al-Bukhari 1509",
-    "grade": null
+    "grade": null,
+    "when": "morning"
    },
    {
     "title": "Bathe (ghusl) before going out, as Ibn Umar did",
     "col": "malik",
     "num": "432",
     "ref": "Muwatta Malik 432",
-    "grade": null
+    "grade": null,
+    "when": "morning"
    },
    {
     "title": "Wear your best clothes",
     "col": "bukhari",
     "num": "948",
     "ref": "Sahih al-Bukhari 948",
-    "grade": null
+    "grade": null,
+    "when": "morning"
    },
    {
     "title": "Say the takbir with everyone at the prayer",
     "col": "bukhari",
     "num": "971",
     "ref": "Sahih al-Bukhari 971",
-    "grade": null
+    "grade": null,
+    "when": "morning"
    },
    {
     "title": "Return home by a different way",
     "col": "bukhari",
     "num": "986",
     "ref": "Sahih al-Bukhari 986",
-    "grade": null
+    "grade": null,
+    "when": "morning"
    },
    {
     "title": "Do not fast today",
@@ -72,7 +78,8 @@
     "col": "tirmidhi",
     "num": "542",
     "ref": "Jami` at-Tirmidhi 542",
-    "grade": "Hasan (Darussalam)"
+    "grade": "Hasan (Darussalam)",
+    "when": "morning"
    },
    {
     "title": "Offer the sacrifice after the prayer",
@@ -86,14 +93,16 @@
     "col": "bukhari",
     "num": "971",
     "ref": "Sahih al-Bukhari 971",
-    "grade": null
+    "grade": null,
+    "when": "morning"
    },
    {
     "title": "Return home by a different way",
     "col": "bukhari",
     "num": "986",
     "ref": "Sahih al-Bukhari 986",
-    "grade": null
+    "grade": null,
+    "when": "morning"
    },
    {
     "title": "Do not fast today",

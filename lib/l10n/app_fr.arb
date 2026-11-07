@@ -264,5 +264,13 @@
   "counterToday": "Aujourd'hui {count}",
   "counterTodayTitle": "Dit aujourd'hui",
   "counterTodayAll": "Tous les dhikr",
-  "counterResetRound": "Recommencer ce tour"
+  "counterResetRound": "Recommencer ce tour",
+  "counterAddOwn": "Ajouter le vôtre",
+  "counterOwnName": "Ce que vous direz",
+  "counterOwnArabic": "Arabe (facultatif)",
+  "counterOwnTarget": "Combien de fois",
+  "counterSave": "Enregistrer",
+  "counterRemove": "Retirer",
+  "counterSectionReward": "Avec une récompense promise",
+  "counterSectionYours": "Les vôtres"
 }

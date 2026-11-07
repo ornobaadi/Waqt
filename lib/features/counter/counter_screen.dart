@@ -13,19 +13,21 @@ import '../../core/theme/tokens.dart';
 import '../../core/theme/waqt_theme.dart';
 import '../../core/utils/digits.dart';
 import '../../l10n/app_localizations.dart';
+import '../now/day_guide_card.dart';
 import 'dhikr.dart';
 
 class CounterState {
-  const CounterState({
-    this.routine = 0,
+  CounterState({
+    this.routineId = 'after_salah',
     this.step = 0,
     this.count = 0,
     this.freeTarget = 33,
     this.day = '',
     this.today = const {},
     this.saved = const {},
+    this.custom = const [],
   });
-  final int routine;
+  final String routineId;
   final int step;
   final int count;
   final int freeTarget;
@@ -38,9 +40,13 @@ class CounterState {
   /// Where each other routine was left: routine id → (step, count).
   final Map<String, (int, int)> saved;
 
-  DhikrRoutine get r => dhikrRoutines[routine];
-  Dhikr get dhikr => r.steps[step];
-  bool get free => dhikr.arabic == null;
+  /// Phrases the user added, as many as they like.
+  final List<Dhikr> custom;
+
+  late final List<DhikrRoutine> routines = routinesWith(custom);
+  late final DhikrRoutine r = routines.firstWhere((x) => x.id == routineId, orElse: () => routines.first);
+  Dhikr get dhikr => r.steps[step.clamp(0, r.steps.length - 1)];
+  bool get free => dhikr.id == 'free';
   int get target => free ? freeTarget : dhikr.target;
 
   /// A set runs once through its steps; a single dhikr counts rounds.
@@ -50,22 +56,27 @@ class CounterState {
 
   int get todayTotal => today.values.fold(0, (a, b) => a + b);
 
+  /// What a dhikr id is called, for today's list.
+  String? nameOf(String id) => [for (final r in routines) ...r.steps].where((d) => d.id == id).firstOrNull?.latin;
+
   CounterState copy({
-    int? routine,
+    String? routineId,
     int? step,
     int? count,
     int? freeTarget,
     String? day,
     Map<String, int>? today,
     Map<String, (int, int)>? saved,
+    List<Dhikr>? custom,
   }) => CounterState(
-    routine: routine ?? this.routine,
+    routineId: routineId ?? this.routineId,
     step: step ?? this.step,
     count: count ?? this.count,
     freeTarget: freeTarget ?? this.freeTarget,
     day: day ?? this.day,
     today: today ?? this.today,
     saved: saved ?? this.saved,
+    custom: custom ?? this.custom,
   );
 
   Map<String, Object?> toJson() => {
@@ -78,16 +89,16 @@ class CounterState {
     'saved': {
       for (final MapEntry(:key, :value) in saved.entries) key: [value.$1, value.$2],
     },
+    'custom': [for (final d in custom) d.toJson()],
   };
 
   static CounterState fromJson(Object? j) {
-    if (j is! Map) return const CounterState();
-    final ids = [for (final r in dhikrRoutines) r.id];
-    final routine = ids.indexOf('${j['routine']}').clamp(0, ids.length - 1);
-    final steps = dhikrRoutines[routine].steps.length;
-    return CounterState(
-      routine: routine,
-      step: ((j['step'] as int?) ?? 0).clamp(0, steps - 1),
+    if (j is! Map) return CounterState();
+    final custom = [if (j['custom'] case final List<Object?> l) ...l.map(Dhikr.fromJson).nonNulls];
+    final s = CounterState(routineId: '${j['routine']}', custom: custom);
+    return s.copy(
+      routineId: s.r.id,
+      step: ((j['step'] as int?) ?? 0).clamp(0, s.r.steps.length - 1),
       count: ((j['count'] as int?) ?? 0).clamp(0, 1 << 20),
       freeTarget: (j['free'] as int?) ?? 33,
       day: '${j['day'] ?? ''}',
@@ -115,9 +126,9 @@ class CounterNotifier extends Notifier<CounterState> {
     final raw = ref.read(sharedPrefsProvider).getString(_key);
     CounterState s;
     try {
-      s = raw == null ? const CounterState() : CounterState.fromJson(jsonDecode(raw));
+      s = raw == null ? CounterState() : CounterState.fromJson(jsonDecode(raw));
     } on Object {
-      s = const CounterState();
+      s = CounterState();
     }
     return _rollDay(s);
   }
@@ -158,12 +169,36 @@ class CounterNotifier extends Notifier<CounterState> {
   void setTarget(int t) => _save(state.copy(freeTarget: t, count: 0));
 
   /// Switch dhikr, keeping where the previous one was left.
-  void choose(int routine) {
+  void choose(String id) {
     final s = state;
-    if (routine == s.routine) return;
+    if (id == s.r.id) return;
     final saved = {...s.saved, s.r.id: (s.step, s.count)};
-    final (step, count) = saved[dhikrRoutines[routine].id] ?? (0, 0);
-    _save(s.copy(routine: routine, step: step, count: count, saved: saved));
+    final (step, count) = saved[id] ?? (0, 0);
+    _save(s.copy(routineId: id, step: step, count: count, saved: saved));
+  }
+
+  /// Add the user's own phrase and start counting it.
+  void add(String name, String? arabic, int target) {
+    final id = 'own_${DateTime.now().microsecondsSinceEpoch}';
+    final d = Dhikr(id, arabic, name, target, custom: true);
+    _save(state.copy(custom: [...state.custom, d]));
+    choose(id);
+  }
+
+  void remove(String id) {
+    final s = state;
+    _save(
+      s.copy(
+        custom: [
+          for (final d in s.custom)
+            if (d.id != id) d,
+        ],
+        routineId: s.r.id == id ? 'after_salah' : null,
+        step: s.r.id == id ? 0 : null,
+        count: s.r.id == id ? 0 : null,
+        saved: {...s.saved}..remove(id),
+      ),
+    );
   }
 }
 
@@ -278,74 +313,82 @@ class _CounterScreenState extends ConsumerState<CounterScreen> with TickerProvid
           ),
         ],
       ),
-      body: Semantics(
-        button: true,
-        label: '${d.latin.isEmpty ? l.counterTap : d.latin}, ${n(s.inRound)} / ${n(s.target)}',
-        onTap: _count,
-        excludeSemantics: true,
-        child: GestureDetector(
-          behavior: HitTestBehavior.opaque,
-          onTap: _count,
-          child: SafeArea(
-            child: LayoutBuilder(
-              builder: (context, box) {
-                final size = math.min(box.maxWidth - 2 * WaqtSpace.screen, box.maxHeight * 0.62);
-                return Column(
-                  children: [
-                    Expanded(
-                      child: Center(
-                        child: SizedBox.square(
-                          dimension: size,
-                          child: TweenAnimationBuilder<double>(
-                            tween: Tween(end: progress),
-                            duration: reduce ? Duration.zero : const Duration(milliseconds: 420),
-                            curve: Curves.easeOutCubic,
-                            builder: (context, p, child) => CustomPaint(
-                              painter: _LightPainter(
-                                progress: p,
-                                ripples: List.of(_ripples),
-                                ink: t.ink,
-                                accent: t.accent,
-                                repaint: Listenable.merge(_ripples),
-                              ),
-                              child: child,
-                            ),
+      body: SafeArea(
+        child: Column(
+          children: [
+            Expanded(
+              child: Semantics(
+                button: true,
+                label: '${d.latin.isEmpty ? l.counterTap : d.latin}, ${n(s.inRound)} / ${n(s.target)}',
+                onTap: _count,
+                excludeSemantics: true,
+                child: GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onTap: _count,
+                  child: LayoutBuilder(
+                    builder: (context, box) {
+                      final size = math.min(box.maxWidth - 2 * WaqtSpace.screen, box.maxHeight * 0.62);
+                      return Column(
+                        children: [
+                          Expanded(
                             child: Center(
-                              child: Padding(
-                                padding: EdgeInsets.all(size * 0.16),
-                                child: AnimatedSwitcher(
-                                  duration: reduce ? Duration.zero : const Duration(milliseconds: 600),
-                                  child: _Words(key: ValueKey(d.id), dhikr: d),
+                              child: SizedBox.square(
+                                dimension: size,
+                                child: TweenAnimationBuilder<double>(
+                                  tween: Tween(end: progress),
+                                  duration: reduce ? Duration.zero : const Duration(milliseconds: 420),
+                                  curve: Curves.easeOutCubic,
+                                  builder: (context, p, child) => CustomPaint(
+                                    painter: _LightPainter(
+                                      progress: p,
+                                      ripples: List.of(_ripples),
+                                      ink: t.ink,
+                                      accent: t.accent,
+                                      repaint: Listenable.merge(_ripples),
+                                    ),
+                                    child: child,
+                                  ),
+                                  child: Center(
+                                    child: Padding(
+                                      padding: EdgeInsets.all(size * 0.16),
+                                      child: AnimatedSwitcher(
+                                        duration: reduce ? Duration.zero : const Duration(milliseconds: 600),
+                                        child: _Words(key: ValueKey(d.id), dhikr: d),
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                      ),
-                    ),
-                    Text(
-                      '${n(s.finished ? s.target : s.inRound)} / ${n(s.target)}',
-                      style: WaqtText.title.copyWith(color: t.ink, fontFeatures: const [FontFeature.tabularFigures()]),
-                    ),
-                    const SizedBox(height: WaqtSpace.x1),
-                    Text(
-                      s.r.isSet
-                          ? l.counterStep(n(s.step + 1), n(s.r.steps.length))
-                          : s.round > 1
-                          ? l.counterRound(n(s.round))
-                          : l.counterTap,
-                      style: WaqtText.label.copyWith(color: t.inkMuted),
-                    ),
-                    const SizedBox(height: WaqtSpace.x4),
-                    // Today's totals: every phrase said today, kept across
-                    // resets and visits. Tap for the breakdown.
-                    _TodayTotals(state: s, numbers: n),
-                    const SizedBox(height: WaqtSpace.x6),
-                  ],
-                );
-              },
+                          Text(
+                            '${n(s.finished ? s.target : s.inRound)} / ${n(s.target)}',
+                            style: WaqtText.title.copyWith(
+                              color: t.ink,
+                              fontFeatures: const [FontFeature.tabularFigures()],
+                            ),
+                          ),
+                          const SizedBox(height: WaqtSpace.x1),
+                          Text(
+                            s.r.isSet
+                                ? l.counterStep(n(s.step + 1), n(s.r.steps.length))
+                                : s.round > 1
+                                ? l.counterRound(n(s.round))
+                                : l.counterTap,
+                            style: WaqtText.label.copyWith(color: t.inkMuted),
+                          ),
+                          const SizedBox(height: WaqtSpace.x2),
+                        ],
+                      );
+                    },
+                  ),
+                ),
+              ),
             ),
-          ),
+            // Why this dhikr, and how much of it today: outside the tap area.
+            _Footer(state: s, numbers: n),
+            const SizedBox(height: WaqtSpace.x4),
+          ],
         ),
       ),
     );
@@ -355,42 +398,150 @@ class _CounterScreenState extends ConsumerState<CounterScreen> with TickerProvid
       r.id == 'free' ? l.counterFree : (r.isSet ? l.counterAfterSalahName : r.steps.single.latin);
 
   Future<void> _pick(BuildContext context, CounterState s, LocaleDigits n) async {
-    final l = AppLocalizations.of(context);
-    final t = WaqtTokens.of(context);
-    final i = await showModalBottomSheet<int>(
+    final id = await showModalBottomSheet<String>(
       context: context,
       showDragHandle: true,
-      backgroundColor: t.ground,
+      backgroundColor: WaqtTokens.of(context).ground,
       isScrollControlled: true,
-      builder: (ctx) => SafeArea(
-        child: ListView(
-          shrinkWrap: true,
-          padding: const EdgeInsets.only(bottom: WaqtSpace.x4),
-          children: [
-            for (final (i, r) in dhikrRoutines.indexed)
-              ListTile(
-                selected: i == s.routine,
-                selectedTileColor: t.ink.withValues(alpha: 0.06),
-                title: Text(_routineName(l, r), style: WaqtText.bodyStrong.copyWith(color: t.ink)),
-                subtitle: r.id == 'free'
-                    ? Text(l.counterFreeHint, style: WaqtText.label.copyWith(color: t.inkMuted))
-                    : null,
-                trailing: Text(
-                  [
-                    if (r.id != 'free') r.steps.map((d) => n(d.target)).join(' · '),
-                    if (r.steps.fold<int>(0, (a, d) => a + (s.today[d.id] ?? 0)) case final c when c > 0)
-                      l.counterToday(n(c)),
-                  ].join(String.fromCharCode(10)),
-                  textAlign: TextAlign.end,
+      builder: (ctx) => DraggableScrollableSheet(
+        expand: false,
+        initialChildSize: 0.75,
+        maxChildSize: 0.95,
+        builder: (ctx, scroll) => Consumer(
+          builder: (ctx, ref, _) {
+            final l = AppLocalizations.of(ctx);
+            final t = WaqtTokens.of(ctx);
+            final s = ref.watch(counterProvider);
+            Widget tile(DhikrRoutine r) => ListTile(
+              selected: r.id == s.r.id,
+              selectedTileColor: t.ink.withValues(alpha: 0.06),
+              contentPadding: const EdgeInsetsDirectional.only(start: WaqtSpace.screen, end: WaqtSpace.x3),
+              title: Text(_routineName(l, r), style: WaqtText.bodyStrong.copyWith(color: t.ink)),
+              subtitle: switch (r.id == 'free' ? l.counterFreeHint : r.virtue) {
+                final v? => Text(
+                  v,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                   style: WaqtText.label.copyWith(color: t.inkMuted),
                 ),
-                onTap: () => Navigator.pop(ctx, i),
+                null => null,
+              },
+              trailing: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  if (r.id != 'free')
+                    Text(
+                      r.steps.map((d) => n(d.target)).join(' · '),
+                      style: WaqtText.label.copyWith(color: t.inkMuted),
+                    ),
+                  if (r.custom)
+                    IconButton(
+                      tooltip: l.counterRemove,
+                      onPressed: () => ref.read(counterProvider.notifier).remove(r.id),
+                      icon: Icon(Icons.close_rounded, size: 20, color: t.inkMuted),
+                    )
+                  else
+                    const SizedBox(width: WaqtSpace.x3),
+                ],
               ),
-          ],
+              onTap: () => Navigator.pop(ctx, r.id),
+            );
+            const everyday = {'after_salah', 'subhanallah', 'alhamdulillah', 'allahuakbar'};
+            final rs = s.routines;
+            return ListView(
+              controller: scroll,
+              padding: const EdgeInsets.only(bottom: WaqtSpace.x6),
+              children: [
+                for (final r in rs.where((r) => everyday.contains(r.id))) tile(r),
+                _SheetLabel(l.counterSectionReward),
+                for (final r in rs.where((r) => !everyday.contains(r.id) && !r.custom && r.id != 'free')) tile(r),
+                _SheetLabel(l.counterSectionYours),
+                for (final r in rs.where((r) => r.id == 'free' || r.custom)) tile(r),
+                ListTile(
+                  contentPadding: const EdgeInsets.symmetric(horizontal: WaqtSpace.screen),
+                  leading: Icon(Icons.add_rounded, color: t.ink),
+                  title: Text(l.counterAddOwn, style: WaqtText.bodyStrong.copyWith(color: t.ink)),
+                  onTap: () async {
+                    final added = await _addOwn(ctx);
+                    if (added && ctx.mounted) Navigator.pop(ctx);
+                  },
+                ),
+              ],
+            );
+          },
         ),
       ),
     );
-    if (i != null) ref.read(counterProvider.notifier).choose(i);
+    if (id != null) ref.read(counterProvider.notifier).choose(id);
+  }
+
+  /// A name, the Arabic if they want it, and how many times.
+  Future<bool> _addOwn(BuildContext context) async {
+    final name = TextEditingController(), arabic = TextEditingController(), target = TextEditingController(text: '33');
+    final ok = await showModalBottomSheet<bool>(
+      context: context,
+      showDragHandle: true,
+      isScrollControlled: true,
+      backgroundColor: WaqtTokens.of(context).ground,
+      builder: (ctx) {
+        final l = AppLocalizations.of(ctx);
+        final t = WaqtTokens.of(ctx);
+        return Padding(
+          padding: EdgeInsets.fromLTRB(
+            WaqtSpace.screen,
+            0,
+            WaqtSpace.screen,
+            WaqtSpace.x5 + MediaQuery.viewInsetsOf(ctx).bottom,
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text(l.counterAddOwn, style: WaqtText.titleSmall.copyWith(color: t.ink)),
+              const SizedBox(height: WaqtSpace.x4),
+              TextField(
+                controller: name,
+                autofocus: true,
+                textCapitalization: TextCapitalization.sentences,
+                decoration: InputDecoration(labelText: l.counterOwnName),
+              ),
+              const SizedBox(height: WaqtSpace.x3),
+              TextField(
+                controller: arabic,
+                textDirection: TextDirection.rtl,
+                decoration: InputDecoration(labelText: l.counterOwnArabic),
+              ),
+              const SizedBox(height: WaqtSpace.x3),
+              TextField(
+                controller: target,
+                keyboardType: TextInputType.number,
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly, LengthLimitingTextInputFormatter(5)],
+                decoration: InputDecoration(labelText: l.counterOwnTarget),
+              ),
+              const SizedBox(height: WaqtSpace.x5),
+              FilledButton(
+                onPressed: () => Navigator.pop(ctx, true),
+                style: FilledButton.styleFrom(
+                  backgroundColor: t.ink,
+                  foregroundColor: t.ground,
+                  minimumSize: const Size.fromHeight(WaqtSpace.minTouch),
+                  shape: const StadiumBorder(),
+                ),
+                child: Text(l.counterSave),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+    final label = name.text.trim(), ar = arabic.text.trim();
+    final count = (int.tryParse(target.text) ?? 33).clamp(1, 99999);
+    name.dispose();
+    arabic.dispose();
+    target.dispose();
+    if (ok != true || (label.isEmpty && ar.isEmpty)) return false;
+    ref.read(counterProvider.notifier).add(label.isEmpty ? ar : label, ar.isEmpty ? null : ar, count);
+    return true;
   }
 }
 
@@ -402,24 +553,47 @@ class _Words extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = WaqtTokens.of(context);
-    if (dhikr.arabic == null) return const SizedBox.shrink();
+    final ar = dhikr.arabic;
+    if (ar == null || ar.isEmpty) {
+      if (dhikr.latin.isEmpty) return const SizedBox.shrink();
+      return Text(
+        dhikr.latin,
+        textAlign: TextAlign.center,
+        maxLines: 4,
+        overflow: TextOverflow.ellipsis,
+        style: WaqtText.title.copyWith(color: t.ink),
+      );
+    }
+    final size = ar.length > 60
+        ? 24.0
+        : ar.length > 30
+        ? 30.0
+        : ar.length > 18
+        ? 36.0
+        : 44.0;
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        FittedBox(
-          fit: BoxFit.scaleDown,
+        Flexible(
           child: Text(
-            dhikr.arabic!,
+            ar,
             textDirection: TextDirection.rtl,
             textAlign: TextAlign.center,
-            style: WaqtText.arabic.copyWith(color: t.ink, fontSize: 44, height: 1.5),
+            maxLines: 5,
+            overflow: TextOverflow.ellipsis,
+            style: WaqtText.arabic.copyWith(color: t.ink, fontSize: size, height: 1.6),
           ),
         ),
         const SizedBox(height: WaqtSpace.x2),
         Text(
           dhikr.latin,
           textAlign: TextAlign.center,
-          style: WaqtText.body.copyWith(color: t.inkMuted, fontStyle: FontStyle.italic),
+          maxLines: 3,
+          overflow: TextOverflow.ellipsis,
+          style: (ar.length > 30 ? WaqtText.label : WaqtText.body).copyWith(
+            color: t.inkMuted,
+            fontStyle: FontStyle.italic,
+          ),
         ),
       ],
     );
@@ -501,64 +675,154 @@ class _LightPainter extends CustomPainter {
       o.progress != progress || o.ripples.length != ripples.length || o.ink != ink || o.accent != accent;
 }
 
-/// "Today 165" with the per-phrase breakdown a tap away.
-class _TodayTotals extends StatelessWidget {
-  const _TodayTotals({required this.state, required this.numbers});
+class _SheetLabel extends StatelessWidget {
+  const _SheetLabel(this.text);
+  final String text;
+
+  @override
+  Widget build(BuildContext context) => Padding(
+    padding: const EdgeInsets.fromLTRB(WaqtSpace.screen, WaqtSpace.x5, WaqtSpace.screen, WaqtSpace.x1),
+    child: Text(text.toUpperCase(), style: WaqtText.overline.copyWith(color: WaqtTokens.of(context).inkMuted)),
+  );
+}
+
+/// Under the counter: why this dhikr (opening its hadith) and how many
+/// times it was said today (opening every dhikr said today).
+class _Footer extends ConsumerWidget {
+  const _Footer({required this.state, required this.numbers});
   final CounterState state;
   final LocaleDigits numbers;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final l = AppLocalizations.of(context);
     final t = WaqtTokens.of(context);
-    if (state.todayTotal == 0) return const SizedBox(height: WaqtSpace.minTouch);
-    final names = {
-      for (final r in dhikrRoutines)
-        for (final d in r.steps) d.id: d.latin.isEmpty ? l.counterFree : d.latin,
-    };
-    return TextButton.icon(
-      onPressed: () => showModalBottomSheet<void>(
-        context: context,
-        showDragHandle: true,
-        backgroundColor: t.ground,
-        builder: (ctx) => SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(WaqtSpace.screen, 0, WaqtSpace.screen, WaqtSpace.x6),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Text(l.counterTodayTitle, style: WaqtText.titleSmall.copyWith(color: t.ink)),
-                const SizedBox(height: WaqtSpace.x3),
-                for (final MapEntry(:key, :value) in (state.today.entries.toList()..sort((a, b) => b.value - a.value)))
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: WaqtSpace.x2),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Text(names[key] ?? key, style: WaqtText.body.copyWith(color: t.ink)),
-                        ),
-                        Text(numbers(value), style: WaqtText.bodyStrong.copyWith(color: t.ink)),
-                      ],
+    final r = state.r;
+    final src = r.source;
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: WaqtSpace.screen),
+      child: Column(
+        children: [
+          if (r.virtue != null && src != null)
+            InkWell(
+              borderRadius: BorderRadius.circular(WaqtRadii.strip),
+              onTap: () => openDayItem(context, ref, src.item(r.virtue!)),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: WaqtSpace.x3, vertical: WaqtSpace.x2),
+                child: Text.rich(
+                  TextSpan(
+                    children: [
+                      TextSpan(
+                        text: r.virtue,
+                        style: TextStyle(color: t.ink),
+                      ),
+                      TextSpan(
+                        text: '  ${src.reference}',
+                        style: TextStyle(color: t.inkMuted),
+                      ),
+                    ],
+                  ),
+                  textAlign: TextAlign.center,
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
+                  style: WaqtText.label,
+                ),
+              ),
+            ),
+          const SizedBox(height: WaqtSpace.x2),
+          SizedBox(
+            height: WaqtSpace.minTouch,
+            child: state.todayTotal == 0
+                ? null
+                : OutlinedButton.icon(
+                    onPressed: () => _showToday(context),
+                    style: OutlinedButton.styleFrom(
+                      foregroundColor: t.ink,
+                      side: BorderSide(color: t.hairline),
+                      shape: const StadiumBorder(),
+                    ),
+                    icon: const Icon(Icons.today_rounded, size: 18),
+                    label: Text(
+                      l.counterToday(numbers(state.today[state.dhikr.id] ?? 0)),
+                      style: const TextStyle(fontFeatures: [FontFeature.tabularFigures()]),
                     ),
                   ),
-                Divider(color: t.hairline),
-                Row(
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showToday(BuildContext context) {
+    final l = AppLocalizations.of(context);
+    final t = WaqtTokens.of(context);
+    final rows = state.today.entries.where((e) => e.value > 0).toList()..sort((a, b) => b.value - a.value);
+    final top = rows.isEmpty ? 1 : rows.first.value;
+    showModalBottomSheet<void>(
+      context: context,
+      showDragHandle: true,
+      isScrollControlled: true,
+      backgroundColor: t.ground,
+      builder: (ctx) => ConstrainedBox(
+        constraints: BoxConstraints(maxHeight: MediaQuery.sizeOf(ctx).height * 0.75),
+        child: ListView(
+          shrinkWrap: true,
+          padding: const EdgeInsets.fromLTRB(WaqtSpace.screen, 0, WaqtSpace.screen, WaqtSpace.x8),
+          children: [
+            Text(l.counterTodayTitle.toUpperCase(), style: WaqtText.overline.copyWith(color: t.inkMuted)),
+            const SizedBox(height: WaqtSpace.x1),
+            Text(
+              numbers(state.todayTotal),
+              style: WaqtText.clock.copyWith(color: t.ink, fontFeatures: const [FontFeature.tabularFigures()]),
+            ),
+            Text(l.counterTodayAll, style: WaqtText.label.copyWith(color: t.inkMuted)),
+            const SizedBox(height: WaqtSpace.x5),
+            for (final MapEntry(:key, :value) in rows)
+              Padding(
+                padding: const EdgeInsets.only(bottom: WaqtSpace.x4),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    Expanded(
-                      child: Text(l.counterTodayAll, style: WaqtText.bodyStrong.copyWith(color: t.ink)),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Expanded(
+                          child: Text(
+                            switch (state.nameOf(key)) {
+                              null || '' => l.counterFree,
+                              final n => n,
+                            },
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: WaqtText.body.copyWith(color: t.ink),
+                          ),
+                        ),
+                        const SizedBox(width: WaqtSpace.x3),
+                        Text(
+                          numbers(value),
+                          style: WaqtText.bodyStrong.copyWith(
+                            color: t.ink,
+                            fontFeatures: const [FontFeature.tabularFigures()],
+                          ),
+                        ),
+                      ],
                     ),
-                    Text(numbers(state.todayTotal), style: WaqtText.titleSmall.copyWith(color: t.ink)),
+                    const SizedBox(height: WaqtSpace.x2),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(2),
+                      child: LinearProgressIndicator(
+                        value: value / top,
+                        minHeight: 4,
+                        backgroundColor: t.hairline,
+                        color: t.accent,
+                      ),
+                    ),
                   ],
                 ),
-              ],
-            ),
-          ),
+              ),
+          ],
         ),
       ),
-      style: TextButton.styleFrom(foregroundColor: t.inkMuted),
-      icon: const Icon(Icons.insights_rounded, size: 18),
-      label: Text(l.counterToday(numbers(state.todayTotal))),
     );
   }
 }

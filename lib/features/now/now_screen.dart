@@ -243,6 +243,7 @@ class NowScreen extends ConsumerWidget {
                   title: l.occasion(guideOcc, ramadanDay: n(ramadanDay)),
                   items: guides.itemsFor(guideOcc, occasions),
                   day: '${now.year}-${now.month}-${now.day}',
+                  morningOver: status != null && !now.isBefore(status.today[Waqt.dhuhr]),
                   phase: status == null
                       ? null
                       : now.isBefore(status.today[Waqt.fajr])

@@ -310,9 +310,7 @@ class HadithDownloadCard extends ConsumerWidget {
     final busy = s.status == HadithLibrary.downloading || s.status == HadithLibrary.checking;
     return Container(
       padding: inSheet ? EdgeInsets.zero : const EdgeInsets.all(WaqtSpace.x5),
-      decoration: inSheet
-          ? null
-          : BoxDecoration(color: t.surface, borderRadius: BorderRadius.circular(WaqtRadii.card)),
+      decoration: inSheet ? null : BoxDecoration(color: t.surface, borderRadius: BorderRadius.circular(WaqtRadii.card)),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,

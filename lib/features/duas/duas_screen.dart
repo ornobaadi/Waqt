@@ -220,7 +220,7 @@ class _DuasScreenState extends ConsumerState<DuasScreen> {
         .map(book.chapter)
         .nonNulls
         .toList();
-    // Today's special-day Sunnah, sourced, as a short list under the chapters.
+    // Today's special-day Sunnah, sourced, as a short list after what fits now.
     final occasions = ref.watch(occasionsProvider.select((o) => o.list.map((x) => x.name).join(',')));
     final guides = ref.watch(dayGuidesProvider).value;
     final occList = [for (final n in occasions.split(',')) ?OccasionId.values.asNameMap()[n]];
@@ -228,17 +228,6 @@ class _DuasScreenState extends ConsumerState<DuasScreen> {
     final today = featured == null ? const <DayItem>[] : guides!.itemsFor(featured, occList);
     if (chapters.isEmpty && today.isEmpty) return const [];
     return [
-      if (today.isNotEmpty) ...[
-        _pad(SectionLabel(l.occasion(featured!, ramadanDay: ''))),
-        _pad(
-          RowGroup(
-            children: [
-              for (final i in today.take(4))
-                RowTile(title: i.title, subtitle: i.reference, onTap: () => openDayItem(context, ref, i)),
-            ],
-          ),
-        ),
-      ],
       if (chapters.isNotEmpty) ...[
         _pad(SectionLabel(l.libraryForNow)),
         SliverToBoxAdapter(
@@ -284,6 +273,17 @@ class _DuasScreenState extends ConsumerState<DuasScreen> {
                 );
               },
             ),
+          ),
+        ),
+      ],
+      if (today.isNotEmpty) ...[
+        _pad(SectionLabel(l.occasion(featured!, ramadanDay: ''))),
+        _pad(
+          RowGroup(
+            children: [
+              for (final i in today.take(4))
+                RowTile(title: i.title, subtitle: i.reference, onTap: () => openDayItem(context, ref, i)),
+            ],
           ),
         ),
       ],

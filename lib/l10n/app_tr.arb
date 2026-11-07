@@ -270,5 +270,13 @@
   "counterToday": "Bugün {count}",
   "counterTodayTitle": "Bugün söylenen",
   "counterTodayAll": "Tüm zikirler",
-  "counterResetRound": "Bu turu baştan başlat"
+  "counterResetRound": "Bu turu baştan başlat",
+  "counterAddOwn": "Kendi zikrini ekle",
+  "counterOwnName": "Ne söyleyeceksin",
+  "counterOwnArabic": "Arapça (isteğe bağlı)",
+  "counterOwnTarget": "Kaç kez",
+  "counterSave": "Kaydet",
+  "counterRemove": "Kaldır",
+  "counterSectionReward": "Fazileti bildirilen zikirler",
+  "counterSectionYours": "Senin zikirlerin"
 }

@@ -4,7 +4,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:waqt/core/clock/clock.dart';
 import 'package:waqt/data/user/user_prefs.dart';
 import 'package:waqt/features/counter/counter_screen.dart';
-import 'package:waqt/features/counter/dhikr.dart';
 
 void main() {
   late SharedPreferences prefs;
@@ -19,7 +18,7 @@ void main() {
 
   test('count survives leaving the app; reset clears the round, not today', () async {
     var c = await container();
-    final after = dhikrRoutines.indexWhere((r) => r.id == 'after_salah');
+    const after = 'after_salah';
     c.read(counterProvider.notifier).choose(after);
     for (var i = 0; i < 40; i++) {
       c.read(counterProvider.notifier).tap();
@@ -41,13 +40,13 @@ void main() {
   test('switching dhikr keeps each one where it was', () async {
     final c = await container();
     final n = c.read(counterProvider.notifier);
-    n.choose(dhikrRoutines.indexWhere((r) => r.id == 'istighfar'));
+    n.choose('istighfar');
     for (var i = 0; i < 12; i++) {
       n.tap();
     }
-    n.choose(dhikrRoutines.indexWhere((r) => r.id == 'salawat'));
+    n.choose('salawat');
     n.tap();
-    n.choose(dhikrRoutines.indexWhere((r) => r.id == 'istighfar'));
+    n.choose('istighfar');
     expect(c.read(counterProvider).count, 12);
     expect(c.read(counterProvider).today, {'istighfar': 12, 'salawat': 1});
   });
@@ -55,7 +54,7 @@ void main() {
   test('a finished set starts again; a new day starts today at zero', () async {
     final c = await container();
     final n = c.read(counterProvider.notifier);
-    n.choose(dhikrRoutines.indexWhere((r) => r.id == 'after_salah'));
+    n.choose('after_salah');
     for (var i = 0; i < 100; i++) {
       n.tap();
     }

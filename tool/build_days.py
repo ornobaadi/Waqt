@@ -20,20 +20,20 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # occasion id (OccasionId in lib/domain/occasions/occasions.dart) -> items
 DAYS = {
     "eidAlFitr": [
-        ("Eat an odd number of dates before the prayer", "bukhari", "953"),
-        ("Pay Zakat al-Fitr before the Eid prayer", "bukhari", "1509"),
-        ("Bathe (ghusl) before going out, as Ibn Umar did", "malik", "432"),
-        ("Wear your best clothes", "bukhari", "948"),
-        ("Say the takbir with everyone at the prayer", "bukhari", "971"),
-        ("Return home by a different way", "bukhari", "986"),
+        ("Eat an odd number of dates before the prayer", "bukhari", "953", "morning"),
+        ("Pay Zakat al-Fitr before the Eid prayer", "bukhari", "1509", "morning"),
+        ("Bathe (ghusl) before going out, as Ibn Umar did", "malik", "432", "morning"),
+        ("Wear your best clothes", "bukhari", "948", "morning"),
+        ("Say the takbir with everyone at the prayer", "bukhari", "971", "morning"),
+        ("Return home by a different way", "bukhari", "986", "morning"),
         ("Do not fast today", "bukhari", "1990"),
         ("Then fast six days of Shawwal", "muslim", "1164a"),
     ],
     "eidAlAdha": [
-        ("Eat nothing until after the prayer", "tirmidhi", "542"),
+        ("Eat nothing until after the prayer", "tirmidhi", "542", "morning"),
         ("Offer the sacrifice after the prayer", "bukhari", "955"),
-        ("Say the takbir with everyone at the prayer", "bukhari", "971"),
-        ("Return home by a different way", "bukhari", "986"),
+        ("Say the takbir with everyone at the prayer", "bukhari", "971", "morning"),
+        ("Return home by a different way", "bukhari", "986", "morning"),
         ("Do not fast today", "bukhari", "1990"),
     ],
     "firstTenDhulHijjah": [
@@ -192,7 +192,7 @@ def main():
                 raise SystemExit(f"{name}: {ref} is graded {grade}")
             row = {"title": title, "col": col, "num": num, "ref": ref, "grade": grade}
             if when:
-                row["when"] = when[0]  # suhoor, day, iftar or night: when it is most relevant
+                row["when"] = when[0]  # suhoor, morning (until Dhuhr), day, iftar or night
             out.append(row)
         return out
 

@@ -13,7 +13,15 @@ import '../duas/library_views.dart';
 /// Today's special day as a checklist: each Sunnah, ticked as it is done,
 /// opening the hadith it comes from.
 class DayGuideCard extends ConsumerStatefulWidget {
-  const DayGuideCard({super.key, required this.title, required this.items, required this.day, this.label, this.phase});
+  const DayGuideCard({
+    super.key,
+    required this.title,
+    required this.items,
+    required this.day,
+    this.label,
+    this.phase,
+    this.morningOver = false,
+  });
   final String title;
 
   /// Small line above the title; "Today's Sunnah" when null.
@@ -23,6 +31,10 @@ class DayGuideCard extends ConsumerStatefulWidget {
   /// Part of the day ('suhoor', 'day', 'iftar', 'night'): its items come
   /// first, so the folded card shows what matters now.
   final String? phase;
+
+  /// Past Dhuhr: morning Sunnahs (the Eid morning, say) that were not done
+  /// leave the list instead of lingering as something missed. Done ones stay.
+  final bool morningOver;
 
   /// Civil date key; ticks reset with it.
   final String day;
@@ -41,9 +53,14 @@ class _DayGuideCardState extends ConsumerState<DayGuideCard> {
     final l = AppLocalizations.of(context);
     final t = WaqtTokens.of(context);
     final n = LocaleDigits(Localizations.localeOf(context).toLanguageTag());
-    final items = widget.items, day = widget.day;
+    final day = widget.day;
     ref.watch(dayTicksProvider);
     final done = ref.read(dayTicksProvider.notifier).doneOn(day);
+    final items = [
+      for (final i in widget.items)
+        if (!(widget.morningOver && i.when == 'morning' && !done.contains(i.id))) i,
+    ];
+    if (items.isEmpty) return const SizedBox.shrink();
     final count = items.where((i) => done.contains(i.id)).length;
 
     return Container(
@@ -87,7 +104,7 @@ class _DayGuideCardState extends ConsumerState<DayGuideCard> {
             // Now's items first, then any-time ones, then the rest; ticked last.
             int rank(DayItem i) => done.contains(i.id)
                 ? 3
-                : i.when == widget.phase
+                : i.when == widget.phase || (i.when == 'morning' && widget.phase == 'day')
                 ? 0
                 : i.when == null
                 ? 1

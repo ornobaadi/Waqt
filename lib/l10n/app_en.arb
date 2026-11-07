@@ -522,5 +522,13 @@
   "debugScEveEid": "29 Ramadan evening",
   "debugScEid": "Eid al-Fitr morning",
   "debugScArafah": "Arafah",
-  "debugScAshura": "Ashura"
+  "debugScAshura": "Ashura",
+  "counterAddOwn": "Add your own",
+  "counterOwnName": "What you'll say",
+  "counterOwnArabic": "Arabic (optional)",
+  "counterOwnTarget": "How many times",
+  "counterSave": "Save",
+  "counterRemove": "Remove",
+  "counterSectionReward": "With a promised reward",
+  "counterSectionYours": "Your own"
 }

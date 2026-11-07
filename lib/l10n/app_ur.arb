@@ -278,5 +278,13 @@
   "counterToday": "آج {count}",
   "counterTodayTitle": "آج پڑھا گیا",
   "counterTodayAll": "تمام اذکار",
-  "counterResetRound": "یہ چکر دوبارہ"
+  "counterResetRound": "یہ چکر دوبارہ",
+  "counterAddOwn": "اپنا ذکر شامل کریں",
+  "counterOwnName": "آپ کیا پڑھیں گے",
+  "counterOwnArabic": "عربی (اختیاری)",
+  "counterOwnTarget": "کتنی بار",
+  "counterSave": "محفوظ کریں",
+  "counterRemove": "ہٹائیں",
+  "counterSectionReward": "فضیلت والے اذکار",
+  "counterSectionYours": "آپ کے اذکار"
 }

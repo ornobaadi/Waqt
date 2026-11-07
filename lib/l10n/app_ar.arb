@@ -292,5 +292,13 @@
   "counterToday": "اليوم {count}",
   "counterTodayTitle": "ما قيل اليوم",
   "counterTodayAll": "كل الأذكار",
-  "counterResetRound": "ابدأ هذه الجولة من جديد"
+  "counterResetRound": "ابدأ هذه الجولة من جديد",
+  "counterAddOwn": "أضف ذكرك",
+  "counterOwnName": "ما ستقوله",
+  "counterOwnArabic": "بالعربية (اختياري)",
+  "counterOwnTarget": "عدد المرات",
+  "counterSave": "حفظ",
+  "counterRemove": "حذف",
+  "counterSectionReward": "أذكار لها فضل",
+  "counterSectionYours": "أذكارك"
 }
