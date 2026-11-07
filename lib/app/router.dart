@@ -41,8 +41,8 @@ final routerProvider = Provider<GoRouter>((ref) {
                 builder: (_, _) => const DuasScreen(),
                 routes: [
                   GoRoute(
-                    path: 'hisn/:n',
-                    builder: (_, s) => HisnChapterScreen(number: int.parse(s.pathParameters['n']!)),
+                    path: 'topic/:id',
+                    builder: (_, s) => TopicScreen(id: int.parse(s.pathParameters['id']!)),
                   ),
                 ],
               ),

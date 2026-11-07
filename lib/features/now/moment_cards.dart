@@ -10,6 +10,7 @@ import '../../domain/moments/moment.dart';
 import '../../l10n/app_localizations.dart';
 import '../common/labels.dart';
 import '../duas/dua_sheet.dart';
+import '../duas/library_views.dart';
 
 DateFormat clockFormat(BuildContext context) {
   final locale = Localizations.localeOf(context).toLanguageTag();
@@ -139,7 +140,7 @@ class _SourcedRow extends StatelessWidget {
     final ink = t.heroInk;
     return Semantics(
       button: true,
-      label: '${item.title}. ${item.reference}',
+      label: item.title(Localizations.localeOf(context).languageCode),
       excludeSemantics: true,
       // A flat row under a hairline, not a box inside the card: nested
       // rounded boxes never share the card's curve at this inset.
@@ -157,10 +158,13 @@ class _SourcedRow extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(item.title, style: WaqtText.bodyStrong.copyWith(color: ink)),
-                    const SizedBox(height: 2),
                     Text(
-                      [item.reference, if (item.grade != null) item.grade!].join('  ·  '),
+                      item.title(Localizations.localeOf(context).languageCode),
+                      style: WaqtText.bodyStrong.copyWith(color: ink),
+                    ),
+                    const SizedBox(height: 2),
+                    HeSourceText(
+                      id: item.he,
                       style: WaqtText.caption.copyWith(color: t.accent),
                     ),
                   ],

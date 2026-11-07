@@ -7,22 +7,23 @@ import '../../domain/moments/moment.dart';
 import '../../domain/occasions/occasions.dart';
 import '../user/user_prefs.dart';
 
-/// One thing the Sunnah teaches for a day, tied to the hadith that teaches it.
+/// One thing the Sunnah teaches for a day, tied to the HadeethEnc hadith
+/// that teaches it. The label is ours, in every app language.
 class DayItem {
-  const DayItem(this.title, this.collection, this.number, this.reference, this.grade, {this.when});
-  final String title;
+  const DayItem(this.titles, this.he, {this.when});
+  final Map<String, String> titles;
 
-  /// When it matters most: 'suhoor', 'day', 'iftar' or 'night'; null = any time.
+  /// HadeethEnc.com id of the hadith.
+  final int he;
+
+  /// When it matters most: 'suhoor', 'morning', 'day', 'iftar' or 'night'.
   final String? when;
-  final String collection;
-  final String number;
-  final String reference;
-  final String? grade;
 
-  String get id => '$collection:$number';
+  String title(String lang) => titles[lang] ?? titles['en'] ?? '';
+  String get id => 'he:$he';
 }
 
-/// Built by tool/build_days.py from the hadith database; see that file.
+/// Built by tool/build_content.py from HadeethEnc.com; see that file.
 class DayGuides {
   DayGuides(this._days, this.fasts, [this._moments = const {}]);
   final Map<OccasionId, List<DayItem>> _days;
@@ -55,11 +56,8 @@ class DayGuides {
       for (final i in v! as List<Object?>)
         if (i case final Map<String, Object?> m)
           DayItem(
-            m['title']! as String,
-            m['col']! as String,
-            m['num']! as String,
-            m['ref']! as String,
-            m['grade'] as String?,
+            {for (final MapEntry(:key, :value) in (m['title']! as Map<String, Object?>).entries) key: '$value'},
+            m['he']! as int,
             when: m['when'] as String?,
           ),
     ];

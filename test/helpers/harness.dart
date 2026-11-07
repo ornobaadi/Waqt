@@ -6,7 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:waqt/data/sources/days.dart';
-import 'package:waqt/data/sources/hisn.dart';
+import 'package:waqt/data/sources/hadeethenc.dart';
 import 'package:waqt/app/app.dart';
 import 'package:waqt/app/app_state.dart';
 import 'package:waqt/core/clock/clock.dart';
@@ -78,7 +78,7 @@ Future<Widget> app({DateTime? at, Place? place, Locale? locale, bool setupCard =
         (ref) => ContentBundle.parse(File('assets/content/content.json').readAsStringSync(), includeUnreviewed: true),
       ),
       dayGuidesProvider.overrideWith((ref) => DayGuides.parse(File('assets/sources/days.json').readAsStringSync())),
-      hisnProvider.overrideWith((ref) => HisnBook.parse(File('assets/sources/hisn.json').readAsStringSync())),
+      heBundleProvider.overrideWith((ref) => HeBundle.parse(File('assets/sources/hadeethenc.json').readAsStringSync())),
       if (at != null) nowProvider.overrideWith((ref) => Stream.value(at)),
       if (locale != null) localeOverrideProvider.overrideWith(() => _Locale(locale)),
     ],

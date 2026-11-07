@@ -206,7 +206,7 @@
   "counterAfterSalah": "نماز کے بعد: ۳۳ · ۳۳ · ۳۴",
   "counterHaptics": "ہر گنتی پر ارتعاش",
   "counterAfterSalahName": "نماز کے بعد",
-  "librarySearchAll": "دعائیں اور احادیث تلاش کریں",
+  "librarySearchAll": "احادیث اور دعائیں تلاش کریں",
   "scopeDuas": "دعائیں",
   "scopeHadith": "احادیث",
   "librarySituations": "ہر موقع",
@@ -269,12 +269,12 @@
   "showAll": "سب دکھائیں ({count})",
   "hadithUnavailable": "احادیث کی تلاش یہاں دستیاب نہیں۔ اینڈرائیڈ ایپ میں کام کرتی ہے۔",
   "hadithLibraryTitle": "حدیث لائبریری",
-  "hadithLibraryBody": "17 مجموعوں سے 46,891 احادیث، عربی اور انگریزی میں، آف لائن تلاش۔ ایک بار ڈاؤن لوڈ، پھر ہمیشہ فون پر۔",
+  "hadithLibraryBody": "HadeethEnc کا انسائیکلوپیڈیا آپ کی زبان میں: صحیح احادیث، عربی متن، درجہ اور تشریح کے ساتھ، آف لائن تلاش۔ ایک بار ڈاؤن لوڈ۔",
   "hadithLibraryDownload": "ڈاؤن لوڈ ({mb} MB)",
   "hadithLibraryProgress": "ڈاؤن لوڈ ہو رہا ہے… {percent}%",
   "hadithLibraryFailed": "ڈاؤن لوڈ مکمل نہیں ہوا۔ کنکشن چیک کریں۔",
   "hadithLibraryRetry": "دوبارہ کوشش",
-  "hadithLibraryNote": "open-hadith-data سے (متن sunnah.com کے مطابق)۔ استعمال سے پہلے تصدیق۔ دعائیں اور اذکار اس کے بغیر بھی چلتے ہیں۔",
+  "hadithLibraryNote": "HadeethEnc.com سے، بغیر تبدیلی کے۔ ہوم، چیک لسٹ اور تسبیح اس کے بغیر بھی چلتے ہیں۔",
   "counterToday": "آج {count}",
   "counterTodayTitle": "آج پڑھا گیا",
   "counterTodayAll": "تمام اذکار",
@@ -290,5 +290,7 @@
   "sheetExplanation": "تشریح",
   "sheetEnglishOriginal": "انگریزی (sunnah.com)",
   "sourceHadeethEnc": "ترجمہ اور تشریح: HadeethEnc.com، بغیر تبدیلی کے ({date} کو لیا گیا)۔",
-  "openHadeethEnc": "HadeethEnc"
+  "openHadeethEnc": "HadeethEnc",
+  "heNotTranslated": "HadeethEnc نے ابھی اس حدیث کا {language} ترجمہ شائع نہیں کیا، اس لیے عربی متن دکھایا گیا ہے۔",
+  "libraryAllTopics": "تمام موضوعات"
 }

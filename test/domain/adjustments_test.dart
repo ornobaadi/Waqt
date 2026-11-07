@@ -22,7 +22,10 @@ void main() {
   test('adjustments survive saving, and bad values are dropped or clamped', () {
     final s = base.copyWith(minutes: {'maghrib': 3});
     expect(PrayerSettings.fromJson(s.toJson()), s);
-    final j = {...base.toJson(), 'minutes': {'maghrib': 99, 'bogus': 1, 'isha': 'x'}};
+    final j = {
+      ...base.toJson(),
+      'minutes': {'maghrib': 99, 'bogus': 1, 'isha': 'x'},
+    };
     expect(PrayerSettings.fromJson(j)!.minutes, {'maghrib': PrayerSettings.maxMinutes});
   });
 

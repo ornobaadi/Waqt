@@ -198,7 +198,7 @@
   "counterAfterSalah": "Namazdan sonra: 33 · 33 · 34",
   "counterHaptics": "Her sayımda titreşim",
   "counterAfterSalahName": "Namazdan sonra",
-  "librarySearchAll": "Dua ve hadis ara",
+  "librarySearchAll": "Hadis ve dua ara",
   "scopeDuas": "Dualar",
   "scopeHadith": "Hadisler",
   "librarySituations": "Her durum",
@@ -261,12 +261,12 @@
   "showAll": "Tümünü göster ({count})",
   "hadithUnavailable": "Hadis araması burada yok. Android uygulamasında çalışır.",
   "hadithLibraryTitle": "Hadis kütüphanesi",
-  "hadithLibraryBody": "17 eserden 46.891 hadis, Arapça ve İngilizce, çevrimdışı aranabilir. Bir kez indirilir, sonra hep telefonunuzda.",
+  "hadithLibraryBody": "HadeethEnc ansiklopedisi kendi dilinizde: Arapçası, derecesi ve açıklamasıyla sahih hadisler, çevrimdışı aranabilir. Bir kez indirilir.",
   "hadithLibraryDownload": "İndir ({mb} MB)",
   "hadithLibraryProgress": "İndiriliyor… %{percent}",
   "hadithLibraryFailed": "İndirme tamamlanmadı. Bağlantınızı kontrol edin.",
   "hadithLibraryRetry": "Tekrar dene",
-  "hadithLibraryNote": "open-hadith-data'dan (metinler sunnah.com'daki gibi). Kullanmadan önce doğrulanır. Dualar ve zikirler onsuz da çalışır.",
+  "hadithLibraryNote": "HadeethEnc.com'dan, değiştirilmeden. Ana sayfa, listeler ve zikirmatik onsuz da çalışır.",
   "counterToday": "Bugün {count}",
   "counterTodayTitle": "Bugün söylenen",
   "counterTodayAll": "Tüm zikirler",
@@ -282,5 +282,7 @@
   "sheetExplanation": "Açıklama",
   "sheetEnglishOriginal": "İngilizce (sunnah.com)",
   "sourceHadeethEnc": "Çeviri ve açıklama: HadeethEnc.com, değiştirilmeden ({date} tarihinde alındı).",
-  "openHadeethEnc": "HadeethEnc"
+  "openHadeethEnc": "HadeethEnc",
+  "heNotTranslated": "HadeethEnc bu hadisi henüz {language} diline çevirmedi; bu yüzden Arapçası gösteriliyor.",
+  "libraryAllTopics": "Tüm konular"
 }

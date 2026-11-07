@@ -192,7 +192,7 @@
   "counterAfterSalah": "Après la prière : 33 · 33 · 34",
   "counterHaptics": "Vibrer à chaque compte",
   "counterAfterSalahName": "Après la prière",
-  "librarySearchAll": "Chercher douas et hadiths",
+  "librarySearchAll": "Rechercher hadiths et invocations",
   "scopeDuas": "Douas",
   "scopeHadith": "Hadiths",
   "librarySituations": "Toutes les situations",
@@ -255,12 +255,12 @@
   "showAll": "Tout afficher ({count})",
   "hadithUnavailable": "La recherche de hadiths n'est pas disponible ici. Elle fonctionne dans l'application Android.",
   "hadithLibraryTitle": "Bibliothèque de hadiths",
-  "hadithLibraryBody": "46 891 hadiths de 17 recueils, en arabe et en anglais, consultables hors ligne. Téléchargée une fois, puis toujours sur votre téléphone.",
+  "hadithLibraryBody": "L'encyclopédie HadeethEnc dans votre langue : hadiths authentiques avec l'arabe, le degré et l'explication, consultables hors ligne. Téléchargée une fois.",
   "hadithLibraryDownload": "Télécharger ({mb} Mo)",
   "hadithLibraryProgress": "Téléchargement… {percent} %",
   "hadithLibraryFailed": "Le téléchargement n'a pas abouti. Vérifiez votre connexion.",
   "hadithLibraryRetry": "Réessayer",
-  "hadithLibraryNote": "Issu d'open-hadith-data (textes comme sur sunnah.com). Vérifié avant usage. Douas et dhikr fonctionnent sans.",
+  "hadithLibraryNote": "Issu de HadeethEnc.com, sans modification. L'accueil, les listes et le compteur fonctionnent sans elle.",
   "counterToday": "Aujourd'hui {count}",
   "counterTodayTitle": "Dit aujourd'hui",
   "counterTodayAll": "Tous les dhikr",
@@ -276,5 +276,7 @@
   "sheetExplanation": "Explication",
   "sheetEnglishOriginal": "Anglais (sunnah.com)",
   "sourceHadeethEnc": "Traduction et explication : HadeethEnc.com, sans modification (récupéré le {date}).",
-  "openHadeethEnc": "HadeethEnc"
+  "openHadeethEnc": "HadeethEnc",
+  "heNotTranslated": "HadeethEnc n'a pas encore traduit ce hadith en {language} ; le texte arabe est affiché.",
+  "libraryAllTopics": "Tous les thèmes"
 }

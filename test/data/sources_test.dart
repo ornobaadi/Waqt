@@ -1,11 +1,17 @@
+import 'dart:convert';
 import 'dart:io';
 
-import 'package:crypto/crypto.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
-import 'package:waqt/data/sources/hadith_db.dart';
-import 'package:waqt/data/sources/hisn.dart';
+import 'package:waqt/data/sources/days.dart';
+import 'package:waqt/data/sources/hadeethenc.dart';
+import 'package:waqt/data/sources/he_library.dart';
 import 'package:waqt/data/sources/search_text.dart';
+import 'package:waqt/domain/moments/moment.dart';
+import 'package:waqt/domain/occasions/occasions.dart';
+import 'package:waqt/features/counter/dhikr_data.dart';
+
+const langs = ['en', 'ar', 'ur', 'bn', 'id', 'tr', 'fr'];
 
 void main() {
   group('search text', () {
@@ -19,58 +25,93 @@ void main() {
     });
   });
 
-  group('Hisn al-Muslim', () {
-    final book = HisnBook.parse(File('assets/sources/hisn.json').readAsStringSync());
+  group('HadeethEnc bundle', () {
+    final bundle = HeBundle.parse(File('assets/sources/hadeethenc.json').readAsStringSync());
+    final guides = DayGuides.parse(File('assets/sources/days.json').readAsStringSync());
+    final items = [
+      for (final o in OccasionId.values) ...guides.forOccasion(o),
+      for (final m in MomentId.values) ...guides.forMoment(m),
+    ];
 
-    test('all chapters and duas, every dua in a known chapter', () {
-      expect(book.chapters.length, 132);
-      expect(book.duas.length, 268);
-      expect(book.duas.every((d) => book.chapter(d.chapter) != null), isTrue);
-      expect(book.duas.every((d) => d.arabic.isNotEmpty), isTrue);
+    test('every checklist item: a bundled hadith with its Arabic, a label in every language', () {
+      expect(items, isNotEmpty);
+      for (final i in items) {
+        final h = bundle[i.he];
+        expect(h?.arabic?.text, isNotEmpty, reason: '${i.he}');
+        for (final l in langs) {
+          expect(i.titles[l], isNotEmpty, reason: '${i.he} $l');
+        }
+      }
     });
 
-    test('search by Arabic without diacritics, and by English', () {
-      expect(book.search('احيانا بعد ما اماتنا').duas.map((d) => d.number), contains('1'));
-      expect(book.search('sleeping').chapters.map((c) => c.number), contains(28));
+    test('every dhikr: a bundled hadith, its virtue in every language', () {
+      for (final d in builtInDhikr) {
+        expect(bundle[d.he!]?.arabic?.text, isNotEmpty, reason: d.id);
+        for (final l in langs) {
+          expect(d.virtue[l], isNotEmpty, reason: '${d.id} $l');
+        }
+      }
+      expect(bundle[afterSalahHe], isNotNull);
+    });
+
+    test('translated where HadeethEnc has it; never another language in its place', () {
+      final h = bundle[5503]!; // Sayyid al-istighfar
+      expect(h.translation('bn')?.text, contains('ইস্তেগফার'));
+      expect(h.translation('ar'), isNull);
+      final eid = bundle[65481]!; // Eid dates: Arabic only so far
+      expect(eid.translation('bn'), isNull);
+      expect(eid.meta('bn'), same(eid.arabic));
+    });
+
+    test('no weak hadith', () {
+      final raw = jsonDecode(File('assets/sources/hadeethenc.json').readAsStringSync()) as Map;
+      for (final e in (raw['items'] as Map).values.cast<Map<String, Object?>>()) {
+        expect('${(e['ar']! as Map)['grade']}', isNot(contains('ضعيف')));
+      }
     });
   });
 
-  group('hadith database', () {
-    late HadithDb db;
+  group('library', () {
+    late HeLibrary lib;
 
     setUpAll(() async {
       sqfliteFfiInit();
-      final dir = Directory.systemTemp.createTempSync('waqt_hadith');
-      final file = File('${dir.path}/h.db')
-        ..writeAsBytesSync(gzip.decode(File('tool/data/hadith.db.gz').readAsBytesSync()));
-      db = await HadithDb.fromDatabase(await databaseFactoryFfi.openDatabase(file.path));
+      final db = await databaseFactoryFfi.openDatabase(inMemoryDatabasePath);
+      // HadeethEnc's own layout for a translated language.
+      await db.execute('CREATE TABLE categories (id INTEGER PRIMARY KEY, title TEXT, num INTEGER, parent_id INTEGER)');
+      await db.execute(
+        'CREATE TABLE hadeeths (id INTEGER, title TEXT, hadeeth TEXT, explanation TEXT, hints TEXT, '
+        'hadeeth_ar TEXT, grade TEXT, attribution TEXT, tarteeb INTEGER, ar_version INTEGER)',
+      );
+      await db.execute(
+        'CREATE TABLE category_hadeeth (id INTEGER PRIMARY KEY, category_id INTEGER, hadeeth_id INTEGER)',
+      );
+      await db.insert('categories', {'id': 268, 'title': 'দোয়া ও যিকির', 'num': 1, 'parent_id': 5});
+      await db.insert('categories', {'id': 301, 'title': 'সকাল ও সন্ধ্যার যিকির', 'num': 1, 'parent_id': 268});
+      await db.insert('hadeeths', {
+        'id': 5503,
+        'title': 'সাইয়্যেদুল ইস্তেগফার',
+        'hadeeth': 'সাইয়্যেদুল ইস্তেগফার হচ্ছে...',
+        'hadeeth_ar': 'سَيِّدُ الِاسْتِغْفَارِ أَنْ تَقُولَ',
+        'grade': 'সহীহ',
+        'attribution': 'সহীহ বুখারী',
+        'ar_version': 2,
+      });
+      await db.insert('category_hadeeth', {'category_id': 301, 'hadeeth_id': 5503});
+      lib = await HeLibrary.fromDatabase('bn', db);
     });
 
-    test('the published file is the one the app expects', () {
-      final bytes = File('tool/data/hadith.db.gz').readAsBytesSync();
-      expect(sha256.convert(bytes).toString(), HadithDb.sha256);
-      expect(bytes.length, HadithDb.downloadBytes);
+    test('search in the translation and in the Arabic, without diacritics', () async {
+      expect((await lib.search('ইস্তেগফার')).single.id, 5503);
+      expect((await lib.search('سيد الاستغفار')).single.id, 5503);
+      expect(await lib.search('nothing'), isEmpty);
     });
 
-    test('every collection loaded', () {
-      expect(db.collections.map((c) => c.id), containsAll(['bukhari', 'muslim', 'abudawud', 'tirmidhi', 'nasai']));
-      expect(db.collections.fold<int>(0, (a, c) => a + c.count), greaterThan(40000));
-    });
-
-    test('a reference goes straight to the hadith', () async {
-      final r = await db.search('bukhari 1');
-      expect(r.single.reference, 'Sahih al-Bukhari 1');
-    });
-
-    test('Arabic search ignores diacritics', () async {
-      final r = await db.search('انما الاعمال بالنيات');
-      expect(r.map((h) => h.collection), contains('bukhari'));
-    });
-
-    test('English words, all required, prefix matching', () async {
-      final r = await db.search('intention emigrat');
-      expect(r, isNotEmpty);
-      expect(r.every((h) => h.english.toLowerCase().contains('emigrat')), isTrue);
+    test('topics: a parent holds its children’s hadiths', () async {
+      expect(lib.children(268).single.title, 'সকাল ও সন্ধ্যার যিকির');
+      final h = (await lib.inTopic(268)).single;
+      expect(h.translation('bn')?.text, startsWith('সাইয়্যেদুল'));
+      expect(h.arabic?.text, contains('الِاسْتِغْفَارِ'));
     });
   });
 }

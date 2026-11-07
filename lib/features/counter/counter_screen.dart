@@ -13,7 +13,7 @@ import '../../core/theme/tokens.dart';
 import '../../core/theme/waqt_theme.dart';
 import '../../core/utils/digits.dart';
 import '../../l10n/app_localizations.dart';
-import '../now/day_guide_card.dart';
+import '../duas/library_views.dart';
 import 'dhikr.dart';
 
 class CounterState {
@@ -57,7 +57,8 @@ class CounterState {
   int get todayTotal => today.values.fold(0, (a, b) => a + b);
 
   /// What a dhikr id is called, for today's list.
-  String? nameOf(String id) => [for (final r in routines) ...r.steps].where((d) => d.id == id).firstOrNull?.latin;
+  String? nameOf(String id, String lang) =>
+      [for (final r in routines) ...r.steps].where((d) => d.id == id).firstOrNull?.name(lang);
 
   CounterState copy({
     String? routineId,
@@ -395,7 +396,7 @@ class _CounterScreenState extends ConsumerState<CounterScreen> with TickerProvid
   }
 
   static String _routineName(AppLocalizations l, DhikrRoutine r) =>
-      r.id == 'free' ? l.counterFree : (r.isSet ? l.counterAfterSalahName : r.steps.single.latin);
+      r.id == 'free' ? l.counterFree : (r.isSet ? l.counterAfterSalahName : r.steps.single.name(l.localeName));
 
   Future<void> _pick(BuildContext context, CounterState s, LocaleDigits n) async {
     final id = await showModalBottomSheet<String>(
@@ -417,7 +418,7 @@ class _CounterScreenState extends ConsumerState<CounterScreen> with TickerProvid
               selectedTileColor: t.ink.withValues(alpha: 0.06),
               contentPadding: const EdgeInsetsDirectional.only(start: WaqtSpace.screen, end: WaqtSpace.x3),
               title: Text(_routineName(l, r), style: WaqtText.bodyStrong.copyWith(color: t.ink)),
-              subtitle: switch (r.id == 'free' ? l.counterFreeHint : r.virtue) {
+              subtitle: switch (r.id == 'free' ? l.counterFreeHint : r.virtueIn(l.localeName)) {
                 final v? => Text(
                   v,
                   maxLines: 2,
@@ -584,17 +585,19 @@ class _Words extends StatelessWidget {
             style: WaqtText.arabic.copyWith(color: t.ink, fontSize: size, height: 1.6),
           ),
         ),
-        const SizedBox(height: WaqtSpace.x2),
-        Text(
-          dhikr.latin,
-          textAlign: TextAlign.center,
-          maxLines: 3,
-          overflow: TextOverflow.ellipsis,
-          style: (ar.length > 30 ? WaqtText.label : WaqtText.body).copyWith(
-            color: t.inkMuted,
-            fontStyle: FontStyle.italic,
+        if (Localizations.localeOf(context).languageCode case final lang when lang != 'ar' && lang != 'ur') ...[
+          const SizedBox(height: WaqtSpace.x2),
+          Text(
+            dhikr.name(lang),
+            textAlign: TextAlign.center,
+            maxLines: 3,
+            overflow: TextOverflow.ellipsis,
+            style: (ar.length > 30 ? WaqtText.label : WaqtText.body).copyWith(
+              color: t.inkMuted,
+              fontStyle: FontStyle.italic,
+            ),
           ),
-        ),
+        ],
       ],
     );
   }
@@ -698,34 +701,33 @@ class _Footer extends ConsumerWidget {
     final l = AppLocalizations.of(context);
     final t = WaqtTokens.of(context);
     final r = state.r;
-    final src = r.source;
+    final he = r.he;
+    final virtue = r.virtueIn(l.localeName);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: WaqtSpace.screen),
       child: Column(
         children: [
-          if (r.virtue != null && src != null)
+          if (virtue != null && he != null)
             InkWell(
               borderRadius: BorderRadius.circular(WaqtRadii.strip),
-              onTap: () => openDayItem(context, ref, src.item(r.virtue!)),
+              onTap: () => openHadith(context, ref, he),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: WaqtSpace.x3, vertical: WaqtSpace.x2),
-                child: Text.rich(
-                  TextSpan(
-                    children: [
-                      TextSpan(
-                        text: r.virtue,
-                        style: TextStyle(color: t.ink),
-                      ),
-                      TextSpan(
-                        text: '  ${src.reference}',
-                        style: TextStyle(color: t.inkMuted),
-                      ),
-                    ],
-                  ),
-                  textAlign: TextAlign.center,
-                  maxLines: 3,
-                  overflow: TextOverflow.ellipsis,
-                  style: WaqtText.label,
+                child: Column(
+                  children: [
+                    Text(
+                      virtue,
+                      textAlign: TextAlign.center,
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                      style: WaqtText.label.copyWith(color: t.ink),
+                    ),
+                    const SizedBox(height: 2),
+                    HeSourceText(
+                      id: he,
+                      style: WaqtText.caption.copyWith(color: t.inkMuted),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -788,7 +790,7 @@ class _Footer extends ConsumerWidget {
                       children: [
                         Expanded(
                           child: Text(
-                            switch (state.nameOf(key)) {
+                            switch (state.nameOf(key, l.localeName)) {
                               null || '' => l.counterFree,
                               final n => n,
                             },

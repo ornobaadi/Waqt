@@ -82,8 +82,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsDeveloper => 'Test mode';
 
   @override
-  String get settingsDeveloperHint =>
-      'Fake clock, day jumps and the reference checker';
+  String get settingsDeveloperHint => 'Fake clock, day jumps and the reference checker';
 
   @override
   String get settingsAbout => 'About Waqt';
@@ -185,16 +184,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get locationLocating => 'Finding you…';
 
   @override
-  String get gpsServiceOff =>
-      'Location is turned off on this phone. Turn it on, or choose a city.';
+  String get gpsServiceOff => 'Location is turned off on this phone. Turn it on, or choose a city.';
 
   @override
-  String get gpsDenied =>
-      'Location permission was declined. You can choose a city instead.';
+  String get gpsDenied => 'Location permission was declined. You can choose a city instead.';
 
   @override
-  String get gpsDeniedForever =>
-      'Location permission is blocked. Allow it in settings, or choose a city.';
+  String get gpsDeniedForever => 'Location permission is blocked. Allow it in settings, or choose a city.';
 
   @override
   String get gpsTimeout => 'Couldn\'t get a fix. Try again, or choose a city.';
@@ -230,8 +226,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get asrStandard => 'Standard';
 
   @override
-  String get asrStandardHint =>
-      'Shafi\'i, Maliki, Hanbali: shadow equals object length';
+  String get asrStandardHint => 'Shafi\'i, Maliki, Hanbali: shadow equals object length';
 
   @override
   String get asrHanafi => 'Hanafi';
@@ -246,8 +241,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get highLatAuto => 'Automatic';
 
   @override
-  String get highLatAutoHint =>
-      'Seventh of the night above 48°, middle of the night below';
+  String get highLatAutoHint => 'Seventh of the night above 48°, middle of the night below';
 
   @override
   String get highLatMiddle => 'Middle of the night';
@@ -276,8 +270,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get settingsAttribution =>
-      'City data © GeoNames, CC BY 4.0. Prayer times calculated on device.';
+  String get settingsAttribution => 'City data © GeoNames, CC BY 4.0. Prayer times calculated on device.';
 
   @override
   String get citySearchHint => 'Search for a city';
@@ -551,8 +544,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get notifExact => 'On-time delivery';
 
   @override
-  String get notifExactHint =>
-      'Lets prayer reminders arrive at the exact minute';
+  String get notifExactHint => 'Lets prayer reminders arrive at the exact minute';
 
   @override
   String get notifBattery => 'Battery optimisation';
@@ -564,8 +556,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get notifBatteryFix => 'Open settings';
 
   @override
-  String get notifBatteryHint =>
-      'Some phones stop reminders in the background. Set Waqt to Unrestricted.';
+  String get notifBatteryHint => 'Some phones stop reminders in the background. Set Waqt to Unrestricted.';
 
   @override
   String notifBatteryHintOem(String maker) {
@@ -599,8 +590,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get setupCardTitle => 'Gentle reminders';
 
   @override
-  String get setupCardBody =>
-      'A quiet nudge at each prayer time. You choose which, and nothing leaves your phone.';
+  String get setupCardBody => 'A quiet nudge at each prayer time. You choose which, and nothing leaves your phone.';
 
   @override
   String get setupCardAction => 'Set up';
@@ -682,15 +672,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get reportProblem => 'Report a problem';
 
   @override
-  String get reportProblemHint =>
-      'Opens an email draft. You see everything before it is sent.';
+  String get reportProblemHint => 'Opens an email draft. You see everything before it is sent.';
 
   @override
   String get privacyTitle => 'Privacy';
 
   @override
-  String get privacyBody =>
-      'Everything is calculated on this phone. Waqt has no accounts, ads or analytics.';
+  String get privacyBody => 'Everything is calculated on this phone. Waqt has no accounts, ads or analytics.';
 
   @override
   String placeTime(String city) {
@@ -698,8 +686,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get testModeUnlocked =>
-      'Test mode is on. Find it at the bottom of Settings.';
+  String get testModeUnlocked => 'Test mode is on. Find it at the bottom of Settings.';
 
   @override
   String get debugJumpDay => 'Jump to a day';
@@ -714,8 +701,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get debugShowUnchecked => 'Show unchecked content';
 
   @override
-  String get debugShowUncheckedHint =>
-      'On this phone only. Unchecked items are marked as drafts.';
+  String get debugShowUncheckedHint => 'On this phone only. Unchecked items are marked as drafts.';
 
   @override
   String get debugLock => 'Turn off test mode';
@@ -741,8 +727,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get checkerWrong => 'Wrong';
 
   @override
-  String get checkerWrongHint =>
-      'What is wrong, and the correct reference if you know it';
+  String get checkerWrongHint => 'What is wrong, and the correct reference if you know it';
 
   @override
   String get checkerSend => 'Email results';
@@ -791,7 +776,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get counterAfterSalahName => 'After salah';
 
   @override
-  String get librarySearchAll => 'Search duas and hadith';
+  String get librarySearchAll => 'Search hadith and duas';
 
   @override
   String get scopeDuas => 'Duas';
@@ -807,12 +792,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String duaCount(int count) {
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '$count duas',
-      one: '1 dua',
-    );
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$count duas', one: '1 dua');
     return '$_temp0';
   }
 
@@ -848,8 +828,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get readingTitle => 'Reading size';
 
   @override
-  String get readingHint =>
-      'Arabic, transliteration and meaning, each on its own';
+  String get readingHint => 'Arabic, transliteration and meaning, each on its own';
 
   @override
   String get readingArabic => 'Arabic';
@@ -962,12 +941,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get authoritySaudiHint => 'Announced sightings, updated online';
 
   @override
-  String get authorityDiyanetHint =>
-      'Türkiye\'s official calendar, updated online';
+  String get authorityDiyanetHint => 'Türkiye\'s official calendar, updated online';
 
   @override
-  String get authorityLocalHint =>
-      'Umm al-Qura; on the 29th you say whether the moon was seen';
+  String get authorityLocalHint => 'Umm al-Qura; on the 29th you say whether the moon was seen';
 
   @override
   String calendarSourceLine(String authority, String time) {
@@ -994,12 +971,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String adjustSome(int count) {
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '$count times',
-      one: '1 time',
-    );
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$count times', one: '1 time');
     return '$_temp0';
   }
 
@@ -1029,15 +1001,14 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get hadithUnavailable =>
-      'Hadith search isn\'t available here. It works in the Android app.';
+  String get hadithUnavailable => 'Hadith search isn\'t available here. It works in the Android app.';
 
   @override
   String get hadithLibraryTitle => 'Hadith library';
 
   @override
   String get hadithLibraryBody =>
-      '46,891 hadiths from 17 collections, in Arabic and English, searchable offline. Downloaded once, then always on your phone.';
+      'HadeethEnc\'s encyclopedia in your language: authentic hadiths with the Arabic, grade and explanation, searchable offline. Downloaded once.';
 
   @override
   String hadithLibraryDownload(String mb) {
@@ -1050,15 +1021,14 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get hadithLibraryFailed =>
-      'The download didn\'t finish. Check your connection.';
+  String get hadithLibraryFailed => 'The download didn\'t finish. Check your connection.';
 
   @override
   String get hadithLibraryRetry => 'Try again';
 
   @override
   String get hadithLibraryNote =>
-      'From open-hadith-data (texts as on sunnah.com). Verified before use. Duas and dhikr work without it.';
+      'From HadeethEnc.com, shown unchanged. Home, the checklists and the counter work without it.';
 
   @override
   String counterToday(String count) {
@@ -1165,4 +1135,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get openHadeethEnc => 'HadeethEnc';
+
+  @override
+  String heNotTranslated(String language) {
+    return 'HadeethEnc hasn\'t translated this hadith into $language yet, so the Arabic is shown.';
+  }
+
+  @override
+  String get libraryAllTopics => 'All topics';
 }

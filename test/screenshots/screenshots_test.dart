@@ -160,20 +160,6 @@ void main() {
   );
 
   testWidgets(
-    'hisn chapter',
-    (t) async => shoot(
-      t,
-      '16b_hisn_chapter',
-      await app(at: DateTime(2026, 11, 6, 22, 45), place: dhaka),
-      then: () async {
-        await t.tap(find.text('Duas'));
-        await t.pumpAndSettle();
-        await t.tap(find.text('Before sleeping').first);
-      },
-    ),
-  );
-
-  testWidgets(
     'duas search',
     (t) async => shoot(
       t,
@@ -213,8 +199,6 @@ void main() {
         await t.tap(find.text('Duas'));
         await t.pumpAndSettle();
         await t.enterText(find.byType(TextField), 'patience');
-        await t.pumpAndSettle();
-        await t.tap(find.text('Hadith'));
       },
     ),
   );
@@ -393,7 +377,27 @@ void main() {
       await app(at: DateTime(d.year, d.month, d.day, 15, 0), place: dhaka, locale: const Locale('bn')),
       then: () async {
         await t.runAsync(() async {
-          await t.tap(find.text('Do not fast today'));
+          await t.tap(find.text('আজ রোজা রাখবেন না'));
+          await Future<void>.delayed(const Duration(milliseconds: 500));
+        });
+        await t.pumpAndSettle();
+      },
+    );
+  });
+
+  testWidgets('eid hadith not yet translated', (t) async {
+    // HadeethEnc has the Eid dates hadith in Arabic only, so far: Arabic and a note.
+    final d = civilOf(1448, 10, 1);
+    await shoot(
+      t,
+      '60d_hadith_arabic_only_bn',
+      await app(at: DateTime(d.year, d.month, d.day, 6, 40), place: dhaka, locale: const Locale('bn')),
+      then: () async {
+        await t.scrollUntilVisible(find.text('নামাজের আগে বেজোড় সংখ্যক খেজুর খান'), 200);
+        await t.drag(find.byType(Scrollable).first, const Offset(0, -300));
+        await t.pumpAndSettle();
+        await t.runAsync(() async {
+          await t.tap(find.text('নামাজের আগে বেজোড় সংখ্যক খেজুর খান'));
           await Future<void>.delayed(const Duration(milliseconds: 500));
         });
         await t.pumpAndSettle();

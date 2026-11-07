@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/theme/tokens.dart';
 import '../../core/theme/waqt_theme.dart';
-import '../../data/sources/hisn.dart';
+import '../../data/sources/hadeethenc.dart';
 import '../../data/user/reading_prefs.dart';
 import '../../l10n/app_localizations.dart';
 
@@ -18,8 +18,9 @@ class ReadingScreen extends ConsumerWidget {
     final t = WaqtTokens.of(context);
     final rp = ref.watch(readingPrefsProvider);
     final n = ref.read(readingPrefsProvider.notifier);
-    // The first dua of the book, said on waking.
-    final dua = ref.watch(hisnProvider).value?.duas.first;
+    // The master supplication for forgiveness, as HadeethEnc gives it.
+    final h = ref.watch(heBundleProvider).value?[5503];
+    final lang = Localizations.localeOf(context).languageCode;
 
     Widget slider(String label, double v, ValueChanged<double> on) => Padding(
       padding: const EdgeInsets.only(top: WaqtSpace.x3),
@@ -64,13 +65,13 @@ class ReadingScreen extends ConsumerWidget {
               child: Container(
                 padding: const EdgeInsets.all(WaqtSpace.x5),
                 decoration: BoxDecoration(color: t.surface, borderRadius: BorderRadius.circular(WaqtRadii.card)),
-                child: dua == null
+                child: h == null
                     ? const SizedBox(height: 120)
                     : Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           Text(
-                            dua.arabic,
+                            h.arabic?.text ?? '',
                             textDirection: TextDirection.rtl,
                             textAlign: TextAlign.right,
                             style: ReadingPrefs.scaled(
@@ -78,22 +79,9 @@ class ReadingScreen extends ConsumerWidget {
                               rp.arabic,
                             ),
                           ),
-                          if (dua.transliteration != null) ...[
+                          if (h.translation(lang) case final tr?) ...[
                             const SizedBox(height: WaqtSpace.x3),
-                            Text(
-                              dua.transliteration!,
-                              style: ReadingPrefs.scaled(
-                                WaqtText.body.copyWith(color: t.inkMuted, fontStyle: FontStyle.italic),
-                                rp.transliteration,
-                              ),
-                            ),
-                          ],
-                          if (dua.translation != null) ...[
-                            const SizedBox(height: WaqtSpace.x3),
-                            Text(
-                              dua.translation!,
-                              style: ReadingPrefs.scaled(WaqtText.body.copyWith(color: t.ink), rp.meaning),
-                            ),
+                            Text(tr.text, style: ReadingPrefs.scaled(WaqtText.body.copyWith(color: t.ink), rp.meaning)),
                           ],
                         ],
                       ),
@@ -107,7 +95,6 @@ class ReadingScreen extends ConsumerWidget {
               child: Column(
                 children: [
                   slider(l.readingArabic, rp.arabic, (v) => n.set(arabic: v)),
-                  slider(l.readingTransliteration, rp.transliteration, (v) => n.set(transliteration: v)),
                   slider(l.readingMeaning, rp.meaning, (v) => n.set(meaning: v)),
                 ],
               ),

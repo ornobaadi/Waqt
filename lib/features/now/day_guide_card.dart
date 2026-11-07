@@ -6,8 +6,6 @@ import '../../core/theme/tokens.dart';
 import '../../core/theme/waqt_theme.dart';
 import '../../core/utils/digits.dart';
 import '../../data/sources/days.dart';
-import '../../data/sources/hadeethenc.dart';
-import '../../data/sources/hadith_db.dart';
 import '../../l10n/app_localizations.dart';
 import '../duas/library_views.dart';
 
@@ -143,7 +141,7 @@ class _Row extends ConsumerWidget {
     final ink = t.heroInk;
     return Semantics(
       checked: done,
-      label: '${item.title}. ${item.reference}',
+      label: item.title(Localizations.localeOf(context).languageCode),
       excludeSemantics: true,
       child: Row(
         children: [
@@ -164,14 +162,14 @@ class _Row extends ConsumerWidget {
           Expanded(
             child: InkWell(
               borderRadius: BorderRadius.circular(WaqtRadii.row),
-              onTap: () => openDayItem(context, ref, item),
+              onTap: () => openHadith(context, ref, item.he),
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: WaqtSpace.x2, horizontal: WaqtSpace.x1),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      item.title,
+                      item.title(Localizations.localeOf(context).languageCode),
                       style: WaqtText.bodyStrong.copyWith(
                         color: done ? ink.withValues(alpha: 0.55) : ink,
                         decoration: done ? TextDecoration.lineThrough : null,
@@ -179,8 +177,8 @@ class _Row extends ConsumerWidget {
                       ),
                     ),
                     const SizedBox(height: 2),
-                    Text(
-                      [item.reference, if (item.grade != null) item.grade!].join('  ·  '),
+                    HeSourceText(
+                      id: item.he,
                       style: WaqtText.caption.copyWith(color: ink.withValues(alpha: 0.62)),
                     ),
                   ],
@@ -193,57 +191,6 @@ class _Row extends ConsumerWidget {
       ),
     );
   }
-}
-
-/// Opens the hadith behind a day item from the bundled collections.
-Future<void> openDayItem(BuildContext context, WidgetRef ref, DayItem item) async {
-  final enc = await ref.read(hadeethEncProvider.future);
-  final he = enc[item.id];
-  if (!context.mounted) return;
-  // HadeethEnc has it: it opens at once, in the reader's language, from the
-  // bundled translations. The full text from the library is added when present.
-  if (he != null && ref.read(hadithInstallProvider).status != HadithLibrary.ready) {
-    await showHadithSheet(
-      context,
-      Hadith(
-        collection: item.collection,
-        number: item.number,
-        reference: item.reference,
-        arabic: he.of('ar')?.text ?? '',
-        english: he.of('en')?.text ?? '',
-        grade: item.grade,
-      ),
-      he: he,
-      retrieved: enc.retrieved,
-    );
-    return;
-  }
-  // Not downloaded yet: offer the library; it opens the hadith once ready.
-  if (ref.read(hadithInstallProvider).status != HadithLibrary.ready) {
-    final t = WaqtTokens.of(context);
-    final ready = await showModalBottomSheet<bool>(
-      context: context,
-      showDragHandle: true,
-      backgroundColor: t.ground,
-      builder: (ctx) => Consumer(
-        builder: (ctx, ref, _) {
-          ref.listen(hadithInstallProvider.select((s) => s.status), (_, s) {
-            if (s == HadithLibrary.ready && ctx.mounted) Navigator.pop(ctx, true);
-          });
-          return const SafeArea(
-            child: Padding(
-              padding: EdgeInsets.fromLTRB(WaqtSpace.screen, 0, WaqtSpace.screen, WaqtSpace.x6),
-              child: HadithDownloadCard(inSheet: true),
-            ),
-          );
-        },
-      ),
-    );
-    if (ready != true || !context.mounted) return;
-  }
-  final db = await ref.read(hadithDbProvider.future);
-  final h = await db.byRef(item.collection, item.number);
-  if (h != null && context.mounted) await showHadithSheet(context, h, he: he, retrieved: enc.retrieved);
 }
 
 /// "Sunnah fast today", or after Maghrib "Fast tomorrow", naming the day.

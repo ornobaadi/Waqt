@@ -220,7 +220,7 @@
   "counterAfterSalah": "بعد الصلاة: ٣٣ · ٣٣ · ٣٤",
   "counterHaptics": "اهتزاز مع كل عدّة",
   "counterAfterSalahName": "بعد الصلاة",
-  "librarySearchAll": "ابحث في الأدعية والأحاديث",
+  "librarySearchAll": "ابحث في الأحاديث والأدعية",
   "scopeDuas": "الأدعية",
   "scopeHadith": "الأحاديث",
   "librarySituations": "كل المواقف",
@@ -283,12 +283,12 @@
   "showAll": "عرض الكل ({count})",
   "hadithUnavailable": "البحث في الأحاديث غير متاح هنا. يعمل في تطبيق أندرويد.",
   "hadithLibraryTitle": "مكتبة الحديث",
-  "hadithLibraryBody": "٤٦٬٨٩١ حديثًا من ١٧ كتابًا، بالعربية والإنجليزية، للبحث دون اتصال. تُحمَّل مرة واحدة وتبقى على هاتفك.",
+  "hadithLibraryBody": "موسوعة الأحاديث النبوية من HadeethEnc: أحاديث صحيحة مع درجتها وشرحها، للبحث دون اتصال. تُحمَّل مرة واحدة.",
   "hadithLibraryDownload": "تحميل ({mb} م.ب)",
   "hadithLibraryProgress": "جارٍ التحميل… {percent}٪",
   "hadithLibraryFailed": "لم يكتمل التحميل. تحقق من الاتصال.",
   "hadithLibraryRetry": "أعد المحاولة",
-  "hadithLibraryNote": "من open-hadith-data (النصوص كما في sunnah.com). يُتحقق منها قبل الاستخدام. الأدعية والأذكار تعمل دونها.",
+  "hadithLibraryNote": "من HadeethEnc.com دون تغيير. الصفحة الرئيسية والقوائم والعدّاد تعمل بدونها.",
   "counterToday": "اليوم {count}",
   "counterTodayTitle": "ما قيل اليوم",
   "counterTodayAll": "كل الأذكار",
@@ -304,5 +304,7 @@
   "sheetExplanation": "الشرح",
   "sheetEnglishOriginal": "الإنجليزية (sunnah.com)",
   "sourceHadeethEnc": "الترجمة والشرح: موسوعة الأحاديث المترجمة HadeethEnc.com، دون تغيير (جُلبت {date}).",
-  "openHadeethEnc": "HadeethEnc"
+  "openHadeethEnc": "HadeethEnc",
+  "heNotTranslated": "HadeethEnc hasn't translated this hadith into {language} yet, so the Arabic is shown.",
+  "libraryAllTopics": "جميع الموضوعات"
 }

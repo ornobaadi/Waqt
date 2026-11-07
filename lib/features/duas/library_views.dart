@@ -5,133 +5,53 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../core/theme/tokens.dart';
 import '../../core/theme/waqt_theme.dart';
+import '../../core/widgets/waqt_widgets.dart';
 import '../../data/sources/hadeethenc.dart';
-import '../../data/sources/hadith_db.dart';
-import '../../data/sources/hisn.dart';
+import '../../data/sources/he_library.dart';
 import '../../data/user/reading_prefs.dart';
 import '../../l10n/app_localizations.dart';
 
-/// One chapter of Hisn al-Muslim, read top to bottom.
-class HisnChapterScreen extends ConsumerWidget {
-  const HisnChapterScreen({super.key, required this.number});
-  final int number;
+/// Book and grade of a hadith, in the reader's language where HadeethEnc has
+/// it, else in Arabic: "সহীহ বুখারী ও মুসলিম · সহীহ".
+String heSource(HeHadith h, String lang) {
+  final m = h.meta(lang);
+  return [m?.attribution, m?.grade].nonNulls.where((s) => s.isNotEmpty).join('  ·  ');
+}
+
+/// The source line of a bundled hadith, looked up by id.
+class HeSourceText extends ConsumerWidget {
+  const HeSourceText({super.key, required this.id, required this.style});
+  final int id;
+  final TextStyle style;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final t = WaqtTokens.of(context);
-    final book = ref.watch(hisnProvider).value;
-    final ch = book?.chapter(number);
-    final ar = Localizations.localeOf(context).languageCode == 'ar';
-    return Scaffold(
-      backgroundColor: t.ground,
-      appBar: AppBar(
-        backgroundColor: t.ground,
-        surfaceTintColor: Colors.transparent,
-        foregroundColor: t.ink,
-        title: Text(
-          ch == null ? '' : (ar ? ch.ar : ch.en),
-          style: WaqtText.titleSmall.copyWith(color: t.ink),
-          maxLines: 2,
-        ),
-      ),
-      body: book == null
-          ? const SizedBox()
-          : ListView(
-              padding: const EdgeInsets.fromLTRB(WaqtSpace.screen, WaqtSpace.x2, WaqtSpace.screen, WaqtSpace.x12),
-              children: [
-                for (final d in book.inChapter(number)) ...[HisnDuaCard(dua: d), const SizedBox(height: WaqtSpace.x4)],
-                _Attribution(text: AppLocalizations.of(context).sourceHisn),
-              ],
-            ),
-    );
+    final h = ref.watch(heBundleProvider).value?[id];
+    if (h == null) return const SizedBox.shrink();
+    return Text(heSource(h, Localizations.localeOf(context).languageCode), style: style);
   }
 }
 
-/// A dua as the book gives it: Arabic, how to say it, what it means, and
-/// where it comes from.
-class HisnDuaCard extends ConsumerWidget {
-  const HisnDuaCard({super.key, required this.dua, this.chapter});
-  final HisnDua dua;
-
-  /// Shown in search results, where the situation is not obvious.
-  final String? chapter;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final rp = ref.watch(readingPrefsProvider);
-    final l = AppLocalizations.of(context);
-    final t = WaqtTokens.of(context);
-    return Container(
-      padding: const EdgeInsets.all(WaqtSpace.x5),
-      decoration: BoxDecoration(color: t.surface, borderRadius: BorderRadius.circular(WaqtRadii.card)),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          if (chapter != null) ...[
-            Text(chapter!.toUpperCase(), style: WaqtText.overline.copyWith(color: t.inkMuted)),
-            const SizedBox(height: WaqtSpace.x3),
-          ],
-          if (dua.context != null && dua.context!.isNotEmpty) ...[
-            Text(dua.context!, style: WaqtText.label.copyWith(color: t.inkMuted)),
-            const SizedBox(height: WaqtSpace.x3),
-          ],
-          SelectableText(
-            dua.arabic,
-            textDirection: TextDirection.rtl,
-            textAlign: TextAlign.right,
-            style: ReadingPrefs.scaled(WaqtText.arabic.copyWith(color: t.ink, fontSize: 24, height: 1.85), rp.arabic),
-          ),
-          if (dua.transliteration case final tr? when tr.isNotEmpty) ...[
-            const SizedBox(height: WaqtSpace.x3),
-            Text(
-              tr,
-              style: WaqtText.body.copyWith(color: t.inkMuted, fontStyle: FontStyle.italic),
-            ),
-          ],
-          if (dua.translation case final en? when en.isNotEmpty) ...[
-            const SizedBox(height: WaqtSpace.x3),
-            Text(en, style: ReadingPrefs.scaled(WaqtText.body.copyWith(color: t.ink), rp.meaning)),
-          ],
-          const SizedBox(height: WaqtSpace.x4),
-          Divider(height: 1, color: t.hairline),
-          const SizedBox(height: WaqtSpace.x3),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: Text(
-                  [l.hisnNumber(dua.number), if (dua.reference != null) dua.reference!].join('  ·  '),
-                  style: WaqtText.caption.copyWith(color: t.inkMuted),
-                ),
-              ),
-              _IconAction(
-                icon: Icons.copy_rounded,
-                tooltip: l.copyText,
-                onTap: () => _copy(context, [dua.arabic, ?dua.translation, ?dua.reference].join('\n\n')),
-              ),
-              if (dua.url != null)
-                _IconAction(
-                  icon: Icons.open_in_new_rounded,
-                  tooltip: l.openSource,
-                  onTap: () => launchUrl(Uri.parse(dua.url!), mode: LaunchMode.externalApplication),
-                ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
+/// Opens a bundled hadith by its HadeethEnc id. Everything Home, the
+/// checklists and the counter point to is bundled, so this works offline.
+Future<void> openHadith(BuildContext context, WidgetRef ref, int id) async {
+  final bundle = await ref.read(heBundleProvider.future);
+  final h = bundle[id];
+  if (h != null && context.mounted) await showHadithSheet(context, h);
 }
 
-/// A hadith search result; tap for the whole text.
+/// A search or topic result; tap for the whole hadith.
 class HadithTile extends StatelessWidget {
   const HadithTile({super.key, required this.hadith});
-  final Hadith hadith;
+  final HeHadith hadith;
 
   @override
   Widget build(BuildContext context) {
     final t = WaqtTokens.of(context);
-    final ar = Localizations.localeOf(context).languageCode == 'ar' || hadith.english.isEmpty;
+    final lang = Localizations.localeOf(context).languageCode;
+    final tr = hadith.translation(lang);
+    final text = tr?.title ?? tr?.text ?? hadith.arabic?.title ?? hadith.arabic?.text ?? '';
+    final rtl = tr == null;
     return Material(
       color: t.surface,
       borderRadius: BorderRadius.circular(WaqtRadii.strip),
@@ -143,27 +63,17 @@ class HadithTile extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      hadith.reference,
-                      style: WaqtText.label.copyWith(color: t.ink, fontWeight: FontWeight.w600),
-                    ),
-                  ),
-                  if (hadith.grade case final g? when g.isNotEmpty) _Grade(g),
-                ],
-              ),
-              const SizedBox(height: WaqtSpace.x2),
               Text(
-                ar ? hadith.arabic : hadith.english,
+                text,
                 maxLines: 3,
                 overflow: TextOverflow.ellipsis,
-                textDirection: ar ? TextDirection.rtl : null,
-                style: ar
+                textDirection: rtl ? TextDirection.rtl : null,
+                style: rtl
                     ? WaqtText.arabic.copyWith(color: t.ink, fontSize: 18, height: 1.7)
-                    : WaqtText.body.copyWith(color: t.ink),
+                    : WaqtText.bodyStrong.copyWith(color: t.ink),
               ),
+              const SizedBox(height: WaqtSpace.x2),
+              Text(heSource(hadith, lang), style: WaqtText.caption.copyWith(color: t.inkMuted)),
             ],
           ),
         ),
@@ -172,9 +82,11 @@ class HadithTile extends StatelessWidget {
   }
 }
 
-/// [he]: HadeethEnc's reviewed translation and explanation, when it has
-/// this hadith; shown in the reader's language, unchanged and credited.
-Future<void> showHadithSheet(BuildContext context, Hadith h, {HeEntry? he, String? retrieved}) {
+/// The whole hadith: Arabic, the translation in the reader's language, its
+/// book and grade, and HadeethEnc's explanation, all unchanged and credited.
+/// Where HadeethEnc has not translated it into this language yet, the
+/// Arabic stands alone with a note; no other language is shown in its place.
+Future<void> showHadithSheet(BuildContext context, HeHadith h) {
   final t = WaqtTokens.of(context);
   final l = AppLocalizations.of(context);
   return showModalBottomSheet<void>(
@@ -185,6 +97,12 @@ Future<void> showHadithSheet(BuildContext context, Hadith h, {HeEntry? he, Strin
     builder: (ctx) => Consumer(
       builder: (ctx, ref, _) {
         final rp = ref.watch(readingPrefsProvider);
+        final retrieved = ref.watch(heBundleProvider).value?.retrieved ?? '';
+        final lang = Localizations.localeOf(ctx).languageCode;
+        final ar = h.arabic;
+        final tr = h.translation(lang);
+        final meta = h.meta(lang);
+        final meaning = ReadingPrefs.scaled(WaqtText.body.copyWith(color: t.ink, height: 1.6), rp.meaning);
         return DraggableScrollableSheet(
           expand: false,
           initialChildSize: 0.75,
@@ -196,15 +114,18 @@ Future<void> showHadithSheet(BuildContext context, Hadith h, {HeEntry? he, Strin
               Row(
                 children: [
                   Expanded(
-                    child: Text(h.reference, style: WaqtText.titleSmall.copyWith(color: t.ink)),
+                    child: Text(
+                      meta?.attribution ?? '',
+                      style: WaqtText.label.copyWith(color: t.inkMuted, fontWeight: FontWeight.w600),
+                    ),
                   ),
-                  if (h.grade case final g? when g.isNotEmpty) _Grade(g),
+                  if (meta?.grade case final g? when g.isNotEmpty) _Grade(g),
                 ],
               ),
               const SizedBox(height: WaqtSpace.x5),
-              if (h.arabic.isNotEmpty)
+              if (ar != null && ar.text.isNotEmpty)
                 SelectableText(
-                  h.arabic,
+                  ar.text,
                   textDirection: TextDirection.rtl,
                   textAlign: TextAlign.right,
                   style: ReadingPrefs.scaled(
@@ -212,72 +133,44 @@ Future<void> showHadithSheet(BuildContext context, Hadith h, {HeEntry? he, Strin
                     rp.arabic,
                   ),
                 ),
-              ...() {
-                final lang = Localizations.localeOf(ctx).languageCode;
-                final tr = he?.of(lang);
-                final meaning = ReadingPrefs.scaled(WaqtText.body.copyWith(color: t.ink, height: 1.55), rp.meaning);
-                final english = h.english.isEmpty ? null : SelectableText(h.english, style: meaning);
-                if (tr == null || lang == 'ar') {
-                  return [
-                    if (english != null) ...[const SizedBox(height: WaqtSpace.x5), english],
-                    if (tr?.explanation case final x? when x.isNotEmpty)
-                      ..._explained(ctx, l.sheetExplanation, x, meaning),
-                    if (tr != null) _Attribution(text: l.sourceHadeethEnc(retrieved ?? '')),
-                  ];
-                }
-                return [
-                  const SizedBox(height: WaqtSpace.x5),
-                  if (lang != 'en' || english == null) SelectableText(tr.text, style: meaning) else english,
-                  if ([tr.attribution, tr.grade].nonNulls.where((x) => x.isNotEmpty) case final meta
-                      when meta.isNotEmpty)
-                    Padding(
-                      padding: const EdgeInsets.only(top: WaqtSpace.x2),
-                      child: Text(meta.join(' · '), style: WaqtText.caption.copyWith(color: t.inkMuted)),
-                    ),
-                  if (tr.explanation case final x? when x.isNotEmpty)
-                    ..._explained(ctx, l.sheetExplanation, x, meaning),
-                  _Attribution(text: l.sourceHadeethEnc(retrieved ?? '')),
-                  if (lang != 'en' && english != null)
-                    Theme(
-                      data: Theme.of(ctx).copyWith(dividerColor: Colors.transparent),
-                      child: ExpansionTile(
-                        tilePadding: EdgeInsets.zero,
-                        childrenPadding: const EdgeInsets.only(bottom: WaqtSpace.x3),
-                        title: Text(l.sheetEnglishOriginal, style: WaqtText.label.copyWith(color: t.inkMuted)),
-                        children: [english],
-                      ),
-                    ),
-                ];
-              }(),
+              if (tr != null) ...[
+                const SizedBox(height: WaqtSpace.x5),
+                SelectableText(tr.text, style: meaning),
+              ] else if (lang != 'ar') ...[
+                const SizedBox(height: WaqtSpace.x4),
+                _Note(l.heNotTranslated(_selfName[lang] ?? lang)),
+              ],
+              if (meta?.explanation case final x? when x.isNotEmpty) ...[
+                const SizedBox(height: WaqtSpace.x6),
+                Text(l.sheetExplanation.toUpperCase(), style: WaqtText.overline.copyWith(color: t.inkMuted)),
+                const SizedBox(height: WaqtSpace.x2),
+                SelectableText(
+                  x,
+                  textDirection: identical(meta, ar) ? TextDirection.rtl : null,
+                  style: meaning.copyWith(color: t.inkMuted),
+                ),
+              ],
               const SizedBox(height: WaqtSpace.x5),
               Wrap(
                 spacing: WaqtSpace.x2,
                 children: [
                   OutlinedButton.icon(
-                    onPressed: () =>
-                        _copy(ctx, [h.arabic, h.english, h.reference].where((s) => s.isNotEmpty).join('\n\n')),
+                    onPressed: () => _copy(
+                      ctx,
+                      [ar?.text, tr?.text, meta?.attribution].nonNulls.where((s) => s.isNotEmpty).join('\n\n'),
+                    ),
                     icon: const Icon(Icons.copy_rounded, size: 18),
                     label: Text(l.copyText),
                   ),
-                  if (he != null)
-                    OutlinedButton.icon(
-                      onPressed: () => launchUrl(
-                        he.page(Localizations.localeOf(ctx).languageCode),
-                        mode: LaunchMode.externalApplication,
-                      ),
-                      icon: const Icon(Icons.translate_rounded, size: 18),
-                      label: Text(l.openHadeethEnc),
-                    ),
-                  if (h.url != null)
-                    OutlinedButton.icon(
-                      onPressed: () => launchUrl(Uri.parse(h.url!), mode: LaunchMode.externalApplication),
-                      icon: const Icon(Icons.open_in_new_rounded, size: 18),
-                      label: Text(l.openSource),
-                    ),
+                  OutlinedButton.icon(
+                    onPressed: () => launchUrl(h.page(lang), mode: LaunchMode.externalApplication),
+                    icon: const Icon(Icons.open_in_new_rounded, size: 18),
+                    label: Text(l.openHadeethEnc),
+                  ),
                 ],
               ),
               const SizedBox(height: WaqtSpace.x4),
-              _Attribution(text: l.sourceHadith),
+              _Attribution(text: l.sourceHadeethEnc(retrieved)),
             ],
           ),
         );
@@ -286,15 +179,15 @@ Future<void> showHadithSheet(BuildContext context, Hadith h, {HeEntry? he, Strin
   );
 }
 
-List<Widget> _explained(BuildContext context, String label, String text, TextStyle style) {
-  final t = WaqtTokens.of(context);
-  return [
-    const SizedBox(height: WaqtSpace.x5),
-    Text(label.toUpperCase(), style: WaqtText.overline.copyWith(color: t.inkMuted)),
-    const SizedBox(height: WaqtSpace.x2),
-    SelectableText(text, style: style.copyWith(color: t.inkMuted)),
-  ];
-}
+/// Each language's name for itself, for "not yet in বাংলা".
+const _selfName = {
+  'en': 'English',
+  'ur': 'اردو',
+  'bn': 'বাংলা',
+  'id': 'Bahasa Indonesia',
+  'tr': 'Türkçe',
+  'fr': 'français',
+};
 
 void _copy(BuildContext context, String text) {
   Clipboard.setData(ClipboardData(text: text));
@@ -319,19 +212,19 @@ class _Grade extends StatelessWidget {
   }
 }
 
-class _IconAction extends StatelessWidget {
-  const _IconAction({required this.icon, required this.tooltip, required this.onTap});
-  final IconData icon;
-  final String tooltip;
-  final VoidCallback onTap;
+class _Note extends StatelessWidget {
+  const _Note(this.text);
+  final String text;
 
   @override
-  Widget build(BuildContext context) => IconButton(
-    tooltip: tooltip,
-    onPressed: onTap,
-    visualDensity: VisualDensity.compact,
-    icon: Icon(icon, size: 18, color: WaqtTokens.of(context).inkMuted),
-  );
+  Widget build(BuildContext context) {
+    final t = WaqtTokens.of(context);
+    return Container(
+      padding: const EdgeInsets.all(WaqtSpace.x3),
+      decoration: BoxDecoration(color: t.surface, borderRadius: BorderRadius.circular(WaqtRadii.row)),
+      child: Text(text, style: WaqtText.label.copyWith(color: t.inkMuted)),
+    );
+  }
 }
 
 class _Attribution extends StatelessWidget {
@@ -345,8 +238,58 @@ class _Attribution extends StatelessWidget {
   );
 }
 
-/// Offers the hadith library: what it is, its size, one button. Shows
-/// progress while downloading and a retry if it failed.
+/// One HadeethEnc topic: its subtopics, then its hadiths.
+class TopicScreen extends ConsumerWidget {
+  const TopicScreen({super.key, required this.id});
+  final int id;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final t = WaqtTokens.of(context);
+    final lib = ref.watch(heLibraryProvider).value;
+    final topic = lib?.topic(id);
+    return Scaffold(
+      backgroundColor: t.ground,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        surfaceTintColor: Colors.transparent,
+        foregroundColor: t.ink,
+        title: Text(topic?.title ?? '', style: WaqtText.bodyStrong.copyWith(color: t.ink)),
+      ),
+      body: lib == null
+          ? const Center(child: CircularProgressIndicator())
+          : FutureBuilder(
+              future: lib.inTopic(id),
+              builder: (context, snap) {
+                final subs = lib.children(id);
+                final hadiths = snap.data ?? const <HeHadith>[];
+                return ListView(
+                  padding: const EdgeInsets.fromLTRB(WaqtSpace.screen, 0, WaqtSpace.screen, WaqtSpace.x12),
+                  children: [
+                    if (subs.isNotEmpty)
+                      RowGroup(
+                        children: [
+                          for (final s in subs)
+                            RowTile(title: s.title, onTap: () => Navigator.of(context).push(_route(s.id))),
+                        ],
+                      ),
+                    for (final h in hadiths)
+                      Padding(
+                        padding: const EdgeInsets.only(top: WaqtSpace.x3),
+                        child: HadithTile(hadith: h),
+                      ),
+                  ],
+                );
+              },
+            ),
+    );
+  }
+
+  static Route<void> _route(int id) => MaterialPageRoute(builder: (_) => TopicScreen(id: id));
+}
+
+/// Offers the library in the reader's language: one button, progress while
+/// downloading, a retry if it failed.
 class HadithDownloadCard extends ConsumerWidget {
   const HadithDownloadCard({super.key, this.inSheet = false});
 
@@ -358,7 +301,6 @@ class HadithDownloadCard extends ConsumerWidget {
     final l = AppLocalizations.of(context);
     final t = WaqtTokens.of(context);
     final s = ref.watch(hadithInstallProvider);
-    final mb = (HadithDb.downloadBytes / 1e6).toStringAsFixed(0);
     final busy = s.status == HadithLibrary.downloading || s.status == HadithLibrary.checking;
     return Container(
       padding: inSheet ? EdgeInsets.zero : const EdgeInsets.all(WaqtSpace.x5),
@@ -403,7 +345,7 @@ class HadithDownloadCard extends ConsumerWidget {
                 shape: const StadiumBorder(),
               ),
               icon: const Icon(Icons.download_rounded),
-              label: Text(s.status == HadithLibrary.failed ? l.hadithLibraryRetry : l.hadithLibraryDownload(mb)),
+              label: Text(s.status == HadithLibrary.failed ? l.hadithLibraryRetry : l.hadithLibraryDownload('3–5')),
             ),
           ],
           const SizedBox(height: WaqtSpace.x3),

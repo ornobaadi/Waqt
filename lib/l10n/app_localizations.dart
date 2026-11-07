@@ -67,8 +67,7 @@ import 'app_localizations_ur.dart';
 /// be consistent with the languages listed in the AppLocalizations.supportedLocales
 /// property.
 abstract class AppLocalizations {
-  AppLocalizations(String locale)
-    : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+  AppLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -76,8 +75,7 @@ abstract class AppLocalizations {
     return Localizations.of<AppLocalizations>(context, AppLocalizations)!;
   }
 
-  static const LocalizationsDelegate<AppLocalizations> delegate =
-      _AppLocalizationsDelegate();
+  static const LocalizationsDelegate<AppLocalizations> delegate = _AppLocalizationsDelegate();
 
   /// A list of this localizations delegate along with the default localizations
   /// delegates.
@@ -89,13 +87,12 @@ abstract class AppLocalizations {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
-      <LocalizationsDelegate<dynamic>>[
-        delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ];
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
+    delegate,
+    GlobalMaterialLocalizations.delegate,
+    GlobalCupertinoLocalizations.delegate,
+    GlobalWidgetsLocalizations.delegate,
+  ];
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
@@ -1521,7 +1518,7 @@ abstract class AppLocalizations {
   /// No description provided for @librarySearchAll.
   ///
   /// In en, this message translates to:
-  /// **'Search duas and hadith'**
+  /// **'Search hadith and duas'**
   String get librarySearchAll;
 
   /// No description provided for @scopeDuas.
@@ -1899,7 +1896,7 @@ abstract class AppLocalizations {
   /// No description provided for @hadithLibraryBody.
   ///
   /// In en, this message translates to:
-  /// **'46,891 hadiths from 17 collections, in Arabic and English, searchable offline. Downloaded once, then always on your phone.'**
+  /// **'HadeethEnc\'s encyclopedia in your language: authentic hadiths with the Arabic, grade and explanation, searchable offline. Downloaded once.'**
   String get hadithLibraryBody;
 
   /// No description provided for @hadithLibraryDownload.
@@ -1929,7 +1926,7 @@ abstract class AppLocalizations {
   /// No description provided for @hadithLibraryNote.
   ///
   /// In en, this message translates to:
-  /// **'From open-hadith-data (texts as on sunnah.com). Verified before use. Duas and dhikr work without it.'**
+  /// **'From HadeethEnc.com, shown unchanged. Home, the checklists and the counter work without it.'**
   String get hadithLibraryNote;
 
   /// No description provided for @counterToday.
@@ -2135,10 +2132,21 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'HadeethEnc'**
   String get openHadeethEnc;
+
+  /// No description provided for @heNotTranslated.
+  ///
+  /// In en, this message translates to:
+  /// **'HadeethEnc hasn\'t translated this hadith into {language} yet, so the Arabic is shown.'**
+  String heNotTranslated(String language);
+
+  /// No description provided for @libraryAllTopics.
+  ///
+  /// In en, this message translates to:
+  /// **'All topics'**
+  String get libraryAllTopics;
 }
 
-class _AppLocalizationsDelegate
-    extends LocalizationsDelegate<AppLocalizations> {
+class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
   const _AppLocalizationsDelegate();
 
   @override
@@ -2147,15 +2155,7 @@ class _AppLocalizationsDelegate
   }
 
   @override
-  bool isSupported(Locale locale) => <String>[
-    'ar',
-    'bn',
-    'en',
-    'fr',
-    'id',
-    'tr',
-    'ur',
-  ].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>['ar', 'bn', 'en', 'fr', 'id', 'tr', 'ur'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;

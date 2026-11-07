@@ -198,7 +198,7 @@
   "counterAfterSalah": "নামাজের পর: ৩৩ · ৩৩ · ৩৪",
   "counterHaptics": "প্রতি গণনায় ভাইব্রেশন",
   "counterAfterSalahName": "নামাজের পর",
-  "librarySearchAll": "দোয়া ও হাদিস খুঁজুন",
+  "librarySearchAll": "হাদিস ও দোয়া খুঁজুন",
   "scopeDuas": "দোয়া",
   "scopeHadith": "হাদিস",
   "librarySituations": "সব পরিস্থিতি",
@@ -261,12 +261,12 @@
   "showAll": "সব দেখান ({count})",
   "hadithUnavailable": "হাদিস খোঁজা এখানে নেই। অ্যান্ড্রয়েড অ্যাপে কাজ করে।",
   "hadithLibraryTitle": "হাদিস লাইব্রেরি",
-  "hadithLibraryBody": "১৭টি গ্রন্থের ৪৬,৮৯১টি হাদিস, আরবি ও ইংরেজিতে, অফলাইনে খোঁজা যায়। একবার ডাউনলোড, তারপর সবসময় ফোনে।",
+  "hadithLibraryBody": "আপনার ভাষায় HadeethEnc বিশ্বকোষ: আরবি, মান ও ব্যাখ্যাসহ সহিহ হাদিস, অফলাইনে খোঁজা যায়। একবার ডাউনলোড করলেই হবে।",
   "hadithLibraryDownload": "ডাউনলোড ({mb} MB)",
   "hadithLibraryProgress": "ডাউনলোড হচ্ছে… {percent}%",
   "hadithLibraryFailed": "ডাউনলোড শেষ হয়নি। সংযোগ দেখুন।",
   "hadithLibraryRetry": "আবার চেষ্টা করুন",
-  "hadithLibraryNote": "open-hadith-data থেকে (লেখা sunnah.com অনুযায়ী)। ব্যবহারের আগে যাচাই করা হয়। দোয়া ও জিকির এটি ছাড়াই চলে।",
+  "hadithLibraryNote": "HadeethEnc.com থেকে, হুবহু। হোম, চেকলিস্ট ও তাসবিহ এটি ছাড়াই চলে।",
   "counterToday": "আজ {count}",
   "counterTodayTitle": "আজ পড়েছেন",
   "counterTodayAll": "সব জিকির",
@@ -282,5 +282,7 @@
   "sheetExplanation": "ব্যাখ্যা",
   "sheetEnglishOriginal": "ইংরেজি (sunnah.com)",
   "sourceHadeethEnc": "অনুবাদ ও ব্যাখ্যা: HadeethEnc.com, হুবহু ({date} তারিখে নেওয়া)।",
-  "openHadeethEnc": "HadeethEnc"
+  "openHadeethEnc": "HadeethEnc",
+  "heNotTranslated": "HadeethEnc এখনও এই হাদিসের {language} অনুবাদ প্রকাশ করেনি, তাই আরবি দেখানো হলো।",
+  "libraryAllTopics": "সব বিষয়"
 }

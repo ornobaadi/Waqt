@@ -11,7 +11,7 @@ import '../../domain/hijri/hijri_service.dart';
 import '../../domain/occasions/occasions.dart';
 import '../../l10n/app_localizations.dart';
 import '../common/labels.dart';
-import '../now/day_guide_card.dart';
+import '../duas/library_views.dart';
 
 /// A Hijri month at a glance: each day with its Gregorian date, a dot on
 /// days with a guide, a ring on days the Sunnah is to fast. Tap a day for
@@ -218,13 +218,16 @@ class _Day extends ConsumerWidget {
               for (final i in g.forOccasion(o))
                 ListTile(
                   contentPadding: EdgeInsets.zero,
-                  title: Text(i.title, style: WaqtText.bodyStrong.copyWith(color: t.ink)),
-                  subtitle: Text(
-                    [i.reference, if (i.grade != null) i.grade!].join('  ·  '),
+                  title: Text(
+                    i.title(Localizations.localeOf(ctx).languageCode),
+                    style: WaqtText.bodyStrong.copyWith(color: t.ink),
+                  ),
+                  subtitle: HeSourceText(
+                    id: i.he,
                     style: WaqtText.caption.copyWith(color: t.inkMuted),
                   ),
                   trailing: Icon(Icons.chevron_right_rounded, color: t.inkMuted),
-                  onTap: () => openDayItem(ctx, ref, i),
+                  onTap: () => openHadith(ctx, ref, i.he),
                 ),
             ],
           ],

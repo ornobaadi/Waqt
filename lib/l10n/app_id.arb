@@ -192,7 +192,7 @@
   "counterAfterSalah": "Setelah salat: 33 · 33 · 34",
   "counterHaptics": "Getar setiap hitungan",
   "counterAfterSalahName": "Setelah salat",
-  "librarySearchAll": "Cari doa dan hadis",
+  "librarySearchAll": "Cari hadis dan doa",
   "scopeDuas": "Doa",
   "scopeHadith": "Hadis",
   "librarySituations": "Semua keadaan",
@@ -255,12 +255,12 @@
   "showAll": "Tampilkan semua {count}",
   "hadithUnavailable": "Pencarian hadis tidak tersedia di sini. Berfungsi di aplikasi Android.",
   "hadithLibraryTitle": "Pustaka hadis",
-  "hadithLibraryBody": "46.891 hadis dari 17 kitab, Arab dan Inggris, dapat dicari luring. Diunduh sekali, lalu selalu di ponsel Anda.",
+  "hadithLibraryBody": "Ensiklopedia HadeethEnc dalam bahasa Anda: hadis sahih beserta teks Arab, derajat, dan penjelasannya, bisa dicari luring. Cukup diunduh sekali.",
   "hadithLibraryDownload": "Unduh ({mb} MB)",
   "hadithLibraryProgress": "Mengunduh… {percent}%",
   "hadithLibraryFailed": "Unduhan belum selesai. Periksa koneksi Anda.",
   "hadithLibraryRetry": "Coba lagi",
-  "hadithLibraryNote": "Dari open-hadith-data (teks seperti di sunnah.com). Diverifikasi sebelum dipakai. Doa dan zikir tetap berfungsi tanpanya.",
+  "hadithLibraryNote": "Dari HadeethEnc.com, tanpa diubah. Beranda, daftar amalan, dan penghitung tetap berfungsi tanpanya.",
   "counterToday": "Hari ini {count}",
   "counterTodayTitle": "Diucapkan hari ini",
   "counterTodayAll": "Semua zikir",
@@ -276,5 +276,7 @@
   "sheetExplanation": "Penjelasan",
   "sheetEnglishOriginal": "Inggris (sunnah.com)",
   "sourceHadeethEnc": "Terjemahan dan penjelasan: HadeethEnc.com, tanpa diubah (diambil {date}).",
-  "openHadeethEnc": "HadeethEnc"
+  "openHadeethEnc": "HadeethEnc",
+  "heNotTranslated": "HadeethEnc belum menerjemahkan hadis ini ke {language}, jadi teks Arabnya yang ditampilkan.",
+  "libraryAllTopics": "Semua topik"
 }

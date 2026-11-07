@@ -12,7 +12,7 @@ import '../../core/config/test_mode.dart';
 import '../counter/counter_screen.dart';
 import '../../data/user/user_prefs.dart';
 import '../../data/user/checklist.dart';
-import '../../data/sources/hadith_db.dart';
+import '../../data/sources/he_library.dart';
 import '../../data/sources/days.dart';
 import '../../data/hijri/calendar_sync.dart';
 import '../../domain/occasions/occasions.dart';
@@ -175,9 +175,9 @@ class DeveloperScreen extends ConsumerWidget {
               RowTile(
                 title: l.debugRemoveHadith,
                 onTap: () async {
-                  await HadithDb.uninstall();
+                  await HeLibrary.uninstall(ref.read(contentLangProvider));
                   ref.invalidate(hadithInstallProvider);
-                  ref.invalidate(hadithDbProvider);
+                  ref.invalidate(heLibraryProvider);
                   if (context.mounted) _done(context);
                 },
               ),

@@ -22,6 +22,7 @@ import '../common/labels.dart';
 import 'moment_cards.dart';
 import '../../data/sources/days.dart';
 import 'celestial.dart';
+import '../duas/library_views.dart';
 import 'day_guide_card.dart';
 import 'ramadan_card.dart';
 import 'sighting_card.dart';
@@ -224,7 +225,7 @@ class NowScreen extends ConsumerWidget {
                       ? const []
                       : ref.watch(momentContentProvider(moments.hero.id)),
                   sourced: guides?.forMoment(moments.hero.id) ?? const [],
-                  onSourced: (i) => openDayItem(context, ref, i),
+                  onSourced: (i) => openHadith(context, ref, i.he),
                 ),
               ],
               if (checklist != null) ...[
