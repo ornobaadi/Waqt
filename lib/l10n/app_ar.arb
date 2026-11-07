@@ -288,5 +288,9 @@
   "hadithLibraryProgress": "جارٍ التحميل… {percent}٪",
   "hadithLibraryFailed": "لم يكتمل التحميل. تحقق من الاتصال.",
   "hadithLibraryRetry": "أعد المحاولة",
-  "hadithLibraryNote": "من open-hadith-data (النصوص كما في sunnah.com). يُتحقق منها قبل الاستخدام. الأدعية والأذكار تعمل دونها."
+  "hadithLibraryNote": "من open-hadith-data (النصوص كما في sunnah.com). يُتحقق منها قبل الاستخدام. الأدعية والأذكار تعمل دونها.",
+  "counterToday": "اليوم {count}",
+  "counterTodayTitle": "ما قيل اليوم",
+  "counterTodayAll": "كل الأذكار",
+  "counterResetRound": "ابدأ هذه الجولة من جديد"
 }

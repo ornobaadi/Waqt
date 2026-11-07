@@ -1928,6 +1928,138 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'From open-hadith-data (texts as on sunnah.com). Verified before use. Duas and dhikr work without it.'**
   String get hadithLibraryNote;
+
+  /// No description provided for @counterToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Today {count}'**
+  String counterToday(String count);
+
+  /// No description provided for @counterTodayTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Said today'**
+  String get counterTodayTitle;
+
+  /// No description provided for @counterTodayAll.
+  ///
+  /// In en, this message translates to:
+  /// **'All dhikr'**
+  String get counterTodayAll;
+
+  /// No description provided for @counterResetRound.
+  ///
+  /// In en, this message translates to:
+  /// **'Restart this round'**
+  String get counterResetRound;
+
+  /// No description provided for @debugScenarios.
+  ///
+  /// In en, this message translates to:
+  /// **'Scenarios'**
+  String get debugScenarios;
+
+  /// No description provided for @debugState.
+  ///
+  /// In en, this message translates to:
+  /// **'What the app sees'**
+  String get debugState;
+
+  /// No description provided for @debugData.
+  ///
+  /// In en, this message translates to:
+  /// **'Data'**
+  String get debugData;
+
+  /// No description provided for @debugRefreshCalendar.
+  ///
+  /// In en, this message translates to:
+  /// **'Check the calendar now'**
+  String get debugRefreshCalendar;
+
+  /// No description provided for @debugClearTicks.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear today\'s ticks'**
+  String get debugClearTicks;
+
+  /// No description provided for @debugClearCounter.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear the counter'**
+  String get debugClearCounter;
+
+  /// No description provided for @debugClearSightings.
+  ///
+  /// In en, this message translates to:
+  /// **'Forget moon-sighting answers'**
+  String get debugClearSightings;
+
+  /// No description provided for @debugRemoveHadith.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove the hadith library'**
+  String get debugRemoveHadith;
+
+  /// No description provided for @debugDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get debugDone;
+
+  /// No description provided for @debugScEveRamadan.
+  ///
+  /// In en, this message translates to:
+  /// **'29 Shaban evening'**
+  String get debugScEveRamadan;
+
+  /// No description provided for @debugScSuhoor.
+  ///
+  /// In en, this message translates to:
+  /// **'Ramadan suhoor'**
+  String get debugScSuhoor;
+
+  /// No description provided for @debugScIftar.
+  ///
+  /// In en, this message translates to:
+  /// **'Ramadan iftar'**
+  String get debugScIftar;
+
+  /// No description provided for @debugScTaraweeh.
+  ///
+  /// In en, this message translates to:
+  /// **'Taraweeh'**
+  String get debugScTaraweeh;
+
+  /// No description provided for @debugScQadr.
+  ///
+  /// In en, this message translates to:
+  /// **'27th night, last third'**
+  String get debugScQadr;
+
+  /// No description provided for @debugScEveEid.
+  ///
+  /// In en, this message translates to:
+  /// **'29 Ramadan evening'**
+  String get debugScEveEid;
+
+  /// No description provided for @debugScEid.
+  ///
+  /// In en, this message translates to:
+  /// **'Eid al-Fitr morning'**
+  String get debugScEid;
+
+  /// No description provided for @debugScArafah.
+  ///
+  /// In en, this message translates to:
+  /// **'Arafah'**
+  String get debugScArafah;
+
+  /// No description provided for @debugScAshura.
+  ///
+  /// In en, this message translates to:
+  /// **'Ashura'**
+  String get debugScAshura;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

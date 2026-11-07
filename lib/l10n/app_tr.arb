@@ -266,5 +266,9 @@
   "hadithLibraryProgress": "İndiriliyor… %{percent}",
   "hadithLibraryFailed": "İndirme tamamlanmadı. Bağlantınızı kontrol edin.",
   "hadithLibraryRetry": "Tekrar dene",
-  "hadithLibraryNote": "open-hadith-data'dan (metinler sunnah.com'daki gibi). Kullanmadan önce doğrulanır. Dualar ve zikirler onsuz da çalışır."
+  "hadithLibraryNote": "open-hadith-data'dan (metinler sunnah.com'daki gibi). Kullanmadan önce doğrulanır. Dualar ve zikirler onsuz da çalışır.",
+  "counterToday": "Bugün {count}",
+  "counterTodayTitle": "Bugün söylenen",
+  "counterTodayAll": "Tüm zikirler",
+  "counterResetRound": "Bu turu baştan başlat"
 }

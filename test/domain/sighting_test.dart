@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hijri/hijri_calendar.dart';
 import 'package:waqt/data/sources/days.dart';
 import 'package:waqt/domain/hijri/hijri_service.dart';
+import 'package:waqt/domain/moments/moment.dart';
 import 'package:waqt/domain/occasions/occasions.dart';
 import 'package:waqt/features/now/sighting_card.dart';
 
@@ -41,9 +42,17 @@ void main() {
     }
     expect(d.featured([OccasionId.eidAlFitr, OccasionId.jumuah]), OccasionId.eidAlFitr);
     expect(d.featured([OccasionId.jumuah]), isNull);
-    // Every moment link names an item that exists.
-    for (final MapEntry(:key, :value) in DayGuides.momentItems.entries) {
-      expect(d.forMoment(key).length, value.length, reason: key.name);
+    // Moments that guide something have sourced items.
+    for (final m in [
+      MomentId.duha,
+      MomentId.lastThird,
+      MomentId.bedtime,
+      MomentId.afterSalah,
+      MomentId.morningAdhkar,
+      MomentId.iftar,
+      MomentId.taraweeh,
+    ]) {
+      expect(d.forMoment(m), isNotEmpty, reason: m.name);
     }
     // Ramadan items carry when they matter, for the folded checklist.
     expect(d.forOccasion(OccasionId.ramadan).every((i) => i.when != null), isTrue);

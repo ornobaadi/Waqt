@@ -1,9 +1,12 @@
+import 'dart:async';
+import 'dart:convert';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../core/clock/clock.dart';
 import '../../data/user/user_prefs.dart';
 
 import '../../core/theme/tokens.dart';
@@ -13,11 +16,27 @@ import '../../l10n/app_localizations.dart';
 import 'dhikr.dart';
 
 class CounterState {
-  const CounterState({this.routine = 0, this.step = 0, this.count = 0, this.freeTarget = 33});
+  const CounterState({
+    this.routine = 0,
+    this.step = 0,
+    this.count = 0,
+    this.freeTarget = 33,
+    this.day = '',
+    this.today = const {},
+    this.saved = const {},
+  });
   final int routine;
   final int step;
   final int count;
   final int freeTarget;
+
+  /// Today's totals per dhikr id, for the civil date [day]. Reset never
+  /// touches these; a new day starts them at zero.
+  final String day;
+  final Map<String, int> today;
+
+  /// Where each other routine was left: routine id → (step, count).
+  final Map<String, (int, int)> saved;
 
   DhikrRoutine get r => dhikrRoutines[routine];
   Dhikr get dhikr => r.steps[step];
@@ -29,34 +48,123 @@ class CounterState {
   int get round => r.isSet ? 1 : count ~/ target + 1;
   bool get finished => r.isSet && step == r.steps.length - 1 && count >= target;
 
-  CounterState copy({int? routine, int? step, int? count, int? freeTarget}) => CounterState(
+  int get todayTotal => today.values.fold(0, (a, b) => a + b);
+
+  CounterState copy({
+    int? routine,
+    int? step,
+    int? count,
+    int? freeTarget,
+    String? day,
+    Map<String, int>? today,
+    Map<String, (int, int)>? saved,
+  }) => CounterState(
     routine: routine ?? this.routine,
     step: step ?? this.step,
     count: count ?? this.count,
     freeTarget: freeTarget ?? this.freeTarget,
+    day: day ?? this.day,
+    today: today ?? this.today,
+    saved: saved ?? this.saved,
   );
+
+  Map<String, Object?> toJson() => {
+    'routine': r.id,
+    'step': step,
+    'count': count,
+    'free': freeTarget,
+    'day': day,
+    'today': today,
+    'saved': {
+      for (final MapEntry(:key, :value) in saved.entries) key: [value.$1, value.$2],
+    },
+  };
+
+  static CounterState fromJson(Object? j) {
+    if (j is! Map) return const CounterState();
+    final ids = [for (final r in dhikrRoutines) r.id];
+    final routine = ids.indexOf('${j['routine']}').clamp(0, ids.length - 1);
+    final steps = dhikrRoutines[routine].steps.length;
+    return CounterState(
+      routine: routine,
+      step: ((j['step'] as int?) ?? 0).clamp(0, steps - 1),
+      count: ((j['count'] as int?) ?? 0).clamp(0, 1 << 20),
+      freeTarget: (j['free'] as int?) ?? 33,
+      day: '${j['day'] ?? ''}',
+      today: {
+        if (j['today'] case final Map<Object?, Object?> m)
+          for (final MapEntry(:key, :value) in m.entries)
+            if (value is int) '$key': value,
+      },
+      saved: {
+        if (j['saved'] case final Map<Object?, Object?> m)
+          for (final MapEntry(:key, :value) in m.entries)
+            if (value case [final int st, final int c]) '$key': (st, c),
+      },
+    );
+  }
 }
 
+/// The counter, kept on the phone: leaving the app or switching dhikr never
+/// loses a count.
 class CounterNotifier extends Notifier<CounterState> {
+  static const _key = 'counter.v2';
+
   @override
-  CounterState build() => const CounterState();
+  CounterState build() {
+    final raw = ref.read(sharedPrefsProvider).getString(_key);
+    CounterState s;
+    try {
+      s = raw == null ? const CounterState() : CounterState.fromJson(jsonDecode(raw));
+    } on Object {
+      s = const CounterState();
+    }
+    return _rollDay(s);
+  }
+
+  static String _dayKey(DateTime d) => '${d.year}-${d.month}-${d.day}';
+
+  /// Totals belong to one day; the current round carries on.
+  CounterState _rollDay(CounterState s) {
+    final today = _dayKey(readNow(ref.read(fakeClockProvider)));
+    return s.day == today ? s : s.copy(day: today, today: const {});
+  }
+
+  void _save(CounterState s) {
+    state = s;
+    unawaited(ref.read(sharedPrefsProvider).setString(_key, jsonEncode(s.toJson())));
+  }
 
   /// Returns true when this tap completed a round or a step.
   bool tap() {
-    final s = state;
-    if (s.finished) return false;
+    var s = _rollDay(state);
+    // A finished set starts again from its first phrase.
+    if (s.finished) s = s.copy(step: 0, count: 0);
+    final id = s.dhikr.id;
+    final today = {...s.today, id: (s.today[id] ?? 0) + 1};
     final c = s.count + 1;
     if (s.r.isSet && c >= s.target && s.step < s.r.steps.length - 1) {
-      state = s.copy(step: s.step + 1, count: 0);
+      _save(s.copy(step: s.step + 1, count: 0, today: today));
       return true;
     }
-    state = s.copy(count: c);
-    return s.r.isSet ? state.finished : state.inRound == 0;
+    final next = s.copy(count: c, today: today);
+    _save(next);
+    return next.r.isSet ? next.finished : next.inRound == 0;
   }
 
-  void reset() => state = state.copy(step: 0, count: 0);
-  void setTarget(int t) => state = state.copy(freeTarget: t, count: 0);
-  void choose(int routine) => state = CounterState(routine: routine, freeTarget: state.freeTarget);
+  /// Back to the start of this round. Today's totals stay.
+  void reset() => _save(state.copy(step: 0, count: 0));
+
+  void setTarget(int t) => _save(state.copy(freeTarget: t, count: 0));
+
+  /// Switch dhikr, keeping where the previous one was left.
+  void choose(int routine) {
+    final s = state;
+    if (routine == s.routine) return;
+    final saved = {...s.saved, s.r.id: (s.step, s.count)};
+    final (step, count) = saved[dhikrRoutines[routine].id] ?? (0, 0);
+    _save(s.copy(routine: routine, step: step, count: count, saved: saved));
+  }
 }
 
 final counterProvider = NotifierProvider<CounterNotifier, CounterState>(CounterNotifier.new);
@@ -164,7 +272,7 @@ class _CounterScreenState extends ConsumerState<CounterScreen> with TickerProvid
             icon: Icon(haptics ? Icons.vibration_rounded : Icons.mobile_off_rounded, color: t.inkMuted),
           ),
           IconButton(
-            tooltip: l.counterReset,
+            tooltip: l.counterResetRound,
             onPressed: s.count == 0 && s.step == 0 ? null : ref.read(counterProvider.notifier).reset,
             icon: Icon(Icons.restart_alt_rounded, color: t.inkMuted),
           ),
@@ -228,7 +336,11 @@ class _CounterScreenState extends ConsumerState<CounterScreen> with TickerProvid
                           : l.counterTap,
                       style: WaqtText.label.copyWith(color: t.inkMuted),
                     ),
-                    const SizedBox(height: WaqtSpace.x8),
+                    const SizedBox(height: WaqtSpace.x4),
+                    // Today's totals: every phrase said today, kept across
+                    // resets and visits. Tap for the breakdown.
+                    _TodayTotals(state: s, numbers: n),
+                    const SizedBox(height: WaqtSpace.x6),
                   ],
                 );
               },
@@ -263,12 +375,15 @@ class _CounterScreenState extends ConsumerState<CounterScreen> with TickerProvid
                 subtitle: r.id == 'free'
                     ? Text(l.counterFreeHint, style: WaqtText.label.copyWith(color: t.inkMuted))
                     : null,
-                trailing: r.id == 'free'
-                    ? null
-                    : Text(
-                        r.steps.map((d) => n(d.target)).join(' · '),
-                        style: WaqtText.label.copyWith(color: t.inkMuted),
-                      ),
+                trailing: Text(
+                  [
+                    if (r.id != 'free') r.steps.map((d) => n(d.target)).join(' · '),
+                    if (r.steps.fold<int>(0, (a, d) => a + (s.today[d.id] ?? 0)) case final c when c > 0)
+                      l.counterToday(n(c)),
+                  ].join(String.fromCharCode(10)),
+                  textAlign: TextAlign.end,
+                  style: WaqtText.label.copyWith(color: t.inkMuted),
+                ),
                 onTap: () => Navigator.pop(ctx, i),
               ),
           ],
@@ -384,4 +499,66 @@ class _LightPainter extends CustomPainter {
   @override
   bool shouldRepaint(_LightPainter o) =>
       o.progress != progress || o.ripples.length != ripples.length || o.ink != ink || o.accent != accent;
+}
+
+/// "Today 165" with the per-phrase breakdown a tap away.
+class _TodayTotals extends StatelessWidget {
+  const _TodayTotals({required this.state, required this.numbers});
+  final CounterState state;
+  final LocaleDigits numbers;
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+    final t = WaqtTokens.of(context);
+    if (state.todayTotal == 0) return const SizedBox(height: WaqtSpace.minTouch);
+    final names = {
+      for (final r in dhikrRoutines)
+        for (final d in r.steps) d.id: d.latin.isEmpty ? l.counterFree : d.latin,
+    };
+    return TextButton.icon(
+      onPressed: () => showModalBottomSheet<void>(
+        context: context,
+        showDragHandle: true,
+        backgroundColor: t.ground,
+        builder: (ctx) => SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(WaqtSpace.screen, 0, WaqtSpace.screen, WaqtSpace.x6),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Text(l.counterTodayTitle, style: WaqtText.titleSmall.copyWith(color: t.ink)),
+                const SizedBox(height: WaqtSpace.x3),
+                for (final MapEntry(:key, :value) in (state.today.entries.toList()..sort((a, b) => b.value - a.value)))
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: WaqtSpace.x2),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Text(names[key] ?? key, style: WaqtText.body.copyWith(color: t.ink)),
+                        ),
+                        Text(numbers(value), style: WaqtText.bodyStrong.copyWith(color: t.ink)),
+                      ],
+                    ),
+                  ),
+                Divider(color: t.hairline),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(l.counterTodayAll, style: WaqtText.bodyStrong.copyWith(color: t.ink)),
+                    ),
+                    Text(numbers(state.todayTotal), style: WaqtText.titleSmall.copyWith(color: t.ink)),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+      style: TextButton.styleFrom(foregroundColor: t.inkMuted),
+      icon: const Icon(Icons.insights_rounded, size: 18),
+      label: Text(l.counterToday(numbers(state.todayTotal))),
+    );
+  }
 }

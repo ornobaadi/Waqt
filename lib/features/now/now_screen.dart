@@ -19,7 +19,6 @@ import '../../domain/time/place_zone.dart';
 import '../../l10n/app_localizations.dart';
 import '../../platform/location/gps.dart';
 import '../common/labels.dart';
-import 'checklist_card.dart';
 import 'moment_cards.dart';
 import '../../data/sources/days.dart';
 import 'celestial.dart';
@@ -44,9 +43,10 @@ class NowScreen extends ConsumerWidget {
     final status = ref.watch(prayerStatusProvider);
     final moments = ref.watch(momentSnapshotProvider);
     // The contextual module: a checklist when an active moment has one.
+    final guides = ref.watch(dayGuidesProvider).value;
     final checklist = moments?.active
         .map((m) => m.id)
-        .where((id) => checklistMoments.contains(id) && ref.watch(momentContentProvider(id)).isNotEmpty)
+        .where((id) => checklistMoments.contains(id) && (guides?.forMoment(id).isNotEmpty ?? false))
         .firstOrNull;
     final hijri = ref.watch(hijriDateProvider);
     final occ = ref.watch(occasionsProvider);
@@ -58,7 +58,6 @@ class NowScreen extends ConsumerWidget {
     final palette = ref.watch(activePaletteProvider);
     // Ramadan's count follows the date on screen, which turns at Maghrib.
     final ramadanDay = hijri.month == 9 ? hijri.day : occ.date.day;
-    final guides = ref.watch(dayGuidesProvider).value;
     final guideOcc = guides?.featured(occasions);
     final sighting = sightingQuestion(ref);
     final announcement = announcementQuestion(ref);
@@ -230,19 +229,20 @@ class NowScreen extends ConsumerWidget {
               ],
               if (checklist != null) ...[
                 const SizedBox(height: WaqtSpace.x4),
-                ChecklistCard(
-                  moment: checklist,
-                  items: ref.watch(momentContentProvider(checklist)),
-                  day: prayerDayKey(moments!.timeline.first.window.start),
+                DayGuideCard(
+                  // Bedtime and Friday: sourced practices, ticked per prayer day.
+                  label: l.rightNow,
+                  title: checklist == MomentId.bedtime ? l.checklistTitleBedtime : l.checklistTitleJumuah,
+                  items: guides!.forMoment(checklist),
+                  day: '${checklist.name}-${prayerDayKey(moments!.timeline.first.window.start)}',
                 ),
               ],
               if (guideOcc != null && guides != null) ...[
                 const SizedBox(height: WaqtSpace.x4),
                 DayGuideCard(
-                  occasion: guideOcc,
+                  title: l.occasion(guideOcc, ramadanDay: n(ramadanDay)),
                   items: guides.itemsFor(guideOcc, occasions),
                   day: '${now.year}-${now.month}-${now.day}',
-                  ramadanDay: n(ramadanDay),
                   phase: status == null
                       ? null
                       : now.isBefore(status.today[Waqt.fajr])

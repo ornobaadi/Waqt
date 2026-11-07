@@ -1028,4 +1028,72 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get hadithLibraryNote =>
       'open-hadith-data\'dan (metinler sunnah.com\'daki gibi). Kullanmadan önce doğrulanır. Dualar ve zikirler onsuz da çalışır.';
+
+  @override
+  String counterToday(String count) {
+    return 'Bugün $count';
+  }
+
+  @override
+  String get counterTodayTitle => 'Bugün söylenen';
+
+  @override
+  String get counterTodayAll => 'Tüm zikirler';
+
+  @override
+  String get counterResetRound => 'Bu turu baştan başlat';
+
+  @override
+  String get debugScenarios => 'Scenarios';
+
+  @override
+  String get debugState => 'What the app sees';
+
+  @override
+  String get debugData => 'Data';
+
+  @override
+  String get debugRefreshCalendar => 'Check the calendar now';
+
+  @override
+  String get debugClearTicks => 'Clear today\'s ticks';
+
+  @override
+  String get debugClearCounter => 'Clear the counter';
+
+  @override
+  String get debugClearSightings => 'Forget moon-sighting answers';
+
+  @override
+  String get debugRemoveHadith => 'Remove the hadith library';
+
+  @override
+  String get debugDone => 'Done';
+
+  @override
+  String get debugScEveRamadan => '29 Shaban evening';
+
+  @override
+  String get debugScSuhoor => 'Ramadan suhoor';
+
+  @override
+  String get debugScIftar => 'Ramadan iftar';
+
+  @override
+  String get debugScTaraweeh => 'Taraweeh';
+
+  @override
+  String get debugScQadr => '27th night, last third';
+
+  @override
+  String get debugScEveEid => '29 Ramadan evening';
+
+  @override
+  String get debugScEid => 'Eid al-Fitr morning';
+
+  @override
+  String get debugScArafah => 'Arafah';
+
+  @override
+  String get debugScAshura => 'Ashura';
 }

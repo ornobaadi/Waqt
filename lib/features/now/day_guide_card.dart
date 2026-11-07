@@ -7,23 +7,17 @@ import '../../core/theme/waqt_theme.dart';
 import '../../core/utils/digits.dart';
 import '../../data/sources/days.dart';
 import '../../data/sources/hadith_db.dart';
-import '../../domain/occasions/occasions.dart';
 import '../../l10n/app_localizations.dart';
-import '../common/labels.dart';
 import '../duas/library_views.dart';
 
 /// Today's special day as a checklist: each Sunnah, ticked as it is done,
 /// opening the hadith it comes from.
 class DayGuideCard extends ConsumerStatefulWidget {
-  const DayGuideCard({
-    super.key,
-    required this.occasion,
-    required this.items,
-    required this.day,
-    this.ramadanDay,
-    this.phase,
-  });
-  final OccasionId occasion;
+  const DayGuideCard({super.key, required this.title, required this.items, required this.day, this.label, this.phase});
+  final String title;
+
+  /// Small line above the title; "Today's Sunnah" when null.
+  final String? label;
   final List<DayItem> items;
 
   /// Part of the day ('suhoor', 'day', 'iftar', 'night'): its items come
@@ -32,7 +26,6 @@ class DayGuideCard extends ConsumerStatefulWidget {
 
   /// Civil date key; ticks reset with it.
   final String day;
-  final String? ramadanDay;
 
   @override
   ConsumerState<DayGuideCard> createState() => _DayGuideCardState();
@@ -48,7 +41,7 @@ class _DayGuideCardState extends ConsumerState<DayGuideCard> {
     final l = AppLocalizations.of(context);
     final t = WaqtTokens.of(context);
     final n = LocaleDigits(Localizations.localeOf(context).toLanguageTag());
-    final items = widget.items, day = widget.day, occasion = widget.occasion, ramadanDay = widget.ramadanDay;
+    final items = widget.items, day = widget.day;
     ref.watch(dayTicksProvider);
     final done = ref.read(dayTicksProvider.notifier).doneOn(day);
     final count = items.where((i) => done.contains(i.id)).length;
@@ -65,7 +58,7 @@ class _DayGuideCardState extends ConsumerState<DayGuideCard> {
         children: [
           Row(
             children: [
-              Text(l.dayGuideToday.toUpperCase(), style: WaqtText.overline.copyWith(color: t.accent)),
+              Text((widget.label ?? l.dayGuideToday).toUpperCase(), style: WaqtText.overline.copyWith(color: t.accent)),
               const Spacer(),
               Text(
                 l.checklistProgress(n(count), n(items.length)),
@@ -74,10 +67,7 @@ class _DayGuideCardState extends ConsumerState<DayGuideCard> {
             ],
           ),
           const SizedBox(height: WaqtSpace.x2),
-          Text(
-            l.occasion(occasion, ramadanDay: ramadanDay ?? ''),
-            style: WaqtText.title.copyWith(color: t.heroInk),
-          ),
+          Text(widget.title, style: WaqtText.title.copyWith(color: t.heroInk)),
           const SizedBox(height: WaqtSpace.x3),
           ClipRRect(
             borderRadius: BorderRadius.circular(2),
@@ -203,8 +193,8 @@ Future<void> openDayItem(BuildContext context, WidgetRef ref, DayItem item) asyn
           });
           return const SafeArea(
             child: Padding(
-              padding: EdgeInsets.fromLTRB(WaqtSpace.screen, 0, WaqtSpace.screen, WaqtSpace.x4),
-              child: HadithDownloadCard(),
+              padding: EdgeInsets.fromLTRB(WaqtSpace.screen, 0, WaqtSpace.screen, WaqtSpace.x6),
+              child: HadithDownloadCard(inSheet: true),
             ),
           );
         },

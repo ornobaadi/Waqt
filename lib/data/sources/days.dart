@@ -24,30 +24,17 @@ class DayItem {
 
 /// Built by tool/build_days.py from the hadith database; see that file.
 class DayGuides {
-  DayGuides(this._days, this.fasts);
+  DayGuides(this._days, this.fasts, [this._moments = const {}]);
   final Map<OccasionId, List<DayItem>> _days;
+  final Map<MomentId, List<DayItem>> _moments;
 
   /// Occasions on which fasting is the Sunnah.
   final Set<OccasionId> fasts;
 
   List<DayItem> forOccasion(OccasionId o) => _days[o] ?? const [];
 
-  /// Sourced items for a moment of the day, by hadith reference.
-  List<DayItem> forMoment(MomentId m) => [for (final id in momentItems[m] ?? const <String>[]) ?_byId[id]];
-
-  late final Map<String, DayItem> _byId = {
-    for (final list in _days.values)
-      for (final i in list) i.id: i,
-  };
-
-  /// Which day items speak to which moment. Every id must exist in days.json
-  /// (checked by a test).
-  static const momentItems = <MomentId, List<String>>{
-    MomentId.suhoor: ['bukhari:1923', 'bukhari:1921'],
-    MomentId.iftar: ['tirmidhi:3598', 'bukhari:1957', 'abudawud:2356', 'abudawud:2357', 'tirmidhi:807'],
-    MomentId.taraweeh: ['bukhari:2009', 'bukhari:6'],
-    MomentId.laylatAlQadr: ['bukhari:2014', 'tirmidhi:3513', 'bukhari:2024'],
-  };
+  /// Sourced items for a moment of the day (built by tool/build_days.py).
+  List<DayItem> forMoment(MomentId m) => _moments[m] ?? const [];
 
   /// Everything for the featured occasion. In the last ten nights the
   /// daily Ramadan practices still apply, so they follow.
@@ -64,25 +51,27 @@ class DayGuides {
 
   static DayGuides parse(String json) {
     final j = jsonDecode(json) as Map<String, Object?>;
-    final byName = {for (final o in OccasionId.values) o.name: o};
-    final days = <OccasionId, List<DayItem>>{};
-    for (final MapEntry(:key, :value) in (j['days']! as Map<String, Object?>).entries) {
-      final o = byName[key];
-      if (o == null) continue;
-      days[o] = [
-        for (final i in value! as List<Object?>)
-          if (i case final Map<String, Object?> m)
-            DayItem(
-              m['title']! as String,
-              m['col']! as String,
-              m['num']! as String,
-              m['ref']! as String,
-              m['grade'] as String?,
-              when: m['when'] as String?,
-            ),
-      ];
-    }
-    return DayGuides(days, {for (final f in j['fasts']! as List<Object?>) ?byName[f]});
+    List<DayItem> items(Object? v) => [
+      for (final i in v! as List<Object?>)
+        if (i case final Map<String, Object?> m)
+          DayItem(
+            m['title']! as String,
+            m['col']! as String,
+            m['num']! as String,
+            m['ref']! as String,
+            m['grade'] as String?,
+            when: m['when'] as String?,
+          ),
+    ];
+    final occ = OccasionId.values.asNameMap(), mom = MomentId.values.asNameMap();
+    return DayGuides(
+      {for (final MapEntry(:key, :value) in (j['days']! as Map<String, Object?>).entries) ?occ[key]: items(value)},
+      {for (final f in j['fasts']! as List<Object?>) ?occ[f]},
+      {
+        for (final MapEntry(:key, :value) in ((j['moments'] as Map<String, Object?>?) ?? const {}).entries)
+          ?mom[key]: items(value),
+      },
+    );
   }
 }
 

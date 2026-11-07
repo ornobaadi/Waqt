@@ -274,5 +274,9 @@
   "hadithLibraryProgress": "ڈاؤن لوڈ ہو رہا ہے… {percent}%",
   "hadithLibraryFailed": "ڈاؤن لوڈ مکمل نہیں ہوا۔ کنکشن چیک کریں۔",
   "hadithLibraryRetry": "دوبارہ کوشش",
-  "hadithLibraryNote": "open-hadith-data سے (متن sunnah.com کے مطابق)۔ استعمال سے پہلے تصدیق۔ دعائیں اور اذکار اس کے بغیر بھی چلتے ہیں۔"
+  "hadithLibraryNote": "open-hadith-data سے (متن sunnah.com کے مطابق)۔ استعمال سے پہلے تصدیق۔ دعائیں اور اذکار اس کے بغیر بھی چلتے ہیں۔",
+  "counterToday": "آج {count}",
+  "counterTodayTitle": "آج پڑھا گیا",
+  "counterTodayAll": "تمام اذکار",
+  "counterResetRound": "یہ چکر دوبارہ"
 }

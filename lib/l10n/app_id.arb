@@ -260,5 +260,9 @@
   "hadithLibraryProgress": "Mengunduh… {percent}%",
   "hadithLibraryFailed": "Unduhan belum selesai. Periksa koneksi Anda.",
   "hadithLibraryRetry": "Coba lagi",
-  "hadithLibraryNote": "Dari open-hadith-data (teks seperti di sunnah.com). Diverifikasi sebelum dipakai. Doa dan zikir tetap berfungsi tanpanya."
+  "hadithLibraryNote": "Dari open-hadith-data (teks seperti di sunnah.com). Diverifikasi sebelum dipakai. Doa dan zikir tetap berfungsi tanpanya.",
+  "counterToday": "Hari ini {count}",
+  "counterTodayTitle": "Diucapkan hari ini",
+  "counterTodayAll": "Semua zikir",
+  "counterResetRound": "Ulangi putaran ini"
 }

@@ -266,5 +266,9 @@
   "hadithLibraryProgress": "ডাউনলোড হচ্ছে… {percent}%",
   "hadithLibraryFailed": "ডাউনলোড শেষ হয়নি। সংযোগ দেখুন।",
   "hadithLibraryRetry": "আবার চেষ্টা করুন",
-  "hadithLibraryNote": "open-hadith-data থেকে (লেখা sunnah.com অনুযায়ী)। ব্যবহারের আগে যাচাই করা হয়। দোয়া ও জিকির এটি ছাড়াই চলে।"
+  "hadithLibraryNote": "open-hadith-data থেকে (লেখা sunnah.com অনুযায়ী)। ব্যবহারের আগে যাচাই করা হয়। দোয়া ও জিকির এটি ছাড়াই চলে।",
+  "counterToday": "আজ {count}",
+  "counterTodayTitle": "আজ পড়া হয়েছে",
+  "counterTodayAll": "সব জিকির",
+  "counterResetRound": "এই রাউন্ড আবার শুরু"
 }

@@ -60,7 +60,8 @@ class RamadanCard extends StatelessWidget {
           padding: const EdgeInsets.all(WaqtSpace.x4),
           decoration: BoxDecoration(
             color: lit ? t.heroInk.withValues(alpha: 0.1) : Colors.transparent,
-            borderRadius: BorderRadius.circular(WaqtRadii.row),
+            // Concentric with the card: its radius minus the 8 px inset.
+            borderRadius: BorderRadius.circular(WaqtRadii.card - WaqtSpace.x2),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -83,7 +84,7 @@ class RamadanCard extends StatelessWidget {
     }
 
     return Container(
-      padding: const EdgeInsets.fromLTRB(WaqtSpace.x4, WaqtSpace.x4, WaqtSpace.x4, WaqtSpace.x3),
+      padding: const EdgeInsets.all(WaqtSpace.x2),
       decoration: BoxDecoration(
         color: t.heroSurface,
         borderRadius: BorderRadius.circular(WaqtRadii.card),
@@ -93,7 +94,7 @@ class RamadanCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: WaqtSpace.x1),
+            padding: const EdgeInsets.fromLTRB(WaqtSpace.x4, WaqtSpace.x3, WaqtSpace.x4, 0),
             child: Row(
               children: [Text(l.occRamadan(n(day)).toUpperCase(), style: WaqtText.overline.copyWith(color: t.accent))],
             ),

@@ -226,7 +226,9 @@ void main() {
       '17_dua_sheet',
       await app(at: DateTime(2026, 11, 6, 22, 45), place: dhaka),
       then: () async {
-        await t.tap(find.byTooltip('Source').first);
+        // The bedtime checklist, sourced; a tap on a title offers the library.
+        await t.scrollUntilVisible(find.text('Before you sleep'), 200);
+        await t.tap(find.text('Wudu, and lie on your right side'));
       },
     ),
   );

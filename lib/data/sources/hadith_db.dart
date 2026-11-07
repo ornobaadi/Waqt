@@ -76,6 +76,12 @@ class HadithDb {
 
   static Future<bool> isInstalled() async => File(await _path()).existsSync();
 
+  /// Test mode: remove the library to try the first-use download again.
+  static Future<void> uninstall() async {
+    final f = File(await _path());
+    if (f.existsSync()) await f.delete();
+  }
+
   /// Downloads, verifies and unpacks the database. [onProgress] gets 0..1.
   static Future<void> install({void Function(double)? onProgress}) async {
     final path = await _path();

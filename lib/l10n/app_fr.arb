@@ -260,5 +260,9 @@
   "hadithLibraryProgress": "Téléchargement… {percent} %",
   "hadithLibraryFailed": "Le téléchargement n'a pas abouti. Vérifiez votre connexion.",
   "hadithLibraryRetry": "Réessayer",
-  "hadithLibraryNote": "Issu d'open-hadith-data (textes comme sur sunnah.com). Vérifié avant usage. Douas et dhikr fonctionnent sans."
+  "hadithLibraryNote": "Issu d'open-hadith-data (textes comme sur sunnah.com). Vérifié avant usage. Douas et dhikr fonctionnent sans.",
+  "counterToday": "Aujourd'hui {count}",
+  "counterTodayTitle": "Dit aujourd'hui",
+  "counterTodayAll": "Tous les dhikr",
+  "counterResetRound": "Recommencer ce tour"
 }

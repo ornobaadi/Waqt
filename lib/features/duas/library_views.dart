@@ -296,7 +296,10 @@ class _Attribution extends StatelessWidget {
 /// Offers the hadith library: what it is, its size, one button. Shows
 /// progress while downloading and a retry if it failed.
 class HadithDownloadCard extends ConsumerWidget {
-  const HadithDownloadCard({super.key});
+  const HadithDownloadCard({super.key, this.inSheet = false});
+
+  /// In a bottom sheet the sheet is the surface: no second card inside it.
+  final bool inSheet;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -306,9 +309,12 @@ class HadithDownloadCard extends ConsumerWidget {
     final mb = (HadithDb.downloadBytes / 1e6).toStringAsFixed(0);
     final busy = s.status == HadithLibrary.downloading || s.status == HadithLibrary.checking;
     return Container(
-      padding: const EdgeInsets.all(WaqtSpace.x5),
-      decoration: BoxDecoration(color: t.surface, borderRadius: BorderRadius.circular(WaqtRadii.card)),
+      padding: inSheet ? EdgeInsets.zero : const EdgeInsets.all(WaqtSpace.x5),
+      decoration: inSheet
+          ? null
+          : BoxDecoration(color: t.surface, borderRadius: BorderRadius.circular(WaqtRadii.card)),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(

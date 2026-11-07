@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/misc.dart' show ProviderOrFamily;
 import 'package:go_router/go_router.dart';
 import 'package:hijri/hijri_calendar.dart';
 import 'package:intl/intl.dart';
@@ -8,6 +9,12 @@ import '../../app/app_state.dart';
 import '../../core/clock/clock.dart';
 import '../../core/config/flavor.dart';
 import '../../core/config/test_mode.dart';
+import '../counter/counter_screen.dart';
+import '../../data/user/user_prefs.dart';
+import '../../data/user/checklist.dart';
+import '../../data/sources/hadith_db.dart';
+import '../../data/sources/days.dart';
+import '../../data/hijri/calendar_sync.dart';
 import '../../domain/occasions/occasions.dart';
 import '../../core/theme/tokens.dart';
 import '../../core/theme/waqt_theme.dart';
@@ -60,14 +67,37 @@ class DeveloperScreen extends ConsumerWidget {
                   spacing: WaqtSpace.x2,
                   runSpacing: WaqtSpace.x2,
                   children: [
-                    _Chip('−1h', () => clock.shift(const Duration(hours: -1))),
-                    _Chip('+1h', () => clock.shift(const Duration(hours: 1))),
-                    _Chip('+15m', () => clock.shift(const Duration(minutes: 15))),
-                    _Chip('+1d', () => clock.shift(const Duration(days: 1))),
+                    for (final (label, d) in const [
+                      ('−1d', Duration(days: -1)),
+                      ('−1h', Duration(hours: -1)),
+                      ('−10m', Duration(minutes: -10)),
+                      ('−1m', Duration(minutes: -1)),
+                      ('+1m', Duration(minutes: 1)),
+                      ('+10m', Duration(minutes: 10)),
+                      ('+1h', Duration(hours: 1)),
+                      ('+1d', Duration(days: 1)),
+                    ])
+                      _Chip(label, () => clock.shift(d)),
                     _Chip(l.debugPickDate, () => _pickDate(context, ref, now)),
                     _Chip(l.debugPickTime, () => _pickTime(context, ref, now)),
-                    if (faked) _Chip(l.debugReset, clock.reset, strong: true),
+                    if (faked)
+                      _Chip(l.debugReset, () {
+                        ref.read(clockSpeedProvider.notifier).set(1);
+                        clock.reset();
+                      }, strong: true),
                   ],
+                ),
+                const SizedBox(height: WaqtSpace.x4),
+                // Fast-forward: watch a moment begin and end without waiting.
+                SegmentedButton<int>(
+                  showSelectedIcon: false,
+                  segments: const [
+                    ButtonSegment(value: 1, label: Text('1×')),
+                    ButtonSegment(value: 60, label: Text('60×')),
+                    ButtonSegment(value: 600, label: Text('600×')),
+                  ],
+                  selected: {ref.watch(clockSpeedProvider)},
+                  onSelectionChanged: (v) => ref.read(clockSpeedProvider.notifier).set(v.first),
                 ),
               ],
             ),
@@ -115,6 +145,44 @@ class DeveloperScreen extends ConsumerWidget {
                 ),
             ],
           ),
+          SectionLabel(l.debugScenarios),
+          Wrap(
+            spacing: WaqtSpace.x2,
+            runSpacing: WaqtSpace.x2,
+            children: [
+              for (final (label, y, m, d, at) in _scenarios(l)) _Chip(label, () => _jumpScenario(ref, y, m, d, at)),
+            ],
+          ),
+          SectionLabel(l.debugState),
+          const _StateReadout(),
+          SectionLabel(l.debugData),
+          RowGroup(
+            children: [
+              RowTile(
+                title: l.debugRefreshCalendar,
+                onTap: () => ref.read(calendarSyncProvider.notifier).refresh(force: true),
+              ),
+              RowTile(
+                title: l.debugClearTicks,
+                onTap: () =>
+                    _clear(context, ref, ['dayticks.v1', 'checklist.v1'], [dayTicksProvider, checklistProvider]),
+              ),
+              RowTile(title: l.debugClearCounter, onTap: () => _clear(context, ref, ['counter.v2'], [counterProvider])),
+              RowTile(
+                title: l.debugClearSightings,
+                onTap: () => _clear(context, ref, ['sighting.answered.v1'], [sightingAnswersProvider]),
+              ),
+              RowTile(
+                title: l.debugRemoveHadith,
+                onTap: () async {
+                  await HadithDb.uninstall();
+                  ref.invalidate(hadithInstallProvider);
+                  ref.invalidate(hadithDbProvider);
+                  if (context.mounted) _done(context);
+                },
+              ),
+            ],
+          ),
           SectionLabel(l.debugContent),
           RowGroup(
             children: [
@@ -160,6 +228,52 @@ class DeveloperScreen extends ConsumerWidget {
     MomentPalette.night => l.momentNight,
     MomentPalette.bedtime => l.momentBedtime,
   };
+
+  /// One tap to the situations worth checking: (label, Hijri y/m/d, time).
+  /// Local wall-clock times chosen to land inside the moment almost anywhere.
+  static List<(String, int, int, int, (int, int))> _scenarios(AppLocalizations l) {
+    final y = HijriCalendar.now().hYear;
+    return [
+      (l.debugScEveRamadan, y, 8, 29, (20, 0)),
+      (l.debugScSuhoor, y, 9, 10, (4, 0)),
+      (l.debugScIftar, y, 9, 10, (17, 45)),
+      (l.debugScTaraweeh, y, 9, 10, (21, 0)),
+      (l.debugScQadr, y, 9, 27, (2, 30)),
+      (l.debugScEveEid, y, 9, 29, (19, 45)),
+      (l.debugScEid, y, 10, 1, (7, 0)),
+      (l.debugScArafah, y, 12, 9, (10, 0)),
+      (l.debugScAshura, y + 1, 1, 10, (10, 0)),
+    ];
+  }
+
+  static void _jumpScenario(WidgetRef ref, int y, int m, int d, (int, int) at) {
+    var g = HijriCalendar().hijriToGregorian(y, m, d);
+    // Already past this year: next year's.
+    if (g.isBefore(DateTime.now().subtract(const Duration(days: 1)))) {
+      g = HijriCalendar().hijriToGregorian(y + 1, m, d);
+    }
+    ref.read(fakeClockProvider.notifier).jumpTo(DateTime(g.year, g.month, g.day, at.$1, at.$2));
+  }
+
+  static Future<void> _clear(
+    BuildContext context,
+    WidgetRef ref,
+    List<String> keys,
+    List<ProviderOrFamily> providers,
+  ) async {
+    final sp = ref.read(sharedPrefsProvider);
+    for (final k in keys) {
+      await sp.remove(k);
+    }
+    for (final p in providers) {
+      ref.invalidate(p);
+    }
+    if (context.mounted) _done(context);
+  }
+
+  static void _done(BuildContext context) => ScaffoldMessenger.of(
+    context,
+  ).showSnackBar(SnackBar(content: Text(AppLocalizations.of(context).debugDone), duration: const Duration(seconds: 1)));
 
   /// (occasion, Hijri month, Hijri day) worth testing.
   static const _days = [
@@ -334,6 +448,66 @@ class _Swatch extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+/// What the app believes right now: dates, calendar source, place, method.
+class _StateReadout extends ConsumerWidget {
+  const _StateReadout();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final t = WaqtTokens.of(context);
+    final hijri = ref.watch(hijriDateProvider);
+    final occ = ref.watch(occasionsProvider);
+    final sync = ref.watch(calendarSyncProvider);
+    final place = ref.watch(userPrefsProvider.select((p) => p.place));
+    final settings = ref.watch(prayerSettingsProvider);
+    final hero = ref.watch(momentSnapshotProvider.select((s) => s?.hero.id.name));
+    final lib = ref.watch(hadithInstallProvider.select((s) => s.status.name));
+    final rows = <(String, String)>[
+      ('Hijri (shown)', '$hijri'),
+      ('Hijri (daytime)', '${occ.date}'),
+      ('Occasions', occ.list.map((o) => o.name).join(', ')),
+      ('Hero moment', hero ?? '-'),
+      ('Calendar', '${sync.authority.name}, ${sync.table.months.length} months${sync.failed ? ', offline' : ''}'),
+      ('Checked', sync.checkedAt?.toIso8601String().substring(0, 16) ?? '-'),
+      (
+        'Place',
+        place == null
+            ? '-'
+            : '${place.name} ${place.latitude.toStringAsFixed(4)}, ${place.longitude.toStringAsFixed(4)} (${place.source.name})',
+      ),
+      (
+        'Method',
+        '${settings.method.name}, ${settings.asr.name}${settings.minutes.isEmpty ? '' : ', ${settings.minutes}'}',
+      ),
+      ('Hadith library', lib),
+    ];
+    return Container(
+      padding: const EdgeInsets.all(WaqtSpace.x4),
+      decoration: BoxDecoration(color: t.surface, borderRadius: BorderRadius.circular(WaqtRadii.strip)),
+      child: Column(
+        children: [
+          for (final (k, v) in rows)
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 3),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: 120,
+                    child: Text(k, style: WaqtText.caption.copyWith(color: t.inkMuted)),
+                  ),
+                  Expanded(
+                    child: SelectableText(v, style: WaqtText.caption.copyWith(color: t.ink)),
+                  ),
+                ],
+              ),
+            ),
+        ],
       ),
     );
   }

@@ -48,9 +48,11 @@ void main() {
     await tester.pumpAndSettle();
     await tester.scrollUntilVisible(find.text('Before you sleep'), 200);
     expect(find.text('0 of 5'), findsOneWidget);
-    await tester.ensureVisible(find.text('Ayat al-Kursi at bedtime'));
+    // Folded: three of five show; the circle ticks, the title opens the hadith.
+    final tick = find.byIcon(Icons.radio_button_unchecked_rounded).first;
+    await tester.ensureVisible(tick);
     await tester.pumpAndSettle();
-    await tester.tap(find.text('Ayat al-Kursi at bedtime'));
+    await tester.tap(tick);
     await tester.pumpAndSettle();
     expect(find.text('1 of 5'), findsOneWidget);
   });

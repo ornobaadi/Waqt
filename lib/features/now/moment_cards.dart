@@ -141,16 +141,15 @@ class _SourcedRow extends StatelessWidget {
       button: true,
       label: '${item.title}. ${item.reference}',
       excludeSemantics: true,
+      // A flat row under a hairline, not a box inside the card: nested
+      // rounded boxes never share the card's curve at this inset.
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(WaqtRadii.row),
         child: Container(
           width: double.infinity,
-          margin: const EdgeInsets.only(top: WaqtSpace.x2),
-          padding: const EdgeInsets.all(WaqtSpace.x3),
+          padding: const EdgeInsets.symmetric(vertical: WaqtSpace.x3),
           decoration: BoxDecoration(
-            color: ink.withValues(alpha: 0.07),
-            borderRadius: BorderRadius.circular(WaqtRadii.row),
+            border: Border(top: BorderSide(color: ink.withValues(alpha: 0.12))),
           ),
           child: Row(
             children: [
@@ -197,11 +196,9 @@ class _ItemRow extends StatelessWidget {
         behavior: HitTestBehavior.opaque,
         child: Container(
           width: double.infinity,
-          margin: const EdgeInsets.only(top: WaqtSpace.x2),
-          padding: const EdgeInsets.fromLTRB(WaqtSpace.x3, WaqtSpace.x3, WaqtSpace.x3, WaqtSpace.x3),
+          padding: const EdgeInsets.symmetric(vertical: WaqtSpace.x3),
           decoration: BoxDecoration(
-            color: ink.withValues(alpha: 0.07),
-            borderRadius: BorderRadius.circular(WaqtRadii.card - WaqtSpace.x5 + WaqtSpace.x1),
+            border: Border(top: BorderSide(color: ink.withValues(alpha: 0.12))),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

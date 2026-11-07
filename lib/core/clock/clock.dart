@@ -17,6 +17,29 @@ class FakeClock extends Notifier<Duration?> {
 
 final fakeClockProvider = NotifierProvider<FakeClock, Duration?>(FakeClock.new);
 
+/// Test mode: how fast faked time runs (1 = real speed). Above 1, the fake
+/// clock is pushed forward every second, so a whole evening plays out in
+/// minutes.
+class ClockSpeed extends Notifier<int> {
+  Timer? _timer;
+
+  @override
+  int build() {
+    ref.onDispose(() => _timer?.cancel());
+    return 1;
+  }
+
+  void set(int speed) {
+    _timer?.cancel();
+    state = speed;
+    if (speed <= 1) return;
+    final clock = ref.read(fakeClockProvider.notifier);
+    _timer = Timer.periodic(const Duration(seconds: 1), (_) => clock.shift(Duration(seconds: speed - 1)));
+  }
+}
+
+final clockSpeedProvider = NotifierProvider<ClockSpeed, int>(ClockSpeed.new);
+
 /// The single source of "now" for the whole app. Never call DateTime.now()
 /// in features or domain code; read this instead.
 DateTime readNow(Duration? offset) => offset == null ? DateTime.now() : DateTime.now().add(offset);

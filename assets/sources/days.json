@@ -372,5 +372,340 @@
     "grade": null
    }
   ]
+ },
+ "moments": {
+  "duha": [
+   {
+    "title": "Pray Duha: it is charity for every joint",
+    "col": "muslim",
+    "num": "720",
+    "ref": "Sahih Muslim 720",
+    "grade": null
+   },
+   {
+    "title": "Best when the sun is high and hot",
+    "col": "muslim",
+    "num": "748a",
+    "ref": "Sahih Muslim 748a",
+    "grade": null
+   },
+   {
+    "title": "Two rak'ahs of Duha, as the Prophet advised",
+    "col": "bukhari",
+    "num": "1981",
+    "ref": "Sahih al-Bukhari 1981",
+    "grade": null
+   }
+  ],
+  "lastThird": [
+   {
+    "title": "Allah descends: call on Him, ask, seek forgiveness",
+    "col": "bukhari",
+    "num": "1145",
+    "ref": "Sahih al-Bukhari 1145",
+    "grade": null
+   },
+   {
+    "title": "He gives until the dawn breaks",
+    "col": "muslim",
+    "num": "758a",
+    "ref": "Sahih Muslim 758a",
+    "grade": null
+   }
+  ],
+  "fridayLastHour": [
+   {
+    "title": "An hour in which dua is answered",
+    "col": "bukhari",
+    "num": "935",
+    "ref": "Sahih al-Bukhari 935",
+    "grade": null
+   },
+   {
+    "title": "Seek it in the last hour after Asr",
+    "col": "abudawud",
+    "num": "1048",
+    "ref": "Sunan Abi Dawud 1048",
+    "grade": "Sahih (Al-Albani)"
+   },
+   {
+    "title": "Send blessings on the Prophet",
+    "col": "abudawud",
+    "num": "1047",
+    "ref": "Sunan Abi Dawud 1047",
+    "grade": "Sahih (Al-Albani)"
+   }
+  ],
+  "afterSalah": [
+   {
+    "title": "Seek forgiveness three times",
+    "col": "muslim",
+    "num": "591",
+    "ref": "Sahih Muslim 591",
+    "grade": null
+   },
+   {
+    "title": "SubhanAllah, Alhamdulillah, Allahu Akbar, 33 each",
+    "col": "muslim",
+    "num": "597a",
+    "ref": "Sahih Muslim 597a",
+    "grade": null
+   }
+  ],
+  "betweenAdhanIqamah": [
+   {
+    "title": "Dua now is not turned back",
+    "col": "abudawud",
+    "num": "521",
+    "ref": "Sunan Abi Dawud 521",
+    "grade": "Sahih (Al-Albani)"
+   },
+   {
+    "title": "Repeat the adhan, then send blessings",
+    "col": "muslim",
+    "num": "384",
+    "ref": "Sahih Muslim 384",
+    "grade": null
+   },
+   {
+    "title": "The dua after the adhan",
+    "col": "bukhari",
+    "num": "614",
+    "ref": "Sahih al-Bukhari 614",
+    "grade": null
+   }
+  ],
+  "bedtime": [
+   {
+    "title": "Wudu, and lie on your right side",
+    "col": "bukhari",
+    "num": "247",
+    "ref": "Sahih al-Bukhari 247",
+    "grade": null
+   },
+   {
+    "title": "Say the dua before sleep",
+    "col": "bukhari",
+    "num": "6324",
+    "ref": "Sahih al-Bukhari 6324",
+    "grade": null
+   },
+   {
+    "title": "The three Quls, then wipe over the body",
+    "col": "bukhari",
+    "num": "5017",
+    "ref": "Sahih al-Bukhari 5017",
+    "grade": null
+   },
+   {
+    "title": "Recite Ayat al-Kursi",
+    "col": "bukhari",
+    "num": "2311",
+    "ref": "Sahih al-Bukhari 2311",
+    "grade": null
+   },
+   {
+    "title": "Tasbih of Fatimah: 33, 33, 34",
+    "col": "bukhari",
+    "num": "3705",
+    "ref": "Sahih al-Bukhari 3705",
+    "grade": null
+   }
+  ],
+  "jumuah": [
+   {
+    "title": "Bathe, perfume, go early and listen",
+    "col": "bukhari",
+    "num": "883",
+    "ref": "Sahih al-Bukhari 883",
+    "grade": null
+   },
+   {
+    "title": "Send abundant blessings on the Prophet",
+    "col": "abudawud",
+    "num": "1047",
+    "ref": "Sunan Abi Dawud 1047",
+    "grade": "Sahih (Al-Albani)"
+   },
+   {
+    "title": "The best day the sun rises on",
+    "col": "muslim",
+    "num": "854a",
+    "ref": "Sahih Muslim 854a",
+    "grade": null
+   }
+  ],
+  "morningAdhkar": [
+   {
+    "title": "The master supplication for forgiveness",
+    "col": "bukhari",
+    "num": "6306",
+    "ref": "Sahih al-Bukhari 6306",
+    "grade": null
+   },
+   {
+    "title": "Bismillahilladhi la yadurru, three times",
+    "col": "abudawud",
+    "num": "5088",
+    "ref": "Sunan Abi Dawud 5088",
+    "grade": "Sahih (Al-Albani)"
+   },
+   {
+    "title": "SubhanAllah wa bihamdihi, a hundred times",
+    "col": "muslim",
+    "num": "2692",
+    "ref": "Sahih Muslim 2692",
+    "grade": null
+   }
+  ],
+  "eveningAdhkar": [
+   {
+    "title": "The master supplication for forgiveness",
+    "col": "bukhari",
+    "num": "6306",
+    "ref": "Sahih al-Bukhari 6306",
+    "grade": null
+   },
+   {
+    "title": "Bismillahilladhi la yadurru, three times",
+    "col": "abudawud",
+    "num": "5088",
+    "ref": "Sunan Abi Dawud 5088",
+    "grade": "Sahih (Al-Albani)"
+   },
+   {
+    "title": "SubhanAllah wa bihamdihi, a hundred times",
+    "col": "muslim",
+    "num": "2692",
+    "ref": "Sahih Muslim 2692",
+    "grade": null
+   }
+  ],
+  "restrictedSunrise": [
+   {
+    "title": "No prayer while the sun rises",
+    "col": "muslim",
+    "num": "831",
+    "ref": "Sahih Muslim 831",
+    "grade": null
+   },
+   {
+    "title": "None after Fajr until the sun is up",
+    "col": "bukhari",
+    "num": "586",
+    "ref": "Sahih al-Bukhari 586",
+    "grade": null
+   }
+  ],
+  "restrictedZawal": [
+   {
+    "title": "No prayer when the sun is at its height",
+    "col": "muslim",
+    "num": "831",
+    "ref": "Sahih Muslim 831",
+    "grade": null
+   }
+  ],
+  "restrictedSunset": [
+   {
+    "title": "No prayer while the sun sets",
+    "col": "muslim",
+    "num": "831",
+    "ref": "Sahih Muslim 831",
+    "grade": null
+   },
+   {
+    "title": "None after Asr until the sun has set",
+    "col": "bukhari",
+    "num": "586",
+    "ref": "Sahih al-Bukhari 586",
+    "grade": null
+   }
+  ],
+  "suhoor": [
+   {
+    "title": "Eat suhoor, there is blessing in it",
+    "col": "bukhari",
+    "num": "1923",
+    "ref": "Sahih al-Bukhari 1923",
+    "grade": null
+   },
+   {
+    "title": "Take suhoor late, close to Fajr",
+    "col": "bukhari",
+    "num": "1921",
+    "ref": "Sahih al-Bukhari 1921",
+    "grade": null
+   }
+  ],
+  "iftar": [
+   {
+    "title": "Make dua before you break your fast",
+    "col": "tirmidhi",
+    "num": "3598",
+    "ref": "Jami` at-Tirmidhi 3598",
+    "grade": "Hasan (Darussalam)"
+   },
+   {
+    "title": "Break the fast as soon as the sun sets",
+    "col": "bukhari",
+    "num": "1957",
+    "ref": "Sahih al-Bukhari 1957",
+    "grade": null
+   },
+   {
+    "title": "Break it with dates, or else water",
+    "col": "abudawud",
+    "num": "2356",
+    "ref": "Sunan Abi Dawud 2356",
+    "grade": "Hasan Sahih (Al-Albani)"
+   },
+   {
+    "title": "Say the dua of iftar",
+    "col": "abudawud",
+    "num": "2357",
+    "ref": "Sunan Abi Dawud 2357",
+    "grade": "Hasan (Al-Albani)"
+   }
+  ],
+  "taraweeh": [
+   {
+    "title": "Pray at night in Ramadan",
+    "col": "bukhari",
+    "num": "2009",
+    "ref": "Sahih al-Bukhari 2009",
+    "grade": null
+   },
+   {
+    "title": "Read and study the Qur'an, give generously",
+    "col": "bukhari",
+    "num": "6",
+    "ref": "Sahih al-Bukhari 6",
+    "grade": null
+   }
+  ],
+  "laylatAlQadr": [
+   {
+    "title": "Stand in prayer on Laylat al-Qadr",
+    "col": "bukhari",
+    "num": "2014",
+    "ref": "Sahih al-Bukhari 2014",
+    "grade": null
+   },
+   {
+    "title": "The dua for Laylat al-Qadr",
+    "col": "tirmidhi",
+    "num": "3513",
+    "ref": "Jami` at-Tirmidhi 3513",
+    "grade": "Sahih (Darussalam)"
+   },
+   {
+    "title": "Strive in worship and wake your family",
+    "col": "bukhari",
+    "num": "2024",
+    "ref": "Sahih al-Bukhari 2024",
+    "grade": null
+   }
+  ]
  }
 }

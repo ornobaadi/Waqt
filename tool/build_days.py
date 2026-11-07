@@ -93,6 +93,84 @@ DAYS = {
     ],
 }
 
+# moment id (MomentId in lib/domain/moments/moment.dart) -> items shown while
+# that moment is active, on Home and in the Duas tab.
+MOMENTS = {
+    "duha": [
+        ("Pray Duha: it is charity for every joint", "muslim", "720"),
+        ("Best when the sun is high and hot", "muslim", "748a"),
+        ("Two rak'ahs of Duha, as the Prophet advised", "bukhari", "1981"),
+    ],
+    "lastThird": [
+        ("Allah descends: call on Him, ask, seek forgiveness", "bukhari", "1145"),
+        ("He gives until the dawn breaks", "muslim", "758a"),
+    ],
+    "fridayLastHour": [
+        ("An hour in which dua is answered", "bukhari", "935"),
+        ("Seek it in the last hour after Asr", "abudawud", "1048"),
+        ("Send blessings on the Prophet", "abudawud", "1047"),
+    ],
+    "afterSalah": [
+        ("Seek forgiveness three times", "muslim", "591"),
+        ("SubhanAllah, Alhamdulillah, Allahu Akbar, 33 each", "muslim", "597a"),
+    ],
+    "betweenAdhanIqamah": [
+        ("Dua now is not turned back", "abudawud", "521"),
+        ("Repeat the adhan, then send blessings", "muslim", "384"),
+        ("The dua after the adhan", "bukhari", "614"),
+    ],
+    "bedtime": [
+        ("Wudu, and lie on your right side", "bukhari", "247"),
+        ("Say the dua before sleep", "bukhari", "6324"),
+        ("The three Quls, then wipe over the body", "bukhari", "5017"),
+        ("Recite Ayat al-Kursi", "bukhari", "2311"),
+        ("Tasbih of Fatimah: 33, 33, 34", "bukhari", "3705"),
+    ],
+    "jumuah": [
+        ("Bathe, perfume, go early and listen", "bukhari", "883"),
+        ("Send abundant blessings on the Prophet", "abudawud", "1047"),
+        ("The best day the sun rises on", "muslim", "854a"),
+    ],
+    "morningAdhkar": [
+        ("The master supplication for forgiveness", "bukhari", "6306"),
+        ("Bismillahilladhi la yadurru, three times", "abudawud", "5088"),
+        ("SubhanAllah wa bihamdihi, a hundred times", "muslim", "2692"),
+    ],
+    "eveningAdhkar": [
+        ("The master supplication for forgiveness", "bukhari", "6306"),
+        ("Bismillahilladhi la yadurru, three times", "abudawud", "5088"),
+        ("SubhanAllah wa bihamdihi, a hundred times", "muslim", "2692"),
+    ],
+    "restrictedSunrise": [
+        ("No prayer while the sun rises", "muslim", "831"),
+        ("None after Fajr until the sun is up", "bukhari", "586"),
+    ],
+    "restrictedZawal": [("No prayer when the sun is at its height", "muslim", "831")],
+    "restrictedSunset": [
+        ("No prayer while the sun sets", "muslim", "831"),
+        ("None after Asr until the sun has set", "bukhari", "586"),
+    ],
+    "suhoor": [
+        ("Eat suhoor, there is blessing in it", "bukhari", "1923"),
+        ("Take suhoor late, close to Fajr", "bukhari", "1921"),
+    ],
+    "iftar": [
+        ("Make dua before you break your fast", "tirmidhi", "3598"),
+        ("Break the fast as soon as the sun sets", "bukhari", "1957"),
+        ("Break it with dates, or else water", "abudawud", "2356"),
+        ("Say the dua of iftar", "abudawud", "2357"),
+    ],
+    "taraweeh": [
+        ("Pray at night in Ramadan", "bukhari", "2009"),
+        ("Read and study the Qur'an, give generously", "bukhari", "6"),
+    ],
+    "laylatAlQadr": [
+        ("Stand in prayer on Laylat al-Qadr", "bukhari", "2014"),
+        ("The dua for Laylat al-Qadr", "tirmidhi", "3513"),
+        ("Strive in worship and wake your family", "bukhari", "2024"),
+    ],
+}
+
 # Days on which fasting is the Sunnah (for the fasting badge on Home).
 FASTS = ["arafah", "ashura", "tasua", "ayyamAlBid", "mondayFast", "thursdayFast"]
 WEAK = ("da'if", "da’if", "daif", "mawdu", "munkar")
@@ -103,24 +181,26 @@ def main():
     with gzip.open(os.path.join(ROOT, "tool", "data", "hadith.db.gz")) as f, open(path, "wb") as out:
         out.write(f.read())
     db = sqlite3.connect(path)
-    days = {}
-    for occ, items in DAYS.items():
-        rows = []
+    def rows(name, items):
+        out = []
         for title, col, num, *when in items:
             r = db.execute("SELECT ref, grade FROM hadith WHERE col=? AND num=?", (col, num)).fetchone()
             if r is None:
-                raise SystemExit(f"{occ}: {col} {num} not in the database")
+                raise SystemExit(f"{name}: {col} {num} not in the database")
             ref, grade = r
             if grade and grade.lower().startswith(WEAK):
-                raise SystemExit(f"{occ}: {ref} is graded {grade}")
+                raise SystemExit(f"{name}: {ref} is graded {grade}")
             row = {"title": title, "col": col, "num": num, "ref": ref, "grade": grade}
             if when:
                 row["when"] = when[0]  # suhoor, day, iftar or night: when it is most relevant
-            rows.append(row)
-        days[occ] = rows
+            out.append(row)
+        return out
+
+    days = {occ: rows(occ, items) for occ, items in DAYS.items()}
+    moments = {m: rows(m, items) for m, items in MOMENTS.items()}
     with open(os.path.join(ROOT, "assets", "sources", "days.json"), "w", encoding="utf8") as f:
-        json.dump({"fasts": FASTS, "days": days}, f, ensure_ascii=False, indent=1)
-    print(sum(len(v) for v in days.values()), "items for", len(days), "occasions")
+        json.dump({"fasts": FASTS, "days": days, "moments": moments}, f, ensure_ascii=False, indent=1)
+    print(sum(len(v) for v in days.values()), "items for", len(days), "occasions;", len(moments), "moments")
 
 
 if __name__ == "__main__":
