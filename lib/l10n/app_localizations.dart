@@ -1706,6 +1706,114 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Not sure'**
   String get sightingUnsure;
+
+  /// No description provided for @ramadanSuhoor.
+  ///
+  /// In en, this message translates to:
+  /// **'Suhoor ends'**
+  String get ramadanSuhoor;
+
+  /// No description provided for @ramadanIftar.
+  ///
+  /// In en, this message translates to:
+  /// **'Iftar'**
+  String get ramadanIftar;
+
+  /// No description provided for @ramadanIn.
+  ///
+  /// In en, this message translates to:
+  /// **'in {time}'**
+  String ramadanIn(String time);
+
+  /// No description provided for @ramadanDone.
+  ///
+  /// In en, this message translates to:
+  /// **'done'**
+  String get ramadanDone;
+
+  /// No description provided for @announceTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Tonight decides {month}'**
+  String announceTitle(String month);
+
+  /// No description provided for @announceBegins.
+  ///
+  /// In en, this message translates to:
+  /// **'By the {authority}, {month} begins tomorrow.'**
+  String announceBegins(String month, String authority);
+
+  /// No description provided for @announceThirty.
+  ///
+  /// In en, this message translates to:
+  /// **'By the {authority}, {month} completes 30 days: tomorrow is the 30th.'**
+  String announceThirty(String month, String authority);
+
+  /// No description provided for @announceOffline.
+  ///
+  /// In en, this message translates to:
+  /// **'Offline: showing the last downloaded dates. Waqt will check again when you are connected.'**
+  String get announceOffline;
+
+  /// No description provided for @announceChecking.
+  ///
+  /// In en, this message translates to:
+  /// **'Waqt checks for the announcement every 30 minutes tonight. Last checked {time}.'**
+  String announceChecking(String time);
+
+  /// No description provided for @authoritySaudi.
+  ///
+  /// In en, this message translates to:
+  /// **'Saudi High Judiciary Council'**
+  String get authoritySaudi;
+
+  /// No description provided for @authorityDiyanet.
+  ///
+  /// In en, this message translates to:
+  /// **'Diyanet (Türkiye)'**
+  String get authorityDiyanet;
+
+  /// No description provided for @authorityLocal.
+  ///
+  /// In en, this message translates to:
+  /// **'Local moon sighting'**
+  String get authorityLocal;
+
+  /// No description provided for @authoritySaudiHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Announced sightings, updated online'**
+  String get authoritySaudiHint;
+
+  /// No description provided for @authorityDiyanetHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Türkiye\'s official calendar, updated online'**
+  String get authorityDiyanetHint;
+
+  /// No description provided for @authorityLocalHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Umm al-Qura; on the 29th you say whether the moon was seen'**
+  String get authorityLocalHint;
+
+  /// No description provided for @calendarSourceLine.
+  ///
+  /// In en, this message translates to:
+  /// **'{authority} · checked {time}'**
+  String calendarSourceLine(String authority, String time);
+
+  /// No description provided for @calendarSourceLocal.
+  ///
+  /// In en, this message translates to:
+  /// **'Umm al-Qura with your adjustment. On the 29th of Shaban, Ramadan and Dhul Qadah, Home asks whether the new moon was seen.'**
+  String get calendarSourceLocal;
+
+  /// No description provided for @announceUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'The announcement has not reached Waqt yet. If the crescent is seen tonight, {month} begins tomorrow; if not, this month completes 30 days.'**
+  String announceUnknown(String month);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

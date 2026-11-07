@@ -887,4 +887,73 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get sightingUnsure => 'নিশ্চিত নই';
+
+  @override
+  String get ramadanSuhoor => 'সাহরি শেষ';
+
+  @override
+  String get ramadanIftar => 'ইফতার';
+
+  @override
+  String ramadanIn(String time) {
+    return '$time পরে';
+  }
+
+  @override
+  String get ramadanDone => 'শেষ';
+
+  @override
+  String announceTitle(String month) {
+    return 'আজ রাতে $month নির্ধারণ';
+  }
+
+  @override
+  String announceBegins(String month, String authority) {
+    return '$authority অনুযায়ী আগামীকাল $month শুরু।';
+  }
+
+  @override
+  String announceThirty(String month, String authority) {
+    return '$authority অনুযায়ী $month ৩০ দিন পূর্ণ করবে: আগামীকাল ৩০ তারিখ।';
+  }
+
+  @override
+  String get announceOffline => 'অফলাইন: সর্বশেষ ডাউনলোড করা তারিখ দেখানো হচ্ছে। সংযোগ পেলে আবার দেখা হবে।';
+
+  @override
+  String announceChecking(String time) {
+    return 'আজ রাতে প্রতি ৩০ মিনিটে ঘোষণা দেখা হয়। সর্বশেষ $time।';
+  }
+
+  @override
+  String get authoritySaudi => 'সৌদি সুপ্রিম জুডিশিয়াল কাউন্সিল';
+
+  @override
+  String get authorityDiyanet => 'দিয়ানেত (তুরস্ক)';
+
+  @override
+  String get authorityLocal => 'স্থানীয় চাঁদ দেখা';
+
+  @override
+  String get authoritySaudiHint => 'ঘোষিত চাঁদ দেখা, অনলাইনে হালনাগাদ';
+
+  @override
+  String get authorityDiyanetHint => 'তুরস্কের সরকারি ক্যালেন্ডার, অনলাইনে হালনাগাদ';
+
+  @override
+  String get authorityLocalHint => 'উম্মুল কুরা; ২৯ তারিখে আপনি জানান চাঁদ দেখা গেছে কি না';
+
+  @override
+  String calendarSourceLine(String authority, String time) {
+    return '$authority · $time-এ দেখা';
+  }
+
+  @override
+  String get calendarSourceLocal =>
+      'উম্মুল কুরা ও আপনার সমন্বয়। শাবান, রমজান ও জিলকদের ২৯ তারিখে হোম চাঁদ দেখার কথা জিজ্ঞেস করে।';
+
+  @override
+  String announceUnknown(String month) {
+    return 'ঘোষণা এখনও ওয়াক্তে পৌঁছায়নি। আজ রাতে চাঁদ দেখা গেলে আগামীকাল $month শুরু; না দেখা গেলে এই মাস ৩০ দিন পূর্ণ করবে।';
+  }
 }

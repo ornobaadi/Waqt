@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 
 import '../../app/app_state.dart';
 import '../../core/theme/tokens.dart';
 import '../../core/theme/waqt_theme.dart';
+import '../../data/hijri/calendar_sync.dart';
 import '../../data/user/user_prefs.dart';
 import '../../domain/hijri/hijri_service.dart';
 import '../../domain/prayer/prayer_times_service.dart';
@@ -24,28 +26,14 @@ const _askBefore = {8, 9, 11};
   final maghrib = status.today[Waqt.maghrib];
   // From Maghrib until midnight, on the 29th by today's daytime date.
   if (now.isBefore(maghrib) || status.current == Waqt.fajr || status.current == Waqt.sunrise) return null;
+  if (ref.watch(calendarSyncProvider.select((s) => s.authority)) != HijriAuthority.local) return null;
   final h = ref.watch(occasionsProvider).date;
   if (h.day != 29 || !_askBefore.contains(h.month)) return null;
   final next = h.month == 12 ? (year: h.year + 1, month: 1) : (year: h.year, month: h.month + 1);
-  return ref.watch(_answeredProvider).contains(_key(next)) ? null : next;
+  return ref.watch(sightingAnswersProvider).contains(_key(next)) ? null : next;
 }
 
-String _key(({int year, int month}) m) => '${m.year}-${m.month}';
-
-/// Months already asked about, so the question comes once.
-class _Answered extends Notifier<Set<String>> {
-  static const _k = 'sighting.answered.v1';
-
-  @override
-  Set<String> build() => (ref.read(sharedPrefsProvider).getStringList(_k) ?? const []).toSet();
-
-  void add(String key) {
-    state = {...state, key};
-    ref.read(sharedPrefsProvider).setStringList(_k, state.toList());
-  }
-}
-
-final _answeredProvider = NotifierProvider<_Answered, Set<String>>(_Answered.new);
+String _key(({int year, int month}) m) => sightingKey(m.year, m.month);
 
 /// The offset (within the allowed ±2) that makes tomorrow's daytime date the
 /// 1st of [month] if the moon was seen, or the 30th of the month before if
@@ -83,7 +71,7 @@ class SightingCard extends ConsumerWidget {
       final o = offsetFor(now, next, seen: seen);
       if (o != null) ref.read(userPrefsProvider.notifier).setHijriOffset(o);
     }
-    ref.read(_answeredProvider.notifier).add(_key(next));
+    ref.read(sightingAnswersProvider.notifier).add(_key(next));
   }
 
   @override
@@ -132,6 +120,78 @@ class SightingCard extends ConsumerWidget {
                 child: Text(l.sightingUnsure),
               ),
             ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// On the evening of the 29th, with an authority's calendar: what tomorrow is
+/// by the latest download, and that the app keeps checking tonight.
+({int month, HijriDate tomorrow, bool known})? announcementQuestion(WidgetRef ref) {
+  final sync = ref.watch(calendarSyncProvider);
+  if (sync.authority == HijriAuthority.local) return null;
+  final status = ref.watch(prayerStatusProvider);
+  if (status == null) return null;
+  final now = ref.watch(placeNowProvider);
+  if (now.isBefore(status.today[Waqt.maghrib]) || status.current == Waqt.fajr || status.current == Waqt.sunrise) {
+    return null;
+  }
+  final h = ref.watch(occasionsProvider).date;
+  if (h.day != 29 || !_askBefore.contains(h.month)) return null;
+  final day = DateTime(now.year, now.month, now.day + 1, 12);
+  final tomorrow = ref.watch(hijriServiceProvider).dateFor(day, offset: ref.watch(hijriOffsetProvider));
+  // Known only if the downloaded months cover tomorrow; otherwise the date
+  // is Umm al-Qura's estimate and must not be presented as announced.
+  return (month: h.month == 12 ? 1 : h.month + 1, tomorrow: tomorrow, known: sync.table.lookup(day) != null);
+}
+
+class AnnouncementCard extends ConsumerWidget {
+  const AnnouncementCard({super.key, required this.month, required this.tomorrow, required this.known});
+  final int month;
+  final HijriDate tomorrow;
+  final bool known;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l = AppLocalizations.of(context);
+    final t = WaqtTokens.of(context);
+    final sync = ref.watch(calendarSyncProvider);
+    final locale = Localizations.localeOf(context).toLanguageTag();
+    final checked = sync.checkedAt == null ? null : DateFormat.jm(locale).format(sync.checkedAt!);
+    final begins = tomorrow.month == month && tomorrow.day == 1;
+    return Container(
+      padding: const EdgeInsets.all(WaqtSpace.x5),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(WaqtRadii.card),
+        border: Border.all(color: t.ink.withValues(alpha: 0.16)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.brightness_3_outlined, size: 20, color: t.ink),
+              const SizedBox(width: WaqtSpace.x2),
+              Expanded(
+                child: Text(l.announceTitle(l.hijriMonth(month)), style: WaqtText.bodyStrong.copyWith(color: t.ink)),
+              ),
+            ],
+          ),
+          const SizedBox(height: WaqtSpace.x2),
+          Text(
+            !known
+                ? l.announceUnknown(l.hijriMonth(month))
+                : begins
+                ? l.announceBegins(l.hijriMonth(month), l.authorityName(sync.authority))
+                : l.announceThirty(l.hijriMonth(tomorrow.month), l.authorityName(sync.authority)),
+            style: WaqtText.body.copyWith(color: t.ink),
+          ),
+          const SizedBox(height: WaqtSpace.x2),
+          Text(
+            sync.failed || checked == null ? l.announceOffline : l.announceChecking(checked),
+            style: WaqtText.caption.copyWith(color: t.inkMuted),
           ),
         ],
       ),

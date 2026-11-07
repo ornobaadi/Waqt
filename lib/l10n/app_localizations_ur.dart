@@ -889,4 +889,73 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get sightingUnsure => 'یقین نہیں';
+
+  @override
+  String get ramadanSuhoor => 'سحری ختم';
+
+  @override
+  String get ramadanIftar => 'افطار';
+
+  @override
+  String ramadanIn(String time) {
+    return '$time میں';
+  }
+
+  @override
+  String get ramadanDone => 'مکمل';
+
+  @override
+  String announceTitle(String month) {
+    return 'آج رات $month کا فیصلہ';
+  }
+
+  @override
+  String announceBegins(String month, String authority) {
+    return '$authority کے مطابق، $month کل شروع ہو گا۔';
+  }
+
+  @override
+  String announceThirty(String month, String authority) {
+    return '$authority کے مطابق، $month 30 دن کا: کل 30 تاریخ ہے۔';
+  }
+
+  @override
+  String get announceOffline => 'آف لائن: آخری ڈاؤن لوڈ شدہ تاریخیں۔ کنکشن پر وقت دوبارہ چیک کرے گا۔';
+
+  @override
+  String announceChecking(String time) {
+    return 'وقت آج رات ہر 30 منٹ اعلان چیک کرتا ہے۔ آخری بار $time۔';
+  }
+
+  @override
+  String get authoritySaudi => 'سعودی اعلیٰ عدالتی کونسل';
+
+  @override
+  String get authorityDiyanet => 'دیانت (ترکیہ)';
+
+  @override
+  String get authorityLocal => 'مقامی رؤیت ہلال';
+
+  @override
+  String get authoritySaudiHint => 'اعلان شدہ رؤیت، آن لائن اپ ڈیٹ';
+
+  @override
+  String get authorityDiyanetHint => 'ترکیہ کا سرکاری کیلنڈر، آن لائن اپ ڈیٹ';
+
+  @override
+  String get authorityLocalHint => 'ام القریٰ؛ 29 تاریخ کو آپ بتاتے ہیں کہ چاند نظر آیا یا نہیں';
+
+  @override
+  String calendarSourceLine(String authority, String time) {
+    return '$authority · $time چیک کیا';
+  }
+
+  @override
+  String get calendarSourceLocal =>
+      'ام القریٰ آپ کی ترمیم کے ساتھ۔ شعبان، رمضان اور ذوالقعدہ کی 29 کو ہوم پر چاند کا سوال آتا ہے۔';
+
+  @override
+  String announceUnknown(String month) {
+    return 'اعلان ابھی وقت تک نہیں پہنچا۔ اگر آج رات چاند نظر آیا تو $month کل سے، ورنہ یہ مہینہ 30 دن کا ہوگا۔';
+  }
 }

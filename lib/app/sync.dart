@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
+import '../data/hijri/calendar_sync.dart';
 import '../data/user/notification_prefs.dart';
 import '../data/user/user_prefs.dart';
 import '../domain/moments/moment.dart';
@@ -73,6 +74,11 @@ class _SyncHostState extends ConsumerState<SyncHost> with WidgetsBindingObserver
   }
 
   void _schedule() {
+    // The calendar download needs no platform plugins; it runs everywhere
+    // except tests, which have no network.
+    if (!Platform.environment.containsKey('FLUTTER_TEST')) {
+      unawaited(ref.read(calendarSyncProvider.notifier).refresh());
+    }
     if (!_platformAvailable) return;
     _debounce?.cancel();
     _debounce = Timer(const Duration(milliseconds: 400), _sync);

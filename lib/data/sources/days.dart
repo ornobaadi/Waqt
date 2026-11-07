@@ -28,6 +28,14 @@ class DayGuides {
 
   List<DayItem> forOccasion(OccasionId o) => _days[o] ?? const [];
 
+  /// Everything for the featured occasion. In the last ten nights the
+  /// daily Ramadan practices still apply, so they follow.
+  List<DayItem> itemsFor(OccasionId featured, List<OccasionId> occasions) => [
+    ...forOccasion(featured),
+    if (featured == OccasionId.lastTenNights && occasions.contains(OccasionId.ramadan))
+      ...forOccasion(OccasionId.ramadan),
+  ];
+
   /// The first occasion that has a guide, most specific first. Friday has its
   /// own checklist on Home, so it is left to that.
   OccasionId? featured(List<OccasionId> occasions) =>
@@ -52,9 +60,7 @@ class DayGuides {
             ),
       ];
     }
-    return DayGuides(days, {
-      for (final f in j['fasts']! as List<Object?>) ?byName[f],
-    });
+    return DayGuides(days, {for (final f in j['fasts']! as List<Object?>) ?byName[f]});
   }
 }
 

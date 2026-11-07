@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../app/app_state.dart';
 import '../../core/config/flavor.dart';
 import '../../core/config/test_mode.dart';
+import '../../data/hijri/calendar_sync.dart';
 import '../../core/diagnostics/reports.dart';
 import '../../core/theme/tokens.dart';
 import '../../core/theme/waqt_theme.dart';
@@ -55,6 +56,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     final l = AppLocalizations.of(context);
     final t = WaqtTokens.of(context);
     final prefs = ref.watch(userPrefsProvider);
+    final sync = ref.watch(calendarSyncProvider);
     final settings = ref.watch(prayerSettingsProvider);
     final locale = ref.watch(localeOverrideProvider);
     final notifier = ref.read(userPrefsProvider.notifier);
@@ -158,11 +160,30 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 RowGroup(
                   children: [
                     RowTile(
-                      title: l.settingsHijriAdjust,
-                      subtitle: l.hijriAdjustHint,
-                      value: l.hijriOffset(prefs.hijriOffset),
-                      onTap: () => _pickHijriOffset(context, prefs.hijriOffset),
+                      title: l.settingsCalendar,
+                      subtitle: l.authorityName(sync.authority),
+                      onTap: () async {
+                        final picked = await showOptionSheet<HijriAuthority>(
+                          context,
+                          title: l.settingsCalendar,
+                          selected: sync.authority,
+                          options: [
+                            for (final a in HijriAuthority.values)
+                              SheetOption(a, l.authorityName(a), hint: _authorityHint(l, a)),
+                          ],
+                        );
+                        if (picked != null) ref.read(calendarSyncProvider.notifier).setAuthority(picked);
+                      },
                     ),
+                    // An authority's announced dates are used as they are; the
+                    // day adjustment is for local sighting only.
+                    if (sync.authority == HijriAuthority.local)
+                      RowTile(
+                        title: l.settingsHijriAdjust,
+                        subtitle: l.hijriAdjustHint,
+                        value: l.hijriOffset(prefs.hijriOffset),
+                        onTap: () => _pickHijriOffset(context, prefs.hijriOffset),
+                      ),
                   ],
                 ),
                 SectionLabel(l.settingsLanguage),
@@ -276,3 +297,9 @@ class _VersionTileState extends ConsumerState<_VersionTile> {
     );
   }
 }
+
+String _authorityHint(AppLocalizations l, HijriAuthority a) => switch (a) {
+  HijriAuthority.saudi => l.authoritySaudiHint,
+  HijriAuthority.diyanet => l.authorityDiyanetHint,
+  HijriAuthority.local => l.authorityLocalHint,
+};

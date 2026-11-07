@@ -889,4 +889,73 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get sightingUnsure => 'Emin değilim';
+
+  @override
+  String get ramadanSuhoor => 'Sahur biter';
+
+  @override
+  String get ramadanIftar => 'İftar';
+
+  @override
+  String ramadanIn(String time) {
+    return '$time sonra';
+  }
+
+  @override
+  String get ramadanDone => 'tamam';
+
+  @override
+  String announceTitle(String month) {
+    return 'Bu gece $month belli oluyor';
+  }
+
+  @override
+  String announceBegins(String month, String authority) {
+    return '$authority verisine göre $month yarın başlıyor.';
+  }
+
+  @override
+  String announceThirty(String month, String authority) {
+    return '$authority verisine göre $month 30 güne tamamlanıyor: yarın 30\'u.';
+  }
+
+  @override
+  String get announceOffline => 'Çevrimdışı: son indirilen tarihler gösteriliyor. Bağlanınca yeniden kontrol edilecek.';
+
+  @override
+  String announceChecking(String time) {
+    return 'Waqt bu gece her 30 dakikada duyuruyu kontrol ediyor. Son kontrol $time.';
+  }
+
+  @override
+  String get authoritySaudi => 'Suudi Yüksek Yargı Konseyi';
+
+  @override
+  String get authorityDiyanet => 'Diyanet (Türkiye)';
+
+  @override
+  String get authorityLocal => 'Yerel hilal gözlemi';
+
+  @override
+  String get authoritySaudiHint => 'İlan edilen gözlemler, çevrimiçi güncellenir';
+
+  @override
+  String get authorityDiyanetHint => 'Türkiye\'nin resmî takvimi, çevrimiçi güncellenir';
+
+  @override
+  String get authorityLocalHint => 'Ümmü\'l-Kurâ; 29\'unda hilalin görülüp görülmediğini siz söylersiniz';
+
+  @override
+  String calendarSourceLine(String authority, String time) {
+    return '$authority · $time kontrol edildi';
+  }
+
+  @override
+  String get calendarSourceLocal =>
+      'Ümmü\'l-Kurâ ve düzeltmeniz. Şaban, Ramazan ve Zilkade\'nin 29\'unda ana ekran hilali sorar.';
+
+  @override
+  String announceUnknown(String month) {
+    return 'Duyuru henüz Waqt\'a ulaşmadı. Hilal bu gece görülürse $month yarın başlar; görülmezse bu ay 30 güne tamamlanır.';
+  }
 }

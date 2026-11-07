@@ -1,17 +1,20 @@
 # Waqt privacy policy
 
-_Last updated: 6 November 2026_
+_Last updated: 7 November 2026_
 
 Waqt is built to work entirely on your phone. Here is exactly what that means.
 
 ## What Waqt collects
-**Nothing.** Waqt has no accounts, no analytics, no advertising and no crash-reporting service. It does not send data to us or to anyone else.
+**Nothing.** Waqt has no accounts, no analytics, no advertising and no crash-reporting service. It does not send data about you to us or to anyone else.
 
 ## Location
 - When you choose **Use my location**, Waqt asks Android for a city-level (coarse) position, once.
 - That position is used on the phone to calculate prayer times and to name your nearest city from a list stored inside the app.
 - It is saved only on your phone, so prayer times keep working offline. It is never transmitted.
 - You can choose a city by hand instead and never grant location permission.
+
+## Islamic calendar (the one network request)
+Hijri months begin when the crescent is sighted, so Waqt downloads the announced start dates of the months around today from api.aladhan.com, for the authority you choose in Settings (Saudi High Judiciary Council or Diyanet). The request contains only a Hijri month, a year and the authority's name: no location, no identifier, nothing about you. Choose **Local moon sighting** and Waqt makes no network request at all.
 
 ## Notifications and alarms
 Reminders are scheduled on the phone with Android's alarm system. Nothing about them leaves the device.

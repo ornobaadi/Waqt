@@ -1,3 +1,4 @@
+import '../../data/hijri/calendar_sync.dart';
 import '../../data/content/content_repository.dart';
 import '../../domain/hijri/hijri_service.dart';
 import '../../domain/moments/moment.dart';
@@ -140,5 +141,11 @@ extension WaqtLabels on AppLocalizations {
     OccasionId.jumuah => momentJumuah,
     OccasionId.mondayFast => occMonday,
     OccasionId.thursdayFast => occThursday,
+  };
+
+  String authorityName(HijriAuthority a) => switch (a) {
+    HijriAuthority.saudi => authoritySaudi,
+    HijriAuthority.diyanet => authorityDiyanet,
+    HijriAuthority.local => authorityLocal,
   };
 }

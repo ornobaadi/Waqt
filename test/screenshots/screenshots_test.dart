@@ -196,7 +196,7 @@ void main() {
       then: () async {
         await t.tap(find.text('Settings'));
         await t.pumpAndSettle();
-        await t.scrollUntilVisible(find.text('Hijri date adjustment'), 200);
+        await t.scrollUntilVisible(find.text('Saudi High Judiciary Council'), 200);
         await t.pumpAndSettle();
         await t.tap(find.text('Reading size'));
       },

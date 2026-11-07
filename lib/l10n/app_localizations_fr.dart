@@ -891,4 +891,73 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get sightingUnsure => 'Pas sûr';
+
+  @override
+  String get ramadanSuhoor => 'Fin du suhour';
+
+  @override
+  String get ramadanIftar => 'Iftar';
+
+  @override
+  String ramadanIn(String time) {
+    return 'dans $time';
+  }
+
+  @override
+  String get ramadanDone => 'terminé';
+
+  @override
+  String announceTitle(String month) {
+    return 'Ce soir se décide $month';
+  }
+
+  @override
+  String announceBegins(String month, String authority) {
+    return 'Selon $authority, $month commence demain.';
+  }
+
+  @override
+  String announceThirty(String month, String authority) {
+    return 'Selon $authority, $month complète 30 jours : demain est le 30.';
+  }
+
+  @override
+  String get announceOffline => 'Hors ligne : dernières dates téléchargées. Waqt vérifiera à la reconnexion.';
+
+  @override
+  String announceChecking(String time) {
+    return 'Waqt vérifie l\'annonce toutes les 30 minutes ce soir. Dernière vérification $time.';
+  }
+
+  @override
+  String get authoritySaudi => 'Haut Conseil judiciaire saoudien';
+
+  @override
+  String get authorityDiyanet => 'Diyanet (Turquie)';
+
+  @override
+  String get authorityLocal => 'Observation locale du croissant';
+
+  @override
+  String get authoritySaudiHint => 'Observations annoncées, mises à jour en ligne';
+
+  @override
+  String get authorityDiyanetHint => 'Calendrier officiel turc, mis à jour en ligne';
+
+  @override
+  String get authorityLocalHint => 'Umm al-Qura ; le 29, vous dites si le croissant a été vu';
+
+  @override
+  String calendarSourceLine(String authority, String time) {
+    return '$authority · vérifié $time';
+  }
+
+  @override
+  String get calendarSourceLocal =>
+      'Umm al-Qura avec votre ajustement. Le 29 de Chaabane, Ramadan et Dhou al-Qi\'da, l\'accueil demande si le croissant a été vu.';
+
+  @override
+  String announceUnknown(String month) {
+    return 'L\'annonce n\'est pas encore parvenue à Waqt. Si le croissant est vu ce soir, $month commence demain ; sinon, ce mois compte 30 jours.';
+  }
 }

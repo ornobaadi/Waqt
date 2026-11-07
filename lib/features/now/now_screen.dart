@@ -13,6 +13,7 @@ import '../../data/user/checklist.dart';
 import '../../data/user/notification_prefs.dart';
 import '../../data/user/user_prefs.dart';
 import '../../domain/moments/moment.dart';
+import '../../domain/occasions/occasions.dart';
 import '../../domain/prayer/prayer_times_service.dart';
 import '../../domain/time/place_zone.dart';
 import '../../l10n/app_localizations.dart';
@@ -23,6 +24,7 @@ import 'moment_cards.dart';
 import '../../data/sources/days.dart';
 import 'celestial.dart';
 import 'day_guide_card.dart';
+import 'ramadan_card.dart';
 import 'sighting_card.dart';
 import 'prayer_windows.dart';
 import 'sky_background.dart';
@@ -57,6 +59,12 @@ class NowScreen extends ConsumerWidget {
     final guides = ref.watch(dayGuidesProvider).value;
     final guideOcc = guides?.featured(occasions);
     final sighting = sightingQuestion(ref);
+    final announcement = announcementQuestion(ref);
+    // Undecided 29th of Ramadan: tomorrow may be the 30th fast, so suhoor
+    // stays on screen until the sighting is known.
+    final undecidedEid =
+        (announcement != null && !announcement.known && announcement.month == 10) || sighting?.month == 10;
+    final ramadanTomorrow = undecidedEid || ref.watch(tomorrowOccasionsProvider).contains(OccasionId.ramadan);
     // Before Maghrib: today's Sunnah fast. After it: tomorrow's, so there is
     // time to intend it and eat suhoor.
     final afterMaghrib = status != null && !now.isBefore(status.today[Waqt.maghrib]) && status.current != Waqt.fajr;
@@ -183,12 +191,28 @@ class NowScreen extends ConsumerWidget {
                   onDismiss: () => ref.read(notificationPrefsProvider.notifier).dismissSetup(),
                 ),
               ],
+              if (status != null &&
+                  occasions.contains(OccasionId.ramadan) &&
+                  RamadanCard.hasTimes(status, now, ramadanTomorrow)) ...[
+                const SizedBox(height: WaqtSpace.x4),
+                RamadanCard(
+                  status: status,
+                  now: now,
+                  // After Maghrib, the fast ahead is tomorrow's, as the date shows.
+                  day: undecidedEid ? 30 : hijri.day,
+                  fastingTomorrow: ramadanTomorrow,
+                ),
+              ],
+              if (announcement != null) ...[
+                const SizedBox(height: WaqtSpace.x4),
+                AnnouncementCard(month: announcement.month, tomorrow: announcement.tomorrow, known: announcement.known),
+              ],
               if (sighting != null) ...[const SizedBox(height: WaqtSpace.x4), SightingCard(next: sighting)],
               if (guideOcc != null && guides != null) ...[
                 const SizedBox(height: WaqtSpace.x4),
                 DayGuideCard(
                   occasion: guideOcc,
-                  items: guides.forOccasion(guideOcc),
+                  items: guides.itemsFor(guideOcc, occasions),
                   day: '${now.year}-${now.month}-${now.day}',
                   ramadanDay: n(occ.date.day),
                 ),

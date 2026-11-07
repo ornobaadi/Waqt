@@ -890,4 +890,73 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get sightingUnsure => 'Tidak yakin';
+
+  @override
+  String get ramadanSuhoor => 'Sahur berakhir';
+
+  @override
+  String get ramadanIftar => 'Buka puasa';
+
+  @override
+  String ramadanIn(String time) {
+    return 'dalam $time';
+  }
+
+  @override
+  String get ramadanDone => 'selesai';
+
+  @override
+  String announceTitle(String month) {
+    return 'Malam ini menentukan $month';
+  }
+
+  @override
+  String announceBegins(String month, String authority) {
+    return 'Menurut $authority, $month dimulai besok.';
+  }
+
+  @override
+  String announceThirty(String month, String authority) {
+    return 'Menurut $authority, $month genap 30 hari: besok tanggal 30.';
+  }
+
+  @override
+  String get announceOffline => 'Luring: menampilkan tanggal unduhan terakhir. Waqt memeriksa lagi saat tersambung.';
+
+  @override
+  String announceChecking(String time) {
+    return 'Waqt memeriksa pengumuman tiap 30 menit malam ini. Terakhir $time.';
+  }
+
+  @override
+  String get authoritySaudi => 'Dewan Peradilan Tinggi Saudi';
+
+  @override
+  String get authorityDiyanet => 'Diyanet (Turki)';
+
+  @override
+  String get authorityLocal => 'Rukyat lokal';
+
+  @override
+  String get authoritySaudiHint => 'Rukyat yang diumumkan, diperbarui daring';
+
+  @override
+  String get authorityDiyanetHint => 'Kalender resmi Turki, diperbarui daring';
+
+  @override
+  String get authorityLocalHint => 'Umm al-Qura; tanggal 29 Anda menjawab apakah hilal terlihat';
+
+  @override
+  String calendarSourceLine(String authority, String time) {
+    return '$authority · diperiksa $time';
+  }
+
+  @override
+  String get calendarSourceLocal =>
+      'Umm al-Qura dengan penyesuaian Anda. Tanggal 29 Syakban, Ramadan dan Zulkaidah, Beranda menanyakan rukyat.';
+
+  @override
+  String announceUnknown(String month) {
+    return 'Pengumuman belum sampai ke Waqt. Jika hilal terlihat malam ini, $month dimulai besok; jika tidak, bulan ini genap 30 hari.';
+  }
 }

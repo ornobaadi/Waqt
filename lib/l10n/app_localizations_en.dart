@@ -889,4 +889,74 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get sightingUnsure => 'Not sure';
+
+  @override
+  String get ramadanSuhoor => 'Suhoor ends';
+
+  @override
+  String get ramadanIftar => 'Iftar';
+
+  @override
+  String ramadanIn(String time) {
+    return 'in $time';
+  }
+
+  @override
+  String get ramadanDone => 'done';
+
+  @override
+  String announceTitle(String month) {
+    return 'Tonight decides $month';
+  }
+
+  @override
+  String announceBegins(String month, String authority) {
+    return 'By the $authority, $month begins tomorrow.';
+  }
+
+  @override
+  String announceThirty(String month, String authority) {
+    return 'By the $authority, $month completes 30 days: tomorrow is the 30th.';
+  }
+
+  @override
+  String get announceOffline =>
+      'Offline: showing the last downloaded dates. Waqt will check again when you are connected.';
+
+  @override
+  String announceChecking(String time) {
+    return 'Waqt checks for the announcement every 30 minutes tonight. Last checked $time.';
+  }
+
+  @override
+  String get authoritySaudi => 'Saudi High Judiciary Council';
+
+  @override
+  String get authorityDiyanet => 'Diyanet (Türkiye)';
+
+  @override
+  String get authorityLocal => 'Local moon sighting';
+
+  @override
+  String get authoritySaudiHint => 'Announced sightings, updated online';
+
+  @override
+  String get authorityDiyanetHint => 'Türkiye\'s official calendar, updated online';
+
+  @override
+  String get authorityLocalHint => 'Umm al-Qura; on the 29th you say whether the moon was seen';
+
+  @override
+  String calendarSourceLine(String authority, String time) {
+    return '$authority · checked $time';
+  }
+
+  @override
+  String get calendarSourceLocal =>
+      'Umm al-Qura with your adjustment. On the 29th of Shaban, Ramadan and Dhul Qadah, Home asks whether the new moon was seen.';
+
+  @override
+  String announceUnknown(String month) {
+    return 'The announcement has not reached Waqt yet. If the crescent is seen tonight, $month begins tomorrow; if not, this month completes 30 days.';
+  }
 }

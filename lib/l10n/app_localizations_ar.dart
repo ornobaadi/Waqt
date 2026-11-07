@@ -883,4 +883,73 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get sightingUnsure => 'لست متأكدًا';
+
+  @override
+  String get ramadanSuhoor => 'ينتهي السحور';
+
+  @override
+  String get ramadanIftar => 'الإفطار';
+
+  @override
+  String ramadanIn(String time) {
+    return 'بعد $time';
+  }
+
+  @override
+  String get ramadanDone => 'انتهى';
+
+  @override
+  String announceTitle(String month) {
+    return 'الليلة يتحدد $month';
+  }
+
+  @override
+  String announceBegins(String month, String authority) {
+    return 'وفق $authority، يبدأ $month غدًا.';
+  }
+
+  @override
+  String announceThirty(String month, String authority) {
+    return 'وفق $authority، يكمل $month ثلاثين يومًا: غدًا هو الثلاثون.';
+  }
+
+  @override
+  String get announceOffline => 'دون اتصال: تُعرض آخر تواريخ محمّلة. سيتحقق وقت مجددًا عند الاتصال.';
+
+  @override
+  String announceChecking(String time) {
+    return 'يتحقق وقت من الإعلان كل ٣٠ دقيقة الليلة. آخر تحقق $time.';
+  }
+
+  @override
+  String get authoritySaudi => 'المجلس الأعلى للقضاء السعودي';
+
+  @override
+  String get authorityDiyanet => 'ديانت (تركيا)';
+
+  @override
+  String get authorityLocal => 'رؤية الهلال المحلية';
+
+  @override
+  String get authoritySaudiHint => 'رؤية معلنة، تُحدَّث عبر الإنترنت';
+
+  @override
+  String get authorityDiyanetHint => 'التقويم الرسمي لتركيا، يُحدَّث عبر الإنترنت';
+
+  @override
+  String get authorityLocalHint => 'أم القرى؛ وفي التاسع والعشرين تخبرنا هل رُئي الهلال';
+
+  @override
+  String calendarSourceLine(String authority, String time) {
+    return '$authority · آخر تحقق $time';
+  }
+
+  @override
+  String get calendarSourceLocal =>
+      'أم القرى مع تعديلك. في التاسع والعشرين من شعبان ورمضان وذي القعدة تسألك الشاشة الرئيسية عن رؤية الهلال.';
+
+  @override
+  String announceUnknown(String month) {
+    return 'لم يصل الإعلان إلى وقت بعد. إن رُئي الهلال الليلة يبدأ $month غدًا، وإلا أكمل هذا الشهر ثلاثين يومًا.';
+  }
 }

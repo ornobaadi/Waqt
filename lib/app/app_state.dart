@@ -3,6 +3,7 @@ import 'dart:ui' show Locale;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../core/clock/clock.dart';
+import '../data/hijri/calendar_sync.dart';
 import '../core/theme/tokens.dart';
 import '../data/places/place_repository.dart';
 import '../data/user/user_prefs.dart';
@@ -71,10 +72,24 @@ final momentSnapshotProvider = Provider<MomentSnapshot?>((ref) {
   final today = day(now, 0);
   final d0 = now.isBefore(today[Waqt.fajr]) ? day(now, -1) : today;
   final d1 = day(d0.date, 1), d2 = day(d0.date, 2);
-  final offset = ref.watch(userPrefsProvider.select((p) => p.hijriOffset));
-  HijriDate h(DayTimes d) => const HijriService().dateFor(d.date.add(const Duration(hours: 12)), offset: offset);
+  final offset = ref.watch(hijriOffsetProvider);
+  HijriDate h(DayTimes d) =>
+      ref.watch(hijriServiceProvider).dateFor(d.date.add(const Duration(hours: 12)), offset: offset);
   PrayerDay pd(DayTimes a, DayTimes b) => PrayerDay(today: a, tomorrow: b, hijri: h(a), hijriNext: h(b));
   return ref.watch(momentEngineProvider).snapshot(now, pd(d0, d1), pd(d1, d2));
+});
+
+/// The Hijri calendar in use: the chosen authority's announced months where
+/// downloaded, Umm al-Qura otherwise.
+final hijriServiceProvider = Provider<HijriService>(
+  (ref) => HijriService(table: ref.watch(calendarSyncProvider.select((s) => s.table))),
+);
+
+/// The user's ±2 day adjustment applies only to local sighting; an
+/// authority's announced dates are taken as they are.
+final hijriOffsetProvider = Provider<int>((ref) {
+  final local = ref.watch(calendarSyncProvider.select((s) => s.authority)) == HijriAuthority.local;
+  return local ? ref.watch(userPrefsProvider.select((p) => p.hijriOffset)) : 0;
 });
 
 final prayerTimesServiceProvider = Provider((ref) => const PrayerTimesService());
@@ -107,8 +122,8 @@ final prayerStatusProvider = Provider<PrayerStatus?>((ref) {
 final occasionsProvider = Provider<({HijriDate date, List<OccasionId> list})>((ref) {
   final now = ref.watch(placeNowProvider);
   final day = DateTime(now.year, now.month, now.day, 12);
-  final offset = ref.watch(userPrefsProvider.select((p) => p.hijriOffset));
-  final h = const HijriService().dateFor(day, offset: offset);
+  final offset = ref.watch(hijriOffsetProvider);
+  final h = ref.watch(hijriServiceProvider).dateFor(day, offset: offset);
   return (date: h, list: occasionsFor(h, now.weekday));
 });
 
@@ -116,15 +131,29 @@ final occasionsProvider = Provider<({HijriDate date, List<OccasionId> list})>((r
 final tomorrowOccasionsProvider = Provider<List<OccasionId>>((ref) {
   final now = ref.watch(placeNowProvider);
   final day = DateTime(now.year, now.month, now.day + 1, 12);
-  final offset = ref.watch(userPrefsProvider.select((p) => p.hijriOffset));
-  return occasionsFor(const HijriService().dateFor(day, offset: offset), day.weekday);
+  final offset = ref.watch(hijriOffsetProvider);
+  return occasionsFor(ref.watch(hijriServiceProvider).dateFor(day, offset: offset), day.weekday);
 });
 
 final hijriDateProvider = Provider<HijriDate>((ref) {
   final now = ref.watch(placeNowProvider);
   final maghrib = ref.watch(prayerStatusProvider.select((s) => s?.today[Waqt.maghrib]));
-  final offset = ref.watch(userPrefsProvider.select((p) => p.hijriOffset));
-  return const HijriService().dateFor(now, maghrib: maghrib, offset: offset);
+  final offset = ref.watch(hijriOffsetProvider);
+  final service = ref.watch(hijriServiceProvider);
+  final evening = service.dateFor(now, maghrib: maghrib, offset: offset);
+  final daytime = service.dateFor(now, offset: offset);
+  // The evening of the 29th of a month whose end depends on the crescent:
+  // until the sighting is known, the date stays the 29th rather than
+  // claiming a new month that may not have begun.
+  if (evening != daytime && daytime.day == 29 && const {8, 9, 11, 12}.contains(daytime.month)) {
+    final sync = ref.watch(calendarSyncProvider);
+    final next = daytime.month == 12 ? (daytime.year + 1, 1) : (daytime.year, daytime.month + 1);
+    final known = sync.authority == HijriAuthority.local
+        ? ref.watch(sightingAnswersProvider).contains(sightingKey(next.$1, next.$2))
+        : sync.table.lookup(DateTime(now.year, now.month, now.day + 1)) != null;
+    if (!known) return daytime;
+  }
+  return evening;
 });
 
 /// Fix → nearest named city → saved. Returns the error, or null on success.

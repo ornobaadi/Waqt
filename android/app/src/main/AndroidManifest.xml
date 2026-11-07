@@ -1,5 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- City-level location is enough for prayer times. -->
+        <!-- Islamic calendar: announced month starts from api.aladhan.com. -->
+    <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <!-- Reminders. Exact alarms are requested only for prayer-time reminders and
          fall back to inexact when the user declines. -->

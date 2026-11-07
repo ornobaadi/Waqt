@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hijri/hijri_calendar.dart';
 import 'package:intl/intl.dart';
 
 import '../../app/app_state.dart';
@@ -8,7 +7,6 @@ import '../../core/theme/tokens.dart';
 import '../../core/theme/waqt_theme.dart';
 import '../../core/utils/digits.dart';
 import '../../data/sources/days.dart';
-import '../../data/user/user_prefs.dart';
 import '../../domain/hijri/hijri_service.dart';
 import '../../domain/occasions/occasions.dart';
 import '../../l10n/app_localizations.dart';
@@ -35,18 +33,14 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
     final locale = Localizations.localeOf(context).toLanguageTag();
     final n = LocaleDigits(locale);
     final today = ref.watch(occasionsProvider).date;
-    final offset = ref.watch(userPrefsProvider.select((p) => p.hijriOffset));
+    final offset = ref.watch(hijriOffsetProvider);
     final guides = ref.watch(dayGuidesProvider).value;
     final shown = _shown ?? (year: today.year, month: today.month);
-    final cal = HijriCalendar();
-    final length = cal.getDaysInMonth(shown.year, shown.month);
+    final month = ref.watch(hijriServiceProvider).monthOf(shown.year, shown.month, offset: offset);
+    final length = month.days;
 
-    // The civil date that carries Hijri day d of the shown month, after the
-    // user's adjustment.
-    DateTime civil(int d) {
-      final g = cal.hijriToGregorian(shown.year, shown.month, d);
-      return DateTime(g.year, g.month, g.day - offset.clamp(-HijriService.maxOffset, HijriService.maxOffset));
-    }
+    // The civil date that carries Hijri day d of the shown month.
+    DateTime civil(int d) => DateTime(month.start.year, month.start.month, month.start.day + d - 1);
 
     final first = civil(1);
     // Weeks start on the locale's first day.
