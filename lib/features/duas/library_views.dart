@@ -292,3 +292,68 @@ class _Attribution extends StatelessWidget {
     child: Text(text, style: WaqtText.caption.copyWith(color: WaqtTokens.of(context).inkMuted)),
   );
 }
+
+/// Offers the hadith library: what it is, its size, one button. Shows
+/// progress while downloading and a retry if it failed.
+class HadithDownloadCard extends ConsumerWidget {
+  const HadithDownloadCard({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l = AppLocalizations.of(context);
+    final t = WaqtTokens.of(context);
+    final s = ref.watch(hadithInstallProvider);
+    final mb = (HadithDb.downloadBytes / 1e6).toStringAsFixed(0);
+    final busy = s.status == HadithLibrary.downloading || s.status == HadithLibrary.checking;
+    return Container(
+      padding: const EdgeInsets.all(WaqtSpace.x5),
+      decoration: BoxDecoration(color: t.surface, borderRadius: BorderRadius.circular(WaqtRadii.card)),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.menu_book_rounded, color: t.ink),
+              const SizedBox(width: WaqtSpace.x2),
+              Expanded(
+                child: Text(l.hadithLibraryTitle, style: WaqtText.titleSmall.copyWith(color: t.ink)),
+              ),
+            ],
+          ),
+          const SizedBox(height: WaqtSpace.x2),
+          Text(l.hadithLibraryBody, style: WaqtText.body.copyWith(color: t.inkMuted)),
+          const SizedBox(height: WaqtSpace.x4),
+          if (s.status == HadithLibrary.downloading) ...[
+            ClipRRect(
+              borderRadius: BorderRadius.circular(3),
+              child: LinearProgressIndicator(value: s.progress, minHeight: 6, color: t.ink),
+            ),
+            const SizedBox(height: WaqtSpace.x2),
+            Text(
+              l.hadithLibraryProgress((s.progress * 100).round()),
+              style: WaqtText.caption.copyWith(color: t.inkMuted),
+            ),
+          ] else ...[
+            if (s.status == HadithLibrary.failed) ...[
+              Text(l.hadithLibraryFailed, style: WaqtText.label.copyWith(color: t.ink)),
+              const SizedBox(height: WaqtSpace.x2),
+            ],
+            FilledButton.icon(
+              onPressed: busy ? null : () => ref.read(hadithInstallProvider.notifier).download(),
+              style: FilledButton.styleFrom(
+                backgroundColor: t.ink,
+                foregroundColor: t.ground,
+                minimumSize: const Size.fromHeight(WaqtSpace.minTouch),
+                shape: const StadiumBorder(),
+              ),
+              icon: const Icon(Icons.download_rounded),
+              label: Text(s.status == HadithLibrary.failed ? l.hadithLibraryRetry : l.hadithLibraryDownload(mb)),
+            ),
+          ],
+          const SizedBox(height: WaqtSpace.x3),
+          Text(l.hadithLibraryNote, style: WaqtText.caption.copyWith(color: t.inkMuted)),
+        ],
+      ),
+    );
+  }
+}

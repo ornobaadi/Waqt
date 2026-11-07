@@ -100,7 +100,7 @@ WEAK = ("da'if", "da’if", "daif", "mawdu", "munkar")
 
 def main():
     path = os.path.join(tempfile.mkdtemp(), "h.db")
-    with gzip.open(os.path.join(ROOT, "assets", "sources", "hadith.db.gz")) as f, open(path, "wb") as out:
+    with gzip.open(os.path.join(ROOT, "tool", "data", "hadith.db.gz")) as f, open(path, "wb") as out:
         out.write(f.read())
     db = sqlite3.connect(path)
     days = {}

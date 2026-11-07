@@ -490,5 +490,14 @@
   "showLess": "Show less",
   "showAll": "Show all {count}",
   "@showAll": {"placeholders": {"count": {"type": "int"}}},
-  "hadithUnavailable": "Hadith search isn't available here. It works in the Android app."
+  "hadithUnavailable": "Hadith search isn't available here. It works in the Android app.",
+  "hadithLibraryTitle": "Hadith library",
+  "hadithLibraryBody": "46,891 hadiths from 17 collections, in Arabic and English, searchable offline. Downloaded once, then always on your phone.",
+  "hadithLibraryDownload": "Download ({mb} MB)",
+  "@hadithLibraryDownload": {"placeholders": {"mb": {"type": "String"}}},
+  "hadithLibraryProgress": "Downloading… {percent}%",
+  "@hadithLibraryProgress": {"placeholders": {"percent": {"type": "int"}}},
+  "hadithLibraryFailed": "The download didn't finish. Check your connection.",
+  "hadithLibraryRetry": "Try again",
+  "hadithLibraryNote": "From open-hadith-data (texts as on sunnah.com). Verified before use. Duas and dhikr work without it."
 }

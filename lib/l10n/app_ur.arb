@@ -267,5 +267,12 @@
   "momentTaraweeh": "تراویح",
   "showLess": "کم دکھائیں",
   "showAll": "سب دکھائیں ({count})",
-  "hadithUnavailable": "احادیث کی تلاش یہاں دستیاب نہیں۔ اینڈرائیڈ ایپ میں کام کرتی ہے۔"
+  "hadithUnavailable": "احادیث کی تلاش یہاں دستیاب نہیں۔ اینڈرائیڈ ایپ میں کام کرتی ہے۔",
+  "hadithLibraryTitle": "حدیث لائبریری",
+  "hadithLibraryBody": "17 مجموعوں سے 46,891 احادیث، عربی اور انگریزی میں، آف لائن تلاش۔ ایک بار ڈاؤن لوڈ، پھر ہمیشہ فون پر۔",
+  "hadithLibraryDownload": "ڈاؤن لوڈ ({mb} MB)",
+  "hadithLibraryProgress": "ڈاؤن لوڈ ہو رہا ہے… {percent}%",
+  "hadithLibraryFailed": "ڈاؤن لوڈ مکمل نہیں ہوا۔ کنکشن چیک کریں۔",
+  "hadithLibraryRetry": "دوبارہ کوشش",
+  "hadithLibraryNote": "open-hadith-data سے (متن sunnah.com کے مطابق)۔ استعمال سے پہلے تصدیق۔ دعائیں اور اذکار اس کے بغیر بھی چلتے ہیں۔"
 }

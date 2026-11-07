@@ -67,8 +67,7 @@ import 'app_localizations_ur.dart';
 /// be consistent with the languages listed in the AppLocalizations.supportedLocales
 /// property.
 abstract class AppLocalizations {
-  AppLocalizations(String locale)
-    : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+  AppLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -76,8 +75,7 @@ abstract class AppLocalizations {
     return Localizations.of<AppLocalizations>(context, AppLocalizations)!;
   }
 
-  static const LocalizationsDelegate<AppLocalizations> delegate =
-      _AppLocalizationsDelegate();
+  static const LocalizationsDelegate<AppLocalizations> delegate = _AppLocalizationsDelegate();
 
   /// A list of this localizations delegate along with the default localizations
   /// delegates.
@@ -89,13 +87,12 @@ abstract class AppLocalizations {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
-      <LocalizationsDelegate<dynamic>>[
-        delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ];
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
+    delegate,
+    GlobalMaterialLocalizations.delegate,
+    GlobalCupertinoLocalizations.delegate,
+    GlobalWidgetsLocalizations.delegate,
+  ];
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
@@ -1889,10 +1886,51 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Hadith search isn\'t available here. It works in the Android app.'**
   String get hadithUnavailable;
+
+  /// No description provided for @hadithLibraryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Hadith library'**
+  String get hadithLibraryTitle;
+
+  /// No description provided for @hadithLibraryBody.
+  ///
+  /// In en, this message translates to:
+  /// **'46,891 hadiths from 17 collections, in Arabic and English, searchable offline. Downloaded once, then always on your phone.'**
+  String get hadithLibraryBody;
+
+  /// No description provided for @hadithLibraryDownload.
+  ///
+  /// In en, this message translates to:
+  /// **'Download ({mb} MB)'**
+  String hadithLibraryDownload(String mb);
+
+  /// No description provided for @hadithLibraryProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Downloading… {percent}%'**
+  String hadithLibraryProgress(int percent);
+
+  /// No description provided for @hadithLibraryFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'The download didn\'t finish. Check your connection.'**
+  String get hadithLibraryFailed;
+
+  /// No description provided for @hadithLibraryRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get hadithLibraryRetry;
+
+  /// No description provided for @hadithLibraryNote.
+  ///
+  /// In en, this message translates to:
+  /// **'From open-hadith-data (texts as on sunnah.com). Verified before use. Duas and dhikr work without it.'**
+  String get hadithLibraryNote;
 }
 
-class _AppLocalizationsDelegate
-    extends LocalizationsDelegate<AppLocalizations> {
+class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
   const _AppLocalizationsDelegate();
 
   @override
@@ -1901,15 +1939,7 @@ class _AppLocalizationsDelegate
   }
 
   @override
-  bool isSupported(Locale locale) => <String>[
-    'ar',
-    'bn',
-    'en',
-    'fr',
-    'id',
-    'tr',
-    'ur',
-  ].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>['ar', 'bn', 'en', 'fr', 'id', 'tr', 'ur'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;

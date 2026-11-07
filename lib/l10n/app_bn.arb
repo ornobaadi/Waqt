@@ -259,5 +259,12 @@
   "momentTaraweeh": "তারাবিহ",
   "showLess": "কম দেখান",
   "showAll": "সব দেখান ({count})",
-  "hadithUnavailable": "হাদিস খোঁজা এখানে নেই। অ্যান্ড্রয়েড অ্যাপে কাজ করে।"
+  "hadithUnavailable": "হাদিস খোঁজা এখানে নেই। অ্যান্ড্রয়েড অ্যাপে কাজ করে।",
+  "hadithLibraryTitle": "হাদিস লাইব্রেরি",
+  "hadithLibraryBody": "১৭টি গ্রন্থের ৪৬,৮৯১টি হাদিস, আরবি ও ইংরেজিতে, অফলাইনে খোঁজা যায়। একবার ডাউনলোড, তারপর সবসময় ফোনে।",
+  "hadithLibraryDownload": "ডাউনলোড ({mb} MB)",
+  "hadithLibraryProgress": "ডাউনলোড হচ্ছে… {percent}%",
+  "hadithLibraryFailed": "ডাউনলোড শেষ হয়নি। সংযোগ দেখুন।",
+  "hadithLibraryRetry": "আবার চেষ্টা করুন",
+  "hadithLibraryNote": "open-hadith-data থেকে (লেখা sunnah.com অনুযায়ী)। ব্যবহারের আগে যাচাই করা হয়। দোয়া ও জিকির এটি ছাড়াই চলে।"
 }

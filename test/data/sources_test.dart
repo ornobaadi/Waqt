@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:crypto/crypto.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:waqt/data/sources/hadith_db.dart';
@@ -41,8 +42,14 @@ void main() {
       sqfliteFfiInit();
       final dir = Directory.systemTemp.createTempSync('waqt_hadith');
       final file = File('${dir.path}/h.db')
-        ..writeAsBytesSync(gzip.decode(File('assets/sources/hadith.db.gz').readAsBytesSync()));
+        ..writeAsBytesSync(gzip.decode(File('tool/data/hadith.db.gz').readAsBytesSync()));
       db = await HadithDb.fromDatabase(await databaseFactoryFfi.openDatabase(file.path));
+    });
+
+    test('the published file is the one the app expects', () {
+      final bytes = File('tool/data/hadith.db.gz').readAsBytesSync();
+      expect(sha256.convert(bytes).toString(), HadithDb.sha256);
+      expect(bytes.length, HadithDb.downloadBytes);
     });
 
     test('every collection loaded', () {

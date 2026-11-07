@@ -29,6 +29,7 @@ dependencies:
   sensors_plus: ^7.1.1
   sqflite: ^2.4.5
   path_provider: ^2.1.6
+  crypto: ^3.0.8
 
 dev_dependencies:
   flutter_test:

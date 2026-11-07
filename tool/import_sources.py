@@ -9,7 +9,9 @@ Source: open-hadith-data v1.1.0 (https://github.com/Jaguar16/open-hadith-data)
 Outputs
   assets/sources/hisn.json      Hisn al-Muslim: chapters and duas, with the
                                  book's own source notes for each dua.
-  assets/sources/hadith.db.gz   SQLite of every hadith collection. The phone
+  tool/data/hadith.db.gz        SQLite of every hadith collection, published as
+                                 a release of github.com/ornobaadi/waqt-data and
+                                 downloaded by the app on first use. The phone
                                  decompresses it and builds the search index
                                  once (see lib/data/sources/hadith_db.dart),
                                  which keeps the APK about 12 MB smaller.
@@ -106,7 +108,7 @@ def build_hadith(src):
     db.commit()
     db.execute("VACUUM")
     db.close()
-    with open(path, "rb") as fin, gzip.open(os.path.join(OUT, "hadith.db.gz"), "wb", 9) as fout:
+    with open(path, "rb") as fin, gzip.open(os.path.join(ROOT, "tool", "data", "hadith.db.gz"), "wb", 9) as fout:
         fout.write(fin.read())
     return total
 
@@ -116,4 +118,4 @@ if __name__ == "__main__":
     os.makedirs(OUT, exist_ok=True)
     print("hisn duas", build_hisn(src))
     print("hadiths", build_hadith(src))
-    print("hadith.db.gz", round(os.path.getsize(os.path.join(OUT, "hadith.db.gz")) / 1e6, 1), "MB")
+    print("hadith.db.gz", round(os.path.getsize(os.path.join(ROOT, "tool", "data", "hadith.db.gz")) / 1e6, 1), "MB")

@@ -253,5 +253,12 @@
   "momentTaraweeh": "Tarawih",
   "showLess": "Lebih sedikit",
   "showAll": "Tampilkan semua {count}",
-  "hadithUnavailable": "Pencarian hadis tidak tersedia di sini. Berfungsi di aplikasi Android."
+  "hadithUnavailable": "Pencarian hadis tidak tersedia di sini. Berfungsi di aplikasi Android.",
+  "hadithLibraryTitle": "Pustaka hadis",
+  "hadithLibraryBody": "46.891 hadis dari 17 kitab, Arab dan Inggris, dapat dicari luring. Diunduh sekali, lalu selalu di ponsel Anda.",
+  "hadithLibraryDownload": "Unduh ({mb} MB)",
+  "hadithLibraryProgress": "Mengunduh… {percent}%",
+  "hadithLibraryFailed": "Unduhan belum selesai. Periksa koneksi Anda.",
+  "hadithLibraryRetry": "Coba lagi",
+  "hadithLibraryNote": "Dari open-hadith-data (teks seperti di sunnah.com). Diverifikasi sebelum dipakai. Doa dan zikir tetap berfungsi tanpanya."
 }

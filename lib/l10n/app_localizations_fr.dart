@@ -82,8 +82,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get settingsDeveloper => 'Test mode';
 
   @override
-  String get settingsDeveloperHint =>
-      'Fake clock, day jumps and the reference checker';
+  String get settingsDeveloperHint => 'Fake clock, day jumps and the reference checker';
 
   @override
   String get settingsAbout => 'À propos de Waqt';
@@ -185,20 +184,17 @@ class AppLocalizationsFr extends AppLocalizations {
   String get locationLocating => 'Localisation…';
 
   @override
-  String get gpsServiceOff =>
-      'La localisation est désactivée sur ce téléphone. Activez-la ou choisissez une ville.';
+  String get gpsServiceOff => 'La localisation est désactivée sur ce téléphone. Activez-la ou choisissez une ville.';
 
   @override
-  String get gpsDenied =>
-      'L\'autorisation de localisation a été refusée. Vous pouvez choisir une ville.';
+  String get gpsDenied => 'L\'autorisation de localisation a été refusée. Vous pouvez choisir une ville.';
 
   @override
   String get gpsDeniedForever =>
       'L\'autorisation de localisation est bloquée. Autorisez-la dans les réglages ou choisissez une ville.';
 
   @override
-  String get gpsTimeout =>
-      'Position introuvable. Réessayez ou choisissez une ville.';
+  String get gpsTimeout => 'Position introuvable. Réessayez ou choisissez une ville.';
 
   @override
   String get openSettings => 'Ouvrir les réglages';
@@ -231,8 +227,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get asrStandard => 'Majorité';
 
   @override
-  String get asrStandardHint =>
-      'Chafiite, malikite, hanbalite : ombre égale à l\'objet';
+  String get asrStandardHint => 'Chafiite, malikite, hanbalite : ombre égale à l\'objet';
 
   @override
   String get asrHanafi => 'Hanafite';
@@ -247,8 +242,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get highLatAuto => 'Automatique';
 
   @override
-  String get highLatAutoHint =>
-      'Septième de la nuit au-delà de 48°, milieu de la nuit en deçà';
+  String get highLatAutoHint => 'Septième de la nuit au-delà de 48°, milieu de la nuit en deçà';
 
   @override
   String get highLatMiddle => 'Milieu de la nuit';
@@ -266,8 +260,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get settingsHijriAdjust => 'Ajustement de la date hégirienne';
 
   @override
-  String get hijriAdjustHint =>
-      'Pour suivre l\'observation du croissant chez vous';
+  String get hijriAdjustHint => 'Pour suivre l\'observation du croissant chez vous';
 
   @override
   String get hijriOffsetNone => 'Aucun';
@@ -278,8 +271,7 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
-  String get settingsAttribution =>
-      'Données des villes © GeoNames, CC BY 4.0. Horaires calculés sur l\'appareil.';
+  String get settingsAttribution => 'Données des villes © GeoNames, CC BY 4.0. Horaires calculés sur l\'appareil.';
 
   @override
   String get citySearchHint => 'Rechercher une ville';
@@ -400,8 +392,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get statusChecked => 'Vérifié';
 
   @override
-  String get draftNotice =>
-      'Brouillon non vérifié, visible uniquement en version de développement';
+  String get draftNotice => 'Brouillon non vérifié, visible uniquement en version de développement';
 
   @override
   String get collectionQuran => 'Coran';
@@ -472,8 +463,7 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
-  String get sheetTextPending =>
-      'Le texte apparaîtra ici une fois cette référence vérifiée sur sa source.';
+  String get sheetTextPending => 'Le texte apparaîtra ici une fois cette référence vérifiée sur sa source.';
 
   @override
   String get statusApproved => 'Approuvé par un savant';
@@ -554,8 +544,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get notifExact => 'Ponctualité';
 
   @override
-  String get notifExactHint =>
-      'Pour que les rappels de prière arrivent à la minute près';
+  String get notifExactHint => 'Pour que les rappels de prière arrivent à la minute près';
 
   @override
   String get notifBattery => 'Optimisation de la batterie';
@@ -685,15 +674,13 @@ class AppLocalizationsFr extends AppLocalizations {
   String get reportProblem => 'Signaler un problème';
 
   @override
-  String get reportProblemHint =>
-      'Ouvre un brouillon d\'e-mail. Vous voyez tout avant l\'envoi.';
+  String get reportProblemHint => 'Ouvre un brouillon d\'e-mail. Vous voyez tout avant l\'envoi.';
 
   @override
   String get privacyTitle => 'Confidentialité';
 
   @override
-  String get privacyBody =>
-      'Tout est calculé sur ce téléphone. Waqt n\'a ni compte, ni publicité, ni statistiques.';
+  String get privacyBody => 'Tout est calculé sur ce téléphone. Waqt n\'a ni compte, ni publicité, ni statistiques.';
 
   @override
   String placeTime(String city) {
@@ -701,8 +688,7 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
-  String get testModeUnlocked =>
-      'Test mode is on. Find it at the bottom of Settings.';
+  String get testModeUnlocked => 'Test mode is on. Find it at the bottom of Settings.';
 
   @override
   String get debugJumpDay => 'Jump to a day';
@@ -717,8 +703,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get debugShowUnchecked => 'Show unchecked content';
 
   @override
-  String get debugShowUncheckedHint =>
-      'On this phone only. Unchecked items are marked as drafts.';
+  String get debugShowUncheckedHint => 'On this phone only. Unchecked items are marked as drafts.';
 
   @override
   String get debugLock => 'Turn off test mode';
@@ -744,8 +729,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get checkerWrong => 'Wrong';
 
   @override
-  String get checkerWrongHint =>
-      'What is wrong, and the correct reference if you know it';
+  String get checkerWrongHint => 'What is wrong, and the correct reference if you know it';
 
   @override
   String get checkerSend => 'Email results';
@@ -782,8 +766,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get counterFree => 'Comptage libre';
 
   @override
-  String get counterFreeHint =>
-      'Comptez ce que vous voulez, avec votre objectif';
+  String get counterFreeHint => 'Comptez ce que vous voulez, avec votre objectif';
 
   @override
   String get counterAfterSalah => 'Après la prière : 33 · 33 · 34';
@@ -811,18 +794,12 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String duaCount(int count) {
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '$count douas',
-      one: '1 doua',
-    );
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$count douas', one: '1 doua');
     return '$_temp0';
   }
 
   @override
-  String get libraryPreparing =>
-      'Préparation de la recherche de hadiths. Une seule fois.';
+  String get libraryPreparing => 'Préparation de la recherche de hadiths. Une seule fois.';
 
   @override
   String get libraryRefine => 'Les 60 premiers. Ajoutez un mot pour affiner.';
@@ -945,8 +922,7 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
-  String get announceOffline =>
-      'Hors ligne : dernières dates téléchargées. Waqt vérifiera à la reconnexion.';
+  String get announceOffline => 'Hors ligne : dernières dates téléchargées. Waqt vérifiera à la reconnexion.';
 
   @override
   String announceChecking(String time) {
@@ -963,16 +939,13 @@ class AppLocalizationsFr extends AppLocalizations {
   String get authorityLocal => 'Observation locale du croissant';
 
   @override
-  String get authoritySaudiHint =>
-      'Observations annoncées, mises à jour en ligne';
+  String get authoritySaudiHint => 'Observations annoncées, mises à jour en ligne';
 
   @override
-  String get authorityDiyanetHint =>
-      'Calendrier officiel turc, mis à jour en ligne';
+  String get authorityDiyanetHint => 'Calendrier officiel turc, mis à jour en ligne';
 
   @override
-  String get authorityLocalHint =>
-      'Umm al-Qura ; le 29, vous dites si le croissant a été vu';
+  String get authorityLocalHint => 'Umm al-Qura ; le 29, vous dites si le croissant a été vu';
 
   @override
   String calendarSourceLine(String authority, String time) {
@@ -999,12 +972,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String adjustSome(int count) {
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '$count horaires',
-      one: '1 horaire',
-    );
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$count horaires', one: '1 horaire');
     return '$_temp0';
   }
 
@@ -1036,4 +1004,31 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get hadithUnavailable =>
       'La recherche de hadiths n\'est pas disponible ici. Elle fonctionne dans l\'application Android.';
+
+  @override
+  String get hadithLibraryTitle => 'Bibliothèque de hadiths';
+
+  @override
+  String get hadithLibraryBody =>
+      '46 891 hadiths de 17 recueils, en arabe et en anglais, consultables hors ligne. Téléchargée une fois, puis toujours sur votre téléphone.';
+
+  @override
+  String hadithLibraryDownload(String mb) {
+    return 'Télécharger ($mb Mo)';
+  }
+
+  @override
+  String hadithLibraryProgress(int percent) {
+    return 'Téléchargement… $percent %';
+  }
+
+  @override
+  String get hadithLibraryFailed => 'Le téléchargement n\'a pas abouti. Vérifiez votre connexion.';
+
+  @override
+  String get hadithLibraryRetry => 'Réessayer';
+
+  @override
+  String get hadithLibraryNote =>
+      'Issu d\'open-hadith-data (textes comme sur sunnah.com). Vérifié avant usage. Douas et dhikr fonctionnent sans.';
 }

@@ -259,5 +259,12 @@
   "momentTaraweeh": "Teravih",
   "showLess": "Daha az",
   "showAll": "Tümünü göster ({count})",
-  "hadithUnavailable": "Hadis araması burada yok. Android uygulamasında çalışır."
+  "hadithUnavailable": "Hadis araması burada yok. Android uygulamasında çalışır.",
+  "hadithLibraryTitle": "Hadis kütüphanesi",
+  "hadithLibraryBody": "17 eserden 46.891 hadis, Arapça ve İngilizce, çevrimdışı aranabilir. Bir kez indirilir, sonra hep telefonunuzda.",
+  "hadithLibraryDownload": "İndir ({mb} MB)",
+  "hadithLibraryProgress": "İndiriliyor… %{percent}",
+  "hadithLibraryFailed": "İndirme tamamlanmadı. Bağlantınızı kontrol edin.",
+  "hadithLibraryRetry": "Tekrar dene",
+  "hadithLibraryNote": "open-hadith-data'dan (metinler sunnah.com'daki gibi). Kullanmadan önce doğrulanır. Dualar ve zikirler onsuz da çalışır."
 }

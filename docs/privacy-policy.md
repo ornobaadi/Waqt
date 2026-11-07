@@ -13,8 +13,11 @@ Waqt is built to work entirely on your phone. Here is exactly what that means.
 - It is saved only on your phone, so prayer times keep working offline. It is never transmitted.
 - You can choose a city by hand instead and never grant location permission.
 
-## Islamic calendar (the one network request)
+## Islamic calendar
 Hijri months begin when the crescent is sighted, so Waqt downloads the announced start dates of the months around today from api.aladhan.com, for the authority you choose in Settings (Saudi High Judiciary Council or Diyanet). The request contains only a Hijri month, a year and the authority's name: no location, no identifier, nothing about you. Choose **Local moon sighting** and Waqt makes no network request at all.
+
+## Hadith library (downloaded once, if you ask)
+The hadith library is not inside the app. When you first search the hadith or open one, Waqt offers to download it (about 13 MB) from github.com/ornobaadi/waqt-data. It is a plain file download: nothing about you is sent. After that it stays on your phone and works offline.
 
 ## Notifications and alarms
 Reminders are scheduled on the phone with Android's alarm system. Nothing about them leaves the device.

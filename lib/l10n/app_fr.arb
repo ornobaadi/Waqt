@@ -253,5 +253,12 @@
   "momentTaraweeh": "Tarawih",
   "showLess": "Moins",
   "showAll": "Tout afficher ({count})",
-  "hadithUnavailable": "La recherche de hadiths n'est pas disponible ici. Elle fonctionne dans l'application Android."
+  "hadithUnavailable": "La recherche de hadiths n'est pas disponible ici. Elle fonctionne dans l'application Android.",
+  "hadithLibraryTitle": "Bibliothèque de hadiths",
+  "hadithLibraryBody": "46 891 hadiths de 17 recueils, en arabe et en anglais, consultables hors ligne. Téléchargée une fois, puis toujours sur votre téléphone.",
+  "hadithLibraryDownload": "Télécharger ({mb} Mo)",
+  "hadithLibraryProgress": "Téléchargement… {percent} %",
+  "hadithLibraryFailed": "Le téléchargement n'a pas abouti. Vérifiez votre connexion.",
+  "hadithLibraryRetry": "Réessayer",
+  "hadithLibraryNote": "Issu d'open-hadith-data (textes comme sur sunnah.com). Vérifié avant usage. Douas et dhikr fonctionnent sans."
 }

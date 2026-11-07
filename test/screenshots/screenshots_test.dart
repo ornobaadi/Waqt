@@ -204,6 +204,22 @@ void main() {
   );
 
   testWidgets(
+    'hadith download',
+    (t) async => shoot(
+      t,
+      '16d_hadith_download',
+      await app(at: DateTime(2026, 11, 6, 9, 41), place: dhaka),
+      then: () async {
+        await t.tap(find.text('Duas'));
+        await t.pumpAndSettle();
+        await t.enterText(find.byType(TextField), 'patience');
+        await t.pumpAndSettle();
+        await t.tap(find.text('Hadith'));
+      },
+    ),
+  );
+
+  testWidgets(
     'sheet',
     (t) async => shoot(
       t,

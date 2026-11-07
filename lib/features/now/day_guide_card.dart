@@ -189,6 +189,29 @@ class _Row extends ConsumerWidget {
 
 /// Opens the hadith behind a day item from the bundled collections.
 Future<void> openDayItem(BuildContext context, WidgetRef ref, DayItem item) async {
+  // Not downloaded yet: offer the library; it opens the hadith once ready.
+  if (ref.read(hadithInstallProvider).status != HadithLibrary.ready) {
+    final t = WaqtTokens.of(context);
+    final ready = await showModalBottomSheet<bool>(
+      context: context,
+      showDragHandle: true,
+      backgroundColor: t.ground,
+      builder: (ctx) => Consumer(
+        builder: (ctx, ref, _) {
+          ref.listen(hadithInstallProvider.select((s) => s.status), (_, s) {
+            if (s == HadithLibrary.ready && ctx.mounted) Navigator.pop(ctx, true);
+          });
+          return const SafeArea(
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(WaqtSpace.screen, 0, WaqtSpace.screen, WaqtSpace.x4),
+              child: HadithDownloadCard(),
+            ),
+          );
+        },
+      ),
+    );
+    if (ready != true || !context.mounted) return;
+  }
   final db = await ref.read(hadithDbProvider.future);
   final h = await db.byRef(item.collection, item.number);
   if (h != null && context.mounted) await showHadithSheet(context, h);

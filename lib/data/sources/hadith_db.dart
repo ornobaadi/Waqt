@@ -1,8 +1,9 @@
+import 'dart:async';
 import 'dart:io';
 
+import 'package:crypto/crypto.dart' as crypto;
 import 'package:flutter/foundation.dart';
 
-import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
@@ -65,21 +66,59 @@ class HadithDb {
   static const _file = 'hadith-v1.db';
   static const _ready = 'index_ready';
 
-  static Future<HadithDb> open({void Function(double)? onProgress}) async {
-    final dir = await getApplicationSupportDirectory();
-    final path = '${dir.path}/$_file';
-    if (!File(path).existsSync()) {
-      final gz = await rootBundle.load('assets/sources/hadith.db.gz');
-      await compute(_unpack, (gz.buffer.asUint8List(gz.offsetInBytes, gz.lengthInBytes), path));
+  /// The database is not in the app: it is downloaded once, on first use,
+  /// from the public data repository, checked against this hash, and kept.
+  static final url = Uri.parse('https://github.com/ornobaadi/waqt-data/releases/download/v1/hadith-v1.db.gz');
+  static const sha256 = 'fe98ec60b39efa66c0f7cb2a8a5c2f20e8b30fac02c0852a149914532ae3f2de';
+  static const downloadBytes = 13343045;
+
+  static Future<String> _path() async => '${(await getApplicationSupportDirectory()).path}/$_file';
+
+  static Future<bool> isInstalled() async => File(await _path()).existsSync();
+
+  /// Downloads, verifies and unpacks the database. [onProgress] gets 0..1.
+  static Future<void> install({void Function(double)? onProgress}) async {
+    final path = await _path();
+    final gz = File('$path.gz.part');
+    final client = HttpClient()..connectionTimeout = const Duration(seconds: 20);
+    try {
+      final res = await (await client.getUrl(url)).close();
+      if (res.statusCode != 200) throw HttpException('HTTP ${res.statusCode}', uri: url);
+      final total = res.contentLength > 0 ? res.contentLength : downloadBytes;
+      final out = gz.openWrite();
+      var got = 0;
+      await for (final chunk in res) {
+        out.add(chunk);
+        got += chunk.length;
+        onProgress?.call((got / total).clamp(0, 0.99));
+      }
+      await out.close();
+    } finally {
+      client.close();
     }
-    return fromDatabase(await openDatabase(path), onProgress: onProgress);
+    // Hashing and unpacking 13 MB is CPU work: off the UI thread.
+    await compute(_verifyAndUnpack, (gz.path, path));
+    onProgress?.call(1);
   }
 
-  static Future<void> _unpack((Uint8List, String) job) async {
-    final (gz, path) = job;
+  static Future<void> _verifyAndUnpack((String, String) job) async {
+    final (gzPath, path) = job;
+    final gz = File(gzPath);
+    final bytes = await gz.readAsBytes();
+    if (crypto.sha256.convert(bytes).toString() != sha256) {
+      await gz.delete();
+      throw const FormatException('hadith download is corrupt');
+    }
     final tmp = File('$path.tmp');
-    await tmp.writeAsBytes(gzip.decode(gz), flush: true);
+    await tmp.writeAsBytes(gzip.decode(bytes), flush: true);
     await tmp.rename(path);
+    await gz.delete();
+  }
+
+  static Future<HadithDb> open({void Function(double)? onProgress}) async {
+    final path = await _path();
+    if (!File(path).existsSync()) throw StateError('hadith database not installed');
+    return fromDatabase(await openDatabase(path), onProgress: onProgress);
   }
 
   /// Wrap an open database. Tests use it directly.
@@ -194,7 +233,40 @@ class _Progress extends Notifier<double?> {
   void set(double? v) => state = v;
 }
 
+enum HadithLibrary { checking, missing, downloading, ready, failed }
+
+/// Whether the hadith library is on the phone, and its download progress.
+class HadithInstall extends Notifier<({HadithLibrary status, double progress})> {
+  @override
+  ({HadithLibrary status, double progress}) build() {
+    HadithDb.isInstalled().then(
+      (ok) => state = (status: ok ? HadithLibrary.ready : HadithLibrary.missing, progress: ok ? 1 : 0),
+      onError: (Object _) => state = (status: HadithLibrary.failed, progress: 0),
+    );
+    return (status: HadithLibrary.checking, progress: 0);
+  }
+
+  Future<void> download() async {
+    if (state.status == HadithLibrary.downloading || state.status == HadithLibrary.ready) return;
+    state = (status: HadithLibrary.downloading, progress: 0);
+    try {
+      await HadithDb.install(onProgress: (p) => state = (status: HadithLibrary.downloading, progress: p));
+      state = (status: HadithLibrary.ready, progress: 1);
+    } on Object catch (e) {
+      debugPrint('hadith download failed: $e');
+      state = (status: HadithLibrary.failed, progress: 0);
+    }
+  }
+}
+
+final hadithInstallProvider = NotifierProvider<HadithInstall, ({HadithLibrary status, double progress})>(
+  HadithInstall.new,
+);
+
 final hadithDbProvider = FutureProvider<HadithDb>((ref) async {
+  // Opens once the library is installed; until then, waits (never throws).
+  final ready = ref.watch(hadithInstallProvider.select((s) => s.status == HadithLibrary.ready));
+  if (!ready) return Completer<HadithDb>().future;
   final p = ref.read(hadithIndexProgressProvider.notifier);
   return HadithDb.open(onProgress: (v) => p.set(v >= 1 ? null : v));
 });

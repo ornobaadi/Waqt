@@ -281,5 +281,12 @@
   "momentTaraweeh": "التراويح",
   "showLess": "عرض أقل",
   "showAll": "عرض الكل ({count})",
-  "hadithUnavailable": "البحث في الأحاديث غير متاح هنا. يعمل في تطبيق أندرويد."
+  "hadithUnavailable": "البحث في الأحاديث غير متاح هنا. يعمل في تطبيق أندرويد.",
+  "hadithLibraryTitle": "مكتبة الحديث",
+  "hadithLibraryBody": "٤٦٬٨٩١ حديثًا من ١٧ كتابًا، بالعربية والإنجليزية، للبحث دون اتصال. تُحمَّل مرة واحدة وتبقى على هاتفك.",
+  "hadithLibraryDownload": "تحميل ({mb} م.ب)",
+  "hadithLibraryProgress": "جارٍ التحميل… {percent}٪",
+  "hadithLibraryFailed": "لم يكتمل التحميل. تحقق من الاتصال.",
+  "hadithLibraryRetry": "أعد المحاولة",
+  "hadithLibraryNote": "من open-hadith-data (النصوص كما في sunnah.com). يُتحقق منها قبل الاستخدام. الأدعية والأذكار تعمل دونها."
 }

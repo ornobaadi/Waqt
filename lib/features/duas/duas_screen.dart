@@ -69,6 +69,7 @@ class _DuasScreenState extends ConsumerState<DuasScreen> {
 
   void _runHadith() {
     if (!mounted || _scope != _Scope.hadith) return;
+    if (ref.read(hadithInstallProvider).status != HadithLibrary.ready) return;
     final q = _q.trim();
     setState(() => _hadith = q.isEmpty ? null : ref.read(hadithDbProvider.future).then((db) => db.search(q)));
   }
@@ -78,6 +79,9 @@ class _DuasScreenState extends ConsumerState<DuasScreen> {
     final l = AppLocalizations.of(context);
     final t = WaqtTokens.of(context);
     final book = ref.watch(hisnProvider).value;
+    ref.listen(hadithInstallProvider.select((s) => s.status), (_, s) {
+      if (s == HadithLibrary.ready) _runHadith();
+    });
     final ar = Localizations.localeOf(context).languageCode == 'ar';
     final q = _q.trim();
 
@@ -330,6 +334,16 @@ class _DuasScreenState extends ConsumerState<DuasScreen> {
 
   List<Widget> _hadithResults(BuildContext context, String q) {
     final l = AppLocalizations.of(context);
+    if (ref.watch(hadithInstallProvider.select((s) => s.status)) != HadithLibrary.ready) {
+      return [
+        _pad(
+          const Padding(
+            padding: EdgeInsets.only(top: WaqtSpace.x4),
+            child: HadithDownloadCard(),
+          ),
+        ),
+      ];
+    }
     final progress = ref.watch(hadithIndexProgressProvider);
     return [
       SliverToBoxAdapter(
