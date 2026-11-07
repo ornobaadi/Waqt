@@ -240,6 +240,39 @@ void main() {
     ),
   );
 
+  DateTime civilOf(int y, int m, int d) {
+    var g = DateTime(2026, 11, 1, 12);
+    while (const HijriService().dateFor(g) != HijriDate(y, m, d)) {
+      g = g.add(const Duration(days: 1));
+    }
+    return g;
+  }
+
+  testWidgets('eid al-fitr', (t) async {
+    final d = civilOf(1448, 10, 1);
+    await shoot(t, '60_now_eid_fitr', await app(at: DateTime(d.year, d.month, d.day, 6, 40), place: dhaka));
+  });
+
+  testWidgets('arafah fast', (t) async {
+    final d = civilOf(1448, 12, 9);
+    await shoot(t, '61_now_arafah', await app(at: DateTime(d.year, d.month, d.day, 10, 0), place: dhaka));
+  });
+
+  testWidgets('moon sighting', (t) async {
+    final d = civilOf(1448, 9, 29);
+    await shoot(t, '62_now_sighting', await app(at: DateTime(d.year, d.month, d.day, 19, 30), place: dhaka));
+  });
+
+  testWidgets(
+    'calendar',
+    (t) async => shoot(
+      t,
+      '63_calendar',
+      await app(at: DateTime(2026, 11, 6, 9, 41), place: dhaka),
+      then: () async => t.tap(find.byIcon(Icons.calendar_month_outlined)),
+    ),
+  );
+
   testWidgets('ramadan night', (t) async {
     // The evening before the 23rd night of Ramadan 1448.
     var d = DateTime(2027, 2, 1, 12);

@@ -112,6 +112,14 @@ final occasionsProvider = Provider<({HijriDate date, List<OccasionId> list})>((r
   return (date: h, list: occasionsFor(h, now.weekday));
 });
 
+/// Tomorrow's occasions, for "fast tomorrow" in the evening.
+final tomorrowOccasionsProvider = Provider<List<OccasionId>>((ref) {
+  final now = ref.watch(placeNowProvider);
+  final day = DateTime(now.year, now.month, now.day + 1, 12);
+  final offset = ref.watch(userPrefsProvider.select((p) => p.hijriOffset));
+  return occasionsFor(const HijriService().dateFor(day, offset: offset), day.weekday);
+});
+
 final hijriDateProvider = Provider<HijriDate>((ref) {
   final now = ref.watch(placeNowProvider);
   final maghrib = ref.watch(prayerStatusProvider.select((s) => s?.today[Waqt.maghrib]));

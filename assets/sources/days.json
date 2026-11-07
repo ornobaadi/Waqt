@@ -1,0 +1,283 @@
+{
+ "fasts": [
+  "arafah",
+  "ashura",
+  "tasua",
+  "ayyamAlBid",
+  "mondayFast",
+  "thursdayFast"
+ ],
+ "days": {
+  "eidAlFitr": [
+   {
+    "title": "Eat an odd number of dates before the prayer",
+    "col": "bukhari",
+    "num": "953",
+    "ref": "Sahih al-Bukhari 953",
+    "grade": null
+   },
+   {
+    "title": "Pay Zakat al-Fitr before the Eid prayer",
+    "col": "bukhari",
+    "num": "1509",
+    "ref": "Sahih al-Bukhari 1509",
+    "grade": null
+   },
+   {
+    "title": "Bathe (ghusl) before going out, as Ibn Umar did",
+    "col": "malik",
+    "num": "432",
+    "ref": "Muwatta Malik 432",
+    "grade": null
+   },
+   {
+    "title": "Wear your best clothes",
+    "col": "bukhari",
+    "num": "948",
+    "ref": "Sahih al-Bukhari 948",
+    "grade": null
+   },
+   {
+    "title": "Say the takbir with everyone at the prayer",
+    "col": "bukhari",
+    "num": "971",
+    "ref": "Sahih al-Bukhari 971",
+    "grade": null
+   },
+   {
+    "title": "Return home by a different way",
+    "col": "bukhari",
+    "num": "986",
+    "ref": "Sahih al-Bukhari 986",
+    "grade": null
+   },
+   {
+    "title": "Do not fast today",
+    "col": "bukhari",
+    "num": "1990",
+    "ref": "Sahih al-Bukhari 1990",
+    "grade": null
+   },
+   {
+    "title": "Then fast six days of Shawwal",
+    "col": "muslim",
+    "num": "1164a",
+    "ref": "Sahih Muslim 1164a",
+    "grade": null
+   }
+  ],
+  "eidAlAdha": [
+   {
+    "title": "Eat nothing until after the prayer",
+    "col": "tirmidhi",
+    "num": "542",
+    "ref": "Jami` at-Tirmidhi 542",
+    "grade": "Hasan (Darussalam)"
+   },
+   {
+    "title": "Offer the sacrifice after the prayer",
+    "col": "bukhari",
+    "num": "955",
+    "ref": "Sahih al-Bukhari 955",
+    "grade": null
+   },
+   {
+    "title": "Say the takbir with everyone at the prayer",
+    "col": "bukhari",
+    "num": "971",
+    "ref": "Sahih al-Bukhari 971",
+    "grade": null
+   },
+   {
+    "title": "Return home by a different way",
+    "col": "bukhari",
+    "num": "986",
+    "ref": "Sahih al-Bukhari 986",
+    "grade": null
+   },
+   {
+    "title": "Do not fast today",
+    "col": "bukhari",
+    "num": "1990",
+    "ref": "Sahih al-Bukhari 1990",
+    "grade": null
+   }
+  ],
+  "firstTenDhulHijjah": [
+   {
+    "title": "No days are better for good deeds",
+    "col": "bukhari",
+    "num": "969",
+    "ref": "Sahih al-Bukhari 969",
+    "grade": null
+   },
+   {
+    "title": "If you will sacrifice, leave your hair and nails",
+    "col": "nasai",
+    "num": "4361",
+    "ref": "Sunan an-Nasa'i 4361",
+    "grade": "Sahih (Darussalam)"
+   }
+  ],
+  "arafah": [
+   {
+    "title": "Fast the Day of Arafah",
+    "col": "muslim",
+    "num": "1162a",
+    "ref": "Sahih Muslim 1162a",
+    "grade": null
+   },
+   {
+    "title": "No days are better for good deeds",
+    "col": "bukhari",
+    "num": "969",
+    "ref": "Sahih al-Bukhari 969",
+    "grade": null
+   }
+  ],
+  "tashreeq": [
+   {
+    "title": "Days of eating, drinking and remembering Allah",
+    "col": "muslim",
+    "num": "1141a",
+    "ref": "Sahih Muslim 1141a",
+    "grade": null
+   },
+   {
+    "title": "Do not fast on these days",
+    "col": "bukhari",
+    "num": "1997",
+    "ref": "Sahih al-Bukhari 1997",
+    "grade": null
+   }
+  ],
+  "tasua": [
+   {
+    "title": "Fast the ninth along with Ashura",
+    "col": "muslim",
+    "num": "1134a",
+    "ref": "Sahih Muslim 1134a",
+    "grade": null
+   },
+   {
+    "title": "The best fasting after Ramadan is in Muharram",
+    "col": "muslim",
+    "num": "1163a",
+    "ref": "Sahih Muslim 1163a",
+    "grade": null
+   }
+  ],
+  "ashura": [
+   {
+    "title": "Fast the Day of Ashura",
+    "col": "muslim",
+    "num": "1162a",
+    "ref": "Sahih Muslim 1162a",
+    "grade": null
+   },
+   {
+    "title": "Why the Prophet fasted Ashura",
+    "col": "bukhari",
+    "num": "2004",
+    "ref": "Sahih al-Bukhari 2004",
+    "grade": null
+   },
+   {
+    "title": "The best fasting after Ramadan is in Muharram",
+    "col": "muslim",
+    "num": "1163a",
+    "ref": "Sahih Muslim 1163a",
+    "grade": null
+   }
+  ],
+  "ramadan": [
+   {
+    "title": "Fast with faith, hoping for reward",
+    "col": "bukhari",
+    "num": "38",
+    "ref": "Sahih al-Bukhari 38",
+    "grade": null
+   },
+   {
+    "title": "Eat suhoor, there is blessing in it",
+    "col": "bukhari",
+    "num": "1923",
+    "ref": "Sahih al-Bukhari 1923",
+    "grade": null
+   }
+  ],
+  "lastTenNights": [
+   {
+    "title": "Seek Laylat al-Qadr in the odd nights",
+    "col": "bukhari",
+    "num": "2017",
+    "ref": "Sahih al-Bukhari 2017",
+    "grade": null
+   },
+   {
+    "title": "Stand in prayer on Laylat al-Qadr",
+    "col": "bukhari",
+    "num": "2014",
+    "ref": "Sahih al-Bukhari 2014",
+    "grade": null
+   },
+   {
+    "title": "The dua for Laylat al-Qadr",
+    "col": "tirmidhi",
+    "num": "3513",
+    "ref": "Jami` at-Tirmidhi 3513",
+    "grade": "Sahih (Darussalam)"
+   }
+  ],
+  "ayyamAlBid": [
+   {
+    "title": "Fast the 13th, 14th and 15th",
+    "col": "tirmidhi",
+    "num": "761",
+    "ref": "Jami` at-Tirmidhi 761",
+    "grade": "Hasan (Darussalam)"
+   }
+  ],
+  "mondayFast": [
+   {
+    "title": "Fast Monday: deeds are presented",
+    "col": "tirmidhi",
+    "num": "747",
+    "ref": "Jami` at-Tirmidhi 747",
+    "grade": "Hasan (Darussalam)"
+   },
+   {
+    "title": "The Prophet was born on a Monday",
+    "col": "abudawud",
+    "num": "2426",
+    "ref": "Sunan Abi Dawud 2426",
+    "grade": "Sahih (Al-Albani)"
+   }
+  ],
+  "thursdayFast": [
+   {
+    "title": "Fast Thursday: deeds are presented",
+    "col": "tirmidhi",
+    "num": "747",
+    "ref": "Jami` at-Tirmidhi 747",
+    "grade": "Hasan (Darussalam)"
+   }
+  ],
+  "jumuah": [
+   {
+    "title": "The best day the sun rises on",
+    "col": "muslim",
+    "num": "854a",
+    "ref": "Sahih Muslim 854a",
+    "grade": null
+   },
+   {
+    "title": "Bathe, perfume, go early and listen",
+    "col": "bukhari",
+    "num": "883",
+    "ref": "Sahih al-Bukhari 883",
+    "grade": null
+   }
+  ]
+ }
+}

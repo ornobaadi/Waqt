@@ -210,5 +210,18 @@
   "readingHint": "Arab, transliterasi dan arti, masing-masing",
   "readingArabic": "Arab",
   "readingTransliteration": "Transliterasi",
-  "readingMeaning": "Arti"
+  "readingMeaning": "Arti",
+  "stripLeft": "{time} hingga {prayer}",
+  "dayGuideToday": "Sunnah hari ini",
+  "fastToday": "Puasa sunnah hari ini · {day}",
+  "fastTomorrow": "Puasa besok · {day}",
+  "calendarTitle": "Kalender",
+  "calendarLegendGuide": "Ada panduan",
+  "calendarLegendFast": "Puasa sunnah",
+  "calendarNote": "Tanggal mengikuti Umm al-Qura dengan penyesuaian Hijriah Anda. Pada tanggal 29 Syakban, Ramadan dan Zulkaidah, Beranda menanyakan apakah hilal terlihat.",
+  "sightingTitle": "Apakah hilal {month} terlihat di tempat Anda?",
+  "sightingBody": "Jawaban Anda menggeser kalender agar Ramadan, Idul Fitri dan Arafah jatuh pada hari yang dijalankan komunitas Anda.",
+  "sightingSeen": "Terlihat: {month} dimulai",
+  "sightingNotSeen": "Tidak terlihat: 30 hari",
+  "sightingUnsure": "Tidak yakin"
 }

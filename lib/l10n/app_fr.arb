@@ -210,5 +210,18 @@
   "readingHint": "Arabe, translittération et sens, chacun à part",
   "readingArabic": "Arabe",
   "readingTransliteration": "Translittération",
-  "readingMeaning": "Sens"
+  "readingMeaning": "Sens",
+  "stripLeft": "{time} avant {prayer}",
+  "dayGuideToday": "Sunna du jour",
+  "fastToday": "Jeûne sunna aujourd'hui · {day}",
+  "fastTomorrow": "Jeûnez demain · {day}",
+  "calendarTitle": "Calendrier",
+  "calendarLegendGuide": "Avec un guide",
+  "calendarLegendFast": "Jeûne sunna",
+  "calendarNote": "Dates selon Umm al-Qura avec votre ajustement hégirien. Le 29 de Chaabane, Ramadan et Dhou al-Qi'da, l'accueil demande si le croissant a été vu.",
+  "sightingTitle": "Le croissant de {month} a-t-il été vu chez vous ?",
+  "sightingBody": "Votre réponse décale le calendrier pour que Ramadan, l'Aïd et Arafat tombent les jours de votre communauté.",
+  "sightingSeen": "Vu : {month} commence",
+  "sightingNotSeen": "Pas vu : 30 jours",
+  "sightingUnsure": "Pas sûr"
 }

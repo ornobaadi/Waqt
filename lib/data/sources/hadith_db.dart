@@ -112,6 +112,12 @@ class HadithDb {
     await db.insert('meta', {'k': _ready, 'v': '1'});
   }
 
+  /// One hadith by collection and number as the source numbers it.
+  Future<Hadith?> byRef(String col, String num) async {
+    final rows = await _db.query('hadith', where: 'col = ? AND num = ?', whereArgs: [col, num], limit: 1);
+    return rows.isEmpty ? null : Hadith.fromRow(rows.first);
+  }
+
   static final _refQuery = RegExp(r'^\s*([a-z\-]+)\s*:?\s*(\d+[a-z]?)\s*$', caseSensitive: false);
   static const _aliases = {
     'bukhari': 'bukhari',

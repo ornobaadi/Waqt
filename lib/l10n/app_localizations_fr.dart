@@ -840,4 +840,55 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get readingMeaning => 'Sens';
+
+  @override
+  String stripLeft(String time, String prayer) {
+    return '$time avant $prayer';
+  }
+
+  @override
+  String get dayGuideToday => 'Sunna du jour';
+
+  @override
+  String fastToday(String day) {
+    return 'Jeûne sunna aujourd\'hui · $day';
+  }
+
+  @override
+  String fastTomorrow(String day) {
+    return 'Jeûnez demain · $day';
+  }
+
+  @override
+  String get calendarTitle => 'Calendrier';
+
+  @override
+  String get calendarLegendGuide => 'Avec un guide';
+
+  @override
+  String get calendarLegendFast => 'Jeûne sunna';
+
+  @override
+  String get calendarNote =>
+      'Dates selon Umm al-Qura avec votre ajustement hégirien. Le 29 de Chaabane, Ramadan et Dhou al-Qi\'da, l\'accueil demande si le croissant a été vu.';
+
+  @override
+  String sightingTitle(String month) {
+    return 'Le croissant de $month a-t-il été vu chez vous ?';
+  }
+
+  @override
+  String get sightingBody =>
+      'Votre réponse décale le calendrier pour que Ramadan, l\'Aïd et Arafat tombent les jours de votre communauté.';
+
+  @override
+  String sightingSeen(String month) {
+    return 'Vu : $month commence';
+  }
+
+  @override
+  String get sightingNotSeen => 'Pas vu : 30 jours';
+
+  @override
+  String get sightingUnsure => 'Pas sûr';
 }

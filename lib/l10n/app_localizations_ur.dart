@@ -838,4 +838,55 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get readingMeaning => 'معنی';
+
+  @override
+  String stripLeft(String time, String prayer) {
+    return '$prayer تک $time';
+  }
+
+  @override
+  String get dayGuideToday => 'آج کی سنت';
+
+  @override
+  String fastToday(String day) {
+    return 'آج سنت روزہ · $day';
+  }
+
+  @override
+  String fastTomorrow(String day) {
+    return 'کل روزہ رکھیں · $day';
+  }
+
+  @override
+  String get calendarTitle => 'کیلنڈر';
+
+  @override
+  String get calendarLegendGuide => 'رہنمائی موجود';
+
+  @override
+  String get calendarLegendFast => 'سنت روزہ';
+
+  @override
+  String get calendarNote =>
+      'تاریخیں ام القریٰ اور آپ کی ہجری ترمیم کے مطابق ہیں۔ شعبان، رمضان اور ذوالقعدہ کی 29 تاریخ کو ہوم پر چاند نظر آنے کا سوال آتا ہے۔';
+
+  @override
+  String sightingTitle(String month) {
+    return 'کیا آپ کے ہاں $month کا چاند نظر آیا؟';
+  }
+
+  @override
+  String get sightingBody =>
+      'آپ کا جواب کیلنڈر کو اس طرح بدلتا ہے کہ رمضان، عید اور عرفہ آپ کی برادری کے دنوں پر آئیں۔';
+
+  @override
+  String sightingSeen(String month) {
+    return 'نظر آیا: $month شروع';
+  }
+
+  @override
+  String get sightingNotSeen => 'نظر نہیں آیا: 30 دن';
+
+  @override
+  String get sightingUnsure => 'یقین نہیں';
 }

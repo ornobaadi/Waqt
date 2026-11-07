@@ -41,3 +41,4 @@ Hisn al-Muslim and the hadith collections are copied from published sources, nev
 - **open-hadith-data v1.1.0** (https://github.com/Jaguar16/open-hadith-data): structured data CC0 1.0; Arabic and English texts as published on sunnah.com.
 - Rebuild with `python tool/import_sources.py <unzipped collections-json>`.
 - Which Hisn al-Muslim chapter opens for which moment (`momentChapters` in `lib/features/duas/duas_screen.dart`) is our editorial choice; the text inside is the book's.
+- **Special-day guides** (`assets/sources/days.json`): built by `python tool/build_days.py`. Each item is a short label we wrote, tied to one hadith in the bundled database; the build fails if a reference is missing or graded weak (da'if) by the source.

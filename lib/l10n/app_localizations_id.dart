@@ -839,4 +839,55 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get readingMeaning => 'Arti';
+
+  @override
+  String stripLeft(String time, String prayer) {
+    return '$time hingga $prayer';
+  }
+
+  @override
+  String get dayGuideToday => 'Sunnah hari ini';
+
+  @override
+  String fastToday(String day) {
+    return 'Puasa sunnah hari ini · $day';
+  }
+
+  @override
+  String fastTomorrow(String day) {
+    return 'Puasa besok · $day';
+  }
+
+  @override
+  String get calendarTitle => 'Kalender';
+
+  @override
+  String get calendarLegendGuide => 'Ada panduan';
+
+  @override
+  String get calendarLegendFast => 'Puasa sunnah';
+
+  @override
+  String get calendarNote =>
+      'Tanggal mengikuti Umm al-Qura dengan penyesuaian Hijriah Anda. Pada tanggal 29 Syakban, Ramadan dan Zulkaidah, Beranda menanyakan apakah hilal terlihat.';
+
+  @override
+  String sightingTitle(String month) {
+    return 'Apakah hilal $month terlihat di tempat Anda?';
+  }
+
+  @override
+  String get sightingBody =>
+      'Jawaban Anda menggeser kalender agar Ramadan, Idul Fitri dan Arafah jatuh pada hari yang dijalankan komunitas Anda.';
+
+  @override
+  String sightingSeen(String month) {
+    return 'Terlihat: $month dimulai';
+  }
+
+  @override
+  String get sightingNotSeen => 'Tidak terlihat: 30 hari';
+
+  @override
+  String get sightingUnsure => 'Tidak yakin';
 }

@@ -838,4 +838,55 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get readingMeaning => 'Anlam';
+
+  @override
+  String stripLeft(String time, String prayer) {
+    return '$prayer vaktine $time';
+  }
+
+  @override
+  String get dayGuideToday => 'Bugünün sünneti';
+
+  @override
+  String fastToday(String day) {
+    return 'Bugün sünnet oruç · $day';
+  }
+
+  @override
+  String fastTomorrow(String day) {
+    return 'Yarın oruç · $day';
+  }
+
+  @override
+  String get calendarTitle => 'Takvim';
+
+  @override
+  String get calendarLegendGuide => 'Rehber var';
+
+  @override
+  String get calendarLegendFast => 'Sünnet oruç';
+
+  @override
+  String get calendarNote =>
+      'Tarihler Ümmü\'l-Kurâ\'ya ve Hicri düzeltmenize göredir. Şaban, Ramazan ve Zilkade\'nin 29\'unda ana ekran hilalin görülüp görülmediğini sorar.';
+
+  @override
+  String sightingTitle(String month) {
+    return '$month hilali bulunduğunuz yerde görüldü mü?';
+  }
+
+  @override
+  String get sightingBody =>
+      'Cevabınız takvimi kaydırır; Ramazan, bayram ve Arefe topluluğunuzun günlerine denk gelir.';
+
+  @override
+  String sightingSeen(String month) {
+    return 'Görüldü: $month başlıyor';
+  }
+
+  @override
+  String get sightingNotSeen => 'Görülmedi: 30 gün';
+
+  @override
+  String get sightingUnsure => 'Emin değilim';
 }

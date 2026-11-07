@@ -224,5 +224,18 @@
   "readingHint": "عربی، تلفظ اور معنی، الگ الگ",
   "readingArabic": "عربی",
   "readingTransliteration": "تلفظ",
-  "readingMeaning": "معنی"
+  "readingMeaning": "معنی",
+  "stripLeft": "{prayer} تک {time}",
+  "dayGuideToday": "آج کی سنت",
+  "fastToday": "آج سنت روزہ · {day}",
+  "fastTomorrow": "کل روزہ رکھیں · {day}",
+  "calendarTitle": "کیلنڈر",
+  "calendarLegendGuide": "رہنمائی موجود",
+  "calendarLegendFast": "سنت روزہ",
+  "calendarNote": "تاریخیں ام القریٰ اور آپ کی ہجری ترمیم کے مطابق ہیں۔ شعبان، رمضان اور ذوالقعدہ کی 29 تاریخ کو ہوم پر چاند نظر آنے کا سوال آتا ہے۔",
+  "sightingTitle": "کیا آپ کے ہاں {month} کا چاند نظر آیا؟",
+  "sightingBody": "آپ کا جواب کیلنڈر کو اس طرح بدلتا ہے کہ رمضان، عید اور عرفہ آپ کی برادری کے دنوں پر آئیں۔",
+  "sightingSeen": "نظر آیا: {month} شروع",
+  "sightingNotSeen": "نظر نہیں آیا: 30 دن",
+  "sightingUnsure": "یقین نہیں"
 }

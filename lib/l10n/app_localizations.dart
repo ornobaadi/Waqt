@@ -1628,6 +1628,84 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Meaning'**
   String get readingMeaning;
+
+  /// No description provided for @stripLeft.
+  ///
+  /// In en, this message translates to:
+  /// **'{time} until {prayer}'**
+  String stripLeft(String time, String prayer);
+
+  /// No description provided for @dayGuideToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s Sunnah'**
+  String get dayGuideToday;
+
+  /// No description provided for @fastToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Sunnah fast today · {day}'**
+  String fastToday(String day);
+
+  /// No description provided for @fastTomorrow.
+  ///
+  /// In en, this message translates to:
+  /// **'Fast tomorrow · {day}'**
+  String fastTomorrow(String day);
+
+  /// No description provided for @calendarTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Calendar'**
+  String get calendarTitle;
+
+  /// No description provided for @calendarLegendGuide.
+  ///
+  /// In en, this message translates to:
+  /// **'Has a guide'**
+  String get calendarLegendGuide;
+
+  /// No description provided for @calendarLegendFast.
+  ///
+  /// In en, this message translates to:
+  /// **'Sunnah fast'**
+  String get calendarLegendFast;
+
+  /// No description provided for @calendarNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Dates follow Umm al-Qura with your Hijri adjustment. On the 29th of Shaban, Ramadan and Dhul Qadah, Home asks whether the new moon was seen.'**
+  String get calendarNote;
+
+  /// No description provided for @sightingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Was the new moon of {month} seen where you are?'**
+  String sightingTitle(String month);
+
+  /// No description provided for @sightingBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your answer moves the calendar so Ramadan, Eid and Arafah fall on the days your community keeps.'**
+  String get sightingBody;
+
+  /// No description provided for @sightingSeen.
+  ///
+  /// In en, this message translates to:
+  /// **'Seen: {month} begins'**
+  String sightingSeen(String month);
+
+  /// No description provided for @sightingNotSeen.
+  ///
+  /// In en, this message translates to:
+  /// **'Not seen: 30 days'**
+  String get sightingNotSeen;
+
+  /// No description provided for @sightingUnsure.
+  ///
+  /// In en, this message translates to:
+  /// **'Not sure'**
+  String get sightingUnsure;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

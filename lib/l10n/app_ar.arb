@@ -238,5 +238,18 @@
   "readingHint": "العربية والنطق والمعنى، كل على حدة",
   "readingArabic": "العربية",
   "readingTransliteration": "النطق",
-  "readingMeaning": "المعنى"
+  "readingMeaning": "المعنى",
+  "stripLeft": "{time} حتى {prayer}",
+  "dayGuideToday": "سنة اليوم",
+  "fastToday": "صيام سنة اليوم · {day}",
+  "fastTomorrow": "صم غدًا · {day}",
+  "calendarTitle": "التقويم",
+  "calendarLegendGuide": "فيه إرشاد",
+  "calendarLegendFast": "صيام سنة",
+  "calendarNote": "التواريخ وفق أم القرى مع تعديلك الهجري. في التاسع والعشرين من شعبان ورمضان وذي القعدة تسألك الشاشة الرئيسية عن رؤية الهلال.",
+  "sightingTitle": "هل رُئي هلال {month} عندكم؟",
+  "sightingBody": "يحرك جوابك التقويم لتقع رمضان والعيد وعرفة في الأيام التي يلتزمها مجتمعك.",
+  "sightingSeen": "رُئي: يبدأ {month}",
+  "sightingNotSeen": "لم يُرَ: ثلاثون يومًا",
+  "sightingUnsure": "لست متأكدًا"
 }

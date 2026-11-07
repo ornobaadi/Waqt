@@ -833,4 +833,54 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get readingMeaning => 'المعنى';
+
+  @override
+  String stripLeft(String time, String prayer) {
+    return '$time حتى $prayer';
+  }
+
+  @override
+  String get dayGuideToday => 'سنة اليوم';
+
+  @override
+  String fastToday(String day) {
+    return 'صيام سنة اليوم · $day';
+  }
+
+  @override
+  String fastTomorrow(String day) {
+    return 'صم غدًا · $day';
+  }
+
+  @override
+  String get calendarTitle => 'التقويم';
+
+  @override
+  String get calendarLegendGuide => 'فيه إرشاد';
+
+  @override
+  String get calendarLegendFast => 'صيام سنة';
+
+  @override
+  String get calendarNote =>
+      'التواريخ وفق أم القرى مع تعديلك الهجري. في التاسع والعشرين من شعبان ورمضان وذي القعدة تسألك الشاشة الرئيسية عن رؤية الهلال.';
+
+  @override
+  String sightingTitle(String month) {
+    return 'هل رُئي هلال $month عندكم؟';
+  }
+
+  @override
+  String get sightingBody => 'يحرك جوابك التقويم لتقع رمضان والعيد وعرفة في الأيام التي يلتزمها مجتمعك.';
+
+  @override
+  String sightingSeen(String month) {
+    return 'رُئي: يبدأ $month';
+  }
+
+  @override
+  String get sightingNotSeen => 'لم يُرَ: ثلاثون يومًا';
+
+  @override
+  String get sightingUnsure => 'لست متأكدًا';
 }

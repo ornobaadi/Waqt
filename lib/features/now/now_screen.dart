@@ -20,7 +20,10 @@ import '../../platform/location/gps.dart';
 import '../common/labels.dart';
 import 'checklist_card.dart';
 import 'moment_cards.dart';
+import '../../data/sources/days.dart';
 import 'celestial.dart';
+import 'day_guide_card.dart';
+import 'sighting_card.dart';
 import 'prayer_windows.dart';
 import 'sky_background.dart';
 
@@ -51,6 +54,18 @@ class NowScreen extends ConsumerWidget {
     final dateLine = '${DateFormat.MMMEd(locale).format(now)}  ·  ${l.hijri(hijri, n.call)}';
 
     final palette = ref.watch(activePaletteProvider);
+    final guides = ref.watch(dayGuidesProvider).value;
+    final guideOcc = guides?.featured(occasions);
+    final sighting = sightingQuestion(ref);
+    // Before Maghrib: today's Sunnah fast. After it: tomorrow's, so there is
+    // time to intend it and eat suhoor.
+    final afterMaghrib = status != null && !now.isBefore(status.today[Waqt.maghrib]) && status.current != Waqt.fajr;
+    final fastOcc = guides == null
+        ? null
+        : (afterMaghrib ? ref.watch(tomorrowOccasionsProvider) : occasions).where(guides.fasts.contains).firstOrNull;
+    final fastText = fastOcc == null
+        ? null
+        : (afterMaghrib ? l.fastTomorrow : l.fastToday)(l.occasion(fastOcc, ramadanDay: n(occ.date.day)));
     return Stack(
       children: [
         Positioned(top: 0, left: 0, right: 0, height: 520, child: SkyBackground(palette: palette)),
@@ -125,7 +140,30 @@ class NowScreen extends ConsumerWidget {
                 ],
               ),
               const SizedBox(height: WaqtSpace.x3),
-              Text(dateLine, style: WaqtText.label.copyWith(color: t.inkMuted)),
+              // The date opens the month: what is coming, and what each day holds.
+              InkWell(
+                borderRadius: BorderRadius.circular(WaqtRadii.row),
+                onTap: () => context.push('/calendar'),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: WaqtSpace.x1),
+                  child: Row(
+                    children: [
+                      Flexible(
+                        child: Text(dateLine, style: WaqtText.label.copyWith(color: t.inkMuted)),
+                      ),
+                      const SizedBox(width: WaqtSpace.x1),
+                      Icon(Icons.calendar_month_outlined, size: 16, color: t.inkMuted),
+                    ],
+                  ),
+                ),
+              ),
+              if (fastText != null) ...[
+                const SizedBox(height: WaqtSpace.x3),
+                Align(
+                  alignment: AlignmentDirectional.centerStart,
+                  child: FastingPill(text: fastText),
+                ),
+              ],
               const SizedBox(height: WaqtSpace.x6),
               if (status != null) PrayerWindows(status: status, now: now),
               if (status?.today.estimated ?? false) ...[
@@ -143,6 +181,16 @@ class NowScreen extends ConsumerWidget {
                     context.push('/settings/notifications');
                   },
                   onDismiss: () => ref.read(notificationPrefsProvider.notifier).dismissSetup(),
+                ),
+              ],
+              if (sighting != null) ...[const SizedBox(height: WaqtSpace.x4), SightingCard(next: sighting)],
+              if (guideOcc != null && guides != null) ...[
+                const SizedBox(height: WaqtSpace.x4),
+                DayGuideCard(
+                  occasion: guideOcc,
+                  items: guides.forOccasion(guideOcc),
+                  day: '${now.year}-${now.month}-${now.day}',
+                  ramadanDay: n(occ.date.day),
                 ),
               ],
               // A checklist moment is shown by its checklist alone.

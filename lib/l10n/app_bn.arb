@@ -216,5 +216,18 @@
   "readingHint": "আরবি, উচ্চারণ ও অর্থ, আলাদাভাবে",
   "readingArabic": "আরবি",
   "readingTransliteration": "উচ্চারণ",
-  "readingMeaning": "অর্থ"
+  "readingMeaning": "অর্থ",
+  "stripLeft": "{prayer} পর্যন্ত {time}",
+  "dayGuideToday": "আজকের সুন্নাহ",
+  "fastToday": "আজ সুন্নাত রোজা · {day}",
+  "fastTomorrow": "আগামীকাল রোজা · {day}",
+  "calendarTitle": "ক্যালেন্ডার",
+  "calendarLegendGuide": "নির্দেশনা আছে",
+  "calendarLegendFast": "সুন্নাত রোজা",
+  "calendarNote": "তারিখ উম্মুল কুরা ও আপনার হিজরি সমন্বয় অনুযায়ী। শাবান, রমজান ও জিলকদের ২৯ তারিখে হোম আপনাকে চাঁদ দেখা গেছে কি না জিজ্ঞেস করে।",
+  "sightingTitle": "আপনার এলাকায় কি {month}-এর চাঁদ দেখা গেছে?",
+  "sightingBody": "আপনার উত্তর ক্যালেন্ডার সরিয়ে দেয় যাতে রমজান, ঈদ ও আরাফা আপনার সমাজের দিনে পড়ে।",
+  "sightingSeen": "দেখা গেছে: {month} শুরু",
+  "sightingNotSeen": "দেখা যায়নি: ৩০ দিন",
+  "sightingUnsure": "নিশ্চিত নই"
 }

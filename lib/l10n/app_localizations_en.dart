@@ -838,4 +838,55 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get readingMeaning => 'Meaning';
+
+  @override
+  String stripLeft(String time, String prayer) {
+    return '$time until $prayer';
+  }
+
+  @override
+  String get dayGuideToday => 'Today\'s Sunnah';
+
+  @override
+  String fastToday(String day) {
+    return 'Sunnah fast today · $day';
+  }
+
+  @override
+  String fastTomorrow(String day) {
+    return 'Fast tomorrow · $day';
+  }
+
+  @override
+  String get calendarTitle => 'Calendar';
+
+  @override
+  String get calendarLegendGuide => 'Has a guide';
+
+  @override
+  String get calendarLegendFast => 'Sunnah fast';
+
+  @override
+  String get calendarNote =>
+      'Dates follow Umm al-Qura with your Hijri adjustment. On the 29th of Shaban, Ramadan and Dhul Qadah, Home asks whether the new moon was seen.';
+
+  @override
+  String sightingTitle(String month) {
+    return 'Was the new moon of $month seen where you are?';
+  }
+
+  @override
+  String get sightingBody =>
+      'Your answer moves the calendar so Ramadan, Eid and Arafah fall on the days your community keeps.';
+
+  @override
+  String sightingSeen(String month) {
+    return 'Seen: $month begins';
+  }
+
+  @override
+  String get sightingNotSeen => 'Not seen: 30 days';
+
+  @override
+  String get sightingUnsure => 'Not sure';
 }

@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../core/theme/waqt_theme.dart';
+import '../features/calendar/calendar_screen.dart';
 import '../features/counter/counter_screen.dart';
 import '../features/duas/duas_screen.dart';
 import '../features/duas/library_views.dart';
@@ -22,6 +23,7 @@ final routerProvider = Provider<GoRouter>((ref) {
     initialLocation: '/now',
     routes: [
       GoRoute(path: '/counter', builder: (_, _) => const CounterScreen()),
+      GoRoute(path: '/calendar', builder: (_, _) => const CalendarScreen()),
       StatefulShellRoute.indexedStack(
         builder: (context, state, shell) => _Shell(shell: shell),
         branches: [

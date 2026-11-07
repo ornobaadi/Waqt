@@ -837,4 +837,54 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get readingMeaning => 'অর্থ';
+
+  @override
+  String stripLeft(String time, String prayer) {
+    return '$prayer পর্যন্ত $time';
+  }
+
+  @override
+  String get dayGuideToday => 'আজকের সুন্নাহ';
+
+  @override
+  String fastToday(String day) {
+    return 'আজ সুন্নাত রোজা · $day';
+  }
+
+  @override
+  String fastTomorrow(String day) {
+    return 'আগামীকাল রোজা · $day';
+  }
+
+  @override
+  String get calendarTitle => 'ক্যালেন্ডার';
+
+  @override
+  String get calendarLegendGuide => 'নির্দেশনা আছে';
+
+  @override
+  String get calendarLegendFast => 'সুন্নাত রোজা';
+
+  @override
+  String get calendarNote =>
+      'তারিখ উম্মুল কুরা ও আপনার হিজরি সমন্বয় অনুযায়ী। শাবান, রমজান ও জিলকদের ২৯ তারিখে হোম আপনাকে চাঁদ দেখা গেছে কি না জিজ্ঞেস করে।';
+
+  @override
+  String sightingTitle(String month) {
+    return 'আপনার এলাকায় কি $month-এর চাঁদ দেখা গেছে?';
+  }
+
+  @override
+  String get sightingBody => 'আপনার উত্তর ক্যালেন্ডার সরিয়ে দেয় যাতে রমজান, ঈদ ও আরাফা আপনার সমাজের দিনে পড়ে।';
+
+  @override
+  String sightingSeen(String month) {
+    return 'দেখা গেছে: $month শুরু';
+  }
+
+  @override
+  String get sightingNotSeen => 'দেখা যায়নি: ৩০ দিন';
+
+  @override
+  String get sightingUnsure => 'নিশ্চিত নই';
 }

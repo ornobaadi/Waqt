@@ -216,5 +216,18 @@
   "readingHint": "Arapça, okunuş ve anlam, ayrı ayrı",
   "readingArabic": "Arapça",
   "readingTransliteration": "Okunuş",
-  "readingMeaning": "Anlam"
+  "readingMeaning": "Anlam",
+  "stripLeft": "{prayer} vaktine {time}",
+  "dayGuideToday": "Bugünün sünneti",
+  "fastToday": "Bugün sünnet oruç · {day}",
+  "fastTomorrow": "Yarın oruç · {day}",
+  "calendarTitle": "Takvim",
+  "calendarLegendGuide": "Rehber var",
+  "calendarLegendFast": "Sünnet oruç",
+  "calendarNote": "Tarihler Ümmü'l-Kurâ'ya ve Hicri düzeltmenize göredir. Şaban, Ramazan ve Zilkade'nin 29'unda ana ekran hilalin görülüp görülmediğini sorar.",
+  "sightingTitle": "{month} hilali bulunduğunuz yerde görüldü mü?",
+  "sightingBody": "Cevabınız takvimi kaydırır; Ramazan, bayram ve Arefe topluluğunuzun günlerine denk gelir.",
+  "sightingSeen": "Görüldü: {month} başlıyor",
+  "sightingNotSeen": "Görülmedi: 30 gün",
+  "sightingUnsure": "Emin değilim"
 }
