@@ -106,16 +106,26 @@ void main() {
       expect(s.waqt.id, MomentId.asr);
     });
 
-    test('…and outranks the sunset restriction it overlaps', () {
+    test('…the sunset restriction, newer, sits on top of it', () {
       final s = snap(dhaka, t[Waqt.maghrib].subtract(const Duration(minutes: 5)));
-      expect(s.hero.id, MomentId.fridayLastHour);
-      expect(s.active.map((m) => m.id), contains(MomentId.restrictedSunset));
+      expect(s.hero.id, MomentId.restrictedSunset);
+      expect(s.active.map((m) => m.id), contains(MomentId.fridayLastHour));
     });
 
-    test('on Saturday the same time is evening adhkar', () {
+    test('on Saturday: after Asr on top, evening adhkar beneath, until Maghrib', () {
       final sat = dayOf(dhaka, DateTime(2026, 11, 7)).today;
       final s = snap(dhaka, sat[Waqt.maghrib].subtract(const Duration(minutes: 40)));
-      expect(s.hero.id, MomentId.eveningAdhkar);
+      expect(s.hero.id, MomentId.afterSalah);
+      expect(s.hero.prayer, MomentId.asr);
+      expect(s.active.map((m) => m.id), contains(MomentId.eveningAdhkar));
+    });
+
+    test('after Isha lasts the night; bedtime at 9 pm goes on top of it', () {
+      final night = snap(dhaka, DateTime(2026, 11, 6, 21, 30));
+      expect(night.hero.id, MomentId.bedtime);
+      expect(night.active.map((m) => (m.id, m.prayer)), contains((MomentId.afterSalah, MomentId.isha)));
+      final early = snap(dhaka, DateTime(2026, 11, 6, 20, 0));
+      expect(early.hero.id, MomentId.afterSalah);
     });
 
     test('adhan → iqamah, then after the prayer', () {
@@ -157,7 +167,11 @@ void main() {
       for (var now = span.start; now.isBefore(span.end); now = now.add(const Duration(minutes: 3))) {
         final s = snap(dhaka, now);
         expect(s.active, isNotEmpty, reason: '$now');
-        expect(s.hero.priority, s.active.map((m) => m.priority).reduce((a, b) => a > b ? a : b));
+        // Newest first; the prayer's waqt only when nothing else is on.
+        final others = s.active.where((m) => m.kind != MomentKind.prayer);
+        if (others.isNotEmpty) {
+          expect(s.hero.window.start, others.map((m) => m.window.start).reduce((a, b) => a.isAfter(b) ? a : b));
+        }
       }
     });
   });

@@ -61,7 +61,7 @@ void main() {
     }
   });
 
-  test('bedtime is 22:30 at the place', () {
+  test('bedtime is 21:00 at the place', () {
     final s = PrayerSettings.defaultsFor('GB');
     final day = PrayerDay(
       today: service.forDay(london, DateTime(2026, 11, 6), s),
@@ -69,7 +69,7 @@ void main() {
     );
     final bed = const MomentEngine().timelineFor(day).singleWhere((m) => m.id == MomentId.bedtime).window.start;
     expect(bed, isA<tz.TZDateTime>());
-    expect((bed.hour, bed.minute), (22, 30));
+    expect((bed.hour, bed.minute), (21, 0));
   });
 
   test('engine invariants hold for zoned places', () {

@@ -385,6 +385,16 @@ void main() {
     );
   });
 
+  testWidgets(
+    'night stack in bangla',
+    (t) async => shoot(
+      t,
+      '66_now_night_stack_bn',
+      await app(at: DateTime(2026, 11, 7, 21, 30), place: dhaka, locale: const Locale('bn')),
+      then: () async => t.drag(find.byType(Scrollable).first, const Offset(0, -700)),
+    ),
+  );
+
   testWidgets('eid hadith not yet translated', (t) async {
     // HadeethEnc has the Eid dates hadith in Arabic only, so far: Arabic and a note.
     final d = civilOf(1448, 10, 1);

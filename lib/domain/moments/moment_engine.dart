@@ -157,8 +157,8 @@ class RestrictedTimesRule extends MomentRule {
   }
 }
 
-/// Adhan → iqamah, then the prayer, then a short after-salah window, for each
-/// of the five fard prayers.
+/// Adhan → iqamah, then the prayer, then the after-salah adhkar, which stay
+/// until that prayer's time ends (Fajr at sunrise, Isha at the next Fajr).
 class SalahRule extends MomentRule {
   const SalahRule();
 
@@ -179,13 +179,16 @@ class SalahRule extends MomentRule {
         yield Moment(MomentId.betweenAdhanIqamah, MomentKind.devotion, 80, TimeWindow(adhan, iqamah), prayer: id);
       }
       final done = iqamah.add(c.salahLength);
-      yield Moment(
-        MomentId.afterSalah,
-        MomentKind.devotion,
-        75,
-        TimeWindow(done, done.add(c.afterSalahLength)),
-        prayer: id,
-      );
+      final end = switch (w) {
+        Waqt.fajr => d.today[Waqt.sunrise],
+        Waqt.dhuhr => d.today[Waqt.asr],
+        Waqt.asr => d.today[Waqt.maghrib],
+        Waqt.maghrib => d.today[Waqt.isha],
+        _ => d.tomorrow[Waqt.fajr],
+      };
+      if (end.isAfter(done)) {
+        yield Moment(MomentId.afterSalah, MomentKind.devotion, 75, TimeWindow(done, end), prayer: id);
+      }
     }
   }
 }
@@ -266,11 +269,14 @@ class MomentEngine {
   /// so "coming up" can look past tomorrow's Fajr.
   MomentSnapshot snapshot(DateTime now, PrayerDay current, PrayerDay next) {
     final timeline = timelineFor(current);
+    // Newest first: what has just begun is on top, what is still running
+    // beneath it. The prayer's own waqt always comes last.
     final active = timeline.where((m) => m.window.contains(now)).toList()
       ..sort((a, b) {
-        final p = b.priority.compareTo(a.priority);
-        // Tie: the one that started most recently is the more specific.
-        return p != 0 ? p : b.window.start.compareTo(a.window.start);
+        final k = (a.kind == MomentKind.prayer ? 1 : 0).compareTo(b.kind == MomentKind.prayer ? 1 : 0);
+        if (k != 0) return k;
+        final s = b.window.start.compareTo(a.window.start);
+        return s != 0 ? s : b.priority.compareTo(a.priority);
       });
     final upcoming = [
       ...timeline,

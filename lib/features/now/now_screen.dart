@@ -8,7 +8,6 @@ import '../../core/clock/clock.dart';
 import '../../core/theme/tokens.dart';
 import '../../core/theme/waqt_theme.dart';
 import '../../core/utils/digits.dart';
-import '../../data/content/content_repository.dart';
 import '../../data/user/checklist.dart';
 import '../../data/user/notification_prefs.dart';
 import '../../data/user/user_prefs.dart';
@@ -43,12 +42,7 @@ class NowScreen extends ConsumerWidget {
     final place = ref.watch(userPrefsProvider.select((p) => p.place));
     final status = ref.watch(prayerStatusProvider);
     final moments = ref.watch(momentSnapshotProvider);
-    // The contextual module: a checklist when an active moment has one.
     final guides = ref.watch(dayGuidesProvider).value;
-    final checklist = moments?.active
-        .map((m) => m.id)
-        .where((id) => checklistMoments.contains(id) && (guides?.forMoment(id).isNotEmpty ?? false))
-        .firstOrNull;
     final hijri = ref.watch(hijriDateProvider);
     final occ = ref.watch(occasionsProvider);
     final occasions = occ.list;
@@ -214,30 +208,29 @@ class NowScreen extends ConsumerWidget {
                 AnnouncementCard(month: announcement.month, tomorrow: announcement.tomorrow, known: announcement.known),
               ],
               if (sighting != null) ...[const SizedBox(height: WaqtSpace.x4), SightingCard(next: sighting)],
-              // A checklist moment is shown by its checklist alone.
-              if (moments != null && moments.hero.kind != MomentKind.prayer && moments.hero.id != checklist) ...[
-                const SizedBox(height: WaqtSpace.x4),
-                RightNowCard(
-                  moment: moments.hero,
-                  now: now,
-                  // Checklist moments show their items in the checklist instead.
-                  items: checklistMoments.contains(moments.hero.id)
-                      ? const []
-                      : ref.watch(momentContentProvider(moments.hero.id)),
-                  sourced: guides?.forMoment(moments.hero.id) ?? const [],
-                  onSourced: (i) => openHadith(context, ref, i.he),
-                ),
-              ],
-              if (checklist != null) ...[
-                const SizedBox(height: WaqtSpace.x4),
-                DayGuideCard(
-                  // Bedtime and Friday: sourced practices, ticked per prayer day.
-                  label: l.rightNow,
-                  title: checklist == MomentId.bedtime ? l.checklistTitleBedtime : l.checklistTitleJumuah,
-                  items: guides!.forMoment(checklist),
-                  day: '${checklist.name}-${prayerDayKey(moments!.timeline.first.window.start)}',
-                ),
-              ],
+              // Everything happening now, newest on top: when Bedtime begins
+              // at 9 pm, it sits above "After Isha", which runs until Fajr.
+              if (moments != null)
+                for (final m in nowStack(moments.active, guides)) ...[
+                  const SizedBox(height: WaqtSpace.x4),
+                  if (checklistMoments.contains(m.id))
+                    DayGuideCard(
+                      // Bedtime and Friday: sourced practices, ticked per prayer day.
+                      label: l.rightNow,
+                      title: m.id == MomentId.bedtime ? l.checklistTitleBedtime : l.checklistTitleJumuah,
+                      items: guides!.forMoment(m.id),
+                      day: '${m.id.name}-${prayerDayKey(moments.timeline.first.window.start)}',
+                    )
+                  else
+                    RightNowCard(
+                      moment: m,
+                      now: now,
+                      // Only sourced, checked items: nothing unreviewed on Home.
+                      items: const [],
+                      sourced: guides?.forMoment(m.id) ?? const [],
+                      onSourced: (i) => openHadith(context, ref, i.he),
+                    ),
+                ],
               if (guideOcc != null && guides != null) ...[
                 const SizedBox(height: WaqtSpace.x4),
                 DayGuideCard(
@@ -553,4 +546,18 @@ class _SetupCard extends StatelessWidget {
       ),
     );
   }
+}
+
+/// The moments to show now, newest first, one card each: only those with
+/// something to say (a sourced item or a restriction), at most three, and
+/// never the prayer's own waqt, which the strip above already shows.
+List<Moment> nowStack(List<Moment> active, DayGuides? guides) {
+  final seen = <MomentId>{};
+  return [
+    for (final m in active)
+      if (m.kind != MomentKind.prayer &&
+          (m.kind == MomentKind.restricted || (guides?.forMoment(m.id).isNotEmpty ?? false)) &&
+          seen.add(m.id))
+        m,
+  ].take(3).toList();
 }

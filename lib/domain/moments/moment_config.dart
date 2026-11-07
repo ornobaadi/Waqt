@@ -17,8 +17,8 @@ class MomentConfig {
     },
     this.salahLength = const Duration(minutes: 10),
     this.afterSalahLength = const Duration(minutes: 20),
-    this.bedtimeMinutes = 22 * 60 + 30,
-    this.bedtimeLength = const Duration(hours: 2),
+    this.bedtimeMinutes = 21 * 60,
+    this.bedtimeLength = const Duration(hours: 3),
     this.fridayLastHour = const Duration(hours: 1),
     this.suhoorLength = const Duration(minutes: 45),
     this.iftarLength = const Duration(minutes: 20),
@@ -42,7 +42,7 @@ class MomentConfig {
   /// The window for remembrance once the prayer is done.
   final Duration afterSalahLength;
 
-  /// Usual bedtime as minutes after local midnight (22:30 default).
+  /// Usual bedtime as minutes after local midnight (21:00 default, early enough to build the habit).
   final int bedtimeMinutes;
   final Duration bedtimeLength;
 
