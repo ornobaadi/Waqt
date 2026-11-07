@@ -160,6 +160,34 @@ void main() {
   );
 
   testWidgets(
+    'hisn chapter',
+    (t) async => shoot(
+      t,
+      '16b_hisn_chapter',
+      await app(at: DateTime(2026, 11, 6, 22, 45), place: dhaka),
+      then: () async {
+        await t.tap(find.text('Duas'));
+        await t.pumpAndSettle();
+        await t.tap(find.text('Before sleeping').first);
+      },
+    ),
+  );
+
+  testWidgets(
+    'duas search',
+    (t) async => shoot(
+      t,
+      '16c_duas_search',
+      await app(at: DateTime(2026, 11, 6, 9, 41), place: dhaka),
+      then: () async {
+        await t.tap(find.text('Duas'));
+        await t.pumpAndSettle();
+        await t.enterText(find.byType(TextField), 'travel');
+      },
+    ),
+  );
+
+  testWidgets(
     'sheet',
     (t) async => shoot(
       t,

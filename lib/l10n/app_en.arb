@@ -412,5 +412,21 @@
   "counterFreeHint": "Count anything, with your own target",
   "counterAfterSalah": "After salah: 33 · 33 · 34",
   "counterHaptics": "Vibrate on each count",
-  "counterAfterSalahName": "After salah"
+  "counterAfterSalahName": "After salah",
+  "librarySearchAll": "Search duas and hadith",
+  "scopeDuas": "Duas",
+  "scopeHadith": "Hadith",
+  "librarySituations": "Every situation",
+  "libraryForNow": "For now",
+  "duaCount": "{count, plural, =1{1 dua} other{{count} duas}}",
+  "@duaCount": {"placeholders": {"count": {"type": "int"}}},
+  "libraryPreparing": "Preparing hadith search. This happens once.",
+  "libraryRefine": "Showing the first 60. Add a word to narrow it.",
+  "sourceHisn": "Hisn al-Muslim by Sa'id bin Ali bin Wahf al-Qahtani. Text, transliteration and translation as published on sunnah.com, via open-hadith-data.",
+  "sourceHadith": "Arabic and English as published on sunnah.com, via open-hadith-data. Grades as given by the source.",
+  "hisnNumber": "Hisn al-Muslim {n}",
+  "@hisnNumber": {"placeholders": {"n": {"type": "String"}}},
+  "copyText": "Copy",
+  "copied": "Copied",
+  "openSource": "Open source"
 }

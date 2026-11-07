@@ -788,4 +788,59 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get counterAfterSalahName => 'সালাতের পর';
+
+  @override
+  String get librarySearchAll => 'দোয়া ও হাদিস খুঁজুন';
+
+  @override
+  String get scopeDuas => 'দোয়া';
+
+  @override
+  String get scopeHadith => 'হাদিস';
+
+  @override
+  String get librarySituations => 'সব পরিস্থিতি';
+
+  @override
+  String get libraryForNow => 'এখন';
+
+  @override
+  String duaCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countটি দোয়া',
+      one: '১টি দোয়া',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get libraryPreparing => 'হাদিস খোঁজার প্রস্তুতি চলছে। এটি একবারই হয়।';
+
+  @override
+  String get libraryRefine =>
+      'প্রথম ৬০টি দেখানো হচ্ছে। সংকুচিত করতে শব্দ যোগ করুন।';
+
+  @override
+  String get sourceHisn =>
+      'Hisn al-Muslim by Sa\'id bin Ali bin Wahf al-Qahtani. Text, transliteration and translation as published on sunnah.com, via open-hadith-data.';
+
+  @override
+  String get sourceHadith =>
+      'Arabic and English as published on sunnah.com, via open-hadith-data. Grades as given by the source.';
+
+  @override
+  String hisnNumber(String n) {
+    return 'হিসনুল মুসলিম $n';
+  }
+
+  @override
+  String get copyText => 'কপি';
+
+  @override
+  String get copied => 'কপি হয়েছে';
+
+  @override
+  String get openSource => 'উৎস খুলুন';
 }

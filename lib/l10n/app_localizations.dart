@@ -1517,6 +1517,90 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'After salah'**
   String get counterAfterSalahName;
+
+  /// No description provided for @librarySearchAll.
+  ///
+  /// In en, this message translates to:
+  /// **'Search duas and hadith'**
+  String get librarySearchAll;
+
+  /// No description provided for @scopeDuas.
+  ///
+  /// In en, this message translates to:
+  /// **'Duas'**
+  String get scopeDuas;
+
+  /// No description provided for @scopeHadith.
+  ///
+  /// In en, this message translates to:
+  /// **'Hadith'**
+  String get scopeHadith;
+
+  /// No description provided for @librarySituations.
+  ///
+  /// In en, this message translates to:
+  /// **'Every situation'**
+  String get librarySituations;
+
+  /// No description provided for @libraryForNow.
+  ///
+  /// In en, this message translates to:
+  /// **'For now'**
+  String get libraryForNow;
+
+  /// No description provided for @duaCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 dua} other{{count} duas}}'**
+  String duaCount(int count);
+
+  /// No description provided for @libraryPreparing.
+  ///
+  /// In en, this message translates to:
+  /// **'Preparing hadith search. This happens once.'**
+  String get libraryPreparing;
+
+  /// No description provided for @libraryRefine.
+  ///
+  /// In en, this message translates to:
+  /// **'Showing the first 60. Add a word to narrow it.'**
+  String get libraryRefine;
+
+  /// No description provided for @sourceHisn.
+  ///
+  /// In en, this message translates to:
+  /// **'Hisn al-Muslim by Sa\'id bin Ali bin Wahf al-Qahtani. Text, transliteration and translation as published on sunnah.com, via open-hadith-data.'**
+  String get sourceHisn;
+
+  /// No description provided for @sourceHadith.
+  ///
+  /// In en, this message translates to:
+  /// **'Arabic and English as published on sunnah.com, via open-hadith-data. Grades as given by the source.'**
+  String get sourceHadith;
+
+  /// No description provided for @hisnNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Hisn al-Muslim {n}'**
+  String hisnNumber(String n);
+
+  /// No description provided for @copyText.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy'**
+  String get copyText;
+
+  /// No description provided for @copied.
+  ///
+  /// In en, this message translates to:
+  /// **'Copied'**
+  String get copied;
+
+  /// No description provided for @openSource.
+  ///
+  /// In en, this message translates to:
+  /// **'Open source'**
+  String get openSource;
 }
 
 class _AppLocalizationsDelegate

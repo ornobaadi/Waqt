@@ -219,5 +219,19 @@
   "counterFreeHint": "عدّ أي شيء بالهدف الذي تختاره",
   "counterAfterSalah": "بعد الصلاة: ٣٣ · ٣٣ · ٣٤",
   "counterHaptics": "اهتزاز مع كل عدّة",
-  "counterAfterSalahName": "بعد الصلاة"
+  "counterAfterSalahName": "بعد الصلاة",
+  "librarySearchAll": "ابحث في الأدعية والأحاديث",
+  "scopeDuas": "الأدعية",
+  "scopeHadith": "الأحاديث",
+  "librarySituations": "كل المواقف",
+  "libraryForNow": "الآن",
+  "duaCount": "{count, plural, =1{دعاء واحد} other{{count} أدعية}}",
+  "libraryPreparing": "يجري تجهيز البحث في الأحاديث. يحدث هذا مرة واحدة.",
+  "libraryRefine": "تُعرض أول ٦٠ نتيجة. أضف كلمة لتضييق البحث.",
+  "sourceHisn": "Hisn al-Muslim by Sa'id bin Ali bin Wahf al-Qahtani. Text, transliteration and translation as published on sunnah.com, via open-hadith-data.",
+  "sourceHadith": "Arabic and English as published on sunnah.com, via open-hadith-data. Grades as given by the source.",
+  "hisnNumber": "حصن المسلم {n}",
+  "copyText": "نسخ",
+  "copied": "تم النسخ",
+  "openSource": "فتح المصدر"
 }

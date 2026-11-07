@@ -197,5 +197,19 @@
   "counterFreeHint": "Kendi hedefinle her şeyi say",
   "counterAfterSalah": "Namazdan sonra: 33 · 33 · 34",
   "counterHaptics": "Her sayımda titreşim",
-  "counterAfterSalahName": "Namazdan sonra"
+  "counterAfterSalahName": "Namazdan sonra",
+  "librarySearchAll": "Dua ve hadis ara",
+  "scopeDuas": "Dualar",
+  "scopeHadith": "Hadisler",
+  "librarySituations": "Her durum",
+  "libraryForNow": "Şimdi",
+  "duaCount": "{count, plural, =1{1 dua} other{{count} dua}}",
+  "libraryPreparing": "Hadis araması hazırlanıyor. Bu yalnızca bir kez olur.",
+  "libraryRefine": "İlk 60 gösteriliyor. Daraltmak için kelime ekleyin.",
+  "sourceHisn": "Hisn al-Muslim by Sa'id bin Ali bin Wahf al-Qahtani. Text, transliteration and translation as published on sunnah.com, via open-hadith-data.",
+  "sourceHadith": "Arabic and English as published on sunnah.com, via open-hadith-data. Grades as given by the source.",
+  "hisnNumber": "Hisnul Müslim {n}",
+  "copyText": "Kopyala",
+  "copied": "Kopyalandı",
+  "openSource": "Kaynağı aç"
 }

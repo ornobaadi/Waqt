@@ -191,5 +191,19 @@
   "counterFreeHint": "Hitung apa saja dengan target sendiri",
   "counterAfterSalah": "Setelah salat: 33 · 33 · 34",
   "counterHaptics": "Getar setiap hitungan",
-  "counterAfterSalahName": "Setelah salat"
+  "counterAfterSalahName": "Setelah salat",
+  "librarySearchAll": "Cari doa dan hadis",
+  "scopeDuas": "Doa",
+  "scopeHadith": "Hadis",
+  "librarySituations": "Semua keadaan",
+  "libraryForNow": "Sekarang",
+  "duaCount": "{count, plural, =1{1 doa} other{{count} doa}}",
+  "libraryPreparing": "Menyiapkan pencarian hadis. Ini hanya sekali.",
+  "libraryRefine": "Menampilkan 60 pertama. Tambah kata untuk mempersempit.",
+  "sourceHisn": "Hisn al-Muslim by Sa'id bin Ali bin Wahf al-Qahtani. Text, transliteration and translation as published on sunnah.com, via open-hadith-data.",
+  "sourceHadith": "Arabic and English as published on sunnah.com, via open-hadith-data. Grades as given by the source.",
+  "hisnNumber": "Hisnul Muslim {n}",
+  "copyText": "Salin",
+  "copied": "Disalin",
+  "openSource": "Buka sumber"
 }

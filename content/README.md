@@ -35,3 +35,9 @@ dart run tool/content.dart build --release  # approved only, for store builds
 ## Open decisions
 - English translation and licence (Sahih International? Darussalam? per-language).
 - Who the scholar reviewer(s) are and how sign-off is recorded beyond the YAML fields.
+
+## Bundled source texts (`assets/sources/`)
+Hisn al-Muslim and the hadith collections are copied from published sources, never written here:
+- **open-hadith-data v1.1.0** (https://github.com/Jaguar16/open-hadith-data): structured data CC0 1.0; Arabic and English texts as published on sunnah.com.
+- Rebuild with `python tool/import_sources.py <unzipped collections-json>`.
+- Which Hisn al-Muslim chapter opens for which moment (`momentChapters` in `lib/features/duas/duas_screen.dart`) is our editorial choice; the text inside is the book's.

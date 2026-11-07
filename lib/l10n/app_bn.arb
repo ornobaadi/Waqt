@@ -197,5 +197,19 @@
   "counterFreeHint": "নিজের লক্ষ্য দিয়ে যেকোনো কিছু গুনুন",
   "counterAfterSalah": "সালাতের পর: ৩৩ · ৩৩ · ৩৪",
   "counterHaptics": "প্রতি গণনায় কম্পন",
-  "counterAfterSalahName": "সালাতের পর"
+  "counterAfterSalahName": "সালাতের পর",
+  "librarySearchAll": "দোয়া ও হাদিস খুঁজুন",
+  "scopeDuas": "দোয়া",
+  "scopeHadith": "হাদিস",
+  "librarySituations": "সব পরিস্থিতি",
+  "libraryForNow": "এখন",
+  "duaCount": "{count, plural, =1{১টি দোয়া} other{{count}টি দোয়া}}",
+  "libraryPreparing": "হাদিস খোঁজার প্রস্তুতি চলছে। এটি একবারই হয়।",
+  "libraryRefine": "প্রথম ৬০টি দেখানো হচ্ছে। সংকুচিত করতে শব্দ যোগ করুন।",
+  "sourceHisn": "Hisn al-Muslim by Sa'id bin Ali bin Wahf al-Qahtani. Text, transliteration and translation as published on sunnah.com, via open-hadith-data.",
+  "sourceHadith": "Arabic and English as published on sunnah.com, via open-hadith-data. Grades as given by the source.",
+  "hisnNumber": "হিসনুল মুসলিম {n}",
+  "copyText": "কপি",
+  "copied": "কপি হয়েছে",
+  "openSource": "উৎস খুলুন"
 }

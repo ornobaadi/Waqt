@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import '../core/theme/waqt_theme.dart';
 import '../features/counter/counter_screen.dart';
 import '../features/duas/duas_screen.dart';
+import '../features/duas/library_views.dart';
 import '../features/now/now_screen.dart';
 import '../features/settings/city_picker_screen.dart';
 import '../features/settings/checker_screen.dart';
@@ -30,7 +31,18 @@ final routerProvider = Provider<GoRouter>((ref) {
             routes: [GoRoute(path: '/today', builder: (_, _) => const TodayScreen())],
           ),
           StatefulShellBranch(
-            routes: [GoRoute(path: '/duas', builder: (_, _) => const DuasScreen())],
+            routes: [
+              GoRoute(
+                path: '/duas',
+                builder: (_, _) => const DuasScreen(),
+                routes: [
+                  GoRoute(
+                    path: 'hisn/:n',
+                    builder: (_, s) => HisnChapterScreen(number: int.parse(s.pathParameters['n']!)),
+                  ),
+                ],
+              ),
+            ],
           ),
           StatefulShellBranch(
             routes: [

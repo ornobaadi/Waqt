@@ -191,5 +191,19 @@
   "counterFreeHint": "Comptez ce que vous voulez, avec votre objectif",
   "counterAfterSalah": "Après la prière : 33 · 33 · 34",
   "counterHaptics": "Vibrer à chaque compte",
-  "counterAfterSalahName": "Après la prière"
+  "counterAfterSalahName": "Après la prière",
+  "librarySearchAll": "Chercher douas et hadiths",
+  "scopeDuas": "Douas",
+  "scopeHadith": "Hadiths",
+  "librarySituations": "Toutes les situations",
+  "libraryForNow": "Maintenant",
+  "duaCount": "{count, plural, =1{1 doua} other{{count} douas}}",
+  "libraryPreparing": "Préparation de la recherche de hadiths. Une seule fois.",
+  "libraryRefine": "Les 60 premiers. Ajoutez un mot pour affiner.",
+  "sourceHisn": "Hisn al-Muslim by Sa'id bin Ali bin Wahf al-Qahtani. Text, transliteration and translation as published on sunnah.com, via open-hadith-data.",
+  "sourceHadith": "Arabic and English as published on sunnah.com, via open-hadith-data. Grades as given by the source.",
+  "hisnNumber": "Hisn al-Muslim {n}",
+  "copyText": "Copier",
+  "copied": "Copié",
+  "openSource": "Ouvrir la source"
 }

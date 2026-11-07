@@ -205,5 +205,19 @@
   "counterFreeHint": "اپنے ہدف کے ساتھ کچھ بھی گنیں",
   "counterAfterSalah": "نماز کے بعد: ۳۳ · ۳۳ · ۳۴",
   "counterHaptics": "ہر گنتی پر ارتعاش",
-  "counterAfterSalahName": "نماز کے بعد"
+  "counterAfterSalahName": "نماز کے بعد",
+  "librarySearchAll": "دعائیں اور احادیث تلاش کریں",
+  "scopeDuas": "دعائیں",
+  "scopeHadith": "احادیث",
+  "librarySituations": "ہر موقع",
+  "libraryForNow": "ابھی",
+  "duaCount": "{count, plural, =1{1 دعا} other{{count} دعائیں}}",
+  "libraryPreparing": "احادیث کی تلاش تیار ہو رہی ہے۔ یہ صرف ایک بار ہوتا ہے۔",
+  "libraryRefine": "پہلے 60 دکھائے جا رہے ہیں۔ محدود کرنے کے لیے لفظ شامل کریں۔",
+  "sourceHisn": "Hisn al-Muslim by Sa'id bin Ali bin Wahf al-Qahtani. Text, transliteration and translation as published on sunnah.com, via open-hadith-data.",
+  "sourceHadith": "Arabic and English as published on sunnah.com, via open-hadith-data. Grades as given by the source.",
+  "hisnNumber": "حصن المسلم {n}",
+  "copyText": "کاپی",
+  "copied": "کاپی ہو گیا",
+  "openSource": "ماخذ کھولیں"
 }

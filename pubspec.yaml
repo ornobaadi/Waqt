@@ -27,6 +27,8 @@ dependencies:
   flutter_timezone: ^5.1.1
   home_widget: ^0.10.0
   sensors_plus: ^7.1.1
+  sqflite: ^2.4.5
+  path_provider: ^2.1.6
 
 dev_dependencies:
   flutter_test:
@@ -36,6 +38,7 @@ dev_dependencies:
   riverpod_generator: ^4.0.9
   build_runner: ^2.16.2
   yaml: ^3.1.4
+  sqflite_common_ffi: ^2.4.5
 
 flutter:
 
@@ -46,6 +49,7 @@ flutter:
   assets:
     - assets/data/
     - assets/content/
+    - assets/sources/
   fonts:
     - family: SchibstedGrotesk
       fonts:
