@@ -1152,4 +1152,18 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get counterSectionYours => 'Zikir Anda';
+
+  @override
+  String get sheetExplanation => 'Penjelasan';
+
+  @override
+  String get sheetEnglishOriginal => 'Inggris (sunnah.com)';
+
+  @override
+  String sourceHadeethEnc(String date) {
+    return 'Terjemahan dan penjelasan: HadeethEnc.com, tanpa diubah (diambil $date).';
+  }
+
+  @override
+  String get openHadeethEnc => 'HadeethEnc';
 }

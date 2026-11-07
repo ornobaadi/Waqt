@@ -6,6 +6,7 @@ import '../../core/theme/tokens.dart';
 import '../../core/theme/waqt_theme.dart';
 import '../../core/utils/digits.dart';
 import '../../data/sources/days.dart';
+import '../../data/sources/hadeethenc.dart';
 import '../../data/sources/hadith_db.dart';
 import '../../l10n/app_localizations.dart';
 import '../duas/library_views.dart';
@@ -196,6 +197,27 @@ class _Row extends ConsumerWidget {
 
 /// Opens the hadith behind a day item from the bundled collections.
 Future<void> openDayItem(BuildContext context, WidgetRef ref, DayItem item) async {
+  final enc = await ref.read(hadeethEncProvider.future);
+  final he = enc[item.id];
+  if (!context.mounted) return;
+  // HadeethEnc has it: it opens at once, in the reader's language, from the
+  // bundled translations. The full text from the library is added when present.
+  if (he != null && ref.read(hadithInstallProvider).status != HadithLibrary.ready) {
+    await showHadithSheet(
+      context,
+      Hadith(
+        collection: item.collection,
+        number: item.number,
+        reference: item.reference,
+        arabic: he.of('ar')?.text ?? '',
+        english: he.of('en')?.text ?? '',
+        grade: item.grade,
+      ),
+      he: he,
+      retrieved: enc.retrieved,
+    );
+    return;
+  }
   // Not downloaded yet: offer the library; it opens the hadith once ready.
   if (ref.read(hadithInstallProvider).status != HadithLibrary.ready) {
     final t = WaqtTokens.of(context);
@@ -221,7 +243,7 @@ Future<void> openDayItem(BuildContext context, WidgetRef ref, DayItem item) asyn
   }
   final db = await ref.read(hadithDbProvider.future);
   final h = await db.byRef(item.collection, item.number);
-  if (h != null && context.mounted) await showHadithSheet(context, h);
+  if (h != null && context.mounted) await showHadithSheet(context, h, he: he, retrieved: enc.retrieved);
 }
 
 /// "Sunnah fast today", or after Maghrib "Fast tomorrow", naming the day.

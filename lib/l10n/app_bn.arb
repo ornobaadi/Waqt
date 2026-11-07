@@ -278,5 +278,9 @@
   "counterSave": "সেভ করুন",
   "counterRemove": "মুছুন",
   "counterSectionReward": "ফজিলতপূর্ণ জিকির",
-  "counterSectionYours": "আপনার জিকির"
+  "counterSectionYours": "আপনার জিকির",
+  "sheetExplanation": "ব্যাখ্যা",
+  "sheetEnglishOriginal": "ইংরেজি (sunnah.com)",
+  "sourceHadeethEnc": "অনুবাদ ও ব্যাখ্যা: HadeethEnc.com, হুবহু ({date} তারিখে নেওয়া)।",
+  "openHadeethEnc": "HadeethEnc"
 }

@@ -1144,4 +1144,18 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get counterSectionYours => 'أذكارك';
+
+  @override
+  String get sheetExplanation => 'الشرح';
+
+  @override
+  String get sheetEnglishOriginal => 'الإنجليزية (sunnah.com)';
+
+  @override
+  String sourceHadeethEnc(String date) {
+    return 'الترجمة والشرح: موسوعة الأحاديث المترجمة HadeethEnc.com، دون تغيير (جُلبت $date).';
+  }
+
+  @override
+  String get openHadeethEnc => 'HadeethEnc';
 }

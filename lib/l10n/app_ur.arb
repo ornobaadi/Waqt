@@ -286,5 +286,9 @@
   "counterSave": "محفوظ کریں",
   "counterRemove": "ہٹائیں",
   "counterSectionReward": "فضیلت والے اذکار",
-  "counterSectionYours": "آپ کے اذکار"
+  "counterSectionYours": "آپ کے اذکار",
+  "sheetExplanation": "تشریح",
+  "sheetEnglishOriginal": "انگریزی (sunnah.com)",
+  "sourceHadeethEnc": "ترجمہ اور تشریح: HadeethEnc.com، بغیر تبدیلی کے ({date} کو لیا گیا)۔",
+  "openHadeethEnc": "HadeethEnc"
 }

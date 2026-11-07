@@ -272,5 +272,9 @@
   "counterSave": "Enregistrer",
   "counterRemove": "Retirer",
   "counterSectionReward": "Avec une récompense promise",
-  "counterSectionYours": "Les vôtres"
+  "counterSectionYours": "Les vôtres",
+  "sheetExplanation": "Explication",
+  "sheetEnglishOriginal": "Anglais (sunnah.com)",
+  "sourceHadeethEnc": "Traduction et explication : HadeethEnc.com, sans modification (récupéré le {date}).",
+  "openHadeethEnc": "HadeethEnc"
 }

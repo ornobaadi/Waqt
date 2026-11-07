@@ -381,6 +381,23 @@ void main() {
     ),
   );
 
+  testWidgets('hadith in bangla', (t) async {
+    // HadeethEnc's Bangla, bundled: opens before the library is downloaded.
+    final d = civilOf(1448, 10, 1);
+    await shoot(
+      t,
+      '60c_hadith_bn',
+      await app(at: DateTime(d.year, d.month, d.day, 15, 0), place: dhaka, locale: const Locale('bn')),
+      then: () async {
+        await t.runAsync(() async {
+          await t.tap(find.text('Do not fast today'));
+          await Future<void>.delayed(const Duration(milliseconds: 500));
+        });
+        await t.pumpAndSettle();
+      },
+    );
+  });
+
   testWidgets('eid al-fitr afternoon', (t) async {
     final d = civilOf(1448, 10, 1);
     await shoot(t, '60b_now_eid_afternoon', await app(at: DateTime(d.year, d.month, d.day, 15, 0), place: dhaka));

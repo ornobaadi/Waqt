@@ -1156,4 +1156,18 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get counterSectionYours => 'Senin zikirlerin';
+
+  @override
+  String get sheetExplanation => 'Açıklama';
+
+  @override
+  String get sheetEnglishOriginal => 'İngilizce (sunnah.com)';
+
+  @override
+  String sourceHadeethEnc(String date) {
+    return 'Çeviri ve açıklama: HadeethEnc.com, değiştirilmeden ($date tarihinde alındı).';
+  }
+
+  @override
+  String get openHadeethEnc => 'HadeethEnc';
 }

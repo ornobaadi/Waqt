@@ -2111,6 +2111,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Your own'**
   String get counterSectionYours;
+
+  /// No description provided for @sheetExplanation.
+  ///
+  /// In en, this message translates to:
+  /// **'Explanation'**
+  String get sheetExplanation;
+
+  /// No description provided for @sheetEnglishOriginal.
+  ///
+  /// In en, this message translates to:
+  /// **'English (sunnah.com)'**
+  String get sheetEnglishOriginal;
+
+  /// No description provided for @sourceHadeethEnc.
+  ///
+  /// In en, this message translates to:
+  /// **'Translation and explanation: HadeethEnc.com, shown unchanged (retrieved {date}).'**
+  String sourceHadeethEnc(String date);
+
+  /// No description provided for @openHadeethEnc.
+  ///
+  /// In en, this message translates to:
+  /// **'HadeethEnc'**
+  String get openHadeethEnc;
 }
 
 class _AppLocalizationsDelegate

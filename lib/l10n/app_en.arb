@@ -530,5 +530,10 @@
   "counterSave": "Save",
   "counterRemove": "Remove",
   "counterSectionReward": "With a promised reward",
-  "counterSectionYours": "Your own"
+  "counterSectionYours": "Your own",
+  "sheetExplanation": "Explanation",
+  "sheetEnglishOriginal": "English (sunnah.com)",
+  "sourceHadeethEnc": "Translation and explanation: HadeethEnc.com, shown unchanged (retrieved {date}).",
+  "@sourceHadeethEnc": {"placeholders": {"date": {"type": "String"}}},
+  "openHadeethEnc": "HadeethEnc"
 }

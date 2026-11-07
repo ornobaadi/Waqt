@@ -1156,4 +1156,18 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get counterSectionYours => 'Les vôtres';
+
+  @override
+  String get sheetExplanation => 'Explication';
+
+  @override
+  String get sheetEnglishOriginal => 'Anglais (sunnah.com)';
+
+  @override
+  String sourceHadeethEnc(String date) {
+    return 'Traduction et explication : HadeethEnc.com, sans modification (récupéré le $date).';
+  }
+
+  @override
+  String get openHadeethEnc => 'HadeethEnc';
 }

@@ -278,5 +278,9 @@
   "counterSave": "Kaydet",
   "counterRemove": "Kaldır",
   "counterSectionReward": "Fazileti bildirilen zikirler",
-  "counterSectionYours": "Senin zikirlerin"
+  "counterSectionYours": "Senin zikirlerin",
+  "sheetExplanation": "Açıklama",
+  "sheetEnglishOriginal": "İngilizce (sunnah.com)",
+  "sourceHadeethEnc": "Çeviri ve açıklama: HadeethEnc.com, değiştirilmeden ({date} tarihinde alındı).",
+  "openHadeethEnc": "HadeethEnc"
 }

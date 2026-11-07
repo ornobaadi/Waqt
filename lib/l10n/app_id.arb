@@ -272,5 +272,9 @@
   "counterSave": "Simpan",
   "counterRemove": "Hapus",
   "counterSectionReward": "Zikir dengan keutamaan",
-  "counterSectionYours": "Zikir Anda"
+  "counterSectionYours": "Zikir Anda",
+  "sheetExplanation": "Penjelasan",
+  "sheetEnglishOriginal": "Inggris (sunnah.com)",
+  "sourceHadeethEnc": "Terjemahan dan penjelasan: HadeethEnc.com, tanpa diubah (diambil {date}).",
+  "openHadeethEnc": "HadeethEnc"
 }

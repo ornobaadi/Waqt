@@ -1148,4 +1148,18 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get counterSectionYours => 'آپ کے اذکار';
+
+  @override
+  String get sheetExplanation => 'تشریح';
+
+  @override
+  String get sheetEnglishOriginal => 'انگریزی (sunnah.com)';
+
+  @override
+  String sourceHadeethEnc(String date) {
+    return 'ترجمہ اور تشریح: HadeethEnc.com، بغیر تبدیلی کے ($date کو لیا گیا)۔';
+  }
+
+  @override
+  String get openHadeethEnc => 'HadeethEnc';
 }

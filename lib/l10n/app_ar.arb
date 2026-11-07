@@ -300,5 +300,9 @@
   "counterSave": "حفظ",
   "counterRemove": "حذف",
   "counterSectionReward": "أذكار لها فضل",
-  "counterSectionYours": "أذكارك"
+  "counterSectionYours": "أذكارك",
+  "sheetExplanation": "الشرح",
+  "sheetEnglishOriginal": "الإنجليزية (sunnah.com)",
+  "sourceHadeethEnc": "الترجمة والشرح: موسوعة الأحاديث المترجمة HadeethEnc.com، دون تغيير (جُلبت {date}).",
+  "openHadeethEnc": "HadeethEnc"
 }

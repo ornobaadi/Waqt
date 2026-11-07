@@ -5,6 +5,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../core/theme/tokens.dart';
 import '../../core/theme/waqt_theme.dart';
+import '../../data/sources/hadeethenc.dart';
 import '../../data/sources/hadith_db.dart';
 import '../../data/sources/hisn.dart';
 import '../../data/user/reading_prefs.dart';
@@ -171,7 +172,9 @@ class HadithTile extends StatelessWidget {
   }
 }
 
-Future<void> showHadithSheet(BuildContext context, Hadith h) {
+/// [he]: HadeethEnc's reviewed translation and explanation, when it has
+/// this hadith; shown in the reader's language, unchanged and credited.
+Future<void> showHadithSheet(BuildContext context, Hadith h, {HeEntry? he, String? retrieved}) {
   final t = WaqtTokens.of(context);
   final l = AppLocalizations.of(context);
   return showModalBottomSheet<void>(
@@ -209,13 +212,43 @@ Future<void> showHadithSheet(BuildContext context, Hadith h) {
                     rp.arabic,
                   ),
                 ),
-              if (h.english.isNotEmpty) ...[
-                const SizedBox(height: WaqtSpace.x5),
-                SelectableText(
-                  h.english,
-                  style: ReadingPrefs.scaled(WaqtText.body.copyWith(color: t.ink, height: 1.55), rp.meaning),
-                ),
-              ],
+              ...() {
+                final lang = Localizations.localeOf(ctx).languageCode;
+                final tr = he?.of(lang);
+                final meaning = ReadingPrefs.scaled(WaqtText.body.copyWith(color: t.ink, height: 1.55), rp.meaning);
+                final english = h.english.isEmpty ? null : SelectableText(h.english, style: meaning);
+                if (tr == null || lang == 'ar') {
+                  return [
+                    if (english != null) ...[const SizedBox(height: WaqtSpace.x5), english],
+                    if (tr?.explanation case final x? when x.isNotEmpty)
+                      ..._explained(ctx, l.sheetExplanation, x, meaning),
+                    if (tr != null) _Attribution(text: l.sourceHadeethEnc(retrieved ?? '')),
+                  ];
+                }
+                return [
+                  const SizedBox(height: WaqtSpace.x5),
+                  if (lang != 'en' || english == null) SelectableText(tr.text, style: meaning) else english,
+                  if ([tr.attribution, tr.grade].nonNulls.where((x) => x.isNotEmpty) case final meta
+                      when meta.isNotEmpty)
+                    Padding(
+                      padding: const EdgeInsets.only(top: WaqtSpace.x2),
+                      child: Text(meta.join(' · '), style: WaqtText.caption.copyWith(color: t.inkMuted)),
+                    ),
+                  if (tr.explanation case final x? when x.isNotEmpty)
+                    ..._explained(ctx, l.sheetExplanation, x, meaning),
+                  _Attribution(text: l.sourceHadeethEnc(retrieved ?? '')),
+                  if (lang != 'en' && english != null)
+                    Theme(
+                      data: Theme.of(ctx).copyWith(dividerColor: Colors.transparent),
+                      child: ExpansionTile(
+                        tilePadding: EdgeInsets.zero,
+                        childrenPadding: const EdgeInsets.only(bottom: WaqtSpace.x3),
+                        title: Text(l.sheetEnglishOriginal, style: WaqtText.label.copyWith(color: t.inkMuted)),
+                        children: [english],
+                      ),
+                    ),
+                ];
+              }(),
               const SizedBox(height: WaqtSpace.x5),
               Wrap(
                 spacing: WaqtSpace.x2,
@@ -226,6 +259,15 @@ Future<void> showHadithSheet(BuildContext context, Hadith h) {
                     icon: const Icon(Icons.copy_rounded, size: 18),
                     label: Text(l.copyText),
                   ),
+                  if (he != null)
+                    OutlinedButton.icon(
+                      onPressed: () => launchUrl(
+                        he.page(Localizations.localeOf(ctx).languageCode),
+                        mode: LaunchMode.externalApplication,
+                      ),
+                      icon: const Icon(Icons.translate_rounded, size: 18),
+                      label: Text(l.openHadeethEnc),
+                    ),
                   if (h.url != null)
                     OutlinedButton.icon(
                       onPressed: () => launchUrl(Uri.parse(h.url!), mode: LaunchMode.externalApplication),
@@ -242,6 +284,16 @@ Future<void> showHadithSheet(BuildContext context, Hadith h) {
       },
     ),
   );
+}
+
+List<Widget> _explained(BuildContext context, String label, String text, TextStyle style) {
+  final t = WaqtTokens.of(context);
+  return [
+    const SizedBox(height: WaqtSpace.x5),
+    Text(label.toUpperCase(), style: WaqtText.overline.copyWith(color: t.inkMuted)),
+    const SizedBox(height: WaqtSpace.x2),
+    SelectableText(text, style: style.copyWith(color: t.inkMuted)),
+  ];
 }
 
 void _copy(BuildContext context, String text) {

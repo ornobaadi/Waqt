@@ -1149,4 +1149,18 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get counterSectionYours => 'আপনার জিকির';
+
+  @override
+  String get sheetExplanation => 'ব্যাখ্যা';
+
+  @override
+  String get sheetEnglishOriginal => 'ইংরেজি (sunnah.com)';
+
+  @override
+  String sourceHadeethEnc(String date) {
+    return 'অনুবাদ ও ব্যাখ্যা: HadeethEnc.com, হুবহু ($date তারিখে নেওয়া)।';
+  }
+
+  @override
+  String get openHadeethEnc => 'HadeethEnc';
 }
