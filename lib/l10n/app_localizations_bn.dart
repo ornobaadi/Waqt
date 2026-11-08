@@ -661,7 +661,7 @@ class AppLocalizationsBn extends AppLocalizations {
   String get counterTarget => 'প্রতি রাউন্ডে কতবার';
 
   @override
-  String get counterOpen => 'তাসবিহ খুলুন';
+  String get counterOpen => 'তাসবিহ কাউন্টার';
 
   @override
   String get reportContent => 'এই লেখায় ভুল জানান';

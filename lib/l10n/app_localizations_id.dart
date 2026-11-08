@@ -664,7 +664,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get counterTarget => 'Butir per putaran';
 
   @override
-  String get counterOpen => 'Buka penghitung';
+  String get counterOpen => 'Penghitung tasbih';
 
   @override
   String get reportContent => 'Laporkan masalah pada teks ini';

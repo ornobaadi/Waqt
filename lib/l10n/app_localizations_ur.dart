@@ -662,7 +662,7 @@ class AppLocalizationsUr extends AppLocalizations {
   String get counterTarget => 'ہر چکر کے دانے';
 
   @override
-  String get counterOpen => 'تسبیح کھولیں';
+  String get counterOpen => 'تسبیح کاؤنٹر';
 
   @override
   String get reportContent => 'اس متن میں غلطی کی اطلاع دیں';

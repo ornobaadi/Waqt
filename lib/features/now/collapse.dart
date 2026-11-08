@@ -2,20 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/theme/tokens.dart';
-import '../../data/user/user_prefs.dart';
 
-/// Cards on Now that someone folded away, remembered on this phone.
+/// Cards on Now that someone folded away. Every card opens again on the
+/// next launch: what is happening now should be seen first.
 class CollapsedCards extends Notifier<Set<String>> {
-  static const _key = 'now.collapsed.v1';
-
   @override
-  Set<String> build() => (ref.read(sharedPrefsProvider).getStringList(_key) ?? const []).toSet();
+  Set<String> build() => const {};
 
   void toggle(String id) {
     final next = {...state};
     if (!next.remove(id)) next.add(id);
     state = next;
-    ref.read(sharedPrefsProvider).setStringList(_key, next.toList());
   }
 }
 

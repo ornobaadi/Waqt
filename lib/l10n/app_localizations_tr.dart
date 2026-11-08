@@ -662,7 +662,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get counterTarget => 'Tur başına tane';
 
   @override
-  String get counterOpen => 'Sayacı aç';
+  String get counterOpen => 'Tesbih sayacı';
 
   @override
   String get reportContent => 'Bu metindeki bir hatayı bildir';

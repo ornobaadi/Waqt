@@ -367,7 +367,7 @@
     }
   },
   "counterTarget": "Beads per round",
-  "counterOpen": "Open counter",
+  "counterOpen": "Tasbih counter",
   "reportContent": "Report an issue with this text",
   "reportProblem": "Report a problem",
   "reportProblemHint": "Opens an email draft. You see everything before it is sent.",

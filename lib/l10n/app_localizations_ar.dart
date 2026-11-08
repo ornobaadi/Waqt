@@ -658,7 +658,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get counterTarget => 'عدد الحبات في الدورة';
 
   @override
-  String get counterOpen => 'فتح العدّاد';
+  String get counterOpen => 'عدّاد التسبيح';
 
   @override
   String get reportContent => 'الإبلاغ عن خطأ في هذا النص';

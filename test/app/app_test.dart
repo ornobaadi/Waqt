@@ -23,6 +23,17 @@ void main() {
     expect(find.textContaining('AH'), findsOneWidget);
   });
 
+  testWidgets('back on another tab returns to Now instead of leaving', (tester) async {
+    await tester.pumpWidget(await app(at: DateTime(2026, 11, 6, 16, 20), place: dhaka));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byTooltip('Settings'));
+    await tester.pumpAndSettle();
+    expect(find.textContaining('Maghrib in'), findsNothing);
+    await tester.binding.handlePopRoute();
+    await tester.pumpAndSettle();
+    expect(find.textContaining('Maghrib in'), findsOneWidget);
+  });
+
   testWidgets('Arabic locale lays out right-to-left', (tester) async {
     await tester.pumpWidget(await app(at: DateTime(2026, 11, 6, 16, 20), place: dhaka, locale: const Locale('ar')));
     await tester.pumpAndSettle();

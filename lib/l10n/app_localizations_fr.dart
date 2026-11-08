@@ -665,7 +665,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get counterTarget => 'Grains par tour';
 
   @override
-  String get counterOpen => 'Ouvrir le compteur';
+  String get counterOpen => 'Compteur de tasbih';
 
   @override
   String get reportContent => 'Signaler un problème dans ce texte';

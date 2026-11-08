@@ -96,26 +96,36 @@ class _Shell extends StatelessWidget {
     final t = WaqtTokens.of(context);
     final dark = ThemeData.estimateBrightnessForColor(t.ground) == Brightness.dark;
 
-    return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: (dark ? SystemUiOverlayStyle.light : SystemUiOverlayStyle.dark).copyWith(
-        statusBarColor: Colors.transparent,
-        systemNavigationBarColor: Colors.transparent,
-        systemNavigationBarContrastEnforced: false,
-      ),
-      child: Scaffold(
-        // The dock floats: content runs under it, visible and touchable
-        // around it, and scrolling lists get its height as bottom padding.
-        extendBody: true,
-        body: shell,
-        bottomNavigationBar: WaqtDock(
-          selected: shell.currentIndex,
-          onSelect: (i) => shell.goBranch(i, initialLocation: i == shell.currentIndex),
-          items: [
-            DockItem(icon: Icons.wb_twilight_outlined, selectedIcon: Icons.wb_twilight_rounded, label: l.navNow),
-            DockItem(icon: Icons.view_timeline_outlined, selectedIcon: Icons.view_timeline_rounded, label: l.navToday),
-            DockItem(icon: Icons.menu_book_outlined, selectedIcon: Icons.menu_book_rounded, label: l.navDuas),
-            DockItem(icon: Icons.tune_outlined, selectedIcon: Icons.tune_rounded, label: l.navSettings),
-          ],
+    return PopScope(
+      canPop: shell.currentIndex == 0,
+      onPopInvokedWithResult: (didPop, _) {
+        if (!didPop) shell.goBranch(0);
+      },
+      child: AnnotatedRegion<SystemUiOverlayStyle>(
+        value: (dark ? SystemUiOverlayStyle.light : SystemUiOverlayStyle.dark).copyWith(
+          statusBarColor: Colors.transparent,
+          systemNavigationBarColor: Colors.transparent,
+          systemNavigationBarContrastEnforced: false,
+        ),
+        child: Scaffold(
+          // The dock floats: content runs under it, visible and touchable
+          // around it, and scrolling lists get its height as bottom padding.
+          extendBody: true,
+          body: shell,
+          bottomNavigationBar: WaqtDock(
+            selected: shell.currentIndex,
+            onSelect: (i) => shell.goBranch(i, initialLocation: i == shell.currentIndex),
+            items: [
+              DockItem(icon: Icons.wb_twilight_outlined, selectedIcon: Icons.wb_twilight_rounded, label: l.navNow),
+              DockItem(
+                icon: Icons.view_timeline_outlined,
+                selectedIcon: Icons.view_timeline_rounded,
+                label: l.navToday,
+              ),
+              DockItem(icon: Icons.menu_book_outlined, selectedIcon: Icons.menu_book_rounded, label: l.navDuas),
+              DockItem(icon: Icons.tune_outlined, selectedIcon: Icons.tune_rounded, label: l.navSettings),
+            ],
+          ),
         ),
       ),
     );

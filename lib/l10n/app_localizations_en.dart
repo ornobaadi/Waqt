@@ -663,7 +663,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get counterTarget => 'Beads per round';
 
   @override
-  String get counterOpen => 'Open counter';
+  String get counterOpen => 'Tasbih counter';
 
   @override
   String get reportContent => 'Report an issue with this text';

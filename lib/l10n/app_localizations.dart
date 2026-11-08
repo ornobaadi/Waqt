@@ -1320,7 +1320,7 @@ abstract class AppLocalizations {
   /// No description provided for @counterOpen.
   ///
   /// In en, this message translates to:
-  /// **'Open counter'**
+  /// **'Tasbih counter'**
   String get counterOpen;
 
   /// No description provided for @reportContent.
