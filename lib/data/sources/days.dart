@@ -1,5 +1,9 @@
 import 'dart:convert';
 
+import 'referenced.dart';
+
+export 'referenced.dart';
+
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -10,17 +14,22 @@ import '../user/user_prefs.dart';
 /// One thing the Sunnah teaches for a day, tied to the HadeethEnc hadith
 /// that teaches it. The label is ours, in every app language.
 class DayItem {
-  const DayItem(this.titles, this.he, {this.when});
+  const DayItem(this.titles, this.he, {this.when, this.key});
   final Map<String, String> titles;
 
-  /// HadeethEnc.com id of the hadith.
+  /// HadeethEnc.com id of the hadith; 0 for a [referenced] item.
   final int he;
+
+  /// For the few items not on HadeethEnc: their key in [referencedDuas].
+  final String? key;
+
+  ReferencedDua? get referenced => key == null ? null : referencedDuas[key];
 
   /// When it matters most: 'suhoor', 'morning', 'day', 'iftar' or 'night'.
   final String? when;
 
   String title(String lang) => titles[lang] ?? titles['en'] ?? '';
-  String get id => 'he:$he';
+  String get id => key != null ? 'ref:$key' : 'he:$he';
 }
 
 /// Built by tool/build_content.py from HadeethEnc.com; see that file.
@@ -59,6 +68,7 @@ class DayGuides {
             {for (final MapEntry(:key, :value) in (m['title']! as Map<String, Object?>).entries) key: '$value'},
             m['he']! as int,
             when: m['when'] as String?,
+            key: m['key'] as String?,
           ),
     ];
     final occ = OccasionId.values.asNameMap(), mom = MomentId.values.asNameMap();

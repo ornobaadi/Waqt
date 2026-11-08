@@ -1,3 +1,4 @@
+import '../../data/sources/referenced.dart';
 import 'dhikr_data.dart';
 
 /// One phrase to repeat. Built-in phrases and their HadeethEnc hadiths come
@@ -13,6 +14,7 @@ class Dhikr {
     this.virtue = const {},
     this.names = const {},
     this.custom = false,
+    this.reference,
   });
   final String id;
   final String? arabic;
@@ -21,6 +23,9 @@ class Dhikr {
 
   /// HadeethEnc id of the hadith that teaches its virtue.
   final int? he;
+
+  /// For a dhikr not on HadeethEnc: its own reference, per language.
+  final Map<String, String>? reference;
 
   /// Our one-line summary of that virtue, per app language.
   final Map<String, String> virtue;
@@ -53,7 +58,9 @@ class Dhikr {
 
 /// A routine: one dhikr, or a sequence said one after another.
 class DhikrRoutine {
-  const DhikrRoutine(this.id, this.steps, {this.he, this.virtue = const {}});
+  const DhikrRoutine(this.id, this.steps, {this.he, this.virtue = const {}, this.reference});
+  final Map<String, String>? reference;
+  String? referenceIn(String lang) => reference == null ? null : (reference![lang] ?? reference!['en']);
   final String id;
   final List<Dhikr> steps;
   final int? he;
@@ -64,7 +71,7 @@ class DhikrRoutine {
   String? virtueIn(String lang) => virtue[lang] ?? virtue['en'];
 }
 
-Dhikr _builtIn(String id) => builtInDhikr.firstWhere((d) => d.id == id);
+Dhikr _builtIn(String id) => allBuiltInDhikr.firstWhere((d) => d.id == id);
 
 /// The tasbih after salah, then every built-in phrase, the free count, and
 /// the user's own phrases.
@@ -75,7 +82,33 @@ List<DhikrRoutine> routinesWith(List<Dhikr> custom) => [
     he: afterSalahHe,
     virtue: afterSalahVirtue,
   ),
-  for (final d in builtInDhikr) DhikrRoutine(d.id, [d], he: d.he, virtue: d.virtue),
+  for (final d in allBuiltInDhikr) DhikrRoutine(d.id, [d], he: d.he, virtue: d.virtue, reference: d.reference),
   const DhikrRoutine('free', [Dhikr('free', null, '', 33)]),
   for (final d in custom) DhikrRoutine(d.id, [d]),
 ];
+
+/// Built-in dhikr that are not on HadeethEnc, each with its own reference.
+const referencedDhikr = <Dhikr>[
+  // Not on HadeethEnc: the reference is shown in its place.
+  Dhikr(
+    'qadr',
+    'اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي',
+    "Allahumma innaka 'afuwwun tuhibbul-'afwa fa'fu 'anni",
+    33,
+    names: {'bn': "আল্লাহুম্মা ইন্নাকা আফুউউন তুহিব্বুল আফওয়া ফা'ফু আন্নি"},
+    virtue: {
+      'en': 'For Laylat al-Qadr, taught to Aisha (RA): O Allah, You pardon and love to pardon, so pardon me',
+      'ar': 'دعاء ليلة القدر، علّمه النبي ﷺ عائشة رضي الله عنها',
+      'ur': 'لیلۃ القدر کی دعا، جو نبی ﷺ نے عائشہ رضی اللہ عنہا کو سکھائی',
+      'bn': 'লাইলাতুল কদরের দোয়া, নবী ﷺ আয়েশা (রা.)-কে শিখিয়েছেন: হে আল্লাহ, আপনি ক্ষমাশীল, ক্ষমা ভালোবাসেন, আমাকে ক্ষমা করুন',
+      'id': 'Doa Lailatul Qadar yang diajarkan Nabi ﷺ kepada Aisyah r.a.: Ya Allah, Engkau Maha Pemaaf dan suka memaafkan, maafkanlah aku',
+      'tr':
+          "Kadir Gecesi duası, Peygamber ﷺ Hz. Âişe'ye öğretti: Allah'ım, affedicisin, affetmeyi seversin, beni affet",
+      'fr': "Pour Laylat al-Qadr, enseignée à Aïcha (qu'Allah l'agrée) : Ô Allah, Tu pardonnes et aimes le pardon, pardonne-moi",
+    },
+    reference: qadrDuaReference,
+  ),
+];
+
+/// Every built-in dhikr, generated ones first.
+const allBuiltInDhikr = [...builtInDhikr, ...referencedDhikr];

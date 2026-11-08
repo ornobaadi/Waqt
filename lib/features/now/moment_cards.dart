@@ -199,8 +199,8 @@ class _SourcedRow extends StatelessWidget {
                       style: WaqtText.bodyStrong.copyWith(color: ink),
                     ),
                     const SizedBox(height: 2),
-                    HeSourceText(
-                      id: item.he,
+                    ItemSourceText(
+                      item: item,
                       style: WaqtText.caption.copyWith(color: t.accent),
                     ),
                   ],

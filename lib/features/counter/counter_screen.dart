@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/clock/clock.dart';
+import '../../data/sources/referenced.dart';
 import '../../data/user/user_prefs.dart';
 
 import '../../core/theme/tokens.dart';
@@ -705,14 +706,19 @@ class _Footer extends ConsumerWidget {
     final r = state.r;
     final he = r.he;
     final virtue = r.virtueIn(l.localeName);
+    final reference = r.referenceIn(l.localeName);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: WaqtSpace.screen),
       child: Column(
         children: [
-          if (virtue != null && he != null)
+          if (virtue != null && (he != null || reference != null))
             InkWell(
               borderRadius: BorderRadius.circular(WaqtRadii.strip),
-              onTap: () => openHadith(context, ref, he),
+              onTap: he != null
+                  ? () => openHadith(context, ref, he)
+                  : r.id == 'qadr'
+                  ? () => showReferencedSheet(context, qadrDua)
+                  : null,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: WaqtSpace.x3, vertical: WaqtSpace.x2),
                 child: Column(
@@ -725,10 +731,13 @@ class _Footer extends ConsumerWidget {
                       style: WaqtText.label.copyWith(color: t.ink),
                     ),
                     const SizedBox(height: 2),
-                    HeSourceText(
-                      id: he,
-                      style: WaqtText.caption.copyWith(color: t.inkMuted),
-                    ),
+                    if (he != null)
+                      HeSourceText(
+                        id: he,
+                        style: WaqtText.caption.copyWith(color: t.inkMuted),
+                      )
+                    else
+                      Text(reference!, style: WaqtText.caption.copyWith(color: t.inkMuted)),
                   ],
                 ),
               ),

@@ -37,7 +37,7 @@ void main() {
     expect(d.fasts, isNot(contains(OccasionId.eidAlFitr)));
     for (final o in OccasionId.values) {
       for (final i in d.forOccasion(o)) {
-        expect(i.he, greaterThan(0));
+        expect(i.he > 0 || i.referenced != null, isTrue, reason: i.id);
       }
     }
     expect(d.featured([OccasionId.eidAlFitr, OccasionId.jumuah]), OccasionId.eidAlFitr);

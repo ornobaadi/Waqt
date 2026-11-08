@@ -278,12 +278,12 @@ void openDayGuide(
                   i.title(Localizations.localeOf(ctx).languageCode),
                   style: WaqtText.bodyStrong.copyWith(color: t.ink),
                 ),
-                subtitle: HeSourceText(
-                  id: i.he,
+                subtitle: ItemSourceText(
+                  item: i,
                   style: WaqtText.caption.copyWith(color: t.inkMuted),
                 ),
                 trailing: Icon(Icons.chevron_right_rounded, color: t.inkMuted),
-                onTap: () => openHadith(ctx, ref, i.he),
+                onTap: () => openItem(ctx, ref, i),
               ),
           ],
         ],

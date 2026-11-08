@@ -73,6 +73,7 @@ L = {
     "strive": ("Strive in worship and wake your family", "اجتهد في العبادة وأيقظ أهلك", "عبادت میں محنت کریں اور گھر والوں کو جگائیں", "বেশি বেশি ইবাদত করুন, পরিবারকে জাগান", "Bersungguh-sungguh beribadah dan bangunkan keluarga", "İbadette gayret et, aileni uyandır", "Redoublez d'adoration et réveillez votre famille"),
     "odd": ("Seek Laylat al-Qadr in the odd nights", "تحرّ ليلة القدر في الوتر", "لیلۃ القدر طاق راتوں میں تلاش کریں", "বেজোড় রাতে লাইলাতুল কদর খুঁজুন", "Carilah Lailatul Qadar di malam ganjil", "Kadir Gecesi'ni tek gecelerde ara", "Cherchez Laylat al-Qadr dans les nuits impaires"),
     "qadrstand": ("Stand in prayer on Laylat al-Qadr", "قم ليلة القدر", "لیلۃ القدر میں قیام کریں", "লাইলাতুল কদরে নামাজে দাঁড়ান", "Salat malam di Lailatul Qadar", "Kadir Gecesi'ni namazla geçir", "Priez durant Laylat al-Qadr"),
+    "qadrdua": ("Say the dua of Laylat al-Qadr", "قل دعاء ليلة القدر", "لیلۃ القدر کی دعا پڑھیں", "লাইলাতুল কদরের দোয়া পড়ুন", "Baca doa Lailatul Qadar", "Kadir Gecesi duasını oku", "Dites l'invocation de Laylat al-Qadr"),
     "itikaf": ("I'tikaf in the last ten days", "الاعتكاف في العشر الأواخر", "آخری عشرے میں اعتکاف", "শেষ দশকে ইতিকাফ", "Iktikaf di sepuluh hari terakhir", "Son on günde itikâf", "La retraite (i'tikaf) des dix derniers jours"),
     "bid": ("Fast the 13th, 14th and 15th", "صم الثالث عشر والرابع عشر والخامس عشر", "تیرہ، چودہ اور پندرہ تاریخ کا روزہ رکھیں", "১৩, ১৪ ও ১৫ তারিখে রোজা রাখুন", "Puasa tanggal 13, 14, dan 15", "Ayın 13, 14 ve 15'inde oruç tut", "Jeûnez les 13, 14 et 15"),
     "presented": ("Deeds are presented on Monday and Thursday", "تُعرض الأعمال يوم الاثنين والخميس", "پیر اور جمعرات کو اعمال پیش ہوتے ہیں", "সোম ও বৃহস্পতিবার আমল পেশ করা হয়", "Amal diperlihatkan pada Senin dan Kamis", "Ameller pazartesi ve perşembe sunulur", "Les œuvres sont présentées le lundi et le jeudi"),
@@ -118,7 +119,7 @@ DAYS = {
                 ("iftardua", 65511, "iftar"), ("feed", 6271, "iftar"), ("night", 65512, "night"),
                 ("quran", 6179, "day")],
     "lastTenNights": [("strive", 4944, "night"), ("odd", 4540, "night"), ("qadrstand", 4202, "night"),
-                      ("itikaf", 4495, "day")],
+                      ("qadrdua", "qadrDua", "night"), ("itikaf", 4495, "day")],
     "ayyamAlBid": [("bid", 10108, None)],
     "mondayFast": [("presented", 5908, None), ("monthu", 6183, None)],
     "thursdayFast": [("presented", 5908, None), ("monthu", 6183, None)],
@@ -141,7 +142,7 @@ MOMENTS = {
     "suhoor": [("suhoor", 4498), ("latesuhoor", 4457)],
     "iftar": [("hasten", 4438), ("datesiftar", 6185), ("iftardua", 65511)],
     "taraweeh": [("night", 65512), ("quran", 6179)],
-    "laylatAlQadr": [("qadrstand", 4202), ("strive", 4944), ("odd", 4540)],
+    "laylatAlQadr": [("qadrstand", 4202), ("qadrdua", "qadrDua"), ("strive", 4944), ("odd", 4540)],
 }
 
 FASTS = ["arafah", "ashura", "tasua", "ayyamAlBid", "mondayFast", "thursdayFast"]
@@ -229,6 +230,13 @@ def main():
         used.add(i)
 
     def item(key, i, when, where):
+        # A string is the key of an item that is not on HadeethEnc and
+        # carries its own reference (lib/data/sources/referenced.dart).
+        if isinstance(i, str):
+            row = {"he": 0, "key": i, "title": labels(key, L)}
+            if when:
+                row["when"] = when
+            return row
         check(i, where)
         row = {"he": i, "title": labels(key, L)}
         if when:

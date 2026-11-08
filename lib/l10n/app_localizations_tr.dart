@@ -1256,8 +1256,7 @@ class AppLocalizationsTr extends AppLocalizations {
       'fridayLastHour': 'Cuma gününde her duanın kabul edildiği bir saat vardır (Buhârî). Akşamdan önce şimdi onu ara.',
       'suhoor': 'Sahur yapın, çünkü sahurda bereket vardır (Buhârî). İmsak yaklaşıyor.',
       'iftar': 'İnsanlar iftarı acele ettikçe hayır üzeredir (Buhârî). Orucunu açarken dua et.',
-      'laylatAlQadr':
-          'Bin aydan daha hayırlı. Namaz kıl ve de ki: Allahümme inneke afüvvün tuhibbü\'l-afve fa\'fu annî.',
+      'laylatAlQadr': 'Bin aydan daha hayırlı (Kadr 97:3). Namaz kıl ve de ki: Allahümme inneke afüvvün tuhibbü\'l-afve fa\'fu annî (Tirmizî).',
       'morningAdhkar': 'Güne Allah\'ın korumasında başlamak için birkaç dakikalık zikir.',
       'eveningAdhkar': 'Akşamdan önce akşam zikirleri. Okumak için dokun.',
       'lastThird': 'Rabbimiz dünya semasına iner ve buyurur: Bana dua eden yok mu, duasını kabul edeyim? (Buhârî)',

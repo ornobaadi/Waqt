@@ -1259,8 +1259,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'fridayLastHour': 'There is an hour on Friday when every dua is answered (Bukhari). Seek it now, before Maghrib.',
       'suhoor': 'Eat suhoor, for there is blessing in it (Bukhari). Fajr is coming soon.',
       'iftar': 'People stay upon good as long as they hasten to break the fast (Bukhari). Make dua as you break it.',
-      'laylatAlQadr':
-          'Better than a thousand months. Pray, and say: Allahumma innaka ʿafuwwun tuhibbul-ʿafwa faʿfu ʿanni.',
+      'laylatAlQadr': 'Better than a thousand months (Qur\'an 97:3). Pray, and say: Allahumma innaka ʿafuwwun tuhibbul-ʿafwa faʿfu ʿanni (Tirmidhi).',
       'morningAdhkar': 'A few minutes of remembrance to begin your day under Allah\'s protection.',
       'eveningAdhkar': 'The evening remembrance, before Maghrib. Tap to read it.',
       'lastThird':

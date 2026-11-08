@@ -1257,7 +1257,7 @@ class AppLocalizationsFr extends AppLocalizations {
       'fridayLastHour': 'Il y a le vendredi une heure où toute invocation est exaucée (Boukhari). Cherche-la maintenant, avant le Maghrib.',
       'suhoor': 'Prenez le souhour, car il y a en lui une bénédiction (Boukhari). L\'aube approche.',
       'iftar': 'Les gens restent dans le bien tant qu\'ils se hâtent de rompre le jeûne (Boukhari). Invoque Allah en le rompant.',
-      'laylatAlQadr': 'Meilleure que mille mois. Prie, et dis : Allahumma innaka ʿafuwwun tuhibbul-ʿafwa faʿfu ʿanni.',
+      'laylatAlQadr': 'Meilleure que mille mois (Coran 97:3). Prie, et dis : Allahumma innaka ʿafuwwun tuhibbul-ʿafwa faʿfu ʿanni (Tirmidhi).',
       'morningAdhkar': 'Quelques minutes de rappel pour commencer la journée sous la protection d\'Allah.',
       'eveningAdhkar': 'Le rappel du soir, avant le Maghrib. Touche pour le lire.',
       'lastThird':

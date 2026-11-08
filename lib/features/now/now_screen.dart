@@ -10,7 +10,6 @@ import '../../app/sync.dart';
 import '../../core/config/runtime.dart';
 import '../../domain/notifications/reminder_planner.dart';
 import '../settings/reminder_preview.dart';
-import '../../core/clock/clock.dart';
 import '../../core/theme/tokens.dart';
 import '../../core/theme/waqt_theme.dart';
 import '../../core/utils/digits.dart';
@@ -44,7 +43,6 @@ class NowScreen extends ConsumerWidget {
     final t = WaqtTokens.of(context);
     final locale = Localizations.localeOf(context).toLanguageTag();
     final now = ref.watch(placeNowProvider);
-    final faked = ref.watch(fakeClockProvider) != null;
     final place = ref.watch(userPrefsProvider.select((p) => p.place));
     final status = ref.watch(prayerStatusProvider);
     final moments = ref.watch(momentSnapshotProvider);
@@ -120,9 +118,9 @@ class NowScreen extends ConsumerWidget {
                       ),
                     ),
                   ),
-                  if (faked)
-                    _Pill(text: l.debugClockFaked, color: t.ink, ink: t.ground)
-                  else if (occasions.isNotEmpty)
+                  // A faked clock is not announced here, so test mode can take
+                  // clean screenshots; Settings > Developer shows it.
+                  if (occasions.isNotEmpty)
                     _Pill(
                       text: l.occasion(occasions.first, ramadanDay: n(ramadanDay)),
                       color: t.accent,
@@ -259,7 +257,7 @@ class NowScreen extends ConsumerWidget {
                       // Only sourced, checked items: nothing unreviewed on Home.
                       items: const [],
                       sourced: guides?.forMoment(m.id) ?? const [],
-                      onSourced: (i) => openHadith(context, ref, i.he),
+                      onSourced: (i) => openItem(context, ref, i),
                     ),
                 ],
               if (guideOcc != null && guides != null) ...[

@@ -1256,8 +1256,7 @@ class AppLocalizationsId extends AppLocalizations {
           'Pada hari Jumat ada satu waktu ketika setiap doa dikabulkan (Bukhari). Carilah sekarang, sebelum Magrib.',
       'suhoor': 'Bersahurlah, karena dalam sahur ada berkah (Bukhari). Subuh sebentar lagi.',
       'iftar': 'Manusia senantiasa dalam kebaikan selama menyegerakan berbuka (Bukhari). Berdoalah saat berbuka.',
-      'laylatAlQadr':
-          'Lebih baik dari seribu bulan. Salatlah, dan ucapkan: Allahumma innaka ʿafuwwun tuhibbul-ʿafwa faʿfu ʿanni.',
+      'laylatAlQadr': 'Lebih baik dari seribu bulan (QS. Al-Qadr: 3). Salatlah, dan ucapkan: Allahumma innaka ʿafuwwun tuhibbul-ʿafwa faʿfu ʿanni (Tirmidzi).',
       'morningAdhkar': 'Beberapa menit zikir untuk memulai hari dalam lindungan Allah.',
       'eveningAdhkar': 'Zikir petang, sebelum Magrib. Ketuk untuk membacanya.',
       'lastThird':

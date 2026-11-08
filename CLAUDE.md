@@ -7,7 +7,7 @@ Read before larger work: `PRD.md` (what/why), `architecture.md` (layers, Moment 
 ## Ground rules
 - **Global, not regional.** No hard-coded country defaults or copy. Package `com.ornobaadi.waqt`. RTL (ar, ur) must always work.
 - **Launch languages:** en (first), ar, ur, bn, id, tr, fr. Every new UI string goes into all seven ARBs (`lib/l10n/*.arb`); write natural phrasing, not literal translation.
-- **Authenticity is non-negotiable.** Every hadith/dua shown has a source. Hadith now comes only from HadeethEnc.com (bundled for Home; full library downloaded per language). If a translation is missing, show the Arabic with a note — never fall back to English.
+- **Authenticity is non-negotiable.** Every hadith/dua shown has a source. Hadith now comes only from HadeethEnc.com (bundled for Home; full library downloaded per language). If a translation is missing, show the Arabic with a note — never fall back to English. The rare well-authenticated item not on HadeethEnc (the Laylat al-Qadr dua, Tirmidhi 3513 / Ibn Majah 3850) lives in `lib/data/sources/referenced.dart` with its own reference in every language. Names carry honorifics: the Prophet ﷺ, Companions (RA), prophets (AS).
 - **High-craft UI.** Follow `design.md`. Concentric radii (inner = outer − inset), rows inside cards are flat under hairlines, no nested rounded boxes.
 - **Do not run heavy builds** (`flutter build apk/appbundle`, web builds). Verify with analyze + tests; produce screenshots with golden tests. Give the user build commands instead.
 - **Commit at the end of each phase/feature** to `main` (github.com/ornobaadi/Waqt). Commit subjects are short, user-facing sentences (see `git log`).

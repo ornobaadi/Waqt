@@ -216,7 +216,7 @@ class _Row extends ConsumerWidget {
             ),
             Expanded(
               child: InkWell(
-                onTap: () => openHadith(context, ref, item.he),
+                onTap: () => openItem(context, ref, item),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   child: Row(
@@ -234,8 +234,8 @@ class _Row extends ConsumerWidget {
                               ),
                             ),
                             const SizedBox(height: 2),
-                            HeSourceText(
-                              id: item.he,
+                            ItemSourceText(
+                              item: item,
                               style: WaqtText.caption.copyWith(color: done ? ink.withValues(alpha: 0.45) : t.accent),
                             ),
                           ],

@@ -44,13 +44,15 @@ class _RingPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final rect = Offset.zero & size;
     final r = rect.deflate(stroke / 2);
-    const gap = 0.22; // radians between arcs
+    // Clean, even joins: flat ends with a hairline gap of the same width
+    // all round. Round caps bulged into the gaps and made the ring lumpy.
+    final gap = 3 / (r.width / 2);
     const sweep = 2 * math.pi / 5;
     for (var i = 0; i < 5; i++) {
       final paint = Paint()
         ..style = PaintingStyle.stroke
         ..strokeWidth = stroke
-        ..strokeCap = StrokeCap.round
+        ..strokeCap = StrokeCap.butt
         ..color = colors[i];
       canvas.drawArc(r, -math.pi / 2 + i * sweep + gap / 2, sweep - gap, false, paint);
     }

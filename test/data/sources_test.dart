@@ -36,6 +36,15 @@ void main() {
     test('every checklist item: a bundled hadith with its Arabic, a label in every language', () {
       expect(items, isNotEmpty);
       for (final i in items) {
+        // Not on HadeethEnc: carries its own reference in every language.
+        if (i.referenced case final r?) {
+          for (final l in langs) {
+            expect(r.referenceIn(l), isNotEmpty, reason: '${i.key} $l');
+            expect(r.meaningIn(l), isNotEmpty, reason: '${i.key} $l');
+            expect(r.reference[l], isNotNull, reason: '${i.key} $l');
+          }
+          continue;
+        }
         final h = bundle[i.he];
         expect(h?.arabic?.text, isNotEmpty, reason: '${i.he}');
         for (final l in langs) {

@@ -6,6 +6,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../core/theme/tokens.dart';
 import '../../core/theme/waqt_theme.dart';
 import '../../core/widgets/waqt_widgets.dart';
+import '../../data/sources/days.dart';
 import '../../data/sources/hadeethenc.dart';
 import '../../data/sources/he_library.dart';
 import '../../data/user/reading_prefs.dart';
@@ -30,6 +31,79 @@ class HeSourceText extends ConsumerWidget {
     if (h == null) return const SizedBox.shrink();
     return Text(heSource(h, Localizations.localeOf(context).languageCode), style: style);
   }
+}
+
+/// The source line of a checklist item: its HadeethEnc source, or the
+/// reference of an item that is not on HadeethEnc.
+class ItemSourceText extends StatelessWidget {
+  const ItemSourceText({super.key, required this.item, required this.style});
+  final DayItem item;
+  final TextStyle style;
+
+  @override
+  Widget build(BuildContext context) {
+    final r = item.referenced;
+    if (r == null) return HeSourceText(id: item.he, style: style);
+    return Text(r.referenceIn(Localizations.localeOf(context).languageCode), style: style);
+  }
+}
+
+/// Opens what a checklist item points to.
+Future<void> openItem(BuildContext context, WidgetRef ref, DayItem item) async {
+  final r = item.referenced;
+  if (r == null) return openHadith(context, ref, item.he);
+  await showReferencedSheet(context, r);
+}
+
+/// A dua with its own reference: Arabic, how to say it, what it means,
+/// who taught it, and where it is narrated.
+Future<void> showReferencedSheet(BuildContext context, ReferencedDua d) {
+  final lang = Localizations.localeOf(context).languageCode;
+  return showModalBottomSheet<void>(
+    context: context,
+    useRootNavigator: true,
+    isScrollControlled: true,
+    showDragHandle: true,
+    builder: (ctx) {
+      final t = WaqtTokens.of(ctx);
+      return SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.fromLTRB(WaqtSpace.screen, 0, WaqtSpace.screen, WaqtSpace.x6),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text(d.contextIn(lang), style: WaqtText.body.copyWith(color: t.inkMuted)),
+              const SizedBox(height: WaqtSpace.x5),
+              Text(
+                d.arabic,
+                textAlign: TextAlign.center,
+                textDirection: TextDirection.rtl,
+                style: WaqtText.arabic.copyWith(color: t.ink),
+              ),
+              const SizedBox(height: WaqtSpace.x3),
+              Text(
+                d.latin,
+                textAlign: TextAlign.center,
+                style: WaqtText.body.copyWith(color: t.inkMuted, fontStyle: FontStyle.italic),
+              ),
+              const SizedBox(height: WaqtSpace.x3),
+              Text(
+                d.meaningIn(lang),
+                textAlign: TextAlign.center,
+                style: WaqtText.bodyStrong.copyWith(color: t.ink),
+              ),
+              const SizedBox(height: WaqtSpace.x5),
+              Text(
+                d.referenceIn(lang),
+                textAlign: TextAlign.center,
+                style: WaqtText.caption.copyWith(color: t.inkMuted),
+              ),
+            ],
+          ),
+        ),
+      );
+    },
+  );
 }
 
 /// Opens a bundled hadith by its HadeethEnc id. Everything Home, the

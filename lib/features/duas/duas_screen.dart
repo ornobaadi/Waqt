@@ -166,17 +166,17 @@ class _DuasScreenState extends ConsumerState<DuasScreen> {
     // the whole library each second and make scrolling stutter.
     final key = ref.watch(momentSnapshotProvider.select((s) => s?.active.map((m) => m.id.name).join(',') ?? ''));
     final active = [for (final n in key.split(',')) ?MomentId.values.asNameMap()[n]];
-    final seen = <int>{};
+    final seen = <String>{};
     final now = [
       for (final id in active.reversed)
         for (final i in guides.forMoment(id))
-          if (seen.add(i.he)) i,
+          if (seen.add(i.id)) i,
     ];
     final occasions = ref.watch(occasionsProvider.select((o) => o.list.map((x) => x.name).join(',')));
     final occList = [for (final n in occasions.split(',')) ?OccasionId.values.asNameMap()[n]];
     final featured = guides.featured(occList);
     final today = featured == null ? const <DayItem>[] : guides.itemsFor(featured, occList);
-    Widget row(DayItem i) => RowTile(title: i.title(lang), subtitle: null, onTap: () => openHadith(context, ref, i.he));
+    Widget row(DayItem i) => RowTile(title: i.title(lang), subtitle: null, onTap: () => openItem(context, ref, i));
     final sub = WaqtText.caption.copyWith(color: t.inkMuted);
     return [
       if (now.isNotEmpty) ...[
@@ -263,7 +263,7 @@ class _Sourced extends StatelessWidget {
       row(item),
       Padding(
         padding: const EdgeInsetsDirectional.only(start: WaqtSpace.x4, end: WaqtSpace.x4, bottom: WaqtSpace.x2),
-        child: HeSourceText(id: item.he, style: style),
+        child: ItemSourceText(item: item, style: style),
       ),
     ],
   );
