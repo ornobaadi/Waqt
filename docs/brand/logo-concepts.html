@@ -1,0 +1,95 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Waqt logo concepts</title>
+<style>
+:root{--ink:#1E1810;--bg:#F6F1E7;--accent:#D9A441;--night:#0F1330;--cream:#F3E9D2}
+body{margin:0;background:#EDE6D6;font-family:Inter,system-ui,sans-serif;color:#1E1810;padding:32px}
+h1{font-size:22px;margin:0 0 4px}p.s{margin:0 0 24px;color:#6b6357;font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:18px}
+.card{background:#fff8;border-radius:22px;padding:14px}
+.big{width:100%;aspect-ratio:1;border-radius:22%;background:var(--bg);color:var(--ink);--cut:var(--bg)}
+.row{display:flex;gap:10px;align-items:center;margin-top:10px}
+.dark{background:var(--night);color:var(--cream);--cut:var(--night);border-radius:22%}
+.light{background:var(--bg);color:var(--ink);--cut:var(--bg);border-radius:22%}
+.mono{background:#fff;color:#000;--cut:#fff;--accent:#000;border-radius:22%}
+svg{display:block}
+.n{font-weight:700;font-size:14px;margin-top:10px}.d{font-size:11.5px;color:#6b6357;line-height:1.35;margin-top:3px}
+.a{fill:var(--accent)}.c{fill:var(--cut)}.st{fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute"><defs>
+<!-- 1 Sun Arc -->
+<symbol id="m1" viewBox="0 0 256 256">
+ <path class="st" stroke-width="16" d="M44 170 A84 84 0 0 1 212 170"/>
+ <path class="st" stroke-width="16" d="M32 170 H224"/>
+ <circle class="c" cx="159" cy="92" r="30"/><circle class="a" cx="159" cy="92" r="21"/>
+</symbol>
+<!-- 2 Mihrab dawn -->
+<symbol id="m2" viewBox="0 0 256 256">
+ <path class="st" stroke-width="16" d="M66 222 V124 Q66 70 128 36 Q190 70 190 124 V222"/>
+ <path class="a" d="M98 172 A30 30 0 0 1 158 172 Z"/>
+ <path class="st" stroke-width="12" d="M90 172 H166"/>
+</symbol>
+<!-- 3 Star clock -->
+<symbol id="m3" viewBox="0 0 256 256">
+ <polygon fill="currentColor" points="128.0,26.2 157.8,56.0 200.0,56.0 200.0,98.2 229.8,128.0 200.0,157.8 200.0,200.0 157.8,200.0 128.0,229.8 98.2,200.0 56.0,200.0 56.0,157.8 26.2,128.0 56.0,98.2 56.0,56.0 98.2,56.0"/>
+ <circle class="c" cx="128" cy="128" r="46"/>
+ <path fill="none" stroke="var(--accent)" stroke-width="12" stroke-linecap="round" d="M128 128 V98 M128 128 L150 140"/>
+</symbol>
+<!-- 4 Crescent hourglass -->
+<symbol id="m4" viewBox="0 0 256 256">
+ <path fill="currentColor" fill-rule="evenodd" d="M72 72 A56 56 0 0 0 184 72 A56 56 0 0 0 72 72 Z M74 40 A54 54 0 0 0 182 40 A54 54 0 0 0 74 40 Z"/>
+ <path fill="currentColor" fill-rule="evenodd" d="M72 184 A56 56 0 0 0 184 184 A56 56 0 0 0 72 184 Z M74 216 A54 54 0 0 0 182 216 A54 54 0 0 0 74 216 Z"/>
+ <circle class="a" cx="128" cy="128" r="12"/>
+</symbol>
+<!-- 5 Five prayers rising -->
+<symbol id="m5" viewBox="0 0 256 256">
+ <circle fill="currentColor" cx="48" cy="200" r="11"/><circle fill="currentColor" cx="78" cy="148" r="14"/>
+ <circle fill="currentColor" cx="118" cy="106" r="17"/><circle fill="currentColor" cx="166" cy="78" r="20"/>
+ <circle class="a" cx="212" cy="66" r="24"/>
+</symbol>
+<!-- 6 Shadow of Asr -->
+<symbol id="m6" viewBox="0 0 256 256">
+ <path class="st" stroke-width="18" d="M100 92 V196 H204"/>
+ <circle class="a" cx="64" cy="70" r="22"/>
+</symbol>
+<!-- 7 The thread of dawn -->
+<symbol id="m7" viewBox="0 0 256 256">
+ <circle fill="currentColor" cx="128" cy="128" r="92"/>
+ <rect class="c" x="30" y="139" width="196" height="24"/>
+ <rect class="a" x="44" y="145" width="168" height="12" rx="6"/>
+</symbol>
+<!-- 8 Hands of dua -->
+<symbol id="m8" viewBox="0 0 256 256">
+ <path fill="currentColor" d="M122 44 C78 84 66 150 88 214 L114 214 C100 158 104 98 122 44 Z"/>
+ <path fill="currentColor" d="M134 44 C178 84 190 150 168 214 L142 214 C156 158 152 98 134 44 Z"/>
+ <circle class="a" cx="128" cy="160" r="15"/>
+</symbol>
+<!-- 9 Open book, rising sun -->
+<symbol id="m9" viewBox="0 0 256 256">
+ <path fill="currentColor" d="M122 206 C96 188 64 184 32 190 V96 C64 88 98 92 122 112 Z"/>
+ <path fill="currentColor" d="M134 206 C160 188 192 184 224 190 V96 C192 88 158 92 134 112 Z"/>
+ <circle class="a" cx="128" cy="62" r="22"/>
+</symbol>
+<!-- 10 W of two niches -->
+<symbol id="m10" viewBox="0 0 256 256">
+ <path class="st" stroke-width="18" d="M40 60 V138 Q40 192 84 214 Q128 192 128 138 V106 M128 106 V138 Q128 192 172 214 Q216 192 216 138 V60"/>
+ <circle class="a" cx="128" cy="62" r="16"/>
+</symbol>
+</defs></svg>
+<h1>Waqt — logo concepts</h1><p class="s">Ink on cream, one accent. Each row: app icon · night · one-colour · 32 px · 16 px.</p>
+<div class="grid" id="g"></div>
+<script>
+const C=[
+["1 · Sun Arc","The day as one arc, the sun at this moment. Waqt's signature, made into the mark."],
+["2 · Mihrab Dawn","A prayer niche with the sun rising inside it: every moment begins in worship."],
+["3 · Star Clock","The eight-point star turned into a clock face. Islamic geometry that tells time."],
+["4 · Crescent Hourglass","Two crescents meet as an hourglass: Hijri months and the passing of time."],
+["5 · Five Rising","Five prayers climbing through the day, the last one glowing: becoming better, step by step."],
+["6 · Shadow of Asr","A stick and its equal shadow: how the scholars told the time of Asr. Sunnah, measured."],
+["7 · Thread of Dawn","'Until the white thread becomes distinct from the black' (2:187): the moment Fajr begins."],
+["8 · Hands of Dua","Two raised palms form a pointed arch, a light held between them."],
+["9 · Book & Sunrise","An open book under a rising sun: learning the sunnah of each day."],
+["10 · W of Niches","A W built from two prayer niches, with the sun above the middle."]];
+const g=document.getElementById('g');
+C.forEach((c,i)=>{const id='m'+(i+1);const u=(cls,s)=>`<svg class="${cls}" width="${s}" height="${s}"><use href="#${id}" x="${s*.14}" y="${s*.14}" width="${s*.72}" height="${s*.72}"/></svg>`;
+g.insertAdjacentHTML('beforeend',`<div class="card"><svg class="big" viewBox="0 0 256 256"><use href="#${id}" x="40" y="40" width="176" height="176"/></svg>
+<div class="row">${u('dark',64)}${u('mono',64)}${u('light',32)}${u('light',16)}</div><div class="n">${c[0]}</div><div class="d">${c[1]}</div></div>`)});
+</script></body></html>

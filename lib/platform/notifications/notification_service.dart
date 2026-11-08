@@ -53,7 +53,7 @@ class NotificationService {
     tzdata.initializeTimeZones();
     await _syncZone();
     await _plugin.initialize(
-      settings: const InitializationSettings(android: AndroidInitializationSettings('@mipmap/ic_launcher')),
+      settings: const InitializationSettings(android: AndroidInitializationSettings('@drawable/ic_notification')),
     );
     _ready = true;
   }

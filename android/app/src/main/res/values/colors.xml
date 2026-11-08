@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="waqt_ground">#F8F4E8</color>
+    <!-- Brand night: icon background and splash. -->
+    <color name="waqt_night">#0F1436</color>
 </resources>

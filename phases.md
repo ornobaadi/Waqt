@@ -68,7 +68,7 @@ Margins awaiting scholar review: see `docs/moment-rules.md`.
 - [x] "Report an issue with this content" flow (pre-filled GitHub issue)
 - [x] Play Store listing draft, privacy policy, release guide, upload-key signing, adaptive + themed app icon
 - [x] Host privacy policy (https://ornobaadi.github.io/Waqt/privacy/)
-- [ ] Feature graphic
+- [x] Feature graphic, new app icon (sujood under the crescent), splash, store screenshots (`docs/store/`)
 - [ ] Closed beta → public launch
 
 ## Phase 8 — Place time zones
