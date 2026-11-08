@@ -98,7 +98,7 @@ class RamadanCard extends StatelessWidget {
     }
 
     return Container(
-      padding: const EdgeInsets.fromLTRB(WaqtSpace.x5, WaqtSpace.x4, WaqtSpace.x5, WaqtSpace.x5),
+      padding: const EdgeInsets.fromLTRB(WaqtSpace.x5, WaqtSpace.x4, WaqtSpace.x5, WaqtSpace.x4),
       decoration: BoxDecoration(
         color: t.ink.withValues(alpha: 0.05),
         borderRadius: BorderRadius.circular(WaqtRadii.card),
@@ -106,17 +106,6 @@ class RamadanCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Row(
-            children: [
-              Icon(Icons.nights_stay_outlined, size: 16, color: Color.lerp(t.ink, t.accent, 0.65)),
-              const SizedBox(width: WaqtSpace.x2),
-              Text(
-                l.occRamadan(n(day)),
-                style: WaqtText.label.copyWith(color: Color.lerp(t.ink, t.accent, 0.65), fontWeight: FontWeight.w700),
-              ),
-            ],
-          ),
-          const SizedBox(height: WaqtSpace.x4),
           IntrinsicHeight(
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.stretch,

@@ -53,9 +53,9 @@ flutter:
     - assets/sources/
     - assets/ornob-aadi-signature/ornob-aadi-signature-bold-dark.png
   fonts:
-    - family: SchibstedGrotesk
+    - family: BricolageGrotesque
       fonts:
-        - asset: assets/fonts/SchibstedGrotesk.ttf
+        - asset: assets/fonts/BricolageGrotesque.ttf
     - family: Inter
       fonts:
         - asset: assets/fonts/Inter.ttf

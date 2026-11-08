@@ -22,7 +22,7 @@ Other screens: Today timeline (v2), Dua detail sheet (v1 canvas, board 4), Bedti
 
 ## Tokens
 **Type**
-- Display: Schibsted Grotesk 800 (clock 60, titles 23–30, letter-spacing −0.03 to −0.04em)
+- Display: Bricolage Grotesque 800 (clock 60, titles 23–30, letter-spacing −0.03 to −0.04em)
 - UI/body: Inter 400/500/600 (13–15)
 - Arabic: Noto Naskh Arabic (28–34 on detail; line-height 1.6–1.7)
 - **Always tabular figures** for clocks, times, countdowns.

@@ -154,7 +154,8 @@ class NowScreen extends ConsumerWidget {
                 children: [
                   PositionedDirectional(
                     end: -64,
-                    top: -36,
+                    // Between the Qibla button above and the date line below.
+                    top: -18,
                     child: Celestial(at: now, night: palette.isDark, southern: (place?.latitude ?? 0) < 0, size: 140),
                   ),
                   Column(

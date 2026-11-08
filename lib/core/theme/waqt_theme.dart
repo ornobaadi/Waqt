@@ -4,10 +4,12 @@ import 'tokens.dart';
 
 const _tabular = [FontFeature.tabularFigures()];
 
-TextStyle _display(double size, {double weight = 800, double tracking = -0.035}) => TextStyle(
+// Bricolage Grotesque, a variable font: weight, and an optical size that
+// matches the text size so the big clock gets its display cut.
+TextStyle _display(double size, {double weight = 800, double tracking = -0.03}) => TextStyle(
   fontFamily: WaqtFonts.display,
   fontSize: size,
-  fontVariations: [FontVariation('wght', weight)],
+  fontVariations: [FontVariation('wght', weight), FontVariation('opsz', size.clamp(12, 96).toDouble())],
   fontWeight: FontWeight.values[((weight / 100).round() - 1).clamp(0, 8)],
   letterSpacing: size * tracking,
   height: 1.05,

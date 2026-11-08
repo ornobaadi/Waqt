@@ -51,7 +51,7 @@ abstract final class WaqtMotion {
 }
 
 abstract final class WaqtFonts {
-  static const String display = 'SchibstedGrotesk';
+  static const String display = 'BricolageGrotesque';
   static const String body = 'Inter';
   static const String arabic = 'NotoNaskhArabic';
   static const String urdu = 'NotoNastaliqUrdu';

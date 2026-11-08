@@ -45,7 +45,7 @@ Future<void> loadAppFonts() async {
     await (FontLoader(family)..addFont(Future.value(ByteData.view(bytes.buffer)))).load();
   }
 
-  await load('SchibstedGrotesk', 'assets/fonts/SchibstedGrotesk.ttf');
+  await load('BricolageGrotesque', 'assets/fonts/BricolageGrotesque.ttf');
   await load('Inter', 'assets/fonts/Inter.ttf');
   await load('NotoNaskhArabic', 'assets/fonts/NotoNaskhArabic.ttf');
   await load('NotoNastaliqUrdu', 'assets/fonts/NotoNastaliqUrdu.ttf');
