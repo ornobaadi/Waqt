@@ -29,15 +29,26 @@ class ReminderPreview extends StatelessWidget {
         ? l.remNow
         : '${DateFormat.MMMEd(locale).format(at!)} · ${(MediaQuery.alwaysUse24HourFormatOf(context) ? DateFormat.Hm(locale) : DateFormat.jm(locale)).format(at!)}';
 
+    // Like Android: a light card on light themes (a black slab swallowed the
+    // icon and felt heavy on the day palettes), the dark one at night.
+    final light = t.ground.computeLuminance() > 0.4;
+    final card = light ? Color.alphaBlend(Colors.white.withValues(alpha: 0.82), t.ground) : t.heroSurface;
+    final ink = light ? t.ink : t.heroInk;
+
     return Semantics(
       container: true,
       child: Container(
         padding: const EdgeInsets.fromLTRB(WaqtSpace.x4, WaqtSpace.x3, WaqtSpace.x4, WaqtSpace.x4),
         decoration: BoxDecoration(
-          color: t.heroSurface,
+          color: card,
           borderRadius: BorderRadius.circular(WaqtRadii.strip + 2),
+          border: light ? Border.all(color: t.hairline) : null,
           boxShadow: [
-            BoxShadow(color: Colors.black.withValues(alpha: 0.10), blurRadius: 18, offset: const Offset(0, 6)),
+            BoxShadow(
+              color: Colors.black.withValues(alpha: light ? 0.06 : 0.10),
+              blurRadius: 18,
+              offset: const Offset(0, 6),
+            ),
           ],
         ),
         child: Column(
@@ -58,19 +69,19 @@ class ReminderPreview extends StatelessWidget {
                     '${l.appName} · $when',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: WaqtText.caption.copyWith(color: t.heroInk.withValues(alpha: 0.6)),
+                    style: WaqtText.caption.copyWith(color: ink.withValues(alpha: 0.6)),
                   ),
                 ),
               ],
             ),
             const SizedBox(height: WaqtSpace.x2),
-            Text(l.remTitle(topic.name), style: WaqtText.bodyStrong.copyWith(color: t.heroInk)),
+            Text(l.remTitle(topic.name), style: WaqtText.bodyStrong.copyWith(color: ink)),
             const SizedBox(height: 2),
             Text(
               l.remBody(topic.name),
               maxLines: compact ? 2 : null,
               overflow: compact ? TextOverflow.ellipsis : null,
-              style: WaqtText.label.copyWith(color: t.heroInk.withValues(alpha: 0.75), height: 1.4),
+              style: WaqtText.label.copyWith(color: ink.withValues(alpha: 0.75), height: 1.4),
             ),
           ],
         ),
