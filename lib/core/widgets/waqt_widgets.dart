@@ -19,7 +19,10 @@ class WaqtMark extends StatelessWidget {
   Widget build(BuildContext context) {
     final t = WaqtTokens.of(context);
     return ExcludeSemantics(
-      child: CustomPaint(size: Size(size, size * _MarkPainter.aspect), painter: _MarkPainter(t.ink, t.accent)),
+      child: CustomPaint(
+        size: Size(size, size * _MarkPainter.aspect),
+        painter: _MarkPainter(ink ?? t.ink, accent ?? t.accent),
+      ),
     );
   }
 }
