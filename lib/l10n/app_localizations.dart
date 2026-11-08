@@ -2678,6 +2678,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'in {time}'**
   String comingIn(String time);
+
+  /// No description provided for @beadTapToMark.
+  ///
+  /// In en, this message translates to:
+  /// **'tap to mark'**
+  String get beadTapToMark;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -53,7 +53,7 @@ class PrayerWindows extends ConsumerWidget {
         left = total <= 0 ? 1 : (now.difference(start).inSeconds / total).clamp(0.0, 1.0);
       }
       final note = ended
-          ? l.beadEnded
+          ? (log.salah[w] == null ? l.beadTapToMark : l.beadEnded)
           : current
           ? l.beadLeft(_short(l, n, _endOf(w).difference(now)))
           : !started

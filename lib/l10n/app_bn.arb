@@ -373,5 +373,6 @@
   "beadJamaah": "জামাআত",
   "beadLate": "কাজা",
   "comingUpTitle": "আসছে",
-  "comingIn": "{time} পর"
+  "comingIn": "{time} পর",
+  "beadTapToMark": "চিহ্ন দিন"
 }

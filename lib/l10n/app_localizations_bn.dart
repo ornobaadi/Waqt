@@ -1531,4 +1531,7 @@ class AppLocalizationsBn extends AppLocalizations {
   String comingIn(String time) {
     return '$time পর';
   }
+
+  @override
+  String get beadTapToMark => 'চিহ্ন দিন';
 }

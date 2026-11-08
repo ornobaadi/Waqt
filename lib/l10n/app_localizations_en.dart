@@ -1541,4 +1541,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String comingIn(String time) {
     return 'in $time';
   }
+
+  @override
+  String get beadTapToMark => 'tap to mark';
 }

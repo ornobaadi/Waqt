@@ -367,5 +367,6 @@
   "beadJamaah": "berjamaah",
   "beadLate": "qada",
   "comingUpTitle": "Berikutnya",
-  "comingIn": "{time} lagi"
+  "comingIn": "{time} lagi",
+  "beadTapToMark": "ketuk untuk tandai"
 }

@@ -7,6 +7,8 @@ import '../../core/utils/digits.dart';
 import '../../data/sources/days.dart';
 import '../../l10n/app_localizations.dart';
 import 'collapse.dart';
+import 'prayer_tick.dart';
+import '../../domain/deeds/deeds.dart';
 import '../duas/library_views.dart';
 import '../../platform/haptics/haptics.dart';
 
@@ -117,8 +119,8 @@ class _DayGuideCardState extends ConsumerState<DayGuideCard> {
               duration: WaqtMotion.ui,
               builder: (_, v, _) => LinearProgressIndicator(
                 value: v,
-                minHeight: 3,
-                backgroundColor: t.heroInk.withValues(alpha: 0.14),
+                minHeight: 2,
+                backgroundColor: t.heroInk.withValues(alpha: 0.12),
                 color: t.accent,
               ),
             ),
@@ -128,7 +130,7 @@ class _DayGuideCardState extends ConsumerState<DayGuideCard> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                const SizedBox(height: WaqtSpace.x2),
+                const SizedBox(height: WaqtSpace.x1),
                 ...() {
                   // Now's items first, then any-time ones, then the rest; ticked last.
                   int rank(DayItem i) => done.contains(i.id)
@@ -140,7 +142,10 @@ class _DayGuideCardState extends ConsumerState<DayGuideCard> {
                       : 2;
                   final ordered = [...items]..sort((a, b) => rank(a).compareTo(rank(b)));
                   final shown = _open ? items : ordered.where((i) => !done.contains(i.id)).take(_folded).toList();
-                  return [for (final i in shown) _Row(item: i, done: done.contains(i.id), day: day)];
+                  return [
+                    for (final (k, i) in shown.indexed)
+                      _Row(item: i, done: done.contains(i.id), day: day, first: k == 0),
+                  ];
                 }(),
                 if (items.length > _folded)
                   Align(
@@ -162,65 +167,94 @@ class _DayGuideCardState extends ConsumerState<DayGuideCard> {
 }
 
 class _Row extends ConsumerWidget {
-  const _Row({required this.item, required this.done, required this.day});
+  const _Row({required this.item, required this.done, required this.day, required this.first});
   final DayItem item;
   final bool done;
   final String day;
+  final bool first;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final t = WaqtTokens.of(context);
     final l = AppLocalizations.of(context);
     final ink = t.heroInk;
+    final lang = Localizations.localeOf(context).languageCode;
+    // A flat row under a hairline: the tick sits on the card's text edge,
+    // the title and its source beside it, the chevron at the end.
     return Semantics(
       checked: done,
-      label: item.title(Localizations.localeOf(context).languageCode),
+      label: item.title(lang),
       excludeSemantics: true,
-      child: Row(
-        children: [
-          IconButton(
-            onPressed: () {
-              Haptics.click();
-              ref.read(dayTicksProvider.notifier).toggle(day, item.id);
-            },
-            icon: AnimatedSwitcher(
-              duration: WaqtMotion.ui,
-              child: Icon(
-                done ? Icons.check_circle_rounded : Icons.radio_button_unchecked_rounded,
-                key: ValueKey(done),
-                color: done ? t.accent : ink.withValues(alpha: 0.5),
-              ),
-            ),
-          ),
-          Expanded(
-            child: InkWell(
-              borderRadius: BorderRadius.circular(WaqtRadii.row),
-              onTap: () => openHadith(context, ref, item.he),
+      child: Container(
+        decoration: BoxDecoration(
+          border: first ? null : Border(top: BorderSide(color: ink.withValues(alpha: 0.1))),
+        ),
+        child: Row(
+          children: [
+            GestureDetector(
+              key: const ValueKey('checklist-tick'),
+              behavior: HitTestBehavior.opaque,
+              onTap: () {
+                Haptics.click();
+                ref.read(dayTicksProvider.notifier).toggle(day, item.id);
+              },
               child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: WaqtSpace.x2, horizontal: WaqtSpace.x1),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      item.title(Localizations.localeOf(context).languageCode),
-                      style: WaqtText.bodyStrong.copyWith(
-                        color: done ? ink.withValues(alpha: 0.55) : ink,
-                        decoration: done ? TextDecoration.lineThrough : null,
-                        decorationColor: ink.withValues(alpha: 0.55),
-                      ),
-                    ),
-                    const SizedBox(height: 2),
-                    HeSourceText(
-                      id: item.he,
-                      style: WaqtText.caption.copyWith(color: ink.withValues(alpha: 0.62)),
-                    ),
-                  ],
+                padding: const EdgeInsetsDirectional.fromSTEB(0, 12, 14, 12),
+                child: AnimatedContainer(
+                  duration: WaqtMotion.ui,
+                  curve: WaqtMotion.ease,
+                  width: 22,
+                  height: 22,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: done ? MarkColors.of(t, SalahMark.onTime) : Colors.transparent,
+                    border: done ? null : Border.all(color: ink.withValues(alpha: 0.45), width: 2),
+                  ),
+                  child: done ? Icon(Icons.check_rounded, size: 14, color: t.heroSurface) : null,
                 ),
               ),
             ),
-          ),
-          Icon(Icons.chevron_right_rounded, color: ink.withValues(alpha: 0.4), semanticLabel: l.openSource),
-        ],
+            Expanded(
+              child: InkWell(
+                onTap: () => openHadith(context, ref, item.he),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: WaqtSpace.x3),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              item.title(lang),
+                              style: WaqtText.bodyStrong.copyWith(
+                                color: done ? ink.withValues(alpha: 0.5) : ink,
+                                decoration: done ? TextDecoration.lineThrough : null,
+                                decorationColor: ink.withValues(alpha: 0.5),
+                              ),
+                            ),
+                            const SizedBox(height: 2),
+                            HeSourceText(
+                              id: item.he,
+                              style: WaqtText.caption.copyWith(color: done ? ink.withValues(alpha: 0.45) : t.accent),
+                            ),
+                          ],
+                        ),
+                      ),
+                      if (!done)
+                        Icon(
+                          Icons.chevron_right_rounded,
+                          size: 20,
+                          color: ink.withValues(alpha: 0.5),
+                          semanticLabel: l.openSource,
+                        ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

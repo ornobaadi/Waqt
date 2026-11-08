@@ -367,5 +367,6 @@
   "beadJamaah": "en groupe",
   "beadLate": "rattrapée",
   "comingUpTitle": "À venir",
-  "comingIn": "dans {time}"
+  "comingIn": "dans {time}",
+  "beadTapToMark": "à cocher"
 }

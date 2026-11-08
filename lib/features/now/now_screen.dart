@@ -145,30 +145,33 @@ class NowScreen extends ConsumerWidget {
                     Text(l.placeTime(place.name), style: WaqtText.caption.copyWith(color: t.inkMuted)),
                   ],
                 ),
-              const SizedBox(height: WaqtSpace.x4),
-              Row(
+              const SizedBox(height: WaqtSpace.x2),
+              // The moon or sun sits behind the hero at the end edge, partly
+              // past the screen, so it is large without pushing text down.
+              Stack(
+                clipBehavior: Clip.none,
                 children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        _Clock(now: now, locale: locale),
-                        if (status != null) ...[
-                          const SizedBox(height: WaqtSpace.x1),
-                          _HeroLines(title: l.waqt(status.current), status: status, now: now, numbers: n),
-                        ],
-                      ],
-                    ),
+                  PositionedDirectional(
+                    end: -64,
+                    top: -36,
+                    child: Celestial(at: now, night: palette.isDark, southern: (place?.latitude ?? 0) < 0, size: 140),
                   ),
-                  // Larger, and past the screen edge, so it fills the sky
-                  // without crowding the clock.
-                  Transform.translate(
-                    offset: Offset(Directionality.of(context) == TextDirection.rtl ? -28 : 28, -8),
-                    child: Celestial(at: now, night: palette.isDark, southern: (place?.latitude ?? 0) < 0, size: 112),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsetsDirectional.only(end: 124),
+                        child: _Clock(now: now, locale: locale),
+                      ),
+                      if (status != null) ...[
+                        const SizedBox(height: WaqtSpace.x2),
+                        _HeroLines(title: l.waqt(status.current), status: status, now: now, numbers: n),
+                      ],
+                    ],
                   ),
                 ],
               ),
-              const SizedBox(height: WaqtSpace.x3),
+              const SizedBox(height: WaqtSpace.x2),
               // The date opens the month: what is coming, and what each day holds.
               InkWell(
                 borderRadius: BorderRadius.circular(WaqtRadii.row),
@@ -193,7 +196,9 @@ class NowScreen extends ConsumerWidget {
                   child: FastingPill(text: fastText),
                 ),
               ],
-              const SizedBox(height: WaqtSpace.x6),
+              const SizedBox(height: WaqtSpace.x4),
+              Divider(height: 1, thickness: 1, color: t.ink.withValues(alpha: 0.1)),
+              const SizedBox(height: WaqtSpace.x4),
               if (status != null) PrayerWindows(status: status, now: now),
               if (status?.today.estimated ?? false) ...[
                 const SizedBox(height: WaqtSpace.x3),
@@ -359,8 +364,11 @@ class _HeroLines extends StatelessWidget {
               style: WaqtText.title.copyWith(color: t.ink),
             ),
           ),
-          const SizedBox(height: WaqtSpace.x1),
-          Text(l.nextIn(l.waqt(status.next), countdown), style: WaqtText.body.copyWith(color: t.inkMuted)),
+          const SizedBox(height: 2),
+          Text(
+            l.nextIn(l.waqt(status.next), countdown),
+            style: WaqtText.bodyStrong.copyWith(color: Color.lerp(t.ink, t.accent, 0.6)),
+          ),
         ],
       ),
     );

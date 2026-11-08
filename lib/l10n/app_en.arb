@@ -963,5 +963,6 @@
         "type": "String"
       }
     }
-  }
+  },
+  "beadTapToMark": "tap to mark"
 }

@@ -1538,4 +1538,7 @@ class AppLocalizationsId extends AppLocalizations {
   String comingIn(String time) {
     return '$time lagi';
   }
+
+  @override
+  String get beadTapToMark => 'ketuk untuk tandai';
 }

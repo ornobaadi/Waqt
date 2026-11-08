@@ -1525,4 +1525,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String comingIn(String time) {
     return 'بعد $time';
   }
+
+  @override
+  String get beadTapToMark => 'اضغط للتسجيل';
 }

@@ -373,5 +373,6 @@
   "beadJamaah": "cemaatle",
   "beadLate": "kaza",
   "comingUpTitle": "Sırada",
-  "comingIn": "{time} sonra"
+  "comingIn": "{time} sonra",
+  "beadTapToMark": "işaretle"
 }

@@ -381,5 +381,6 @@
   "beadJamaah": "جماعت",
   "beadLate": "قضا",
   "comingUpTitle": "آگے",
-  "comingIn": "{time} میں"
+  "comingIn": "{time} میں",
+  "beadTapToMark": "نشان لگائیں"
 }

@@ -1536,4 +1536,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String comingIn(String time) {
     return '$time sonra';
   }
+
+  @override
+  String get beadTapToMark => 'işaretle';
 }

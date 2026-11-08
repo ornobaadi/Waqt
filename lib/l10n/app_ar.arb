@@ -395,5 +395,6 @@
   "beadJamaah": "جماعة",
   "beadLate": "قضاء",
   "comingUpTitle": "القادم",
-  "comingIn": "بعد {time}"
+  "comingIn": "بعد {time}",
+  "beadTapToMark": "اضغط للتسجيل"
 }

@@ -1538,4 +1538,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String comingIn(String time) {
     return 'dans $time';
   }
+
+  @override
+  String get beadTapToMark => 'à cocher';
 }

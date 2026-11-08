@@ -41,7 +41,7 @@ class Celestial extends StatelessWidget {
                 child: SizedBox.square(dimension: size * 1.5),
               ),
               if (night)
-                MoonGlyph(at: at, southern: southern, size: size, lit: const Color(0xFFF1E4C2))
+                MoonGlyph(at: at, southern: southern, size: size, lit: const Color(0xFFEADBB4), sphere: true)
               else
                 DecoratedBox(
                   decoration: BoxDecoration(
