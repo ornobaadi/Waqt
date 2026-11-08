@@ -324,7 +324,7 @@ void main() {
       then: () async {
         await t.tap(find.byTooltip('Duas'));
         await t.pumpAndSettle();
-        await t.tap(find.byTooltip('Open counter'));
+        await t.tap(find.byTooltip('Tasbih counter'));
         await t.pumpAndSettle();
         for (var i = 0; i < 12; i++) {
           await t.tapAt(const Offset(195, 400));
@@ -337,7 +337,7 @@ void main() {
   Future<void> openCounter(WidgetTester t) async {
     await t.tap(find.byTooltip('Duas'));
     await t.pumpAndSettle();
-    await t.tap(find.byTooltip('Open counter'));
+    await t.tap(find.byTooltip('Tasbih counter'));
     await t.pumpAndSettle();
   }
 
