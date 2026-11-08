@@ -1471,19 +1471,4 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get beadEnded => 'selesai';
-
-  @override
-  String get beadAlone => 'Tepat waktu';
-
-  @override
-  String get beadJamaah => 'Berjamaah';
-
-  @override
-  String get beadLate => 'Qadha';
-
-  @override
-  String get beadHint => 'Ketuk salat setelah menunaikannya. Ketuk lagi untuk berjamaah; tahan untuk pilihan lain.';
-
-  @override
-  String get beadHintDismiss => 'Mengerti';
 }

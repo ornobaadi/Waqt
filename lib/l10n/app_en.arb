@@ -925,10 +925,5 @@
       }
     }
   },
-  "beadEnded": "ended",
-  "beadAlone": "On time",
-  "beadJamaah": "Congregation",
-  "beadLate": "Late",
-  "beadHint": "Tap a prayer once you have prayed it. Tap again for congregation; hold for more.",
-  "beadHintDismiss": "Got it"
+  "beadEnded": "ended"
 }

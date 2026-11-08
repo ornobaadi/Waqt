@@ -2552,36 +2552,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'ended'**
   String get beadEnded;
-
-  /// No description provided for @beadAlone.
-  ///
-  /// In en, this message translates to:
-  /// **'On time'**
-  String get beadAlone;
-
-  /// No description provided for @beadJamaah.
-  ///
-  /// In en, this message translates to:
-  /// **'Congregation'**
-  String get beadJamaah;
-
-  /// No description provided for @beadLate.
-  ///
-  /// In en, this message translates to:
-  /// **'Late'**
-  String get beadLate;
-
-  /// No description provided for @beadHint.
-  ///
-  /// In en, this message translates to:
-  /// **'Tap a prayer once you have prayed it. Tap again for congregation; hold for more.'**
-  String get beadHint;
-
-  /// No description provided for @beadHintDismiss.
-  ///
-  /// In en, this message translates to:
-  /// **'Got it'**
-  String get beadHintDismiss;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

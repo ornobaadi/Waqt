@@ -25,12 +25,12 @@ abstract final class MarkColors {
       : const Color(0xFF17120A);
 }
 
-/// The small sign for how a prayer was kept, worn in a bead's corner so
+/// The sign for how a prayer was kept, a small quiet sign in its bead's corner so
 /// colour is never the only cue: alone, in congregation, or made up late.
 IconData markIcon(SalahMark m) => switch (m) {
-  SalahMark.onTime => Icons.person_rounded,
-  SalahMark.jamaah => Icons.groups_rounded,
-  SalahMark.qada => Icons.history_rounded,
+  SalahMark.onTime => Icons.person_outline_rounded,
+  SalahMark.jamaah => Icons.groups_outlined,
+  SalahMark.qada => Icons.schedule_rounded,
 };
 
 /// A swatch of a mark's colour with its sign; an outline when not marked.

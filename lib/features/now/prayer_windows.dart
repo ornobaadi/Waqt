@@ -34,7 +34,6 @@ class PrayerWindows extends ConsumerWidget {
     final t = WaqtTokens.of(context);
     final locale = Localizations.localeOf(context).toLanguageTag();
     final n = LocaleDigits(locale);
-    final hint = ref.watch(beadHintProvider);
     final fmt = MediaQuery.alwaysUse24HourFormatOf(context) ? DateFormat.Hm(locale) : DateFormat('h:mm', locale);
 
     // Before Fajr the night still belongs to yesterday's prayer day.
@@ -78,7 +77,6 @@ class PrayerWindows extends ConsumerWidget {
             Haptics.click();
           }
           ref.read(deedsProvider.notifier).markSalah(dayKey, w, m);
-          if (m != null) ref.read(beadHintProvider.notifier).marked();
         },
       );
     }
@@ -86,7 +84,7 @@ class PrayerWindows extends ConsumerWidget {
     final twoRows = MediaQuery.textScalerOf(context).scale(10) > 13;
     final per = twoRows ? 3 : 5;
     return Container(
-      padding: const EdgeInsets.all(_inset),
+      padding: const EdgeInsets.fromLTRB(_inset + 2, _inset + 2, _inset + 2, WaqtSpace.x2),
       decoration: BoxDecoration(color: t.surface, borderRadius: BorderRadius.circular(_outer)),
       child: Column(
         children: [
@@ -105,7 +103,6 @@ class PrayerWindows extends ConsumerWidget {
                 ),
               ),
             ),
-          if (hint) const _Legend(),
         ],
       ),
     );
@@ -178,9 +175,9 @@ class _Bead extends StatelessWidget {
           children: [
             // What is left of this waqt, draining toward its end.
             PositionedDirectional(
-              start: 6,
-              end: 6,
-              bottom: 5,
+              start: 8,
+              end: 8,
+              bottom: 6,
               child: Container(
                 height: 3,
                 alignment: AlignmentDirectional.centerEnd,
@@ -200,14 +197,15 @@ class _Bead extends StatelessWidget {
                 ),
               ),
             ),
+            // How it was kept: a small, quiet sign in the corner.
             if (m != null)
               PositionedDirectional(
+                end: 5,
                 top: 4,
-                end: 4,
-                child: Icon(markIcon(m), size: 13, color: ink.withValues(alpha: 0.9)),
+                child: Icon(markIcon(m), size: 12, color: ink.withValues(alpha: 0.6)),
               ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(2, WaqtSpace.x4 + 2, 2, WaqtSpace.x4),
+              padding: const EdgeInsets.fromLTRB(2, 15, 2, 14),
               child: Opacity(
                 opacity: started ? 1 : 0.45,
                 child: Column(
@@ -219,12 +217,17 @@ class _Bead extends StatelessWidget {
                       overflow: TextOverflow.fade,
                       softWrap: false,
                       style: WaqtText.caption.copyWith(
-                        color: ink.withValues(alpha: m == null ? 0.65 : 0.85),
-                        fontWeight: current ? FontWeight.w700 : null,
+                        fontSize: 11,
+                        color: ink.withValues(alpha: m == null ? 0.6 : 0.85),
+                        fontWeight: current ? FontWeight.w600 : null,
                       ),
                     ),
                     const SizedBox(height: 2),
-                    Text(time, maxLines: 1, style: WaqtText.bodyStrong.copyWith(color: ink)),
+                    Text(
+                      time,
+                      maxLines: 1,
+                      style: WaqtText.bodyStrong.copyWith(color: ink, fontSize: 16, fontWeight: FontWeight.w700),
+                    ),
                   ],
                 ),
               ),
@@ -260,7 +263,7 @@ class _Bead extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Expanded(child: _Press(child: body)),
-            const SizedBox(height: WaqtSpace.x1),
+            const SizedBox(height: 6),
             Text(
               note,
               textAlign: TextAlign.center,
@@ -268,7 +271,7 @@ class _Bead extends StatelessWidget {
               overflow: TextOverflow.fade,
               softWrap: false,
               style: WaqtText.caption.copyWith(
-                fontSize: 11,
+                fontSize: 10.5,
                 color: current ? t.ink : t.inkMuted,
                 fontWeight: current ? FontWeight.w700 : null,
               ),
@@ -304,56 +307,4 @@ class _PressState extends State<_Press> {
       child: widget.child,
     ),
   );
-}
-
-/// Shown until someone has marked a few prayers: what the colours and signs
-/// mean, and how to change them. Dismissable.
-class _Legend extends ConsumerWidget {
-  const _Legend();
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final l = AppLocalizations.of(context);
-    final t = WaqtTokens.of(context);
-    Widget key(SalahMark m, String label) => Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        SalahSwatch(mark: m, size: 18),
-        const SizedBox(width: 6),
-        Text(label, style: WaqtText.caption.copyWith(color: t.ink)),
-      ],
-    );
-    return Padding(
-      padding: const EdgeInsetsDirectional.fromSTEB(10, WaqtSpace.x3, 2, WaqtSpace.x1),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Wrap(
-                  spacing: WaqtSpace.x4,
-                  runSpacing: WaqtSpace.x2,
-                  children: [
-                    key(SalahMark.onTime, l.beadAlone),
-                    key(SalahMark.jamaah, l.beadJamaah),
-                    key(SalahMark.qada, l.beadLate),
-                  ],
-                ),
-                const SizedBox(height: WaqtSpace.x2),
-                Text(l.beadHint, style: WaqtText.caption.copyWith(color: t.inkMuted)),
-              ],
-            ),
-          ),
-          IconButton(
-            tooltip: l.beadHintDismiss,
-            visualDensity: VisualDensity.compact,
-            icon: Icon(Icons.close_rounded, size: 18, color: t.inkMuted),
-            onPressed: ref.read(beadHintProvider.notifier).dismiss,
-          ),
-        ],
-      ),
-    );
-  }
 }

@@ -352,10 +352,5 @@
   "durShortM": "{m}dk",
   "beadLeft": "{time} kaldı",
   "beadIn": "{time} sonra",
-  "beadEnded": "bitti",
-  "beadAlone": "Vaktinde",
-  "beadJamaah": "Cemaatle",
-  "beadLate": "Kaza",
-  "beadHint": "Kıldıktan sonra namaza dokunun. Cemaat için tekrar dokunun; daha fazlası için basılı tutun.",
-  "beadHintDismiss": "Anladım"
+  "beadEnded": "bitti"
 }

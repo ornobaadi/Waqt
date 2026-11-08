@@ -346,10 +346,5 @@
   "durShortM": "{m}m",
   "beadLeft": "sisa {time}",
   "beadIn": "{time} lagi",
-  "beadEnded": "selesai",
-  "beadAlone": "Tepat waktu",
-  "beadJamaah": "Berjamaah",
-  "beadLate": "Qadha",
-  "beadHint": "Ketuk salat setelah menunaikannya. Ketuk lagi untuk berjamaah; tahan untuk pilihan lain.",
-  "beadHintDismiss": "Mengerti"
+  "beadEnded": "selesai"
 }

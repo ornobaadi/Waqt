@@ -374,10 +374,5 @@
   "durShortM": "{m}د",
   "beadLeft": "باقي {time}",
   "beadIn": "بعد {time}",
-  "beadEnded": "انتهى",
-  "beadAlone": "في وقتها",
-  "beadJamaah": "جماعة",
-  "beadLate": "قضاء",
-  "beadHint": "اضغط على الصلاة بعد أن تصليها، واضغط مرة أخرى للجماعة، واضغط مطولًا للمزيد.",
-  "beadHintDismiss": "فهمت"
+  "beadEnded": "انتهى"
 }

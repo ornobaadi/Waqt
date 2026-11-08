@@ -352,10 +352,5 @@
   "durShortM": "{m}মি",
   "beadLeft": "{time} বাকি",
   "beadIn": "{time} পরে",
-  "beadEnded": "শেষ",
-  "beadAlone": "সময়মতো",
-  "beadJamaah": "জামাতে",
-  "beadLate": "কাজা",
-  "beadHint": "নামাজ পড়ার পর চাপুন। জামাতের জন্য আবার চাপুন; আরও বিকল্পের জন্য চেপে ধরুন।",
-  "beadHintDismiss": "বুঝেছি"
+  "beadEnded": "শেষ"
 }

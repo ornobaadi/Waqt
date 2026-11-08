@@ -1464,19 +1464,4 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get beadEnded => 'ختم';
-
-  @override
-  String get beadAlone => 'بروقت';
-
-  @override
-  String get beadJamaah => 'باجماعت';
-
-  @override
-  String get beadLate => 'قضا';
-
-  @override
-  String get beadHint => 'نماز پڑھ کر اسے تھپتھپائیں۔ باجماعت کے لیے دوبارہ تھپتھپائیں؛ مزید کے لیے دبائے رکھیں۔';
-
-  @override
-  String get beadHintDismiss => 'سمجھ گیا';
 }

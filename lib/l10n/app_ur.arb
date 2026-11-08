@@ -360,10 +360,5 @@
   "durShortM": "{m}م",
   "beadLeft": "{time} باقی",
   "beadIn": "{time} میں",
-  "beadEnded": "ختم",
-  "beadAlone": "بروقت",
-  "beadJamaah": "باجماعت",
-  "beadLate": "قضا",
-  "beadHint": "نماز پڑھ کر اسے تھپتھپائیں۔ باجماعت کے لیے دوبارہ تھپتھپائیں؛ مزید کے لیے دبائے رکھیں۔",
-  "beadHintDismiss": "سمجھ گیا"
+  "beadEnded": "ختم"
 }

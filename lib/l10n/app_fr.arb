@@ -346,10 +346,5 @@
   "durShortM": "{m} min",
   "beadLeft": "reste {time}",
   "beadIn": "dans {time}",
-  "beadEnded": "terminé",
-  "beadAlone": "À l’heure",
-  "beadJamaah": "En assemblée",
-  "beadLate": "En retard",
-  "beadHint": "Touchez une prière une fois accomplie. Touchez encore pour l’assemblée ; maintenez pour plus.",
-  "beadHintDismiss": "Compris"
+  "beadEnded": "terminé"
 }

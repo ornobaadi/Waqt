@@ -1458,19 +1458,4 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get beadEnded => 'انتهى';
-
-  @override
-  String get beadAlone => 'في وقتها';
-
-  @override
-  String get beadJamaah => 'جماعة';
-
-  @override
-  String get beadLate => 'قضاء';
-
-  @override
-  String get beadHint => 'اضغط على الصلاة بعد أن تصليها، واضغط مرة أخرى للجماعة، واضغط مطولًا للمزيد.';
-
-  @override
-  String get beadHintDismiss => 'فهمت';
 }
