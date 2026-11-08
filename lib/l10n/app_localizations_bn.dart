@@ -1189,4 +1189,21 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get qiblaNorthShort => 'উ';
+
+  @override
+  String get footerHandcrafted => 'যত্ন নিয়ে বানিয়েছেন';
+
+  @override
+  String get footerSignatureLabel => 'অর্ণব আদির স্বাক্ষর';
+
+  @override
+  String footerVersion(String version) {
+    return 'ওয়াক্ত · বেটা $version';
+  }
+
+  @override
+  String get footerTagline => 'অফলাইন · বিজ্ঞাপন নেই · ট্র্যাকিং নেই';
+
+  @override
+  String get footerDuaRequest => 'আপনার দোয়ায় আমাকে মনে রাখবেন।';
 }

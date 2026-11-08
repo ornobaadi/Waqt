@@ -298,5 +298,10 @@
   "qiblaCalibrate": "দিক সরে গেলে ফোনটি ইংরেজি 8-এর মতো করে ঘোরান, ধাতু ও চুম্বক থেকে দূরে।",
   "qiblaNoCompass": "এই ডিভাইসে কম্পাস নেই। কোনো চিহ্ন বা সূর্য দেখে উত্তর থেকে {deg}° দিকে মুখ করুন।",
   "qiblaNoPlace": "কিবলা খুঁজতে একটি শহর বেছে নিন।",
-  "qiblaNorthShort": "উ"
+  "qiblaNorthShort": "উ",
+  "footerHandcrafted": "যত্ন নিয়ে বানিয়েছেন",
+  "footerSignatureLabel": "অর্ণব আদির স্বাক্ষর",
+  "footerVersion": "ওয়াক্ত · বেটা {version}",
+  "footerTagline": "অফলাইন · বিজ্ঞাপন নেই · ট্র্যাকিং নেই",
+  "footerDuaRequest": "আপনার দোয়ায় আমাকে মনে রাখবেন।"
 }

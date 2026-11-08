@@ -2228,6 +2228,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'N'**
   String get qiblaNorthShort;
+
+  /// No description provided for @footerHandcrafted.
+  ///
+  /// In en, this message translates to:
+  /// **'HANDCRAFTED BY'**
+  String get footerHandcrafted;
+
+  /// No description provided for @footerSignatureLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Signature of Ornob Aadi'**
+  String get footerSignatureLabel;
+
+  /// No description provided for @footerVersion.
+  ///
+  /// In en, this message translates to:
+  /// **'WAQT · BETA {version}'**
+  String footerVersion(String version);
+
+  /// No description provided for @footerTagline.
+  ///
+  /// In en, this message translates to:
+  /// **'OFFLINE · NO ADS · NO TRACKING'**
+  String get footerTagline;
+
+  /// No description provided for @footerDuaRequest.
+  ///
+  /// In en, this message translates to:
+  /// **'Remember me in your duas.'**
+  String get footerDuaRequest;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -37,7 +37,7 @@ New personal developer accounts must run a **closed test with at least 12 tester
 Organisation accounts can go straight to Production (or start with Internal testing to check the install).
 
 ## 5. Before you press "Roll out"
-- [ ] `pubspec.yaml` version and `AppConfig.version` match (now `1.0.0+1`)
+- [ ] `pubspec.yaml` version and `AppConfig.version` match (now `0.1.0+1`, beta)
 - [ ] Release built with your upload key, not the debug key
 - [ ] Installed the release build on a phone: icon, splash, reminders, widget, Qibla
 - [ ] Moment content you want shown in release is marked `approved` (release builds hide drafts)

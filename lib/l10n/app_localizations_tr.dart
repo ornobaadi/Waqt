@@ -1192,4 +1192,21 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get qiblaNorthShort => 'K';
+
+  @override
+  String get footerHandcrafted => 'ÖZENLE HAZIRLAYAN';
+
+  @override
+  String get footerSignatureLabel => 'Ornob Aadi\'nin imzası';
+
+  @override
+  String footerVersion(String version) {
+    return 'WAQT · BETA $version';
+  }
+
+  @override
+  String get footerTagline => 'ÇEVRİMDIŞI · REKLAMSIZ · TAKİPSİZ';
+
+  @override
+  String get footerDuaRequest => 'Dualarınızda beni de anın.';
 }

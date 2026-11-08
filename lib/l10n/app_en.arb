@@ -763,5 +763,17 @@
     }
   },
   "qiblaNoPlace": "Choose a city to find the Qibla.",
-  "qiblaNorthShort": "N"
+  "qiblaNorthShort": "N",
+  "footerHandcrafted": "HANDCRAFTED BY",
+  "footerSignatureLabel": "Signature of Ornob Aadi",
+  "footerVersion": "WAQT · BETA {version}",
+  "footerTagline": "OFFLINE · NO ADS · NO TRACKING",
+  "footerDuaRequest": "Remember me in your duas.",
+  "@footerVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  }
 }

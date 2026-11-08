@@ -489,4 +489,27 @@ void main() {
       ),
     );
   }
+
+  for (final (name, at) in [
+    ('08b_settings_footer', DateTime(2026, 11, 6, 9, 41)),
+    ('08c_settings_footer_night', DateTime(2026, 11, 6, 22, 45)),
+  ]) {
+    testWidgets(
+      name,
+      (t) async => shoot(
+        t,
+        name,
+        await app(at: at, place: dhaka),
+        then: () async {
+          await t.tap(find.text('Settings'));
+          await t.pumpAndSettle();
+          await t.scrollUntilVisible(find.text('Remember me in your duas.'), 300);
+          await t.runAsync(() async {
+            final img = t.widget<Image>(find.byType(Image).last);
+            await precacheImage(img.image, t.element(find.byType(Image).last));
+          });
+        },
+      ),
+    );
+  }
 }

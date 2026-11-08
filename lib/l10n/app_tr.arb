@@ -298,5 +298,10 @@
   "qiblaCalibrate": "Yön kayarsa telefonu metal ve mıknatıslardan uzakta 8 çizerek hareket ettirin.",
   "qiblaNoCompass": "Bu cihazda pusula yok. Bir yer işaretine ya da güneşe bakarak kuzeyden {deg}° yöne dönün.",
   "qiblaNoPlace": "Kıbleyi bulmak için bir şehir seçin.",
-  "qiblaNorthShort": "K"
+  "qiblaNorthShort": "K",
+  "footerHandcrafted": "ÖZENLE HAZIRLAYAN",
+  "footerSignatureLabel": "Ornob Aadi'nin imzası",
+  "footerVersion": "WAQT · BETA {version}",
+  "footerTagline": "ÇEVRİMDIŞI · REKLAMSIZ · TAKİPSİZ",
+  "footerDuaRequest": "Dualarınızda beni de anın."
 }

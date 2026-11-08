@@ -306,5 +306,10 @@
   "qiblaCalibrate": "اگر سمت بدلتی رہے تو فون کو 8 کی شکل میں گھمائیں، دھات اور مقناطیس سے دور۔",
   "qiblaNoCompass": "اس ڈیوائس میں کمپاس نہیں ہے۔ کسی نشانی یا سورج کی مدد سے شمال سے {deg}° کی طرف رخ کریں۔",
   "qiblaNoPlace": "قبلہ معلوم کرنے کے لیے شہر منتخب کریں۔",
-  "qiblaNorthShort": "ش"
+  "qiblaNorthShort": "ش",
+  "footerHandcrafted": "محبت سے بنایا",
+  "footerSignatureLabel": "اُرنب آدی کے دستخط",
+  "footerVersion": "وقت · بیٹا {version}",
+  "footerTagline": "آف لائن · کوئی اشتہار نہیں · کوئی ٹریکنگ نہیں",
+  "footerDuaRequest": "اپنی دعاؤں میں مجھے یاد رکھیے۔"
 }

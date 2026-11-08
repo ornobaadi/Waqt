@@ -6,7 +6,7 @@ enum Flavor { dev, prod }
 /// `--profile` / debug = dev, `--release` = prod.
 abstract final class AppConfig {
   /// Keep in step with `version:` in pubspec.yaml.
-  static const version = '1.0.0';
+  static const version = '0.1.0';
 
   static const Flavor flavor = kReleaseMode ? Flavor.prod : Flavor.dev;
 

@@ -19,6 +19,7 @@ import '../../domain/prayer/prayer_settings.dart';
 import '../../domain/prayer/prayer_times_service.dart';
 import '../../l10n/app_localizations.dart';
 import '../common/labels.dart';
+import 'creator_footer.dart';
 
 /// Endonyms: each language is named in its own script.
 const supportedLanguageNames = {
@@ -245,6 +246,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: WaqtSpace.x1),
                   child: Text(l.settingsAttribution, style: WaqtText.caption.copyWith(color: t.inkMuted)),
                 ),
+                const CreatorFooter(),
               ],
             ),
           ),

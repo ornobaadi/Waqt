@@ -1193,4 +1193,21 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get qiblaNorthShort => 'U';
+
+  @override
+  String get footerHandcrafted => 'DIBUAT DENGAN SEPENUH HATI OLEH';
+
+  @override
+  String get footerSignatureLabel => 'Tanda tangan Ornob Aadi';
+
+  @override
+  String footerVersion(String version) {
+    return 'WAQT · BETA $version';
+  }
+
+  @override
+  String get footerTagline => 'OFFLINE · TANPA IKLAN · TANPA PELACAKAN';
+
+  @override
+  String get footerDuaRequest => 'Ingat saya dalam doa Anda.';
 }

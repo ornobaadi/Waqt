@@ -1191,4 +1191,21 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get qiblaNorthShort => 'ش';
+
+  @override
+  String get footerHandcrafted => 'محبت سے بنایا';
+
+  @override
+  String get footerSignatureLabel => 'اُرنب آدی کے دستخط';
+
+  @override
+  String footerVersion(String version) {
+    return 'وقت · بیٹا $version';
+  }
+
+  @override
+  String get footerTagline => 'آف لائن · کوئی اشتہار نہیں · کوئی ٹریکنگ نہیں';
+
+  @override
+  String get footerDuaRequest => 'اپنی دعاؤں میں مجھے یاد رکھیے۔';
 }

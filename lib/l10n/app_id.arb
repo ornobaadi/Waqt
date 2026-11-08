@@ -292,5 +292,10 @@
   "qiblaCalibrate": "Jika arahnya bergeser, gerakkan ponsel membentuk angka 8, jauh dari logam dan magnet.",
   "qiblaNoCompass": "Perangkat ini tidak punya kompas. Hadap {deg}° dari utara dengan patokan bangunan atau matahari.",
   "qiblaNoPlace": "Pilih kota untuk menemukan kiblat.",
-  "qiblaNorthShort": "U"
+  "qiblaNorthShort": "U",
+  "footerHandcrafted": "DIBUAT DENGAN SEPENUH HATI OLEH",
+  "footerSignatureLabel": "Tanda tangan Ornob Aadi",
+  "footerVersion": "WAQT · BETA {version}",
+  "footerTagline": "OFFLINE · TANPA IKLAN · TANPA PELACAKAN",
+  "footerDuaRequest": "Ingat saya dalam doa Anda."
 }

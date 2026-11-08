@@ -1194,4 +1194,21 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get qiblaNorthShort => 'N';
+
+  @override
+  String get footerHandcrafted => 'HANDCRAFTED BY';
+
+  @override
+  String get footerSignatureLabel => 'Signature of Ornob Aadi';
+
+  @override
+  String footerVersion(String version) {
+    return 'WAQT · BETA $version';
+  }
+
+  @override
+  String get footerTagline => 'OFFLINE · NO ADS · NO TRACKING';
+
+  @override
+  String get footerDuaRequest => 'Remember me in your duas.';
 }

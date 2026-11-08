@@ -18,7 +18,7 @@ Without this file, release builds are signed with the debug key. That's fine loc
 Back up the keystore: Play App Signing keeps your app key, but the upload key is yours.
 
 ## 2. Every release
-1. Bump `version:` in `pubspec.yaml` (e.g. `1.0.1+2`) **and** `AppConfig.version` in `lib/core/config/flavor.dart`.
+1. Bump `version:` in `pubspec.yaml` (e.g. `0.1.1+2`; go to `1.0.0` for the public launch) **and** `AppConfig.version` in `lib/core/config/flavor.dart`.
 2. Build the bundle:
    ```
    flutter build appbundle --release

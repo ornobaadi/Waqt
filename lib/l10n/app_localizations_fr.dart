@@ -1195,4 +1195,21 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get qiblaNorthShort => 'N';
+
+  @override
+  String get footerHandcrafted => 'CONÇU AVEC SOIN PAR';
+
+  @override
+  String get footerSignatureLabel => 'Signature d\'Ornob Aadi';
+
+  @override
+  String footerVersion(String version) {
+    return 'WAQT · BÊTA $version';
+  }
+
+  @override
+  String get footerTagline => 'HORS LIGNE · SANS PUB · SANS PISTAGE';
+
+  @override
+  String get footerDuaRequest => 'Pensez à moi dans vos invocations.';
 }

@@ -1185,4 +1185,21 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get qiblaNorthShort => 'ش';
+
+  @override
+  String get footerHandcrafted => 'صُنع بعناية بيد';
+
+  @override
+  String get footerSignatureLabel => 'توقيع أُرنوب آدي';
+
+  @override
+  String footerVersion(String version) {
+    return 'وقت · نسخة تجريبية $version';
+  }
+
+  @override
+  String get footerTagline => 'بلا إنترنت · بلا إعلانات · بلا تتبّع';
+
+  @override
+  String get footerDuaRequest => 'لا تنسوني من صالح دعائكم.';
 }

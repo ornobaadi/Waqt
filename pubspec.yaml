@@ -2,7 +2,7 @@ name: waqt
 description: "Waqt: the right dua for the moment you are in, every item with a verified source."
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 1.0.0+1
+version: 0.1.0+1
 
 environment:
   sdk: ^3.13.4
@@ -51,6 +51,7 @@ flutter:
     - assets/data/
     - assets/content/
     - assets/sources/
+    - assets/ornob-aadi-signature/ornob-aadi-signature-bold-dark.png
   fonts:
     - family: SchibstedGrotesk
       fonts:

@@ -292,5 +292,10 @@
   "qiblaCalibrate": "Si la direction dérive, décrivez un 8 avec le téléphone, loin du métal et des aimants.",
   "qiblaNoCompass": "Cet appareil n'a pas de boussole. Orientez-vous à {deg}° du nord à l'aide d'un repère ou du soleil.",
   "qiblaNoPlace": "Choisissez une ville pour trouver la qibla.",
-  "qiblaNorthShort": "N"
+  "qiblaNorthShort": "N",
+  "footerHandcrafted": "CONÇU AVEC SOIN PAR",
+  "footerSignatureLabel": "Signature d'Ornob Aadi",
+  "footerVersion": "WAQT · BÊTA {version}",
+  "footerTagline": "HORS LIGNE · SANS PUB · SANS PISTAGE",
+  "footerDuaRequest": "Pensez à moi dans vos invocations."
 }

@@ -320,5 +320,10 @@
   "qiblaCalibrate": "إذا انحرف الاتجاه، حرّك هاتفك على شكل الرقم 8 بعيدًا عن المعادن والمغناطيس.",
   "qiblaNoCompass": "لا توجد بوصلة في هذا الجهاز. اتجه {deg}° من الشمال مستعينًا بمَعلم أو بالشمس.",
   "qiblaNoPlace": "اختر مدينة لتحديد القبلة.",
-  "qiblaNorthShort": "ش"
+  "qiblaNorthShort": "ش",
+  "footerHandcrafted": "صُنع بعناية بيد",
+  "footerSignatureLabel": "توقيع أُرنوب آدي",
+  "footerVersion": "وقت · نسخة تجريبية {version}",
+  "footerTagline": "بلا إنترنت · بلا إعلانات · بلا تتبّع",
+  "footerDuaRequest": "لا تنسوني من صالح دعائكم."
 }
