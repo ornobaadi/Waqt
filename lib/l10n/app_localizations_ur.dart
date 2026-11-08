@@ -1351,4 +1351,21 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get remDailyNote => 'پہلے سے بند ہیں، تاکہ اہم ترین یاد دہانیاں نمایاں رہیں۔';
+
+  @override
+  String get qiblaFromLabel => 'قبلہ، یہاں سے';
+
+  @override
+  String get qiblaToLeft => 'آپ کے بائیں';
+
+  @override
+  String get qiblaToRight => 'آپ کے دائیں';
+
+  @override
+  String qiblaToMakkah(String km) {
+    return 'مکہ تک $km کلومیٹر';
+  }
+
+  @override
+  String get qiblaHint => 'گھومیے یہاں تک کہ تیر اوپر کی طرف ہو اور اسکرین روشن ہو جائے۔';
 }

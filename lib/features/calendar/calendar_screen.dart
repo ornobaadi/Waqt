@@ -74,15 +74,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
       if (occ.isNotEmpty) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           if (!mounted) return;
-          openDayGuide(
-            context,
-            ref,
-            civil: widget.focus!,
-            hijriDay: h.day,
-            occasions: occ,
-            guides: guides,
-            numbers: n,
-          );
+          openDayGuide(context, ref, civil: widget.focus!, hijriDay: h.day, occasions: occ, guides: guides, numbers: n);
         });
       }
     }

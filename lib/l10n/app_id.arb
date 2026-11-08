@@ -315,5 +315,10 @@
   "remGroupFriday": "Setiap Jumat",
   "remGroupRamadan": "Saat Ramadan",
   "remGroupDaily": "Setiap hari",
-  "remDailyNote": "Mati secara bawaan, agar pengingat yang paling penting tetap menonjol."
+  "remDailyNote": "Mati secara bawaan, agar pengingat yang paling penting tetap menonjol.",
+  "qiblaFromLabel": "Kiblat dari",
+  "qiblaToLeft": "ke kiri",
+  "qiblaToRight": "ke kanan",
+  "qiblaToMakkah": "{km} km ke Makkah",
+  "qiblaHint": "Putar sampai panah menunjuk ke atas dan layar menyala."
 }

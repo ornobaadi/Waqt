@@ -1359,4 +1359,21 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get remDailyNote => 'Off by default, so the most important reminders stand out.';
+
+  @override
+  String get qiblaFromLabel => 'Qibla from';
+
+  @override
+  String get qiblaToLeft => 'to your left';
+
+  @override
+  String get qiblaToRight => 'to your right';
+
+  @override
+  String qiblaToMakkah(String km) {
+    return '$km km to Makkah';
+  }
+
+  @override
+  String get qiblaHint => 'Turn until the arrow points up and the screen glows.';
 }

@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -15,14 +16,19 @@ import '../../l10n/app_localizations.dart';
 import '../../platform/sensors/heading.dart';
 
 /// Within this many degrees the phone counts as facing the Qibla.
-const _aligned = 3.0;
+const _aligned = 4.0;
 
-/// Past this tilt the magnetometer reading is unreliable; ask to hold flat.
-const _maxTilt = 35.0;
+/// How quickly the arrow settles on a new reading (per second). High enough
+/// to feel live, low enough not to shiver.
+const _settle = 14.0;
 
-/// Qibla finder: a quiet dial, not a nautical compass. The top of the phone
-/// is fixed at the top of the dial; the Kaaba mark moves, and an accent arc
-/// shows how far to turn.
+const _onAccent = Color(0xFF14110C);
+const _kaabaBand = Color(0xFFE6C66A);
+
+/// Qibla finder in the manner of "precision finding": one big arrow that
+/// points where to turn, the Kaaba on a ring of dots, and the whole screen
+/// glowing once you face it. Drawn every frame from the latest reading, with
+/// a short settle, so it follows the hand in real time.
 class QiblaScreen extends ConsumerStatefulWidget {
   const QiblaScreen({super.key});
 
@@ -30,8 +36,67 @@ class QiblaScreen extends ConsumerStatefulWidget {
   ConsumerState<QiblaScreen> createState() => _QiblaScreenState();
 }
 
-class _QiblaScreenState extends ConsumerState<QiblaScreen> {
+class _QiblaScreenState extends ConsumerState<QiblaScreen> with SingleTickerProviderStateMixin {
+  late final Ticker _ticker;
+
+  /// Heading as drawn (degrees, unwrapped so 359 → 1 turns the short way).
+  final _shown = ValueNotifier<double?>(null);
+  double? _target;
+  Duration _last = Duration.zero;
   bool _wasAligned = false;
+  int _step = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _ticker = createTicker(_tick);
+  }
+
+  /// A new reading: wake the ticker until the arrow has settled on it.
+  void _aim(double heading) {
+    _target = heading;
+    if (!_ticker.isActive) {
+      _last = Duration.zero;
+      _ticker.start();
+    }
+  }
+
+  @override
+  void dispose() {
+    _ticker.dispose();
+    _shown.dispose();
+    super.dispose();
+  }
+
+  void _tick(Duration now) {
+    final dt = ((now - _last).inMicroseconds / 1e6).clamp(0.0, 0.1);
+    _last = now;
+    final target = _target;
+    if (target == null) return;
+    final cur = _shown.value;
+    if (cur == null || MediaQuery.disableAnimationsOf(context)) {
+      _shown.value = target;
+      _ticker.stop();
+      return;
+    }
+    final diff = (target - cur + 540) % 360 - 180;
+    if (diff.abs() < 0.05) {
+      _shown.value = cur + diff;
+      _ticker.stop(); // settled: no frames until the next reading
+      return;
+    }
+    _shown.value = cur + diff * (1 - math.exp(-_settle * dt));
+  }
+
+  /// Haptics: a light tick every 5° inside 30°, a firm one on arriving.
+  void _feel(double turn) {
+    final aligned = turn.abs() <= _aligned;
+    if (aligned && !_wasAligned) HapticFeedback.heavyImpact();
+    _wasAligned = aligned;
+    final step = turn.abs() <= 30 ? (turn.abs() / 5).floor() : -1;
+    if (step != _step && step >= 0 && !aligned) HapticFeedback.selectionClick();
+    _step = step;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,17 +105,14 @@ class _QiblaScreenState extends ConsumerState<QiblaScreen> {
     final n = LocaleDigits(Localizations.localeOf(context).toLanguageTag());
     final place = ref.watch(userPrefsProvider.select((p) => p.place));
 
-    final appBar = AppBar(
-      backgroundColor: Colors.transparent,
-      surfaceTintColor: Colors.transparent,
-      foregroundColor: t.ink,
-      title: Text(l.qiblaTitle, style: WaqtText.bodyStrong.copyWith(color: t.ink)),
-    );
-
     if (place == null) {
       return Scaffold(
         backgroundColor: t.ground,
-        appBar: appBar,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          surfaceTintColor: Colors.transparent,
+          foregroundColor: t.ink,
+        ),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -69,235 +131,206 @@ class _QiblaScreenState extends ConsumerState<QiblaScreen> {
     final bearing = qiblaBearing(place.latitude, place.longitude);
     final km = qiblaDistanceKm(place.latitude, place.longitude).round();
     final reading = ref.watch(headingProvider);
-    final heading = reading.value;
-    final noCompass = reading.hasError;
-    final live = heading != null;
-
-    // Without a reading the dial is drawn north-up: the mark sits at the bearing.
-    final turn = live ? turnTo(bearing, heading.degrees) : bearing;
-    final aligned = live && turn.abs() <= _aligned;
-    final tilted = live && heading.tilt > _maxTilt;
-
-    if (aligned && !_wasAligned) HapticFeedback.mediumImpact();
-    _wasAligned = aligned;
-
-    final deg = n(bearing.round());
-    final String headline;
-    final String? sub;
-    if (!live) {
-      headline = '$deg°';
-      sub = l.qiblaBearing('').replaceAll('°', '').trim();
-    } else if (aligned) {
-      headline = l.qiblaFacing;
-      sub = null;
-    } else {
-      headline = '${n(turn.abs().round())}°';
-      sub = turn > 0 ? l.qiblaTurnRight : l.qiblaTurnLeft;
+    ref.listen(headingProvider, (_, next) {
+      final h = next.value;
+      if (h == null) return;
+      _aim(h.degrees);
+      _feel(turnTo(bearing, h.degrees));
+    });
+    // Seed straight away (tests, and the first frame on device).
+    if (_target == null && reading.value != null) {
+      final first = reading.value!.degrees;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) _aim(first);
+      });
     }
+    final noCompass = reading.hasError;
+    final calibrate = reading.value?.needsCalibration ?? false;
 
-    return Scaffold(
-      backgroundColor: t.ground,
-      appBar: appBar,
-      body: SafeArea(
-        top: false,
-        child: ListView(
-          padding: const EdgeInsets.fromLTRB(WaqtSpace.screen, 0, WaqtSpace.screen, WaqtSpace.x8),
-          children: [
-            Text(l.qiblaFrom(place.name), style: WaqtText.label.copyWith(color: t.inkMuted)),
-            const SizedBox(height: WaqtSpace.x6),
-            LayoutBuilder(
-              builder: (context, c) {
-                final size = math.min(c.maxWidth, 340.0);
-                return Center(
-                  child: Semantics(
-                    liveRegion: true,
-                    label: [headline, ?sub].join(', '),
-                    child: ExcludeSemantics(
-                      child: SizedBox.square(
-                        dimension: size,
-                        child: Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            TweenAnimationBuilder<double>(
-                              tween: Tween(end: aligned ? 1 : 0),
-                              duration: MediaQuery.disableAnimationsOf(context) ? Duration.zero : WaqtMotion.ui,
-                              curve: WaqtMotion.ease,
-                              builder: (_, glow, _) => CustomPaint(
-                                size: Size.square(size),
-                                painter: _DialPainter(
-                                  heading: live ? heading.degrees : 0,
-                                  bearing: bearing,
-                                  live: live,
-                                  glow: glow,
-                                  ink: t.ink,
-                                  muted: t.inkMuted,
-                                  hairline: t.hairline,
-                                  accent: t.accent,
-                                  surface: t.surface,
-                                  north: l.qiblaNorthShort,
+    return ValueListenableBuilder<double?>(
+      valueListenable: _shown,
+      builder: (context, shown, _) {
+        final live = shown != null;
+        // Without a reading the dial is drawn north-up and the Kaaba sits at the bearing.
+        final turn = live ? turnTo(bearing, shown) : bearing;
+        final aligned = live && turn.abs() <= _aligned;
+        final bg = aligned ? t.accent : t.ground;
+        final ink = aligned ? _onAccent : t.ink;
+        final muted = aligned ? _onAccent.withValues(alpha: 0.62) : t.inkMuted;
+
+        return AnimatedContainer(
+          duration: MediaQuery.disableAnimationsOf(context) ? Duration.zero : WaqtMotion.ui,
+          curve: WaqtMotion.ease,
+          color: bg,
+          child: Scaffold(
+            backgroundColor: Colors.transparent,
+            appBar: AppBar(
+              backgroundColor: Colors.transparent,
+              surfaceTintColor: Colors.transparent,
+              foregroundColor: ink,
+              title: Text(l.qiblaTitle, style: WaqtText.bodyStrong.copyWith(color: ink)),
+            ),
+            body: SafeArea(
+              top: false,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(WaqtSpace.screen, 0, WaqtSpace.screen, WaqtSpace.x6),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(l.qiblaFromLabel.toUpperCase(), style: WaqtText.overline.copyWith(color: muted)),
+                              const SizedBox(height: 2),
+                              Text(
+                                place.name,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: WaqtText.titleSmall.copyWith(color: ink),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Text(l.qiblaToMakkah(n(km)), style: WaqtText.label.copyWith(color: muted)),
+                      ],
+                    ),
+                    Expanded(
+                      child: Center(
+                        child: LayoutBuilder(
+                          builder: (context, c) {
+                            final size = math.min(c.maxWidth, c.maxHeight).clamp(200.0, 380.0);
+                            return Semantics(
+                              liveRegion: true,
+                              label: aligned
+                                  ? l.qiblaFacing
+                                  : '${n(turn.abs().round())}°, ${turn > 0 ? l.qiblaToRight : l.qiblaToLeft}',
+                              child: ExcludeSemantics(
+                                child: CustomPaint(
+                                  size: Size.square(size),
+                                  painter: _FinderPainter(
+                                    turn: turn,
+                                    live: live,
+                                    aligned: aligned,
+                                    ink: ink,
+                                    faint: ink.withValues(alpha: aligned ? 0.28 : 0.14),
+                                  ),
                                 ),
                               ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.symmetric(horizontal: size * 0.2),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text(
-                                    headline,
-                                    textAlign: TextAlign.center,
-                                    style: (aligned ? WaqtText.titleSmall : WaqtText.clock.copyWith(fontSize: 52))
-                                        .copyWith(color: t.ink),
-                                  ),
-                                  if (sub != null) Text(sub, style: WaqtText.label.copyWith(color: t.inkMuted)),
-                                ],
-                              ),
-                            ),
-                          ],
+                            );
+                          },
                         ),
                       ),
                     ),
-                  ),
-                );
-              },
-            ),
-            const SizedBox(height: WaqtSpace.x6),
-            AnimatedSwitcher(
-              duration: WaqtMotion.fast,
-              child: Text(
-                key: ValueKey((tilted, noCompass)),
-                noCompass
-                    ? l.qiblaNoCompass(deg)
-                    : tilted
-                    ? l.qiblaHoldFlat
-                    : l.qiblaCalibrate,
-                textAlign: TextAlign.center,
-                style: (tilted ? WaqtText.bodyStrong : WaqtText.caption).copyWith(color: tilted ? t.ink : t.inkMuted),
+                    // The readout, large, like a distance in precision finding.
+                    if (aligned) ...[
+                      Text(l.qiblaFacing, style: WaqtText.title.copyWith(color: ink, fontSize: 34)),
+                    ] else if (live) ...[
+                      Text(
+                        '${n(turn.abs().round())}°',
+                        style: WaqtText.clock.copyWith(color: ink, fontSize: 72, height: 1),
+                      ),
+                      Text(
+                        turn > 0 ? l.qiblaToRight : l.qiblaToLeft,
+                        style: WaqtText.title.copyWith(color: muted, fontSize: 30),
+                      ),
+                    ] else ...[
+                      Text(
+                        '${n(bearing.round())}°',
+                        style: WaqtText.clock.copyWith(color: ink, fontSize: 72, height: 1),
+                      ),
+                      Text(l.qiblaBearing('').replaceAll('°', '').trim(), style: WaqtText.title.copyWith(color: muted)),
+                    ],
+                    const SizedBox(height: WaqtSpace.x3),
+                    Text(
+                      noCompass
+                          ? l.qiblaNoCompass(n(bearing.round()))
+                          : calibrate
+                          ? l.qiblaCalibrate
+                          : aligned
+                          ? l.qiblaBearing(n(bearing.round()))
+                          : l.qiblaHint,
+                      style: WaqtText.label.copyWith(color: muted),
+                    ),
+                  ],
+                ),
               ),
             ),
-            const SizedBox(height: WaqtSpace.x6),
-            RowGroup(
-              children: [
-                RowTile(title: l.qiblaDirection, value: l.qiblaBearing(deg)),
-                RowTile(title: l.qiblaDistance, value: l.qiblaKm(n(km))),
-              ],
-            ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }
 
-class _DialPainter extends CustomPainter {
-  _DialPainter({
-    required this.heading,
-    required this.bearing,
+class _FinderPainter extends CustomPainter {
+  _FinderPainter({
+    required this.turn,
     required this.live,
-    required this.glow,
+    required this.aligned,
     required this.ink,
-    required this.muted,
-    required this.hairline,
-    required this.accent,
-    required this.surface,
-    required this.north,
+    required this.faint,
   });
 
-  final double heading, bearing, glow;
-  final bool live;
-  final Color ink, muted, hairline, accent, surface;
-  final String north;
+  /// Degrees to turn to face the Qibla: positive = to the right.
+  final double turn;
+  final bool live, aligned;
+  final Color ink, faint;
 
   static double _rad(double d) => d * math.pi / 180;
-
-  /// Screen angle for a world bearing: 0° = up, clockwise.
-  Offset _at(Offset c, double r, double worldDeg) {
-    final a = _rad(worldDeg - heading - 90);
-    return c + Offset(math.cos(a), math.sin(a)) * r;
-  }
 
   @override
   void paint(Canvas canvas, Size size) {
     final c = size.center(Offset.zero);
-    final outer = size.width / 2 - 14;
-    final ringR = outer - 18;
+    final r = size.width / 2 - 18;
 
-    // Face: a soft disc that warms with the accent when aligned.
-    canvas.drawCircle(c, ringR - 10, Paint()..color = Color.lerp(surface, accent.withValues(alpha: 0.28), glow)!);
-
-    // Degree ticks, fixed to the world.
-    final tick = Paint()..strokeCap = StrokeCap.round;
-    for (var d = 0; d < 360; d += 5) {
-      final major = d % 30 == 0;
-      tick
-        ..color = (major ? muted : hairline).withValues(alpha: major ? 0.7 : 1)
-        ..strokeWidth = major ? 1.6 : 1;
-      canvas.drawLine(_at(c, outer, d.toDouble()), _at(c, outer - (major ? 9 : 5), d.toDouble()), tick);
+    // Ring of dots, fixed to the phone: the top dot is straight ahead. The
+    // dots between straight ahead and the Kaaba light up: how far to turn.
+    const count = 48;
+    for (var i = 0; i < count; i++) {
+      final deg = i * 360 / count;
+      final rel = deg > 180 ? deg - 360 : deg;
+      // Leave room for the Kaaba.
+      if (((rel - turn + 540) % 360 - 180).abs() < 9) continue;
+      final onPath = live && (turn >= 0 ? rel >= 0 && rel <= turn : rel <= 0 && rel >= turn);
+      final p = c + Offset(math.sin(_rad(deg)), -math.cos(_rad(deg))) * r;
+      canvas.drawCircle(p, onPath || aligned ? 3.6 : 2.4, Paint()..color = onPath || aligned ? ink : faint);
     }
 
-    // North letter, just inside the ticks.
-    final tp = TextPainter(
-      text: TextSpan(
-        text: north,
-        style: WaqtText.overline.copyWith(color: muted, fontWeight: FontWeight.w700),
-      ),
-      textDirection: TextDirection.ltr,
-    )..layout();
-    tp.paint(canvas, _at(c, ringR - 24, 0) - Offset(tp.width / 2, tp.height / 2));
+    // The Kaaba, on the ring, where the Qibla is.
+    final k = c + Offset(math.sin(_rad(turn)), -math.cos(_rad(turn))) * r;
+    final s = aligned ? 34.0 : 26.0;
+    canvas.drawCircle(k, s * 0.95, Paint()..color = ink.withValues(alpha: aligned ? 0.12 : 0.1));
+    final cube = RRect.fromRectAndRadius(Rect.fromCenter(center: k, width: s, height: s), Radius.circular(s * 0.2));
+    canvas.drawRRect(cube, Paint()..color = _onAccent);
+    canvas.drawRect(Rect.fromLTWH(cube.left, cube.top + s * 0.26, s, s * 0.14), Paint()..color = _kaabaBand);
 
-    // Ring track.
-    canvas.drawCircle(
-      c,
-      ringR,
-      Paint()
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = 6
-        ..color = Color.lerp(ink.withValues(alpha: 0.08), accent, glow)!,
-    );
-
-    // Turn arc: from where the phone points (top) to the Qibla.
-    if (live) {
-      final turn = turnTo(bearing, heading);
-      canvas.drawArc(
-        Rect.fromCircle(center: c, radius: ringR),
-        -math.pi / 2,
-        _rad(turn),
-        false,
-        Paint()
-          ..style = PaintingStyle.stroke
-          ..strokeWidth = 6
-          ..strokeCap = StrokeCap.round
-          ..color = accent,
-      );
-    }
-
-    // Phone-forward notch at the top.
-    final top = c.translate(0, -ringR - 12);
+    // The arrow: points where to turn, straight up once facing the Qibla.
+    canvas.save();
+    canvas.translate(c.dx, c.dy);
+    canvas.rotate(_rad(turn));
+    final len = r * 0.52, w = r * 0.13;
+    final stroke = Paint()
+      ..color = ink
+      ..strokeWidth = w
+      ..strokeCap = StrokeCap.round
+      ..strokeJoin = StrokeJoin.round
+      ..style = PaintingStyle.stroke;
+    canvas.drawLine(Offset(0, len * 0.62), Offset(0, -len * 0.62), stroke);
     canvas.drawPath(
       Path()
-        ..moveTo(top.dx, top.dy + 8)
-        ..lineTo(top.dx - 6, top.dy - 2)
-        ..lineTo(top.dx + 6, top.dy - 2)
-        ..close(),
-      Paint()..color = ink.withValues(alpha: 1 - glow),
+        ..moveTo(-len * 0.42, -len * 0.2)
+        ..lineTo(0, -len * 0.64)
+        ..lineTo(len * 0.42, -len * 0.2),
+      stroke,
     );
-
-    // The Kaaba mark: a small dark cube with a gold band, on the ring.
-    final k = _at(c, ringR, bearing);
-    final sq = Rect.fromCenter(center: k, width: 22, height: 22);
-    canvas.drawCircle(k, 18, Paint()..color = accent.withValues(alpha: 0.25 + 0.25 * glow));
-    canvas.drawRRect(RRect.fromRectAndRadius(sq, const Radius.circular(5)), Paint()..color = const Color(0xFF14110C));
-    canvas.drawRect(Rect.fromLTWH(sq.left, sq.top + 6, sq.width, 3), Paint()..color = const Color(0xFFE6C66A));
+    canvas.restore();
   }
 
   @override
-  bool shouldRepaint(_DialPainter o) =>
-      o.heading != heading ||
-      o.bearing != bearing ||
-      o.glow != glow ||
-      o.live != live ||
-      o.ink != ink ||
-      o.accent != accent ||
-      o.surface != surface ||
-      o.north != north;
+  bool shouldRepaint(_FinderPainter o) =>
+      o.turn != turn || o.live != live || o.aligned != aligned || o.ink != ink || o.faint != faint;
 }

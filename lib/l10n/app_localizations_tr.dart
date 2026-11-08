@@ -1355,4 +1355,21 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get remDailyNote => 'Varsayılan olarak kapalı, böylece en önemli hatırlatmalar öne çıkar.';
+
+  @override
+  String get qiblaFromLabel => 'Kıble yönü';
+
+  @override
+  String get qiblaToLeft => 'solunuzda';
+
+  @override
+  String get qiblaToRight => 'sağınızda';
+
+  @override
+  String qiblaToMakkah(String km) {
+    return 'Mekke\'ye $km km';
+  }
+
+  @override
+  String get qiblaHint => 'Ok yukarıyı gösterip ekran parlayana kadar dönün.';
 }

@@ -315,5 +315,10 @@
   "remGroupFriday": "Chaque vendredi",
   "remGroupRamadan": "Pendant le Ramadan",
   "remGroupDaily": "Chaque jour",
-  "remDailyNote": "Désactivés par défaut, pour que les rappels les plus importants ressortent."
+  "remDailyNote": "Désactivés par défaut, pour que les rappels les plus importants ressortent.",
+  "qiblaFromLabel": "Qibla depuis",
+  "qiblaToLeft": "sur ta gauche",
+  "qiblaToRight": "sur ta droite",
+  "qiblaToMakkah": "{km} km de La Mecque",
+  "qiblaHint": "Tourne jusqu'à ce que la flèche pointe vers le haut et que l'écran s'illumine."
 }

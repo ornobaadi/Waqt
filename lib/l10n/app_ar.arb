@@ -343,5 +343,10 @@
   "remGroupFriday": "كل جمعة",
   "remGroupRamadan": "في رمضان",
   "remGroupDaily": "كل يوم",
-  "remDailyNote": "مطفأة افتراضيًا، لتبقى أهم التذكيرات بارزة."
+  "remDailyNote": "مطفأة افتراضيًا، لتبقى أهم التذكيرات بارزة.",
+  "qiblaFromLabel": "القبلة من",
+  "qiblaToLeft": "إلى يسارك",
+  "qiblaToRight": "إلى يمينك",
+  "qiblaToMakkah": "{km} كم إلى مكة",
+  "qiblaHint": "استدر حتى يشير السهم إلى الأعلى وتتوهّج الشاشة."
 }

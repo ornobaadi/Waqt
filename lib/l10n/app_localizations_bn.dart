@@ -1349,4 +1349,21 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get remDailyNote => 'শুরুতে বন্ধ থাকে, যাতে সবচেয়ে জরুরি রিমাইন্ডারগুলো আলাদা করে চোখে পড়ে।';
+
+  @override
+  String get qiblaFromLabel => 'কিবলা, যেখান থেকে';
+
+  @override
+  String get qiblaToLeft => 'আপনার বাঁয়ে';
+
+  @override
+  String get qiblaToRight => 'আপনার ডানে';
+
+  @override
+  String qiblaToMakkah(String km) {
+    return 'মক্কা $km কিমি দূরে';
+  }
+
+  @override
+  String get qiblaHint => 'ঘুরুন, যতক্ষণ না তীর ওপরে দেখায় আর স্ক্রিন উজ্জ্বল হয়।';
 }

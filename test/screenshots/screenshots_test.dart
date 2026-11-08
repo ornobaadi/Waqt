@@ -478,7 +478,7 @@ void main() {
     ('30_qibla_turn', const Heading(240, 4), null),
     ('31_qibla_aligned', const Heading(277.5, 3), null),
     ('32_qibla_ar', const Heading(330, 5), const Locale('ar')),
-    ('33_qibla_tilted', const Heading(200, 60), null),
+    ('33_qibla_calibrate', const Heading(200, 5, accuracy: 40), null),
   ]) {
     testWidgets(
       name,

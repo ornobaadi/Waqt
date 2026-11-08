@@ -2366,6 +2366,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Off by default, so the most important reminders stand out.'**
   String get remDailyNote;
+
+  /// No description provided for @qiblaFromLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Qibla from'**
+  String get qiblaFromLabel;
+
+  /// No description provided for @qiblaToLeft.
+  ///
+  /// In en, this message translates to:
+  /// **'to your left'**
+  String get qiblaToLeft;
+
+  /// No description provided for @qiblaToRight.
+  ///
+  /// In en, this message translates to:
+  /// **'to your right'**
+  String get qiblaToRight;
+
+  /// No description provided for @qiblaToMakkah.
+  ///
+  /// In en, this message translates to:
+  /// **'{km} km to Makkah'**
+  String qiblaToMakkah(String km);
+
+  /// No description provided for @qiblaHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn until the arrow points up and the screen glows.'**
+  String get qiblaHint;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

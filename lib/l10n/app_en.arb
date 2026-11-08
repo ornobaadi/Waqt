@@ -821,5 +821,17 @@
         "type": "String"
       }
     }
+  },
+  "qiblaFromLabel": "Qibla from",
+  "qiblaToLeft": "to your left",
+  "qiblaToRight": "to your right",
+  "qiblaToMakkah": "{km} km to Makkah",
+  "qiblaHint": "Turn until the arrow points up and the screen glows.",
+  "@qiblaToMakkah": {
+    "placeholders": {
+      "km": {
+        "type": "String"
+      }
+    }
   }
 }

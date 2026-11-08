@@ -1356,4 +1356,21 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get remDailyNote => 'Mati secara bawaan, agar pengingat yang paling penting tetap menonjol.';
+
+  @override
+  String get qiblaFromLabel => 'Kiblat dari';
+
+  @override
+  String get qiblaToLeft => 'ke kiri';
+
+  @override
+  String get qiblaToRight => 'ke kanan';
+
+  @override
+  String qiblaToMakkah(String km) {
+    return '$km km ke Makkah';
+  }
+
+  @override
+  String get qiblaHint => 'Putar sampai panah menunjuk ke atas dan layar menyala.';
 }

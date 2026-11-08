@@ -1356,4 +1356,21 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get remDailyNote => 'Désactivés par défaut, pour que les rappels les plus importants ressortent.';
+
+  @override
+  String get qiblaFromLabel => 'Qibla depuis';
+
+  @override
+  String get qiblaToLeft => 'sur ta gauche';
+
+  @override
+  String get qiblaToRight => 'sur ta droite';
+
+  @override
+  String qiblaToMakkah(String km) {
+    return '$km km de La Mecque';
+  }
+
+  @override
+  String get qiblaHint => 'Tourne jusqu\'à ce que la flèche pointe vers le haut et que l\'écran s\'illumine.';
 }

@@ -1345,4 +1345,21 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get remDailyNote => 'مطفأة افتراضيًا، لتبقى أهم التذكيرات بارزة.';
+
+  @override
+  String get qiblaFromLabel => 'القبلة من';
+
+  @override
+  String get qiblaToLeft => 'إلى يسارك';
+
+  @override
+  String get qiblaToRight => 'إلى يمينك';
+
+  @override
+  String qiblaToMakkah(String km) {
+    return '$km كم إلى مكة';
+  }
+
+  @override
+  String get qiblaHint => 'استدر حتى يشير السهم إلى الأعلى وتتوهّج الشاشة.';
 }

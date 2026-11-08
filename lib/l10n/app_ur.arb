@@ -329,5 +329,10 @@
   "remGroupFriday": "ہر جمعہ",
   "remGroupRamadan": "رمضان میں",
   "remGroupDaily": "ہر روز",
-  "remDailyNote": "پہلے سے بند ہیں، تاکہ اہم ترین یاد دہانیاں نمایاں رہیں۔"
+  "remDailyNote": "پہلے سے بند ہیں، تاکہ اہم ترین یاد دہانیاں نمایاں رہیں۔",
+  "qiblaFromLabel": "قبلہ، یہاں سے",
+  "qiblaToLeft": "آپ کے بائیں",
+  "qiblaToRight": "آپ کے دائیں",
+  "qiblaToMakkah": "مکہ تک {km} کلومیٹر",
+  "qiblaHint": "گھومیے یہاں تک کہ تیر اوپر کی طرف ہو اور اسکرین روشن ہو جائے۔"
 }

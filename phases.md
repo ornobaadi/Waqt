@@ -89,7 +89,7 @@ Margins awaiting scholar review: see `docs/moment-rules.md`.
 - [x] Privacy policy on GitHub Pages
 - [x] Reviewer sign-off table in `docs/moment-rules.md`; official-timetable comparison test (`test/fixtures/timetables/`)
 - [ ] Collect official timetables (Diyanet, JAKIM, Kemenag, Islamic Foundation BD, UOIF…) as CSVs
-- [ ] Magnetic declination (Qibla uses magnetic north; error up to a few degrees in some regions)
+- [x] Qibla: fused rotation-vector heading at game rate, true north (World Magnetic Model), per-frame rendering, precision-finding design
 
 ## Later
 iOS · OTA signed content updates · more languages · cloud backup.

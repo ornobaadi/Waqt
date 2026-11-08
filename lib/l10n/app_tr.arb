@@ -321,5 +321,10 @@
   "remGroupFriday": "Her cuma",
   "remGroupRamadan": "Ramazan'da",
   "remGroupDaily": "Her gün",
-  "remDailyNote": "Varsayılan olarak kapalı, böylece en önemli hatırlatmalar öne çıkar."
+  "remDailyNote": "Varsayılan olarak kapalı, böylece en önemli hatırlatmalar öne çıkar.",
+  "qiblaFromLabel": "Kıble yönü",
+  "qiblaToLeft": "solunuzda",
+  "qiblaToRight": "sağınızda",
+  "qiblaToMakkah": "Mekke'ye {km} km",
+  "qiblaHint": "Ok yukarıyı gösterip ekran parlayana kadar dönün."
 }
