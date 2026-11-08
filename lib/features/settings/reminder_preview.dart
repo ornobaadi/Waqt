@@ -10,7 +10,7 @@ import '../../l10n/app_localizations.dart';
 /// A reminder drawn the way Android shows it, so people see exactly what
 /// they will get before they turn it on.
 class ReminderPreview extends StatelessWidget {
-  const ReminderPreview({super.key, required this.topic, this.at, this.compact = false});
+  const ReminderPreview({super.key, required this.topic, this.at, this.compact = false, this.brief = false});
 
   final ReminderTopic topic;
 
@@ -19,6 +19,9 @@ class ReminderPreview extends StatelessWidget {
 
   /// Two lines of body instead of the full text.
   final bool compact;
+
+  /// Only the first sentence of the body (the virtue and its source).
+  final bool brief;
 
   @override
   Widget build(BuildContext context) {
@@ -75,10 +78,13 @@ class ReminderPreview extends StatelessWidget {
               ],
             ),
             const SizedBox(height: WaqtSpace.x2),
-            Text(l.remTitle(topic.name), style: WaqtText.bodyStrong.copyWith(color: ink)),
+            Text(
+              brief ? l.remTitle(topic.name).replaceFirst(RegExp(r'^\S+\s'), '') : l.remTitle(topic.name),
+              style: WaqtText.bodyStrong.copyWith(color: ink),
+            ),
             const SizedBox(height: 2),
             Text(
-              l.remBody(topic.name),
+              brief ? _firstSentence(l.remBody(topic.name)) : l.remBody(topic.name),
               maxLines: compact ? 2 : null,
               overflow: compact ? TextOverflow.ellipsis : null,
               style: WaqtText.label.copyWith(color: ink.withValues(alpha: 0.75), height: 1.4),
@@ -116,4 +122,9 @@ Future<void> showReminderPreview(BuildContext context, ReminderKind kind) {
       ),
     ),
   );
+}
+
+String _firstSentence(String s) {
+  final m = RegExp(r'[.!?۔।]\s').firstMatch(s);
+  return m == null ? s : s.substring(0, m.start + 1);
 }

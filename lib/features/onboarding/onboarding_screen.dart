@@ -429,17 +429,9 @@ class _LanguageRow extends StatelessWidget {
               ),
             ),
             if (note != null)
-              Flexible(
-                child: Padding(
-                  padding: const EdgeInsetsDirectional.only(end: WaqtSpace.x2),
-                  child: Text(
-                    note!,
-                    textAlign: TextAlign.end,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: WaqtText.caption.copyWith(color: const Color(0xFF6E665A)),
-                  ),
-                ),
+              Padding(
+                padding: const EdgeInsetsDirectional.only(start: WaqtSpace.x2, end: WaqtSpace.x2),
+                child: Text(note!, maxLines: 1, style: WaqtText.caption.copyWith(color: const Color(0xFF6E665A))),
               ),
             AnimatedContainer(
               duration: WaqtMotion.fast,
@@ -547,7 +539,7 @@ class _RemindersPage extends ConsumerWidget {
         // reads like the phone's own.
         Theme(
           data: buildWaqtTheme(MomentPalette.dhuhr),
-          child: const ReminderPreview(topic: ReminderTopic.arafah, compact: true),
+          child: const ReminderPreview(topic: ReminderTopic.arafah, brief: true),
         ),
         const SizedBox(height: WaqtSpace.x6),
         Text(l.onbRemindersTitle, style: _headline(look.ink)),
