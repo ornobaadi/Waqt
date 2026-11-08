@@ -1,8 +1,11 @@
 @Tags(['screenshots'])
 library;
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:waqt/domain/hijri/hijri_service.dart';
 import 'package:waqt/platform/sensors/heading.dart';
@@ -559,6 +562,20 @@ void main() {
         await openReminders(t);
         await t.pumpAndSettle();
         await t.tap(find.byIcon(Icons.visibility_outlined).at(3));
+      },
+    ),
+  );
+
+  testWidgets(
+    'calendar from an ashura reminder',
+    (t) async => shoot(
+      t,
+      '20e_calendar_from_reminder',
+      await app(at: civilOf(1449, 1, 9).add(const Duration(hours: 20)), place: dhaka),
+      then: () async {
+        final day = civilOf(1449, 1, 10);
+        final ymd = '${day.year}-${day.month.toString().padLeft(2, '0')}-${day.day.toString().padLeft(2, '0')}';
+        unawaited(GoRouter.of(t.element(find.byType(Scaffold).first)).push('/calendar?day=$ymd'));
       },
     ),
   );

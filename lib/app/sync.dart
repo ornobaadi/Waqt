@@ -16,6 +16,8 @@ import '../l10n/app_localizations.dart';
 import '../platform/notifications/notification_service.dart';
 import '../platform/widget/widget_bridge.dart';
 import 'app_state.dart';
+import 'reminder_links.dart';
+import 'router.dart';
 
 final notificationServiceProvider = Provider((ref) => NotificationService());
 
@@ -55,7 +57,31 @@ class _SyncHostState extends ConsumerState<SyncHost> with WidgetsBindingObserver
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    WidgetsBinding.instance.addPostFrameCallback((_) => _schedule());
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _schedule();
+      if (_platformAvailable) unawaited(_listenForTaps());
+    });
+  }
+
+  /// A tapped reminder opens what it is about: Now, or the calendar on the
+  /// day it announces. Covers taps while running and the tap that launched us.
+  Future<void> _listenForTaps() async {
+    final service = ref.read(notificationServiceProvider);
+    service.onTap = (payload) => _open(payload);
+    try {
+      final launched = await service.launchPayload();
+      if (launched != null) _open(launched);
+    } on Object catch (e) {
+      debugPrint('launch details failed: $e');
+    }
+  }
+
+  void _open(String? payload) {
+    if (!mounted) return;
+    final router = ref.read(routerProvider);
+    router.go('/now');
+    final route = routeForPayload(payload);
+    if (route != '/now') router.push(route);
   }
 
   @override
@@ -142,6 +168,7 @@ Future<void> syncPlatform(WidgetRef ref) async {
     sound: np.sound,
     title: (r) => l.remTitle(r.topic.name),
     body: (r) => l.remBody(r.topic.name),
+    payload: (r) => reminderPayload(r.topic, r.at),
   );
   ref.read(lastSyncProvider.notifier).set(SyncResult(count, plan.isEmpty ? null : plan.last.at));
 

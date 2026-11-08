@@ -17,7 +17,10 @@ import '../duas/library_views.dart';
 /// days with a guide, a ring on days the Sunnah is to fast. Tap a day for
 /// what it holds.
 class CalendarScreen extends ConsumerStatefulWidget {
-  const CalendarScreen({super.key});
+  const CalendarScreen({super.key, this.focus});
+
+  /// A civil date to open on, with its guide shown (from a tapped reminder).
+  final DateTime? focus;
 
   @override
   ConsumerState<CalendarScreen> createState() => _CalendarScreenState();
@@ -25,6 +28,7 @@ class CalendarScreen extends ConsumerStatefulWidget {
 
 class _CalendarScreenState extends ConsumerState<CalendarScreen> {
   ({int year, int month})? _shown;
+  bool _focusOpened = false;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +39,14 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
     final today = ref.watch(occasionsProvider).date;
     final offset = ref.watch(hijriOffsetProvider);
     final guides = ref.watch(dayGuidesProvider).value;
-    final shown = _shown ?? (year: today.year, month: today.month);
+    final focusHijri = widget.focus == null
+        ? null
+        : ref.watch(hijriServiceProvider).dateFor(widget.focus!.add(const Duration(hours: 12)), offset: offset);
+    final shown =
+        _shown ??
+        (focusHijri == null
+            ? (year: today.year, month: today.month)
+            : (year: focusHijri.year, month: focusHijri.month));
     final month = ref.watch(hijriServiceProvider).monthOf(shown.year, shown.month, offset: offset);
     final length = month.days;
 
@@ -53,6 +64,27 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
       if (m < 1) (m, y) = (12, y - 1);
       if (m > 12) (m, y) = (1, y + 1);
       setState(() => _shown = (year: y, month: m));
+    }
+
+    // Arriving from a reminder: show that day's guide once everything is loaded.
+    if (focusHijri != null && guides != null && !_focusOpened) {
+      _focusOpened = true;
+      final h = focusHijri;
+      final occ = occasionsFor(h, widget.focus!.weekday);
+      if (occ.isNotEmpty) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (!mounted) return;
+          openDayGuide(
+            context,
+            ref,
+            civil: widget.focus!,
+            hijriDay: h.day,
+            occasions: occ,
+            guides: guides,
+            numbers: n,
+          );
+        });
+      }
     }
 
     return Scaffold(
@@ -111,6 +143,11 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                   hijriDay: d,
                   civil: civil(d),
                   isToday: shown.year == today.year && shown.month == today.month && d == today.day,
+                  isFocus:
+                      focusHijri != null &&
+                      shown.year == focusHijri.year &&
+                      shown.month == focusHijri.month &&
+                      d == focusHijri.day,
                   occasions: occasionsFor(HijriDate(shown.year, shown.month, d), civil(d).weekday),
                   guides: guides,
                   numbers: n,
@@ -138,6 +175,7 @@ class _Day extends ConsumerWidget {
     required this.hijriDay,
     required this.civil,
     required this.isToday,
+    this.isFocus = false,
     required this.occasions,
     required this.guides,
     required this.numbers,
@@ -145,6 +183,7 @@ class _Day extends ConsumerWidget {
   final int hijriDay;
   final DateTime civil;
   final bool isToday;
+  final bool isFocus;
   final List<OccasionId> occasions;
   final DayGuides? guides;
   final LocaleDigits numbers;
@@ -159,13 +198,27 @@ class _Day extends ConsumerWidget {
     final fast = guides != null && marked.any(guides!.fasts.contains);
     return InkWell(
       borderRadius: BorderRadius.circular(WaqtRadii.row),
-      onTap: occasions.isEmpty || guides == null ? null : () => _open(context, ref),
+      onTap: occasions.isEmpty || guides == null
+          ? null
+          : () => openDayGuide(
+              context,
+              ref,
+              civil: civil,
+              hijriDay: hijriDay,
+              occasions: occasions,
+              guides: guides!,
+              numbers: numbers,
+            ),
       child: Container(
         margin: const EdgeInsets.all(2),
         decoration: BoxDecoration(
           color: isToday ? t.ink : null,
           borderRadius: BorderRadius.circular(WaqtRadii.row),
-          border: fast && !isToday ? Border.all(color: t.accent, width: 2) : null,
+          border: isFocus && !isToday
+              ? Border.all(color: t.ink, width: 2)
+              : fast && !isToday
+              ? Border.all(color: t.accent, width: 2)
+              : null,
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -186,55 +239,64 @@ class _Day extends ConsumerWidget {
       ),
     );
   }
+}
 
-  void _open(BuildContext context, WidgetRef ref) {
-    final l = AppLocalizations.of(context);
-    final t = WaqtTokens.of(context);
-    final locale = Localizations.localeOf(context).toLanguageTag();
-    final g = guides!;
-    showModalBottomSheet<void>(
-      context: context,
-      showDragHandle: true,
-      isScrollControlled: true,
-      backgroundColor: t.ground,
-      builder: (ctx) => DraggableScrollableSheet(
-        expand: false,
-        initialChildSize: 0.6,
-        maxChildSize: 0.92,
-        builder: (ctx, scroll) => ListView(
-          controller: scroll,
-          padding: const EdgeInsets.fromLTRB(WaqtSpace.screen, 0, WaqtSpace.screen, WaqtSpace.x12),
-          children: [
-            Text(DateFormat.yMMMMEEEEd(locale).format(civil), style: WaqtText.titleSmall.copyWith(color: t.ink)),
-            const SizedBox(height: WaqtSpace.x3),
-            for (final o in occasions) ...[
-              Padding(
-                padding: const EdgeInsets.only(top: WaqtSpace.x4, bottom: WaqtSpace.x1),
-                child: Text(
-                  l.occasion(o, ramadanDay: numbers(hijriDay)).toUpperCase(),
-                  style: WaqtText.overline.copyWith(color: t.inkMuted),
-                ),
+/// One day's occasions and what the Sunnah teaches for each.
+void openDayGuide(
+  BuildContext context,
+  WidgetRef ref, {
+  required DateTime civil,
+  required int hijriDay,
+  required List<OccasionId> occasions,
+  required DayGuides guides,
+  required LocaleDigits numbers,
+}) {
+  final l = AppLocalizations.of(context);
+  final t = WaqtTokens.of(context);
+  final locale = Localizations.localeOf(context).toLanguageTag();
+  final g = guides;
+  showModalBottomSheet<void>(
+    context: context,
+    showDragHandle: true,
+    isScrollControlled: true,
+    backgroundColor: t.ground,
+    builder: (ctx) => DraggableScrollableSheet(
+      expand: false,
+      initialChildSize: 0.6,
+      maxChildSize: 0.92,
+      builder: (ctx, scroll) => ListView(
+        controller: scroll,
+        padding: const EdgeInsets.fromLTRB(WaqtSpace.screen, 0, WaqtSpace.screen, WaqtSpace.x12),
+        children: [
+          Text(DateFormat.yMMMMEEEEd(locale).format(civil), style: WaqtText.titleSmall.copyWith(color: t.ink)),
+          const SizedBox(height: WaqtSpace.x3),
+          for (final o in occasions) ...[
+            Padding(
+              padding: const EdgeInsets.only(top: WaqtSpace.x4, bottom: WaqtSpace.x1),
+              child: Text(
+                l.occasion(o, ramadanDay: numbers(hijriDay)).toUpperCase(),
+                style: WaqtText.overline.copyWith(color: t.inkMuted),
               ),
-              for (final i in g.forOccasion(o))
-                ListTile(
-                  contentPadding: EdgeInsets.zero,
-                  title: Text(
-                    i.title(Localizations.localeOf(ctx).languageCode),
-                    style: WaqtText.bodyStrong.copyWith(color: t.ink),
-                  ),
-                  subtitle: HeSourceText(
-                    id: i.he,
-                    style: WaqtText.caption.copyWith(color: t.inkMuted),
-                  ),
-                  trailing: Icon(Icons.chevron_right_rounded, color: t.inkMuted),
-                  onTap: () => openHadith(ctx, ref, i.he),
+            ),
+            for (final i in g.forOccasion(o))
+              ListTile(
+                contentPadding: EdgeInsets.zero,
+                title: Text(
+                  i.title(Localizations.localeOf(ctx).languageCode),
+                  style: WaqtText.bodyStrong.copyWith(color: t.ink),
                 ),
-            ],
+                subtitle: HeSourceText(
+                  id: i.he,
+                  style: WaqtText.caption.copyWith(color: t.inkMuted),
+                ),
+                trailing: Icon(Icons.chevron_right_rounded, color: t.inkMuted),
+                onTap: () => openHadith(ctx, ref, i.he),
+              ),
           ],
-        ),
+        ],
       ),
-    );
-  }
+    ),
+  );
 }
 
 class _Legend extends StatelessWidget {

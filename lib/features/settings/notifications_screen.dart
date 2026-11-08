@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
 import '../../app/app_state.dart';
+import '../../app/reminder_links.dart';
 import '../../app/sync.dart';
 import '../../core/config/runtime.dart';
 import '../../core/theme/tokens.dart';
@@ -62,7 +63,7 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> with 
     await syncNow(ref);
   }
 
-  Future<void> _test(ReminderTopic topic) async {
+  Future<void> _test(ReminderTopic topic, DateTime? at) async {
     final l = AppLocalizations.of(context);
     final messenger = ScaffoldMessenger.of(context);
     if (Runtime.hasPlatformPlugins) {
@@ -72,6 +73,7 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> with 
             title: l.remTitle(topic.name),
             body: l.remBody(topic.name),
             sound: ref.read(notificationPrefsProvider).sound,
+            payload: reminderPayload(topic, at ?? DateTime.now()),
           );
     }
     messenger.showSnackBar(SnackBar(content: Text(l.remTestSent)));
@@ -201,7 +203,10 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> with 
           RowGroup(
             children: [
               _SwitchRow(title: l.notifSound, hint: l.notifSoundHint, value: prefs.sound, onChanged: notifier.setSound),
-              RowTile(title: l.remTest, onTap: () => _test(upcoming.firstOrNull?.topic ?? ReminderTopic.jumuah)),
+              RowTile(
+                title: l.remTest,
+                onTap: () => _test(upcoming.firstOrNull?.topic ?? ReminderTopic.jumuah, upcoming.firstOrNull?.at),
+              ),
             ],
           ),
           if (status != null && (allOk || off)) ...[SectionLabel(l.notifStatus), statusGroup(status)],

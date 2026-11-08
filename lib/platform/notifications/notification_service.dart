@@ -45,6 +45,9 @@ class NotificationService {
   bool _ready = false;
   String? _zone;
 
+  /// Called with a reminder's payload when the user taps it while the app runs.
+  void Function(String? payload)? onTap;
+
   AndroidFlutterLocalNotificationsPlugin? get _android =>
       _plugin.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>();
 
@@ -54,6 +57,7 @@ class NotificationService {
     await _syncZone();
     await _plugin.initialize(
       settings: const InitializationSettings(android: AndroidInitializationSettings('@drawable/ic_notification')),
+      onDidReceiveNotificationResponse: (r) => onTap?.call(r.payload),
     );
     _ready = true;
   }
@@ -70,6 +74,13 @@ class NotificationService {
       // Unknown zone id: keep UTC offsets correct by falling back to UTC
       // arithmetic. TZDateTime.from below still maps instants exactly.
     }
+  }
+
+  /// The payload of the reminder whose tap launched the app, if one did.
+  Future<String?> launchPayload() async {
+    await init();
+    final d = await _plugin.getNotificationAppLaunchDetails();
+    return d?.didNotificationLaunchApp == true ? d?.notificationResponse?.payload : null;
   }
 
   Future<PermissionStatus> status() async {
@@ -115,13 +126,14 @@ class NotificationService {
   );
 
   /// Shows one reminder right away, so the user sees what they will get.
-  Future<void> showNow({required String title, required String body, required bool sound}) async {
+  Future<void> showNow({required String title, required String body, required bool sound, String? payload}) async {
     await init();
     await _plugin.show(
       id: 9999,
       title: title,
       body: body,
       notificationDetails: NotificationDetails(android: _details(sound, body)),
+      payload: payload,
     );
   }
 
@@ -131,6 +143,7 @@ class NotificationService {
     required bool sound,
     required String Function(PlannedReminder) title,
     required String Function(PlannedReminder) body,
+    required String Function(PlannedReminder) payload,
   }) async {
     await init();
     await _syncZone();
@@ -147,7 +160,7 @@ class NotificationService {
         androidScheduleMode: exact
             ? AndroidScheduleMode.exactAllowWhileIdle
             : AndroidScheduleMode.inexactAllowWhileIdle,
-        payload: r.topic.name,
+        payload: payload(r),
       );
     }
     return reminders.length;
