@@ -248,6 +248,7 @@ void openDayGuide(
   final locale = Localizations.localeOf(context).toLanguageTag();
   final g = guides;
   showModalBottomSheet<void>(
+    useRootNavigator: true,
     context: context,
     showDragHandle: true,
     isScrollControlled: true,

@@ -14,6 +14,7 @@ import '../common/labels.dart';
 Future<void> showDuaSheet(BuildContext context, ContentItem item) {
   final t = WaqtTokens.of(context);
   return showModalBottomSheet<void>(
+    useRootNavigator: true,
     context: context,
     isScrollControlled: true,
     useSafeArea: true,

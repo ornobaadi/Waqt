@@ -1373,4 +1373,59 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get qiblaHint => 'Tourne jusqu\'à ce que la flèche pointe vers le haut et que l\'écran s\'illumine.';
+
+  @override
+  String get deedOnTime => 'À l’heure';
+
+  @override
+  String get deedJamaah => 'En assemblée';
+
+  @override
+  String get deedQada => 'Rattrapée plus tard';
+
+  @override
+  String get deedNotPrayed => 'Non cochée';
+
+  @override
+  String deedPrayedCount(String done) {
+    return '$done sur 5 prières';
+  }
+
+  @override
+  String get deedRingHint => 'Cochez une prière sur Maintenant une fois accomplie. Vous seul le voyez.';
+
+  @override
+  String deedStreak(String days) {
+    return '$days jours de suite avec les cinq';
+  }
+
+  @override
+  String get progressTitle => 'Vos progrès';
+
+  @override
+  String get progressThisWeek => 'Cette semaine';
+
+  @override
+  String get progressYear => 'L’année écoulée';
+
+  @override
+  String get progressOnTime => 'À l’heure ce mois-ci';
+
+  @override
+  String get progressBestRun => 'Plus longue série des cinq';
+
+  @override
+  String get progressFasts => 'Jeûnes cette année';
+
+  @override
+  String get progressQada => 'À rattraper (30 derniers jours)';
+
+  @override
+  String progressDays(String days) {
+    return '$days jours';
+  }
+
+  @override
+  String get progressReflection =>
+      '« Les œuvres les plus aimées d’Allah sont les plus régulières, même si elles sont peu nombreuses. » (Bukhari, Muslim)';
 }

@@ -1366,4 +1366,59 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get qiblaHint => 'ঘুরুন, যতক্ষণ না তীর ওপরে দেখায় আর স্ক্রিন উজ্জ্বল হয়।';
+
+  @override
+  String get deedOnTime => 'সময়মতো পড়েছি';
+
+  @override
+  String get deedJamaah => 'জামাতে';
+
+  @override
+  String get deedQada => 'কাজা আদায়';
+
+  @override
+  String get deedNotPrayed => 'চিহ্নিত নয়';
+
+  @override
+  String deedPrayedCount(String done) {
+    return '৫ ওয়াক্তের $doneটি পড়েছি';
+  }
+
+  @override
+  String get deedRingHint => 'নামাজ পড়ার পর \"এখন\" পাতায় টিক দিন। শুধু আপনিই দেখবেন।';
+
+  @override
+  String deedStreak(String days) {
+    return 'টানা $days দিন পাঁচ ওয়াক্ত';
+  }
+
+  @override
+  String get progressTitle => 'আপনার অগ্রগতি';
+
+  @override
+  String get progressThisWeek => 'এই সপ্তাহ';
+
+  @override
+  String get progressYear => 'গত এক বছর';
+
+  @override
+  String get progressOnTime => 'এ মাসে সময়মতো';
+
+  @override
+  String get progressBestRun => 'পাঁচ ওয়াক্তের দীর্ঘতম ধারা';
+
+  @override
+  String get progressFasts => 'এ বছরের রোজা';
+
+  @override
+  String get progressQada => 'কাজা (গত ৩০ দিন)';
+
+  @override
+  String progressDays(String days) {
+    return '$days দিন';
+  }
+
+  @override
+  String get progressReflection =>
+      '\"আল্লাহর কাছে সবচেয়ে প্রিয় আমল তা-ই, যা নিয়মিত করা হয়, যদিও তা অল্প হয়।\" (বুখারি, মুসলিম)';
 }

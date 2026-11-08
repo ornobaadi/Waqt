@@ -526,6 +526,79 @@ void main() {
     ),
   );
 
+  // Deeds: Asr ticked on time, Fajr in congregation, Dhuhr made up.
+  final deedsSeed = {
+    'deeds.v1.2026-11':
+        '{"2026-11-06":{"s":{"fajr":"jamaah","dhuhr":"qada","asr":"onTime"}},'
+        '"2026-11-05":{"s":{"fajr":"onTime","dhuhr":"onTime","asr":"onTime","maghrib":"jamaah","isha":"onTime"},"f":true},'
+        '"2026-11-04":{"s":{"fajr":"onTime","dhuhr":"onTime","asr":"onTime","maghrib":"onTime","isha":"onTime"}},'
+        '"2026-11-03":{"s":{"fajr":"onTime","dhuhr":"qada","asr":"onTime","maghrib":"onTime"}},'
+        '"2026-11-02":{"s":{"fajr":"onTime","dhuhr":"onTime","asr":"onTime","maghrib":"onTime","isha":"onTime"}}}',
+    'deeds.v1.2026-10':
+        '{"2026-10-20":{"s":{"fajr":"onTime","dhuhr":"onTime","asr":"onTime","maghrib":"onTime","isha":"onTime"}},'
+        '"2026-10-21":{"s":{"fajr":"onTime","dhuhr":"onTime"}},"2026-10-25":{"s":{"fajr":"onTime","asr":"onTime","isha":"qada"}}}',
+  };
+
+  testWidgets(
+    'salah ticks on now',
+    (t) async =>
+        shoot(t, '40_now_salah_ticks', await app(at: DateTime(2026, 11, 6, 16, 20), place: dhaka, stored: deedsSeed)),
+  );
+
+  testWidgets(
+    'salah ticks at night',
+    (t) async =>
+        shoot(t, '40b_now_salah_night', await app(at: DateTime(2026, 11, 6, 23, 5), place: dhaka, stored: deedsSeed)),
+  );
+
+  testWidgets(
+    'salah sheet',
+    (t) async => shoot(
+      t,
+      '41_salah_sheet',
+      await app(at: DateTime(2026, 11, 6, 16, 20), place: dhaka, stored: deedsSeed),
+      then: () async => t.longPress(find.bySemanticsLabel(RegExp('^Asr: '))),
+    ),
+  );
+
+  testWidgets(
+    'today ring',
+    (t) async => shoot(
+      t,
+      '42_today_ring',
+      await app(at: DateTime(2026, 11, 6, 16, 20), place: dhaka, stored: deedsSeed),
+      then: () async => t.tap(find.byTooltip('Today')),
+    ),
+  );
+
+  testWidgets(
+    'progress',
+    (t) async => shoot(
+      t,
+      '43_progress',
+      await app(at: DateTime(2026, 11, 6, 16, 20), place: dhaka, stored: deedsSeed),
+      then: () async {
+        await t.tap(find.byTooltip('Today'));
+        await t.pumpAndSettle();
+        await t.tap(find.text('3 of 5 prayed'));
+      },
+    ),
+  );
+
+  testWidgets(
+    'progress arabic',
+    (t) async => shoot(
+      t,
+      '43b_progress_ar',
+      await app(at: DateTime(2026, 11, 6, 16, 20), place: dhaka, stored: deedsSeed, locale: const Locale('ar')),
+      then: () async {
+        await t.tap(find.byTooltip('اليوم'));
+        await t.pumpAndSettle();
+        await t.tap(find.byIcon(Icons.chevron_right_rounded).first);
+      },
+    ),
+  );
+
   Future<void> openReminders(WidgetTester t) async {
     await t.tap(find.byTooltip('Settings'));
     await t.pumpAndSettle();

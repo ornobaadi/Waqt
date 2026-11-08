@@ -95,6 +95,7 @@ Future<void> showReminderPreview(BuildContext context, ReminderKind kind) {
   final l = AppLocalizations.of(context);
   final t = WaqtTokens.of(context);
   return showModalBottomSheet<void>(
+    useRootNavigator: true,
     context: context,
     backgroundColor: t.ground,
     showDragHandle: true,

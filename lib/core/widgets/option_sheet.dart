@@ -20,6 +20,7 @@ Future<T?> showOptionSheet<T>(
 }) {
   final t = WaqtTokens.of(context);
   return showModalBottomSheet<T>(
+    useRootNavigator: true,
     context: context,
     isScrollControlled: true,
     backgroundColor: t.ground,

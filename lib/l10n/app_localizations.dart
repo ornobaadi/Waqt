@@ -2396,6 +2396,102 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Turn until the arrow points up and the screen glows.'**
   String get qiblaHint;
+
+  /// No description provided for @deedOnTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Prayed on time'**
+  String get deedOnTime;
+
+  /// No description provided for @deedJamaah.
+  ///
+  /// In en, this message translates to:
+  /// **'In congregation'**
+  String get deedJamaah;
+
+  /// No description provided for @deedQada.
+  ///
+  /// In en, this message translates to:
+  /// **'Made up later'**
+  String get deedQada;
+
+  /// No description provided for @deedNotPrayed.
+  ///
+  /// In en, this message translates to:
+  /// **'Not marked'**
+  String get deedNotPrayed;
+
+  /// No description provided for @deedPrayedCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{done} of 5 prayed'**
+  String deedPrayedCount(String done);
+
+  /// No description provided for @deedRingHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Tick a prayer on Now once you have prayed it. Only you see this.'**
+  String get deedRingHint;
+
+  /// No description provided for @deedStreak.
+  ///
+  /// In en, this message translates to:
+  /// **'{days} days in a row with all five'**
+  String deedStreak(String days);
+
+  /// No description provided for @progressTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your progress'**
+  String get progressTitle;
+
+  /// No description provided for @progressThisWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'This week'**
+  String get progressThisWeek;
+
+  /// No description provided for @progressYear.
+  ///
+  /// In en, this message translates to:
+  /// **'The past year'**
+  String get progressYear;
+
+  /// No description provided for @progressOnTime.
+  ///
+  /// In en, this message translates to:
+  /// **'On time this month'**
+  String get progressOnTime;
+
+  /// No description provided for @progressBestRun.
+  ///
+  /// In en, this message translates to:
+  /// **'Longest run of all five'**
+  String get progressBestRun;
+
+  /// No description provided for @progressFasts.
+  ///
+  /// In en, this message translates to:
+  /// **'Fasts this year'**
+  String get progressFasts;
+
+  /// No description provided for @progressQada.
+  ///
+  /// In en, this message translates to:
+  /// **'To make up (last 30 days)'**
+  String get progressQada;
+
+  /// No description provided for @progressDays.
+  ///
+  /// In en, this message translates to:
+  /// **'{days} days'**
+  String progressDays(String days);
+
+  /// No description provided for @progressReflection.
+  ///
+  /// In en, this message translates to:
+  /// **'“The most beloved deeds to Allah are those done consistently, even if small.” (Bukhari, Muslim)'**
+  String get progressReflection;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

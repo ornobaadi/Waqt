@@ -326,5 +326,21 @@
   "qiblaToLeft": "solunuzda",
   "qiblaToRight": "sağınızda",
   "qiblaToMakkah": "Mekke'ye {km} km",
-  "qiblaHint": "Ok yukarıyı gösterip ekran parlayana kadar dönün."
+  "qiblaHint": "Ok yukarıyı gösterip ekran parlayana kadar dönün.",
+  "deedOnTime": "Vaktinde kılındı",
+  "deedJamaah": "Cemaatle",
+  "deedQada": "Kaza edildi",
+  "deedNotPrayed": "İşaretlenmedi",
+  "deedPrayedCount": "5 vakitten {done}",
+  "deedRingHint": "Kıldıktan sonra Şimdi ekranında namazı işaretleyin. Bunu yalnızca siz görürsünüz.",
+  "deedStreak": "Üst üste {days} gün beş vakit",
+  "progressTitle": "İlerlemeniz",
+  "progressThisWeek": "Bu hafta",
+  "progressYear": "Son bir yıl",
+  "progressOnTime": "Bu ay vaktinde",
+  "progressBestRun": "Beş vaktin en uzun serisi",
+  "progressFasts": "Bu yılki oruçlar",
+  "progressQada": "Kaza (son 30 gün)",
+  "progressDays": "{days} gün",
+  "progressReflection": "“Allah’a en sevimli amel, az da olsa devamlı olanıdır.” (Buhârî, Müslim)"
 }

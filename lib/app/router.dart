@@ -10,6 +10,7 @@ import '../features/counter/counter_screen.dart';
 import '../features/duas/duas_screen.dart';
 import '../features/duas/library_views.dart';
 import '../features/now/now_screen.dart';
+import '../features/progress/progress_screen.dart';
 import '../features/qibla/qibla_screen.dart';
 import '../features/settings/city_picker_screen.dart';
 import '../features/settings/checker_screen.dart';
@@ -38,7 +39,13 @@ final routerProvider = Provider<GoRouter>((ref) {
             routes: [GoRoute(path: '/now', builder: (_, _) => const NowScreen())],
           ),
           StatefulShellBranch(
-            routes: [GoRoute(path: '/today', builder: (_, _) => const TodayScreen())],
+            routes: [
+              GoRoute(
+                path: '/today',
+                builder: (_, _) => const TodayScreen(),
+                routes: [GoRoute(path: 'progress', builder: (_, _) => const ProgressScreen())],
+              ),
+            ],
           ),
           StatefulShellBranch(
             routes: [

@@ -1373,4 +1373,59 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get qiblaHint => 'Putar sampai panah menunjuk ke atas dan layar menyala.';
+
+  @override
+  String get deedOnTime => 'Tepat waktu';
+
+  @override
+  String get deedJamaah => 'Berjamaah';
+
+  @override
+  String get deedQada => 'Diqadha';
+
+  @override
+  String get deedNotPrayed => 'Belum ditandai';
+
+  @override
+  String deedPrayedCount(String done) {
+    return '$done dari 5 salat';
+  }
+
+  @override
+  String get deedRingHint => 'Centang salat di Sekarang setelah Anda menunaikannya. Hanya Anda yang melihatnya.';
+
+  @override
+  String deedStreak(String days) {
+    return '$days hari berturut-turut lima waktu';
+  }
+
+  @override
+  String get progressTitle => 'Perkembangan Anda';
+
+  @override
+  String get progressThisWeek => 'Minggu ini';
+
+  @override
+  String get progressYear => 'Setahun terakhir';
+
+  @override
+  String get progressOnTime => 'Tepat waktu bulan ini';
+
+  @override
+  String get progressBestRun => 'Rangkaian terpanjang lima waktu';
+
+  @override
+  String get progressFasts => 'Puasa tahun ini';
+
+  @override
+  String get progressQada => 'Untuk diqadha (30 hari terakhir)';
+
+  @override
+  String progressDays(String days) {
+    return '$days hari';
+  }
+
+  @override
+  String get progressReflection =>
+      '“Amalan yang paling dicintai Allah adalah yang paling rutin meskipun sedikit.” (Bukhari, Muslim)';
 }

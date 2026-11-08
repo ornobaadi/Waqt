@@ -90,6 +90,7 @@ Future<void> showHadithSheet(BuildContext context, HeHadith h) {
   final t = WaqtTokens.of(context);
   final l = AppLocalizations.of(context);
   return showModalBottomSheet<void>(
+    useRootNavigator: true,
     context: context,
     isScrollControlled: true,
     showDragHandle: true,

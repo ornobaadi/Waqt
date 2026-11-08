@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 import '../../core/theme/tokens.dart';
 import '../../core/theme/waqt_theme.dart';
 import '../../core/utils/digits.dart';
+import '../../data/user/deeds_store.dart';
+import '../../domain/deeds/deeds.dart';
 import '../../domain/prayer/prayer_times_service.dart';
 import '../../l10n/app_localizations.dart';
 import '../common/labels.dart';
+import 'prayer_tick.dart';
 
 /// The five prayers in a plain row, and beneath it one quiet line: the
 /// prayer in progress, the time it has left, draining toward the next.
-class PrayerWindows extends StatelessWidget {
+/// Under each prayer, once its time has come, a ring to tick it prayed.
+class PrayerWindows extends ConsumerWidget {
   const PrayerWindows({super.key, required this.status, required this.now});
   final PrayerStatus status;
   final DateTime now;
@@ -26,7 +31,7 @@ class PrayerWindows extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final l = AppLocalizations.of(context);
     final t = WaqtTokens.of(context);
     final locale = Localizations.localeOf(context).toLanguageTag();
@@ -41,35 +46,48 @@ class PrayerWindows extends StatelessWidget {
     final rows = MediaQuery.textScalerOf(context).scale(10) > 13 ? 2 : 1;
     final per = (prayers.length / rows).ceil();
 
+    // Before Fajr the night still belongs to yesterday's prayer day.
+    final prevDay = now.isBefore(status.today[Waqt.fajr]);
+    final dayKey = DeedStats.dayKey(prevDay ? status.today[Waqt.fajr].subtract(const Duration(days: 1)) : now);
+    final log = ref.watch(deedsProvider.select((d) => d[dayKey] ?? DayLog.empty));
+
     Widget cell(Waqt w) {
       final current = running && w == status.current && !status.today[w].isAfter(now);
       final past = !current && !status.today[w].isAfter(now);
-      return Semantics(
-        selected: current,
-        label: '${l.waqt(w)} ${fmt.format(status.today[w])}',
-        excludeSemantics: true,
-        child: Opacity(
-          opacity: past ? 0.42 : 1,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: WaqtSpace.x1),
-            child: Column(
-              children: [
-                Text(
-                  l.waqt(w),
-                  maxLines: 1,
-                  overflow: TextOverflow.fade,
-                  softWrap: false,
-                  style: WaqtText.caption.copyWith(
-                    color: current ? t.ink : t.inkMuted,
-                    fontWeight: current ? FontWeight.w700 : null,
-                  ),
+      final started = prevDay || !status.today[w].isAfter(now);
+      final ended = prevDay ? w != Waqt.isha : _endOf(w).isAfter(now) == false;
+      return Column(
+        children: [
+          Semantics(
+            selected: current,
+            label: '${l.waqt(w)} ${fmt.format(status.today[w])}',
+            excludeSemantics: true,
+            child: Opacity(
+              opacity: past ? 0.42 : 1,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: WaqtSpace.x1),
+                child: Column(
+                  children: [
+                    Text(
+                      l.waqt(w),
+                      maxLines: 1,
+                      overflow: TextOverflow.fade,
+                      softWrap: false,
+                      style: WaqtText.caption.copyWith(
+                        color: current ? t.ink : t.inkMuted,
+                        fontWeight: current ? FontWeight.w700 : null,
+                      ),
+                    ),
+                    const SizedBox(height: WaqtSpace.x1),
+                    Text(fmt.format(status.today[w]), style: WaqtText.bodyStrong.copyWith(color: t.ink)),
+                  ],
                 ),
-                const SizedBox(height: WaqtSpace.x1),
-                Text(fmt.format(status.today[w]), style: WaqtText.bodyStrong.copyWith(color: t.ink)),
-              ],
+              ),
             ),
           ),
-        ),
+          const SizedBox(height: WaqtSpace.x1),
+          PrayerTick(prayer: w, day: dayKey, mark: log.salah[w], started: started, ended: ended),
+        ],
       );
     }
 
@@ -149,6 +167,13 @@ class PrayerWindows extends StatelessWidget {
       ),
     );
   }
+
+  /// When a prayer's own time runs out: Fajr at sunrise, the rest at the next.
+  DateTime _endOf(Waqt w) => switch (w) {
+    Waqt.fajr => status.today[Waqt.sunrise],
+    Waqt.isha => status.today[Waqt.isha].add(const Duration(days: 1)),
+    _ => status.today[Waqt.values[w.index + 1]],
+  };
 
   static String _dur(AppLocalizations l, LocaleDigits n, Duration d) {
     final h = d.inHours, m = d.inMinutes % 60;

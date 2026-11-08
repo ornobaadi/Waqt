@@ -400,6 +400,7 @@ class _CounterScreenState extends ConsumerState<CounterScreen> with TickerProvid
 
   Future<void> _pick(BuildContext context, CounterState s, LocaleDigits n) async {
     final id = await showModalBottomSheet<String>(
+      useRootNavigator: true,
       context: context,
       showDragHandle: true,
       backgroundColor: WaqtTokens.of(context).ground,
@@ -480,6 +481,7 @@ class _CounterScreenState extends ConsumerState<CounterScreen> with TickerProvid
   Future<bool> _addOwn(BuildContext context) async {
     final name = TextEditingController(), arabic = TextEditingController(), target = TextEditingController(text: '33');
     final ok = await showModalBottomSheet<bool>(
+      useRootNavigator: true,
       context: context,
       showDragHandle: true,
       isScrollControlled: true,
@@ -761,6 +763,7 @@ class _Footer extends ConsumerWidget {
     final rows = state.today.entries.where((e) => e.value > 0).toList()..sort((a, b) => b.value - a.value);
     final top = rows.isEmpty ? 1 : rows.first.value;
     showModalBottomSheet<void>(
+      useRootNavigator: true,
       context: context,
       showDragHandle: true,
       isScrollControlled: true,

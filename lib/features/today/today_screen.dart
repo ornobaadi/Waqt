@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../domain/deeds/deeds.dart';
+import 'day_ring.dart';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../app/app_state.dart';
@@ -65,22 +70,36 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
 
     return SafeArea(
       bottom: false,
-      // A day has ~30 rows: build them all so "now" can be scrolled to.
-      child: SingleChildScrollView(
-        padding: EdgeInsets.fromLTRB(
-          WaqtSpace.screen - 4,
-          0,
-          WaqtSpace.screen - 4,
-          WaqtSpace.x12 + MediaQuery.paddingOf(context).bottom,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            const SizedBox(height: WaqtSpace.x1),
-            Padding(padding: const EdgeInsets.only(left: 4, right: 4), child: ScreenTitleBare(l.navToday)),
-            ...rows,
-          ],
-        ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          // Title and today's ring stay put; the timeline scrolls beneath.
+          Padding(
+            padding: const EdgeInsets.fromLTRB(WaqtSpace.screen, WaqtSpace.x1, WaqtSpace.screen, WaqtSpace.x3),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                ScreenTitleBare(l.navToday),
+                DayRingCard(
+                  dayKey: DeedStats.dayKey(snap.timeline.first.window.start),
+                  onTap: () => context.push('/today/progress'),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            // A day has ~30 rows: build them all so "now" can be scrolled to.
+            child: SingleChildScrollView(
+              padding: EdgeInsets.fromLTRB(
+                WaqtSpace.screen - 4,
+                0,
+                WaqtSpace.screen - 4,
+                WaqtSpace.x12 + MediaQuery.paddingOf(context).bottom,
+              ),
+              child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: rows),
+            ),
+          ),
+        ],
       ),
     );
   }

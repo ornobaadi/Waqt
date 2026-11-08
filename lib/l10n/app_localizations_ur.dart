@@ -1368,4 +1368,58 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get qiblaHint => 'گھومیے یہاں تک کہ تیر اوپر کی طرف ہو اور اسکرین روشن ہو جائے۔';
+
+  @override
+  String get deedOnTime => 'وقت پر ادا کی';
+
+  @override
+  String get deedJamaah => 'باجماعت';
+
+  @override
+  String get deedQada => 'قضا ادا کی';
+
+  @override
+  String get deedNotPrayed => 'نشان نہیں لگا';
+
+  @override
+  String deedPrayedCount(String done) {
+    return '٥ میں سے $done نمازیں';
+  }
+
+  @override
+  String get deedRingHint => 'نماز پڑھ کر \"ابھی\" پر اس پر نشان لگائیں۔ یہ صرف آپ دیکھتے ہیں۔';
+
+  @override
+  String deedStreak(String days) {
+    return 'مسلسل $days دن پانچوں نمازیں';
+  }
+
+  @override
+  String get progressTitle => 'آپ کی پیش رفت';
+
+  @override
+  String get progressThisWeek => 'یہ ہفتہ';
+
+  @override
+  String get progressYear => 'پچھلا سال';
+
+  @override
+  String get progressOnTime => 'اس مہینے بروقت';
+
+  @override
+  String get progressBestRun => 'پانچوں نمازوں کا طویل ترین سلسلہ';
+
+  @override
+  String get progressFasts => 'اس سال کے روزے';
+
+  @override
+  String get progressQada => 'قضا (پچھلے ٣٠ دن)';
+
+  @override
+  String progressDays(String days) {
+    return '$days دن';
+  }
+
+  @override
+  String get progressReflection => '\"اللہ کو سب سے محبوب عمل وہ ہے جو ہمیشہ کیا جائے، چاہے تھوڑا ہو۔\" (بخاری، مسلم)';
 }

@@ -320,5 +320,21 @@
   "qiblaToLeft": "sur ta gauche",
   "qiblaToRight": "sur ta droite",
   "qiblaToMakkah": "{km} km de La Mecque",
-  "qiblaHint": "Tourne jusqu'à ce que la flèche pointe vers le haut et que l'écran s'illumine."
+  "qiblaHint": "Tourne jusqu'à ce que la flèche pointe vers le haut et que l'écran s'illumine.",
+  "deedOnTime": "À l’heure",
+  "deedJamaah": "En assemblée",
+  "deedQada": "Rattrapée plus tard",
+  "deedNotPrayed": "Non cochée",
+  "deedPrayedCount": "{done} sur 5 prières",
+  "deedRingHint": "Cochez une prière sur Maintenant une fois accomplie. Vous seul le voyez.",
+  "deedStreak": "{days} jours de suite avec les cinq",
+  "progressTitle": "Vos progrès",
+  "progressThisWeek": "Cette semaine",
+  "progressYear": "L’année écoulée",
+  "progressOnTime": "À l’heure ce mois-ci",
+  "progressBestRun": "Plus longue série des cinq",
+  "progressFasts": "Jeûnes cette année",
+  "progressQada": "À rattraper (30 derniers jours)",
+  "progressDays": "{days} jours",
+  "progressReflection": "« Les œuvres les plus aimées d’Allah sont les plus régulières, même si elles sont peu nombreuses. » (Bukhari, Muslim)"
 }

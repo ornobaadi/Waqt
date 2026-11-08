@@ -1376,4 +1376,59 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get qiblaHint => 'Turn until the arrow points up and the screen glows.';
+
+  @override
+  String get deedOnTime => 'Prayed on time';
+
+  @override
+  String get deedJamaah => 'In congregation';
+
+  @override
+  String get deedQada => 'Made up later';
+
+  @override
+  String get deedNotPrayed => 'Not marked';
+
+  @override
+  String deedPrayedCount(String done) {
+    return '$done of 5 prayed';
+  }
+
+  @override
+  String get deedRingHint => 'Tick a prayer on Now once you have prayed it. Only you see this.';
+
+  @override
+  String deedStreak(String days) {
+    return '$days days in a row with all five';
+  }
+
+  @override
+  String get progressTitle => 'Your progress';
+
+  @override
+  String get progressThisWeek => 'This week';
+
+  @override
+  String get progressYear => 'The past year';
+
+  @override
+  String get progressOnTime => 'On time this month';
+
+  @override
+  String get progressBestRun => 'Longest run of all five';
+
+  @override
+  String get progressFasts => 'Fasts this year';
+
+  @override
+  String get progressQada => 'To make up (last 30 days)';
+
+  @override
+  String progressDays(String days) {
+    return '$days days';
+  }
+
+  @override
+  String get progressReflection =>
+      '“The most beloved deeds to Allah are those done consistently, even if small.” (Bukhari, Muslim)';
 }

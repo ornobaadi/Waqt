@@ -833,5 +833,42 @@
         "type": "String"
       }
     }
-  }
+  },
+  "deedOnTime": "Prayed on time",
+  "deedJamaah": "In congregation",
+  "deedQada": "Made up later",
+  "deedNotPrayed": "Not marked",
+  "deedPrayedCount": "{done} of 5 prayed",
+  "@deedPrayedCount": {
+    "placeholders": {
+      "done": {
+        "type": "String"
+      }
+    }
+  },
+  "deedRingHint": "Tick a prayer on Now once you have prayed it. Only you see this.",
+  "deedStreak": "{days} days in a row with all five",
+  "@deedStreak": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    }
+  },
+  "progressTitle": "Your progress",
+  "progressThisWeek": "This week",
+  "progressYear": "The past year",
+  "progressOnTime": "On time this month",
+  "progressBestRun": "Longest run of all five",
+  "progressFasts": "Fasts this year",
+  "progressQada": "To make up (last 30 days)",
+  "progressDays": "{days} days",
+  "@progressDays": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    }
+  },
+  "progressReflection": "“The most beloved deeds to Allah are those done consistently, even if small.” (Bukhari, Muslim)"
 }

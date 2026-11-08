@@ -1362,4 +1362,58 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get qiblaHint => 'استدر حتى يشير السهم إلى الأعلى وتتوهّج الشاشة.';
+
+  @override
+  String get deedOnTime => 'صلّيتها في وقتها';
+
+  @override
+  String get deedJamaah => 'في جماعة';
+
+  @override
+  String get deedQada => 'قضاء';
+
+  @override
+  String get deedNotPrayed => 'لم تُسجَّل';
+
+  @override
+  String deedPrayedCount(String done) {
+    return '$done من ٥ صلوات';
+  }
+
+  @override
+  String get deedRingHint => 'علّم الصلاة في صفحة «الآن» بعد أن تصليها. لا يراها أحد غيرك.';
+
+  @override
+  String deedStreak(String days) {
+    return '$days أيام متتالية بالصلوات الخمس';
+  }
+
+  @override
+  String get progressTitle => 'تقدّمك';
+
+  @override
+  String get progressThisWeek => 'هذا الأسبوع';
+
+  @override
+  String get progressYear => 'العام الماضي';
+
+  @override
+  String get progressOnTime => 'في وقتها هذا الشهر';
+
+  @override
+  String get progressBestRun => 'أطول سلسلة بالصلوات الخمس';
+
+  @override
+  String get progressFasts => 'صيام هذا العام';
+
+  @override
+  String get progressQada => 'للقضاء (آخر ٣٠ يومًا)';
+
+  @override
+  String progressDays(String days) {
+    return '$days أيام';
+  }
+
+  @override
+  String get progressReflection => '«أحبُّ الأعمالِ إلى اللهِ أدومُها وإن قلَّ» (متفق عليه)';
 }

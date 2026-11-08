@@ -1372,4 +1372,58 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get qiblaHint => 'Ok yukarıyı gösterip ekran parlayana kadar dönün.';
+
+  @override
+  String get deedOnTime => 'Vaktinde kılındı';
+
+  @override
+  String get deedJamaah => 'Cemaatle';
+
+  @override
+  String get deedQada => 'Kaza edildi';
+
+  @override
+  String get deedNotPrayed => 'İşaretlenmedi';
+
+  @override
+  String deedPrayedCount(String done) {
+    return '5 vakitten $done';
+  }
+
+  @override
+  String get deedRingHint => 'Kıldıktan sonra Şimdi ekranında namazı işaretleyin. Bunu yalnızca siz görürsünüz.';
+
+  @override
+  String deedStreak(String days) {
+    return 'Üst üste $days gün beş vakit';
+  }
+
+  @override
+  String get progressTitle => 'İlerlemeniz';
+
+  @override
+  String get progressThisWeek => 'Bu hafta';
+
+  @override
+  String get progressYear => 'Son bir yıl';
+
+  @override
+  String get progressOnTime => 'Bu ay vaktinde';
+
+  @override
+  String get progressBestRun => 'Beş vaktin en uzun serisi';
+
+  @override
+  String get progressFasts => 'Bu yılki oruçlar';
+
+  @override
+  String get progressQada => 'Kaza (son 30 gün)';
+
+  @override
+  String progressDays(String days) {
+    return '$days gün';
+  }
+
+  @override
+  String get progressReflection => '“Allah’a en sevimli amel, az da olsa devamlı olanıdır.” (Buhârî, Müslim)';
 }

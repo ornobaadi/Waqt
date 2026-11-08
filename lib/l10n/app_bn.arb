@@ -326,5 +326,21 @@
   "qiblaToLeft": "আপনার বাঁয়ে",
   "qiblaToRight": "আপনার ডানে",
   "qiblaToMakkah": "মক্কা {km} কিমি দূরে",
-  "qiblaHint": "ঘুরুন, যতক্ষণ না তীর ওপরে দেখায় আর স্ক্রিন উজ্জ্বল হয়।"
+  "qiblaHint": "ঘুরুন, যতক্ষণ না তীর ওপরে দেখায় আর স্ক্রিন উজ্জ্বল হয়।",
+  "deedOnTime": "সময়মতো পড়েছি",
+  "deedJamaah": "জামাতে",
+  "deedQada": "কাজা আদায়",
+  "deedNotPrayed": "চিহ্নিত নয়",
+  "deedPrayedCount": "৫ ওয়াক্তের {done}টি পড়েছি",
+  "deedRingHint": "নামাজ পড়ার পর \"এখন\" পাতায় টিক দিন। শুধু আপনিই দেখবেন।",
+  "deedStreak": "টানা {days} দিন পাঁচ ওয়াক্ত",
+  "progressTitle": "আপনার অগ্রগতি",
+  "progressThisWeek": "এই সপ্তাহ",
+  "progressYear": "গত এক বছর",
+  "progressOnTime": "এ মাসে সময়মতো",
+  "progressBestRun": "পাঁচ ওয়াক্তের দীর্ঘতম ধারা",
+  "progressFasts": "এ বছরের রোজা",
+  "progressQada": "কাজা (গত ৩০ দিন)",
+  "progressDays": "{days} দিন",
+  "progressReflection": "\"আল্লাহর কাছে সবচেয়ে প্রিয় আমল তা-ই, যা নিয়মিত করা হয়, যদিও তা অল্প হয়।\" (বুখারি, মুসলিম)"
 }
