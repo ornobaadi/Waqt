@@ -528,7 +528,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get notifTitle => 'Hatırlatmalar';
 
   @override
-  String get notifHint => 'Namaz vakitleri ve anlar, sizin seçiminizle';
+  String get notifHint => 'Arefe, Âşûrâ, cuma, Ramazan ve dahası';
 
   @override
   String get notifPermission => 'Bildirimler';
@@ -586,14 +586,13 @@ class AppLocalizationsTr extends AppLocalizations {
   String get notifStatus => 'Durum';
 
   @override
-  String get setupCardTitle => 'Sakin hatırlatmalar';
+  String get setupCardTitle => 'Waqt sana hatırlatsın';
 
   @override
-  String get setupCardBody =>
-      'Her namaz vaktinde nazik bir hatırlatma. Hangilerini istediğinizi siz seçersiniz ve hiçbir şey telefonunuzdan çıkmaz.';
+  String get setupCardBody => 'Arefe, Âşûrâ veya bayramdan önceki gece ve her cuma: ne yapacağın ve nedeni.';
 
   @override
-  String get setupCardAction => 'Kur';
+  String get setupCardAction => 'Aç';
 
   @override
   String get setupCardDismiss => 'Şimdi değil';
@@ -1209,4 +1208,151 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get footerDuaRequest => 'Dualarınızda beni de anın.';
+
+  @override
+  String remTitle(String topic) {
+    String _temp0 = intl.Intl.selectLogic(topic, {
+      'ramadan': '🌙 Ramazan bu gece başlıyor',
+      'dhulHijjah': '🕋 En hayırlı on gün başladı',
+      'arafah': '🤲 Yarın Arefe günü',
+      'eidFitr': '🎉 Yarın Ramazan Bayramı',
+      'eidAdha': '🐑 Yarın Kurban Bayramı',
+      'tasua': '🗓️ Yarın Tâsûâ orucu',
+      'ashura': '🌊 Yarın Âşûrâ günü',
+      'whiteDays': '🌕 Eyyâm-ı bîd yarın başlıyor',
+      'monday': '🗓️ Yarın pazartesi orucu',
+      'thursday': '🗓️ Yarın perşembe orucu',
+      'jumuah': '🕌 Hayırlı cumalar',
+      'fridayLastHour': '🤲 Cumanın icabet saati',
+      'suhoor': '🌙 Sahur vakti',
+      'iftar': '🌅 İftar vakti',
+      'laylatAlQadr': '✨ Bu gece Kadir Gecesi olabilir',
+      'morningAdhkar': '☀️ Sabah zikirleri',
+      'eveningAdhkar': '🌇 Akşam zikirleri',
+      'lastThird': '🌌 Gecenin son üçte biri',
+      'bedtime': '😴 Uyumadan önce',
+      'other': '',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String remBody(String topic) {
+    String _temp0 = intl.Intl.selectLogic(topic, {
+      'ramadan': 'Bu gece teravih, imsaktan önce sahur. Ramazan orucunu inanarak ve sevabını umarak tutanın geçmiş günahları bağışlanır (Buhârî).',
+      'dhulHijjah': 'Salih amelin Allah\'a bu on günden daha sevimli olduğu gün yoktur (Buhârî). Tekbir, oruç, sadaka.',
+      'arafah': 'Bu günün orucu geçen ve gelecek yılın günahlarına kefarettir (Müslim). Niyetini bu gece et.',
+      'eidFitr': 'Fitre\'yi bayram namazından önce ver, bu geceden itibaren tekbir getir.',
+      'eidAdha': 'Tekbir getir, sabah bayram namazını kıl, sonra kurbanını kes.',
+      'tasua':
+          'Peygamber ﷺ Âşûrâ ile birlikte dokuzuncu günü de oruç tutmayı niyet etmişti (Müslim). Âşûrâ ertesi gün.',
+      'ashura': 'Âşûrâ orucu geçen yılın günahlarına kefarettir (Müslim). Niyetini bu gece et.',
+      'whiteDays': 'Ayın 13, 14 ve 15\'inde oruç: her ay üç gün oruç, bütün yıl oruç tutmak gibidir (Buhârî).',
+      'monday':
+          'Ameller pazartesi ve perşembe arz edilir; Peygamber ﷺ amelinin oruçluyken arz edilmesini severdi (Tirmizî).',
+      'thursday':
+          'Ameller pazartesi ve perşembe arz edilir; Peygamber ﷺ amelinin oruçluyken arz edilmesini severdi (Tirmizî).',
+      'jumuah': 'Gusül al, erken git, Kehf sûresini oku ve bugün Peygamber ﷺ\'e bolca salavat getir.',
+      'fridayLastHour': 'Cuma gününde her duanın kabul edildiği bir saat vardır (Buhârî). Akşamdan önce şimdi onu ara.',
+      'suhoor': 'Sahur yapın, çünkü sahurda bereket vardır (Buhârî). İmsak yaklaşıyor.',
+      'iftar': 'İnsanlar iftarı acele ettikçe hayır üzeredir (Buhârî). Orucunu açarken dua et.',
+      'laylatAlQadr':
+          'Bin aydan daha hayırlı. Namaz kıl ve de ki: Allahümme inneke afüvvün tuhibbü\'l-afve fa\'fu annî.',
+      'morningAdhkar': 'Güne Allah\'ın korumasında başlamak için birkaç dakikalık zikir.',
+      'eveningAdhkar': 'Akşamdan önce akşam zikirleri. Okumak için dokun.',
+      'lastThird': 'Rabbimiz dünya semasına iner ve buyurur: Bana dua eden yok mu, duasını kabul edeyim? (Buhârî)',
+      'bedtime': 'Âyetü\'l-Kürsî, Bakara\'nın son iki âyeti ve uyku duası. İki dakika.',
+      'other': '',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String remKind(String kind) {
+    String _temp0 = intl.Intl.selectLogic(kind, {
+      'ramadan': 'Ramazan\'ın başlangıcı',
+      'dhulHijjah': 'Zilhicce ve Arefe',
+      'eid': 'Bayram',
+      'ashura': 'Tâsûâ ve Âşûrâ',
+      'whiteDays': 'Eyyâm-ı bîd',
+      'monThu': 'Pazartesi ve perşembe oruçları',
+      'jumuah': 'Cuma sabahı',
+      'fridayLastHour': 'Cumanın icabet saati',
+      'suhoor': 'Sahur',
+      'iftar': 'İftar',
+      'laylatAlQadr': 'Son on gecenin tek geceleri',
+      'morningAdhkar': 'Sabah zikirleri',
+      'eveningAdhkar': 'Akşam zikirleri',
+      'lastThird': 'Gecenin son üçte biri',
+      'bedtime': 'Uyumadan önce',
+      'other': '',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String remWhen(String kind) {
+    String _temp0 = intl.Intl.selectLogic(kind, {
+      'ramadan': 'Ramazan\'ın başladığı gece',
+      'dhulHijjah': 'On gün başlarken ve Arefe gecesi',
+      'eid': 'Her bayramdan önceki akşam',
+      'ashura': 'Muharrem\'in 9 ve 10\'undan önceki akşamlar',
+      'whiteDays': 'Her ay 13\'ünden önceki akşam',
+      'monThu': 'Pazar ve çarşamba akşamları',
+      'jumuah': 'Cuma sabahı',
+      'fridayLastHour': 'Cuma, akşamdan önceki son saat',
+      'suhoor': 'Ramazan\'da her gün imsaktan önce',
+      'iftar': 'Ramazan\'da her gün akşam vakti',
+      'laylatAlQadr': '21, 23, 25, 27 ve 29. geceler',
+      'morningAdhkar': 'Sabah namazından sonra',
+      'eveningAdhkar': 'İkindiden sonra',
+      'lastThird': 'Son üçte bir başlarken',
+      'bedtime': 'Yatma saatinde',
+      'other': '',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String get remHeroTitle => 'En kıymetli anları kaçırma';
+
+  @override
+  String get remHeroBody =>
+      'Waqt yalnızca sevabı en büyük vakitlerde hatırlatır: Arefe, Âşûrâ, Kadir Gecesi, her cuma. Her hatırlatma ne yapacağını ve nedenini, kaynağıyla söyler.';
+
+  @override
+  String get remTurnOn => 'Hatırlatmaları aç';
+
+  @override
+  String get remComingUp => 'Yaklaşan hatırlatmalar';
+
+  @override
+  String get remNothingSoon => 'Önümüzdeki ay hiçbir şey yok. Aşağıdan başka hatırlatmalar aç.';
+
+  @override
+  String get remPreview => 'Önizleme';
+
+  @override
+  String get remTest => 'Bana deneme hatırlatması gönder';
+
+  @override
+  String get remTestSent => 'Gönderildi. Bildirimlerine bak.';
+
+  @override
+  String get remNow => 'şimdi';
+
+  @override
+  String get remGroupSpecial => 'Mübarek günler';
+
+  @override
+  String get remGroupFriday => 'Her cuma';
+
+  @override
+  String get remGroupRamadan => 'Ramazan\'da';
+
+  @override
+  String get remGroupDaily => 'Her gün';
+
+  @override
+  String get remDailyNote => 'Varsayılan olarak kapalı, böylece en önemli hatırlatmalar öne çıkar.';
 }

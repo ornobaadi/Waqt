@@ -34,7 +34,7 @@ class NotificationPrefs {
 }
 
 class NotificationPrefsNotifier extends Notifier<NotificationPrefs> {
-  static const _kEnabled = 'reminders.enabled.v1', _kSound = 'reminders.sound.v1', _kSetup = 'reminders.setup.v1';
+  static const _kEnabled = 'reminders.enabled.v2', _kSound = 'reminders.sound.v1', _kSetup = 'reminders.setup.v1';
 
   @override
   NotificationPrefs build() {
@@ -47,6 +47,13 @@ class NotificationPrefsNotifier extends Notifier<NotificationPrefs> {
       sound: sp.getBool(_kSound) ?? true,
       setupDismissed: sp.getBool(_kSetup) ?? false,
     );
+  }
+
+  /// Turn on everything the app recommends (the setup card's one tap).
+  void enableRecommended() {
+    final s = {...state.enabled, ...ReminderKind.defaults};
+    ref.read(sharedPrefsProvider).setStringList(_kEnabled, [for (final k in s) k.name]);
+    state = state.copyWith(enabled: s);
   }
 
   void toggle(ReminderKind k, bool on) {

@@ -64,11 +64,19 @@ class _Locale extends LocaleOverride {
 }
 
 /// The whole app at a fixed clock with chosen saved prefs.
-Future<Widget> app({DateTime? at, Place? place, Locale? locale, bool setupCard = false, Heading? heading}) async {
+Future<Widget> app({
+  DateTime? at,
+  Place? place,
+  Locale? locale,
+  bool setupCard = false,
+  Heading? heading,
+  Map<String, Object> stored = const {},
+}) async {
   SharedPreferences.setMockInitialValues({
     if (place != null) 'place.v1': jsonEncode(place.toJson()),
     // Screenshots show the reminder card only when asked to.
     if (!setupCard) 'reminders.setup.v1': true,
+    ...stored,
   });
   final prefs = await SharedPreferences.getInstance();
   return ProviderScope(

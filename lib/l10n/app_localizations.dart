@@ -1068,7 +1068,7 @@ abstract class AppLocalizations {
   /// No description provided for @notifHint.
   ///
   /// In en, this message translates to:
-  /// **'Adhkar, Jumu\'ah and night reminders, as you choose'**
+  /// **'Arafah, Ashura, Jumu\'ah, Ramadan and more'**
   String get notifHint;
 
   /// No description provided for @notifPermission.
@@ -1176,19 +1176,19 @@ abstract class AppLocalizations {
   /// No description provided for @setupCardTitle.
   ///
   /// In en, this message translates to:
-  /// **'Gentle reminders'**
+  /// **'Let Waqt remind you'**
   String get setupCardTitle;
 
   /// No description provided for @setupCardBody.
   ///
   /// In en, this message translates to:
-  /// **'A quiet nudge at each prayer time. You choose which, and nothing leaves your phone.'**
+  /// **'The night before Arafah, Ashura or Eid, and every Friday: what to do, and why.'**
   String get setupCardBody;
 
   /// No description provided for @setupCardAction.
   ///
   /// In en, this message translates to:
-  /// **'Set up'**
+  /// **'Turn on'**
   String get setupCardAction;
 
   /// No description provided for @setupCardDismiss.
@@ -2258,6 +2258,114 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Remember me in your duas.'**
   String get footerDuaRequest;
+
+  /// No description provided for @remTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'{topic, select, ramadan{🌙 Ramadan begins tonight}dhulHijjah{🕋 The best ten days begin}arafah{🤲 Tomorrow is the Day of Arafah}eidFitr{🎉 Eid al-Fitr is tomorrow}eidAdha{🐑 Eid al-Adha is tomorrow}tasua{🗓️ Fast Tasu\'a tomorrow}ashura{🌊 Tomorrow is Ashura}whiteDays{🌕 The white days start tomorrow}monday{🗓️ Fast tomorrow, Monday}thursday{🗓️ Fast tomorrow, Thursday}jumuah{🕌 Jumu\'ah Mubarak}fridayLastHour{🤲 The hour of Friday is here}suhoor{🌙 Time for suhoor}iftar{🌅 Time to break your fast}laylatAlQadr{✨ Tonight may be Laylat al-Qadr}morningAdhkar{☀️ Morning adhkar}eveningAdhkar{🌇 Evening adhkar}lastThird{🌌 The last third of the night}bedtime{😴 Before you sleep} other{}}'**
+  String remTitle(String topic);
+
+  /// No description provided for @remBody.
+  ///
+  /// In en, this message translates to:
+  /// **'{topic, select, ramadan{Taraweeh tonight, suhoor before Fajr. Whoever fasts Ramadan with faith and hope of reward is forgiven his past sins (Bukhari).}dhulHijjah{No days are good deeds more beloved to Allah than these ten (Bukhari). Takbir, fasting, charity: tap to plan them.}arafah{Fasting it wipes out the sins of the past year and the coming one (Muslim). Make your intention tonight.}eidFitr{Give zakat al-fitr before the Eid prayer, and say the takbir from tonight. Tap for the Sunnah of Eid.}eidAdha{Say the takbir, pray Eid in the morning, then offer your sacrifice. Tap for the Sunnah of Eid.}tasua{The Prophet ﷺ meant to fast the 9th with Ashura (Muslim). Ashura comes the day after.}ashura{Fasting Ashura wipes out the sins of the past year (Muslim). Make your intention tonight.}whiteDays{Fast the 13th, 14th and 15th: three days a month is like fasting the whole year (Bukhari).}monday{Deeds are shown to Allah on Mondays and Thursdays, and the Prophet ﷺ loved to be fasting (Tirmidhi).}thursday{Deeds are shown to Allah on Mondays and Thursdays, and the Prophet ﷺ loved to be fasting (Tirmidhi).}jumuah{Ghusl, go early, read Surat al-Kahf and send many blessings on the Prophet ﷺ today.}fridayLastHour{There is an hour on Friday when every dua is answered (Bukhari). Seek it now, before Maghrib.}suhoor{Eat suhoor, for there is blessing in it (Bukhari). Fajr is coming soon.}iftar{People stay upon good as long as they hasten to break the fast (Bukhari). Make dua as you break it.}laylatAlQadr{Better than a thousand months. Pray, and say: Allahumma innaka ʿafuwwun tuhibbul-ʿafwa faʿfu ʿanni.}morningAdhkar{A few minutes of remembrance to begin your day under Allah\'s protection.}eveningAdhkar{The evening remembrance, before Maghrib. Tap to read it.}lastThird{Allah descends to the lowest heaven and asks: who is calling on Me, that I may answer him? (Bukhari)}bedtime{Ayat al-Kursi, the last two verses of al-Baqarah and the sleep dua. Two minutes.} other{}}'**
+  String remBody(String topic);
+
+  /// No description provided for @remKind.
+  ///
+  /// In en, this message translates to:
+  /// **'{kind, select, ramadan{Start of Ramadan}dhulHijjah{Dhul Hijjah and Arafah}eid{Eid}ashura{Tasu\'a and Ashura}whiteDays{The white days}monThu{Monday and Thursday fasts}jumuah{Jumu\'ah morning}fridayLastHour{The hour of Friday}suhoor{Suhoor}iftar{Iftar}laylatAlQadr{Odd nights of the last ten}morningAdhkar{Morning adhkar}eveningAdhkar{Evening adhkar}lastThird{The last third of the night}bedtime{Before sleep} other{}}'**
+  String remKind(String kind);
+
+  /// No description provided for @remWhen.
+  ///
+  /// In en, this message translates to:
+  /// **'{kind, select, ramadan{The night Ramadan begins}dhulHijjah{When the ten days begin, and the eve of Arafah}eid{The evening before each Eid}ashura{The evenings before the 9th and 10th of Muharram}whiteDays{The evening before the 13th, every month}monThu{Sunday and Wednesday evenings}jumuah{Friday morning}fridayLastHour{Friday, the last hour before Maghrib}suhoor{Before Fajr, every day of Ramadan}iftar{At Maghrib, every day of Ramadan}laylatAlQadr{Nights of the 21st, 23rd, 25th, 27th and 29th}morningAdhkar{After Fajr}eveningAdhkar{After Asr}lastThird{When the last third begins}bedtime{At your bedtime} other{}}'**
+  String remWhen(String kind);
+
+  /// No description provided for @remHeroTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Never miss the moments that count'**
+  String get remHeroTitle;
+
+  /// No description provided for @remHeroBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Waqt reminds you only at the most rewarded times: Arafah, Ashura, Laylat al-Qadr, every Friday. Each reminder says what to do and why, with its source.'**
+  String get remHeroBody;
+
+  /// No description provided for @remTurnOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn on reminders'**
+  String get remTurnOn;
+
+  /// No description provided for @remComingUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Coming up'**
+  String get remComingUp;
+
+  /// No description provided for @remNothingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing in the next month. Turn on more reminders below.'**
+  String get remNothingSoon;
+
+  /// No description provided for @remPreview.
+  ///
+  /// In en, this message translates to:
+  /// **'Preview'**
+  String get remPreview;
+
+  /// No description provided for @remTest.
+  ///
+  /// In en, this message translates to:
+  /// **'Send me a test reminder'**
+  String get remTest;
+
+  /// No description provided for @remTestSent.
+  ///
+  /// In en, this message translates to:
+  /// **'Sent. Check your notifications.'**
+  String get remTestSent;
+
+  /// No description provided for @remNow.
+  ///
+  /// In en, this message translates to:
+  /// **'now'**
+  String get remNow;
+
+  /// No description provided for @remGroupSpecial.
+  ///
+  /// In en, this message translates to:
+  /// **'Special days'**
+  String get remGroupSpecial;
+
+  /// No description provided for @remGroupFriday.
+  ///
+  /// In en, this message translates to:
+  /// **'Every Friday'**
+  String get remGroupFriday;
+
+  /// No description provided for @remGroupRamadan.
+  ///
+  /// In en, this message translates to:
+  /// **'In Ramadan'**
+  String get remGroupRamadan;
+
+  /// No description provided for @remGroupDaily.
+  ///
+  /// In en, this message translates to:
+  /// **'Every day'**
+  String get remGroupDaily;
+
+  /// No description provided for @remDailyNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Off by default, so the most important reminders stand out.'**
+  String get remDailyNote;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -15,6 +15,8 @@ import '../domain/location/place.dart';
 import '../domain/time/place_zone.dart';
 import '../domain/moments/moment.dart';
 import '../domain/moments/moment_engine.dart';
+import '../domain/notifications/reminder_planner.dart';
+import '../data/user/notification_prefs.dart';
 import '../domain/occasions/occasions.dart';
 import '../domain/prayer/prayer_settings.dart';
 import '../domain/prayer/prayer_times_service.dart';
@@ -182,3 +184,41 @@ class LocaleOverride extends Notifier<Locale?> {
 }
 
 final localeOverrideProvider = NotifierProvider<LocaleOverride, Locale?>(LocaleOverride.new);
+
+/// Prayer days from yesterday to [count] days ahead, each with its Hijri dates,
+/// so the planner sees Ramadan, Arafah, Ashura and the rest.
+List<PrayerDay> planningDays({
+  required Place place,
+  required PrayerSettings settings,
+  required PrayerTimesService times,
+  required HijriService hijri,
+  required int offset,
+  required DateTime now,
+  int count = 33,
+}) {
+  DayTimes day(int plus) => times.forDay(place, DateTime(now.year, now.month, now.day + plus), settings);
+  HijriDate h(DayTimes d) => hijri.dateFor(d.date.add(const Duration(hours: 12)), offset: offset);
+  final t = [for (var i = -1; i <= count; i++) day(i)];
+  return [
+    for (var i = 0; i + 1 < t.length; i++)
+      PrayerDay(today: t[i], tomorrow: t[i + 1], hijri: h(t[i]), hijriNext: h(t[i + 1])),
+  ];
+}
+
+/// The reminders that would be scheduled now, for the Reminders screen's
+/// "coming up" and the setup card. Recomputed once a minute, not every tick.
+final upcomingRemindersProvider = Provider<List<PlannedReminder>>((ref) {
+  final place = ref.watch(userPrefsProvider.select((p) => p.place));
+  if (place == null) return const [];
+  final now = ref.watch(placeNowProvider.select((n) => DateTime(n.year, n.month, n.day, n.hour, n.minute)));
+  final days = planningDays(
+    place: place,
+    settings: ref.watch(prayerSettingsProvider),
+    times: ref.watch(prayerTimesServiceProvider),
+    hijri: ref.watch(hijriServiceProvider),
+    offset: ref.watch(hijriOffsetProvider),
+    now: now,
+  );
+  final enabled = ref.watch(notificationPrefsProvider.select((p) => p.enabled));
+  return const ReminderPlanner().plan(now, days, enabled);
+});

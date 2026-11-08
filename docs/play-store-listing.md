@@ -22,6 +22,9 @@ The last third of the night, the hour before Maghrib on Friday, between adhan an
 **Every hadith with its source**
 Each hadith shows its collection, its grade and an explanation, from HadeethEnc.com, in your language. Where a translation is not available yet, Waqt shows the Arabic rather than guessing.
 
+**Reminded when it matters most**
+The evening before Arafah, Ashura, Eid or the white days, the night Ramadan begins, every Friday and every Ramadan suhoor: Waqt tells you what to do and why, with its source. You choose which; daily reminders stay off unless you want them.
+
 **Prayer times you can trust**
 Calculated on your phone with twelve methods, including Umm al-Qura, Diyanet, JAKIM, Kemenag, ISNA, Egyptian, Karachi and MWL. Standard or Hanafi Asr, high-latitude rules, and minute adjustments to match your mosque. Works fully offline.
 

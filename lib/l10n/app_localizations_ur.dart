@@ -528,7 +528,7 @@ class AppLocalizationsUr extends AppLocalizations {
   String get notifTitle => 'یاد دہانیاں';
 
   @override
-  String get notifHint => 'نماز کے اوقات اور لمحات، آپ کی مرضی سے';
+  String get notifHint => 'عرفہ، عاشورا، جمعہ، رمضان اور مزید';
 
   @override
   String get notifPermission => 'اطلاعات';
@@ -586,14 +586,13 @@ class AppLocalizationsUr extends AppLocalizations {
   String get notifStatus => 'صورتحال';
 
   @override
-  String get setupCardTitle => 'نرم یاد دہانیاں';
+  String get setupCardTitle => 'وقت کو یاد دلانے دیجیے';
 
   @override
-  String get setupCardBody =>
-      'ہر نماز کے وقت ایک ہلکی سی یاد دہانی۔ آپ خود منتخب کریں، اور کچھ بھی آپ کے فون سے باہر نہیں جاتا۔';
+  String get setupCardBody => 'عرفہ، عاشورا یا عید سے پہلے کی رات، اور ہر جمعہ: کیا کرنا ہے اور کیوں۔';
 
   @override
-  String get setupCardAction => 'ترتیب دیں';
+  String get setupCardAction => 'آن کریں';
 
   @override
   String get setupCardDismiss => 'ابھی نہیں';
@@ -1208,4 +1207,148 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get footerDuaRequest => 'اپنی دعاؤں میں مجھے یاد رکھیے۔';
+
+  @override
+  String remTitle(String topic) {
+    String _temp0 = intl.Intl.selectLogic(topic, {
+      'ramadan': '🌙 آج رات رمضان شروع',
+      'dhulHijjah': '🕋 سال کے بہترین دس دن شروع',
+      'arafah': '🤲 کل یومِ عرفہ ہے',
+      'eidFitr': '🎉 کل عید الفطر ہے',
+      'eidAdha': '🐑 کل عید الاضحیٰ ہے',
+      'tasua': '🗓️ کل تاسوعا کا روزہ',
+      'ashura': '🌊 کل عاشورا ہے',
+      'whiteDays': '🌕 کل سے ایامِ بیض',
+      'monday': '🗓️ کل پیر کا روزہ',
+      'thursday': '🗓️ کل جمعرات کا روزہ',
+      'jumuah': '🕌 جمعہ مبارک',
+      'fridayLastHour': '🤲 جمعہ کی قبولیت والی گھڑی',
+      'suhoor': '🌙 سحری کا وقت',
+      'iftar': '🌅 افطار کا وقت',
+      'laylatAlQadr': '✨ شاید آج شبِ قدر ہو',
+      'morningAdhkar': '☀️ صبح کے اذکار',
+      'eveningAdhkar': '🌇 شام کے اذکار',
+      'lastThird': '🌌 رات کا آخری تہائی',
+      'bedtime': '😴 سونے سے پہلے',
+      'other': '',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String remBody(String topic) {
+    String _temp0 = intl.Intl.selectLogic(topic, {
+      'ramadan': 'آج رات تراویح، فجر سے پہلے سحری۔ جس نے ایمان اور ثواب کی نیت سے رمضان کے روزے رکھے، اس کے پچھلے گناہ معاف (بخاری)۔',
+      'dhulHijjah': 'کوئی دن ایسے نہیں جن میں نیک عمل اللہ کو ان دس دنوں سے زیادہ محبوب ہو (بخاری)۔ تکبیر، روزہ، صدقہ۔',
+      'arafah': 'اس کا روزہ پچھلے اور اگلے سال کے گناہ مٹا دیتا ہے (مسلم)۔ آج رات نیت کر لیجیے۔',
+      'eidFitr': 'عید کی نماز سے پہلے صدقۂ فطر ادا کیجیے، اور آج رات سے تکبیر کہیے۔',
+      'eidAdha': 'تکبیر کہیے، صبح عید کی نماز پڑھیے، پھر قربانی کیجیے۔',
+      'tasua': 'نبی ﷺ نے عاشورا کے ساتھ نویں کا روزہ رکھنے کا ارادہ فرمایا (مسلم)۔ عاشورا اس کے بعد ہے۔',
+      'ashura': 'عاشورا کا روزہ پچھلے سال کے گناہ مٹا دیتا ہے (مسلم)۔ آج رات نیت کر لیجیے۔',
+      'whiteDays': '13، 14 اور 15 کا روزہ: ہر مہینے تین روزے پورے سال کے روزوں کی طرح ہیں (بخاری)۔',
+      'monday': 'پیر اور جمعرات کو اعمال پیش ہوتے ہیں، اور نبی ﷺ پسند فرماتے تھے کہ روزے کی حالت میں پیش ہوں (ترمذی)۔',
+      'thursday':
+          'پیر اور جمعرات کو اعمال پیش ہوتے ہیں، اور نبی ﷺ پسند فرماتے تھے کہ روزے کی حالت میں پیش ہوں (ترمذی)۔',
+      'jumuah': 'غسل کیجیے، جلدی جائیے، سورۂ کہف پڑھیے اور آج نبی ﷺ پر کثرت سے درود بھیجیے۔',
+      'fridayLastHour': 'جمعہ میں ایک گھڑی ہے جس میں ہر دعا قبول ہوتی ہے (بخاری)۔ مغرب سے پہلے ابھی اسے تلاش کیجیے۔',
+      'suhoor': 'سحری کھاؤ، اس میں برکت ہے (بخاری)۔ فجر قریب ہے۔',
+      'iftar': 'لوگ بھلائی پر رہیں گے جب تک افطار میں جلدی کریں گے (بخاری)۔ افطار کے وقت دعا کیجیے۔',
+      'laylatAlQadr': 'ہزار مہینوں سے بہتر۔ نماز پڑھیے اور کہیے: اللهم إنك عفو تحب العفو فاعف عني۔',
+      'morningAdhkar': 'چند منٹ کا ذکر، تاکہ دن اللہ کی حفاظت میں شروع ہو۔',
+      'eveningAdhkar': 'مغرب سے پہلے شام کے اذکار۔ پڑھنے کے لیے ٹیپ کیجیے۔',
+      'lastThird': 'ہمارا رب آسمانِ دنیا پر نزول فرماتا ہے اور کہتا ہے: کون مجھے پکارتا ہے کہ میں اس کی سنوں؟ (بخاری)',
+      'bedtime': 'آیت الکرسی، سورۂ بقرہ کی آخری دو آیات اور سونے کی دعا۔ دو منٹ۔',
+      'other': '',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String remKind(String kind) {
+    String _temp0 = intl.Intl.selectLogic(kind, {
+      'ramadan': 'رمضان کا آغاز',
+      'dhulHijjah': 'ذوالحجہ اور عرفہ',
+      'eid': 'عید',
+      'ashura': 'تاسوعا اور عاشورا',
+      'whiteDays': 'ایامِ بیض',
+      'monThu': 'پیر اور جمعرات کے روزے',
+      'jumuah': 'جمعہ کی صبح',
+      'fridayLastHour': 'جمعہ کی گھڑی',
+      'suhoor': 'سحری',
+      'iftar': 'افطار',
+      'laylatAlQadr': 'آخری عشرے کی طاق راتیں',
+      'morningAdhkar': 'صبح کے اذکار',
+      'eveningAdhkar': 'شام کے اذکار',
+      'lastThird': 'رات کا آخری تہائی',
+      'bedtime': 'سونے سے پہلے',
+      'other': '',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String remWhen(String kind) {
+    String _temp0 = intl.Intl.selectLogic(kind, {
+      'ramadan': 'جس رات رمضان شروع ہو',
+      'dhulHijjah': 'دس دنوں کے آغاز پر، اور عرفہ کی رات',
+      'eid': 'ہر عید سے پہلے کی شام',
+      'ashura': 'محرم کی 9 اور 10 سے پہلے کی شامیں',
+      'whiteDays': 'ہر مہینے 13 سے پہلے کی شام',
+      'monThu': 'اتوار اور بدھ کی شام',
+      'jumuah': 'جمعہ کی صبح',
+      'fridayLastHour': 'جمعہ، مغرب سے پہلے آخری گھڑی',
+      'suhoor': 'رمضان میں ہر روز فجر سے پہلے',
+      'iftar': 'رمضان میں ہر روز مغرب کے وقت',
+      'laylatAlQadr': '21، 23، 25، 27 اور 29 کی راتیں',
+      'morningAdhkar': 'فجر کے بعد',
+      'eveningAdhkar': 'عصر کے بعد',
+      'lastThird': 'جب آخری تہائی شروع ہو',
+      'bedtime': 'آپ کے سونے کے وقت',
+      'other': '',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String get remHeroTitle => 'سب سے قیمتی لمحات مت چھوڑیے';
+
+  @override
+  String get remHeroBody =>
+      'وقت صرف سب سے زیادہ ثواب والے اوقات میں یاد دلاتا ہے: عرفہ، عاشورا، شبِ قدر، ہر جمعہ۔ ہر یاد دہانی بتاتی ہے کیا کرنا ہے اور کیوں، حوالے کے ساتھ۔';
+
+  @override
+  String get remTurnOn => 'یاد دہانیاں آن کریں';
+
+  @override
+  String get remComingUp => 'آنے والی یاد دہانیاں';
+
+  @override
+  String get remNothingSoon => 'اگلے مہینے میں کچھ نہیں۔ نیچے مزید یاد دہانیاں آن کیجیے۔';
+
+  @override
+  String get remPreview => 'جھلک';
+
+  @override
+  String get remTest => 'مجھے آزمائشی یاد دہانی بھیجیں';
+
+  @override
+  String get remTestSent => 'بھیج دی گئی۔ اپنی اطلاعات دیکھیے۔';
+
+  @override
+  String get remNow => 'ابھی';
+
+  @override
+  String get remGroupSpecial => 'فضیلت والے دن';
+
+  @override
+  String get remGroupFriday => 'ہر جمعہ';
+
+  @override
+  String get remGroupRamadan => 'رمضان میں';
+
+  @override
+  String get remGroupDaily => 'ہر روز';
+
+  @override
+  String get remDailyNote => 'پہلے سے بند ہیں، تاکہ اہم ترین یاد دہانیاں نمایاں رہیں۔';
 }

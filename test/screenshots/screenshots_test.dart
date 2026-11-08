@@ -241,7 +241,7 @@ void main() {
       then: () async {
         await t.tap(find.text('Settings'));
         await t.pumpAndSettle();
-        await t.tap(find.text("Adhkar, Jumu'ah and night reminders, as you choose"));
+        await t.tap(find.text("Arafah, Ashura, Jumu'ah, Ramadan and more"));
       },
     ),
   );
@@ -520,6 +520,46 @@ void main() {
       '11b_today_empty',
       await app(at: DateTime(2026, 11, 6, 9, 41)),
       then: () async => t.tap(find.text('Today')),
+    ),
+  );
+
+  Future<void> openReminders(WidgetTester t) async {
+    await t.tap(find.text('Settings'));
+    await t.pumpAndSettle();
+    await t.tap(find.text("Arafah, Ashura, Jumu'ah, Ramadan and more"));
+  }
+
+  testWidgets(
+    'reminders off',
+    (t) async => shoot(
+      t,
+      '20b_reminders_off',
+      await app(at: DateTime(2026, 11, 6, 12, 38), place: dhaka, stored: {'reminders.enabled.v2': <String>[]}),
+      then: () => openReminders(t),
+    ),
+  );
+
+  testWidgets(
+    'reminders before ashura',
+    (t) async => shoot(
+      t,
+      '20c_reminders_ashura',
+      await app(at: civilOf(1449, 1, 6).add(const Duration(hours: 13)), place: dhaka),
+      then: () => openReminders(t),
+    ),
+  );
+
+  testWidgets(
+    'reminder preview',
+    (t) async => shoot(
+      t,
+      '20d_reminder_preview',
+      await app(at: DateTime(2026, 11, 6, 12, 38), place: dhaka),
+      then: () async {
+        await openReminders(t);
+        await t.pumpAndSettle();
+        await t.tap(find.byIcon(Icons.visibility_outlined).at(3));
+      },
     ),
   );
 }

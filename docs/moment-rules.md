@@ -31,6 +31,24 @@ Texts attached to moments come from HadeethEnc.com (Arabic, translation, grade, 
 Ramadan *n*, last ten nights, Eid al-Fitr (1 Shawwal), Eid al-Adha (10 Dhul Hijjah), Arafah (9 Dhul Hijjah), first ten of Dhul Hijjah (1–9), Tashreeq (11–13 Dhul Hijjah), Ashura (10 Muharram), Tasu'a (9 Muharram), Ayyam al-Bid (13–15, excluding Ramadan and 13 Dhul Hijjah), Jumu'ah, Monday/Thursday fast (not in Ramadan, on Eid or in Tashreeq).
 These use the Umm al-Qura date plus the user's ±2 day adjustment. **Needs ruling:** whether to show anything for days on which a local moon sighting may differ.
 
+## Reminders (notifications)
+Only the most rewarded moments, each saying what to do and why, with its source. Times and wording to review:
+
+| Reminder | When | Default |
+|---|---|---|
+| Start of Ramadan | Maghrib + 25 min on the evening before 1 Ramadan | on |
+| Dhul Hijjah | Evening before 1 Dhul Hijjah, and before 9 Dhul Hijjah (Arafah) | on |
+| Eid | Evening before 1 Shawwal and 10 Dhul Hijjah | on |
+| Tasu'a, Ashura | Evenings before 9 and 10 Muharram | on |
+| White days | Evening before the 13th (not Ramadan, not 13 Dhul Hijjah) | on |
+| Monday / Thursday fast | Sunday and Wednesday evenings (not in Ramadan, Eid, Tashreeq) | off |
+| Jumu'ah | Friday, sunrise + 40 min | on |
+| Hour of Friday | Start of the last hour before Maghrib | on |
+| Suhoor, iftar, odd nights | Moment starts in Ramadan | on |
+| Morning/evening adhkar, last third, bedtime | Moment starts | off |
+
+At most one eve reminder per evening (most important first). Dates follow the chosen Hijri authority, so Ramadan and Eid eves can shift by a day with the sighting. Text: `remTitle` / `remBody` in `lib/l10n/*.arb`.
+
 ## Reviewer sign-off
 Fill in one line per row of the tables above, then send this file back (or open a pull request). Changes go into `MomentConfig` and this file together.
 

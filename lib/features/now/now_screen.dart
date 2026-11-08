@@ -1,9 +1,15 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 import '../../app/app_state.dart';
+import '../../app/sync.dart';
+import '../../core/config/runtime.dart';
+import '../../domain/notifications/reminder_planner.dart';
+import '../settings/reminder_preview.dart';
 import '../../core/clock/clock.dart';
 import '../../core/theme/tokens.dart';
 import '../../core/theme/waqt_theme.dart';
@@ -189,9 +195,14 @@ class NowScreen extends ConsumerWidget {
               if (place != null && !ref.watch(notificationPrefsProvider.select((p) => p.setupDismissed))) ...[
                 const SizedBox(height: WaqtSpace.x4),
                 _SetupCard(
-                  onSetup: () {
-                    ref.read(notificationPrefsProvider.notifier).dismissSetup();
-                    context.push('/settings/notifications');
+                  next: ref.watch(upcomingRemindersProvider).firstOrNull,
+                  onSetup: () async {
+                    ref.read(notificationPrefsProvider.notifier)
+                      ..enableRecommended()
+                      ..dismissSetup();
+                    if (Runtime.hasPlatformPlugins) await ref.read(notificationServiceProvider).requestNotifications();
+                    await syncNow(ref);
+                    if (context.mounted) unawaited(context.push('/settings/notifications'));
                   },
                   onDismiss: () => ref.read(notificationPrefsProvider.notifier).dismissSetup(),
                 ),
@@ -494,9 +505,12 @@ class _Pill extends StatelessWidget {
   );
 }
 
-/// Asked once, after a location exists, so the value is obvious.
+/// Asked once, after a location exists. It shows the very reminder this
+/// person would get next, so the value is concrete; one tap turns on the
+/// recommended set.
 class _SetupCard extends StatelessWidget {
-  const _SetupCard({required this.onSetup, required this.onDismiss});
+  const _SetupCard({required this.next, required this.onSetup, required this.onDismiss});
+  final PlannedReminder? next;
   final VoidCallback onSetup;
   final VoidCallback onDismiss;
 
@@ -505,7 +519,7 @@ class _SetupCard extends StatelessWidget {
     final l = AppLocalizations.of(context);
     final t = WaqtTokens.of(context);
     return Container(
-      padding: const EdgeInsets.fromLTRB(WaqtSpace.x5, WaqtSpace.x5, WaqtSpace.x4, WaqtSpace.x3),
+      padding: const EdgeInsets.fromLTRB(WaqtSpace.x5, WaqtSpace.x5, WaqtSpace.x5, WaqtSpace.x3),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(WaqtRadii.card),
         border: Border.all(color: t.ink.withValues(alpha: 0.14)),
@@ -515,16 +529,17 @@ class _SetupCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              Icon(Icons.notifications_none_rounded, size: 20, color: t.ink),
+              Icon(Icons.notifications_active_outlined, size: 20, color: t.ink),
               const SizedBox(width: WaqtSpace.x2),
-              Text(l.setupCardTitle, style: WaqtText.bodyStrong.copyWith(color: t.ink)),
+              Expanded(
+                child: Text(l.setupCardTitle, style: WaqtText.bodyStrong.copyWith(color: t.ink)),
+              ),
             ],
           ),
           const SizedBox(height: WaqtSpace.x2),
-          Padding(
-            padding: const EdgeInsetsDirectional.only(end: WaqtSpace.x1),
-            child: Text(l.setupCardBody, style: WaqtText.body.copyWith(color: t.inkMuted)),
-          ),
+          Text(l.setupCardBody, style: WaqtText.body.copyWith(color: t.inkMuted)),
+          const SizedBox(height: WaqtSpace.x4),
+          ReminderPreview(topic: next?.topic ?? ReminderTopic.arafah, at: next?.at, compact: true),
           const SizedBox(height: WaqtSpace.x2),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,

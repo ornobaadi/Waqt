@@ -102,19 +102,34 @@ class NotificationService {
     }
   }
 
-  static AndroidNotificationDetails _details(bool sound) => AndroidNotificationDetails(
+  static AndroidNotificationDetails _details(bool sound, String body) => AndroidNotificationDetails(
     sound ? 'moments' : 'moments_silent',
     sound ? 'Moments' : 'Moments (silent)',
-    importance: Importance.defaultImportance,
+    importance: Importance.high,
+    priority: Priority.high,
     playSound: sound,
     category: AndroidNotificationCategory.reminder,
+    // The whole message, not one truncated line: the why is what makes it worth a tap.
+    styleInformation: BigTextStyleInformation(body),
+    color: const Color(0xFF0F1436),
   );
+
+  /// Shows one reminder right away, so the user sees what they will get.
+  Future<void> showNow({required String title, required String body, required bool sound}) async {
+    await init();
+    await _plugin.show(
+      id: 9999,
+      title: title,
+      body: body,
+      notificationDetails: NotificationDetails(android: _details(sound, body)),
+    );
+  }
 
   /// Replaces everything previously scheduled.
   Future<int> schedule(
     List<PlannedReminder> reminders, {
     required bool sound,
-    required String Function(ReminderKind) title,
+    required String Function(PlannedReminder) title,
     required String Function(PlannedReminder) body,
   }) async {
     await init();
@@ -122,16 +137,17 @@ class NotificationService {
     await _plugin.cancelAll();
     final exact = await _android?.canScheduleExactNotifications() ?? true;
     for (final r in reminders) {
+      final text = body(r);
       await _plugin.zonedSchedule(
         id: r.id,
-        title: title(r.kind),
-        body: body(r),
+        title: title(r),
+        body: text,
         scheduledDate: tz.TZDateTime.from(r.at, tz.local),
-        notificationDetails: NotificationDetails(android: _details(sound)),
+        notificationDetails: NotificationDetails(android: _details(sound, text)),
         androidScheduleMode: exact
             ? AndroidScheduleMode.exactAllowWhileIdle
             : AndroidScheduleMode.inexactAllowWhileIdle,
-        payload: r.kind.name,
+        payload: r.topic.name,
       );
     }
     return reminders.length;

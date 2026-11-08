@@ -9,10 +9,7 @@ import '../core/config/runtime.dart';
 import '../data/hijri/calendar_sync.dart';
 import '../data/user/notification_prefs.dart';
 import '../data/user/user_prefs.dart';
-import '../domain/moments/moment.dart';
-import '../domain/moments/moment_engine.dart';
 import '../domain/notifications/reminder_planner.dart';
-import '../domain/prayer/prayer_times_service.dart';
 import '../domain/time/place_zone.dart';
 import '../features/common/labels.dart';
 import '../l10n/app_localizations.dart';
@@ -127,11 +124,15 @@ Future<void> syncPlatform(WidgetRef ref) async {
   }
 
   final settings = ref.read(prayerSettingsProvider);
-  final svc = ref.read(prayerTimesServiceProvider);
   final now = inZone(DateTime.now(), zoneOf(place));
-  DayTimes day(int plus) => svc.forDay(place, DateTime(now.year, now.month, now.day + plus), settings);
-  final times = [for (var i = -1; i <= 9; i++) day(i)];
-  final days = [for (var i = 0; i + 1 < times.length; i++) PrayerDay(today: times[i], tomorrow: times[i + 1])];
+  final days = planningDays(
+    place: place,
+    settings: settings,
+    times: ref.read(prayerTimesServiceProvider),
+    hijri: ref.read(hijriServiceProvider),
+    offset: ref.read(hijriOffsetProvider),
+    now: now,
+  );
 
   // Reminders.
   final np = ref.read(notificationPrefsProvider);
@@ -139,14 +140,14 @@ Future<void> syncPlatform(WidgetRef ref) async {
   final count = await service.schedule(
     plan,
     sound: np.sound,
-    title: (k) => l.momentId(k.moment),
-    body: (r) => l.reminderBody(fmt.format(r.at), place.name),
+    title: (r) => l.remTitle(r.topic.name),
+    body: (r) => l.remBody(r.topic.name),
   );
   ref.read(lastSyncProvider.notifier).set(SyncResult(count, plan.isEmpty ? null : plan.last.at));
 
   // Widget: from the current waqt onward.
   final entries = widgetSchedule(
-    days: days,
+    days: days.take(10).toList(),
     place: place.name,
     label: l.momentId,
     time: fmt.format,
@@ -165,6 +166,3 @@ Future<void> syncNow(WidgetRef ref) async {
     debugPrint('sync failed: $e');
   }
 }
-
-/// Exposed for tests: which moment ids map to reminder kinds.
-Set<MomentId> get reminderMoments => {for (final k in ReminderKind.values) k.moment};

@@ -528,7 +528,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get notifTitle => 'Pengingat';
 
   @override
-  String get notifHint => 'Waktu salat dan momen, sesuai pilihan Anda';
+  String get notifHint => 'Arafah, Asyura, Jumat, Ramadan, dan lainnya';
 
   @override
   String get notifPermission => 'Notifikasi';
@@ -587,17 +587,17 @@ class AppLocalizationsId extends AppLocalizations {
   String get notifStatus => 'Status';
 
   @override
-  String get setupCardTitle => 'Pengingat lembut';
+  String get setupCardTitle => 'Biarkan Waqt mengingatkanmu';
 
   @override
   String get setupCardBody =>
-      'Pengingat tenang di setiap waktu salat. Anda yang memilih, dan tidak ada yang keluar dari ponsel Anda.';
+      'Malam sebelum Arafah, Asyura atau hari raya, dan setiap Jumat: apa yang dilakukan, dan mengapa.';
 
   @override
-  String get setupCardAction => 'Atur';
+  String get setupCardAction => 'Nyalakan';
 
   @override
-  String get setupCardDismiss => 'Nanti';
+  String get setupCardDismiss => 'Nanti saja';
 
   @override
   String get momentLaylatAlQadr => 'Malam ganjil sepuluh terakhir';
@@ -1210,4 +1210,150 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get footerDuaRequest => 'Ingat saya dalam doa Anda.';
+
+  @override
+  String remTitle(String topic) {
+    String _temp0 = intl.Intl.selectLogic(topic, {
+      'ramadan': '🌙 Ramadan dimulai malam ini',
+      'dhulHijjah': '🕋 Sepuluh hari terbaik dimulai',
+      'arafah': '🤲 Besok Hari Arafah',
+      'eidFitr': '🎉 Besok Idulfitri',
+      'eidAdha': '🐑 Besok Iduladha',
+      'tasua': '🗓️ Puasa Tasu\'a besok',
+      'ashura': '🌊 Besok hari Asyura',
+      'whiteDays': '🌕 Ayyamul Bidh mulai besok',
+      'monday': '🗓️ Besok puasa Senin',
+      'thursday': '🗓️ Besok puasa Kamis',
+      'jumuah': '🕌 Jumat Mubarak',
+      'fridayLastHour': '🤲 Waktu mustajab hari Jumat',
+      'suhoor': '🌙 Waktunya sahur',
+      'iftar': '🌅 Waktunya berbuka',
+      'laylatAlQadr': '✨ Malam ini mungkin Lailatulqadar',
+      'morningAdhkar': '☀️ Zikir pagi',
+      'eveningAdhkar': '🌇 Zikir petang',
+      'lastThird': '🌌 Sepertiga malam terakhir',
+      'bedtime': '😴 Sebelum tidur',
+      'other': '',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String remBody(String topic) {
+    String _temp0 = intl.Intl.selectLogic(topic, {
+      'ramadan': 'Tarawih malam ini, sahur sebelum Subuh. Siapa berpuasa Ramadan karena iman dan mengharap pahala, diampuni dosanya yang lalu (Bukhari).',
+      'dhulHijjah': 'Tidak ada hari yang amal saleh lebih dicintai Allah daripada sepuluh hari ini (Bukhari). Takbir, puasa, sedekah.',
+      'arafah': 'Puasanya menghapus dosa setahun lalu dan setahun yang akan datang (Muslim). Niatkan malam ini.',
+      'eidFitr': 'Tunaikan zakat fitrah sebelum salat Id, dan bertakbirlah sejak malam ini.',
+      'eidAdha': 'Bertakbirlah, salat Id di pagi hari, lalu sembelih kurbanmu.',
+      'tasua': 'Nabi ﷺ berniat puasa tanggal 9 bersama Asyura (Muslim). Asyura jatuh sehari setelahnya.',
+      'ashura': 'Puasa Asyura menghapus dosa setahun yang lalu (Muslim). Niatkan malam ini.',
+      'whiteDays': 'Puasa tanggal 13, 14 dan 15: tiga hari tiap bulan seperti puasa setahun penuh (Bukhari).',
+      'monday': 'Amal diperlihatkan pada hari Senin dan Kamis, dan Nabi ﷺ suka amalnya diperlihatkan saat berpuasa (Tirmidzi).',
+      'thursday': 'Amal diperlihatkan pada hari Senin dan Kamis, dan Nabi ﷺ suka amalnya diperlihatkan saat berpuasa (Tirmidzi).',
+      'jumuah': 'Mandi, berangkat lebih awal, baca surah al-Kahfi dan perbanyak selawat kepada Nabi ﷺ hari ini.',
+      'fridayLastHour':
+          'Pada hari Jumat ada satu waktu ketika setiap doa dikabulkan (Bukhari). Carilah sekarang, sebelum Magrib.',
+      'suhoor': 'Bersahurlah, karena dalam sahur ada berkah (Bukhari). Subuh sebentar lagi.',
+      'iftar': 'Manusia senantiasa dalam kebaikan selama menyegerakan berbuka (Bukhari). Berdoalah saat berbuka.',
+      'laylatAlQadr':
+          'Lebih baik dari seribu bulan. Salatlah, dan ucapkan: Allahumma innaka ʿafuwwun tuhibbul-ʿafwa faʿfu ʿanni.',
+      'morningAdhkar': 'Beberapa menit zikir untuk memulai hari dalam lindungan Allah.',
+      'eveningAdhkar': 'Zikir petang, sebelum Magrib. Ketuk untuk membacanya.',
+      'lastThird':
+          'Rabb kita turun ke langit dunia dan berfirman: siapa yang berdoa kepada-Ku, akan Aku kabulkan? (Bukhari)',
+      'bedtime': 'Ayat Kursi, dua ayat terakhir al-Baqarah dan doa tidur. Dua menit.',
+      'other': '',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String remKind(String kind) {
+    String _temp0 = intl.Intl.selectLogic(kind, {
+      'ramadan': 'Awal Ramadan',
+      'dhulHijjah': 'Zulhijah dan Arafah',
+      'eid': 'Hari raya',
+      'ashura': 'Tasu\'a dan Asyura',
+      'whiteDays': 'Ayyamul Bidh',
+      'monThu': 'Puasa Senin dan Kamis',
+      'jumuah': 'Pagi hari Jumat',
+      'fridayLastHour': 'Waktu mustajab Jumat',
+      'suhoor': 'Sahur',
+      'iftar': 'Berbuka',
+      'laylatAlQadr': 'Malam ganjil sepuluh terakhir',
+      'morningAdhkar': 'Zikir pagi',
+      'eveningAdhkar': 'Zikir petang',
+      'lastThird': 'Sepertiga malam terakhir',
+      'bedtime': 'Sebelum tidur',
+      'other': '',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String remWhen(String kind) {
+    String _temp0 = intl.Intl.selectLogic(kind, {
+      'ramadan': 'Malam Ramadan dimulai',
+      'dhulHijjah': 'Saat sepuluh hari dimulai, dan malam Arafah',
+      'eid': 'Petang sebelum setiap hari raya',
+      'ashura': 'Petang sebelum tanggal 9 dan 10 Muharam',
+      'whiteDays': 'Petang sebelum tanggal 13, tiap bulan',
+      'monThu': 'Minggu dan Rabu petang',
+      'jumuah': 'Jumat pagi',
+      'fridayLastHour': 'Jumat, satu jam terakhir sebelum Magrib',
+      'suhoor': 'Sebelum Subuh, tiap hari Ramadan',
+      'iftar': 'Saat Magrib, tiap hari Ramadan',
+      'laylatAlQadr': 'Malam ke-21, 23, 25, 27 dan 29',
+      'morningAdhkar': 'Setelah Subuh',
+      'eveningAdhkar': 'Setelah Asar',
+      'lastThird': 'Saat sepertiga terakhir dimulai',
+      'bedtime': 'Saat waktu tidurmu',
+      'other': '',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String get remHeroTitle => 'Jangan lewatkan saat-saat yang paling berharga';
+
+  @override
+  String get remHeroBody =>
+      'Waqt hanya mengingatkan di waktu-waktu yang paling besar pahalanya: Arafah, Asyura, Lailatulqadar, setiap Jumat. Tiap pengingat menjelaskan apa yang dilakukan dan mengapa, beserta sumbernya.';
+
+  @override
+  String get remTurnOn => 'Nyalakan pengingat';
+
+  @override
+  String get remComingUp => 'Pengingat berikutnya';
+
+  @override
+  String get remNothingSoon => 'Tidak ada dalam sebulan ke depan. Nyalakan pengingat lain di bawah.';
+
+  @override
+  String get remPreview => 'Pratinjau';
+
+  @override
+  String get remTest => 'Kirim pengingat uji coba';
+
+  @override
+  String get remTestSent => 'Terkirim. Lihat notifikasimu.';
+
+  @override
+  String get remNow => 'sekarang';
+
+  @override
+  String get remGroupSpecial => 'Hari-hari istimewa';
+
+  @override
+  String get remGroupFriday => 'Setiap Jumat';
+
+  @override
+  String get remGroupRamadan => 'Saat Ramadan';
+
+  @override
+  String get remGroupDaily => 'Setiap hari';
+
+  @override
+  String get remDailyNote => 'Mati secara bawaan, agar pengingat yang paling penting tetap menonjol.';
 }

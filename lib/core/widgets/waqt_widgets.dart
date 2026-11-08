@@ -7,10 +7,13 @@ import '../theme/waqt_theme.dart';
 /// as the app icon (tool/brand/waqt_icon.py). Ink for the figure and floor,
 /// the moment's accent for the crescent.
 class WaqtMark extends StatelessWidget {
-  const WaqtMark({super.key, this.size = 64});
+  const WaqtMark({super.key, this.size = 64, this.ink, this.accent});
 
   /// Width; the mark is a little wider than tall.
   final double size;
+
+  /// Override the moment's colours (e.g. on the fixed-colour app badge).
+  final Color? ink, accent;
 
   @override
   Widget build(BuildContext context) {

@@ -529,7 +529,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get notifTitle => 'Reminders';
 
   @override
-  String get notifHint => 'Adhkar, Jumu\'ah and night reminders, as you choose';
+  String get notifHint => 'Arafah, Ashura, Jumu\'ah, Ramadan and more';
 
   @override
   String get notifPermission => 'Notifications';
@@ -587,13 +587,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get notifStatus => 'Status';
 
   @override
-  String get setupCardTitle => 'Gentle reminders';
+  String get setupCardTitle => 'Let Waqt remind you';
 
   @override
-  String get setupCardBody => 'A quiet nudge at each prayer time. You choose which, and nothing leaves your phone.';
+  String get setupCardBody => 'The night before Arafah, Ashura or Eid, and every Friday: what to do, and why.';
 
   @override
-  String get setupCardAction => 'Set up';
+  String get setupCardAction => 'Turn on';
 
   @override
   String get setupCardDismiss => 'Not now';
@@ -1211,4 +1211,152 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get footerDuaRequest => 'Remember me in your duas.';
+
+  @override
+  String remTitle(String topic) {
+    String _temp0 = intl.Intl.selectLogic(topic, {
+      'ramadan': '🌙 Ramadan begins tonight',
+      'dhulHijjah': '🕋 The best ten days begin',
+      'arafah': '🤲 Tomorrow is the Day of Arafah',
+      'eidFitr': '🎉 Eid al-Fitr is tomorrow',
+      'eidAdha': '🐑 Eid al-Adha is tomorrow',
+      'tasua': '🗓️ Fast Tasu\'a tomorrow',
+      'ashura': '🌊 Tomorrow is Ashura',
+      'whiteDays': '🌕 The white days start tomorrow',
+      'monday': '🗓️ Fast tomorrow, Monday',
+      'thursday': '🗓️ Fast tomorrow, Thursday',
+      'jumuah': '🕌 Jumu\'ah Mubarak',
+      'fridayLastHour': '🤲 The hour of Friday is here',
+      'suhoor': '🌙 Time for suhoor',
+      'iftar': '🌅 Time to break your fast',
+      'laylatAlQadr': '✨ Tonight may be Laylat al-Qadr',
+      'morningAdhkar': '☀️ Morning adhkar',
+      'eveningAdhkar': '🌇 Evening adhkar',
+      'lastThird': '🌌 The last third of the night',
+      'bedtime': '😴 Before you sleep',
+      'other': '',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String remBody(String topic) {
+    String _temp0 = intl.Intl.selectLogic(topic, {
+      'ramadan': 'Taraweeh tonight, suhoor before Fajr. Whoever fasts Ramadan with faith and hope of reward is forgiven his past sins (Bukhari).',
+      'dhulHijjah': 'No days are good deeds more beloved to Allah than these ten (Bukhari). Takbir, fasting, charity: tap to plan them.',
+      'arafah':
+          'Fasting it wipes out the sins of the past year and the coming one (Muslim). Make your intention tonight.',
+      'eidFitr':
+          'Give zakat al-fitr before the Eid prayer, and say the takbir from tonight. Tap for the Sunnah of Eid.',
+      'eidAdha': 'Say the takbir, pray Eid in the morning, then offer your sacrifice. Tap for the Sunnah of Eid.',
+      'tasua': 'The Prophet ﷺ meant to fast the 9th with Ashura (Muslim). Ashura comes the day after.',
+      'ashura': 'Fasting Ashura wipes out the sins of the past year (Muslim). Make your intention tonight.',
+      'whiteDays': 'Fast the 13th, 14th and 15th: three days a month is like fasting the whole year (Bukhari).',
+      'monday': 'Deeds are shown to Allah on Mondays and Thursdays, and the Prophet ﷺ loved to be fasting (Tirmidhi).',
+      'thursday':
+          'Deeds are shown to Allah on Mondays and Thursdays, and the Prophet ﷺ loved to be fasting (Tirmidhi).',
+      'jumuah': 'Ghusl, go early, read Surat al-Kahf and send many blessings on the Prophet ﷺ today.',
+      'fridayLastHour': 'There is an hour on Friday when every dua is answered (Bukhari). Seek it now, before Maghrib.',
+      'suhoor': 'Eat suhoor, for there is blessing in it (Bukhari). Fajr is coming soon.',
+      'iftar': 'People stay upon good as long as they hasten to break the fast (Bukhari). Make dua as you break it.',
+      'laylatAlQadr':
+          'Better than a thousand months. Pray, and say: Allahumma innaka ʿafuwwun tuhibbul-ʿafwa faʿfu ʿanni.',
+      'morningAdhkar': 'A few minutes of remembrance to begin your day under Allah\'s protection.',
+      'eveningAdhkar': 'The evening remembrance, before Maghrib. Tap to read it.',
+      'lastThird':
+          'Allah descends to the lowest heaven and asks: who is calling on Me, that I may answer him? (Bukhari)',
+      'bedtime': 'Ayat al-Kursi, the last two verses of al-Baqarah and the sleep dua. Two minutes.',
+      'other': '',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String remKind(String kind) {
+    String _temp0 = intl.Intl.selectLogic(kind, {
+      'ramadan': 'Start of Ramadan',
+      'dhulHijjah': 'Dhul Hijjah and Arafah',
+      'eid': 'Eid',
+      'ashura': 'Tasu\'a and Ashura',
+      'whiteDays': 'The white days',
+      'monThu': 'Monday and Thursday fasts',
+      'jumuah': 'Jumu\'ah morning',
+      'fridayLastHour': 'The hour of Friday',
+      'suhoor': 'Suhoor',
+      'iftar': 'Iftar',
+      'laylatAlQadr': 'Odd nights of the last ten',
+      'morningAdhkar': 'Morning adhkar',
+      'eveningAdhkar': 'Evening adhkar',
+      'lastThird': 'The last third of the night',
+      'bedtime': 'Before sleep',
+      'other': '',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String remWhen(String kind) {
+    String _temp0 = intl.Intl.selectLogic(kind, {
+      'ramadan': 'The night Ramadan begins',
+      'dhulHijjah': 'When the ten days begin, and the eve of Arafah',
+      'eid': 'The evening before each Eid',
+      'ashura': 'The evenings before the 9th and 10th of Muharram',
+      'whiteDays': 'The evening before the 13th, every month',
+      'monThu': 'Sunday and Wednesday evenings',
+      'jumuah': 'Friday morning',
+      'fridayLastHour': 'Friday, the last hour before Maghrib',
+      'suhoor': 'Before Fajr, every day of Ramadan',
+      'iftar': 'At Maghrib, every day of Ramadan',
+      'laylatAlQadr': 'Nights of the 21st, 23rd, 25th, 27th and 29th',
+      'morningAdhkar': 'After Fajr',
+      'eveningAdhkar': 'After Asr',
+      'lastThird': 'When the last third begins',
+      'bedtime': 'At your bedtime',
+      'other': '',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String get remHeroTitle => 'Never miss the moments that count';
+
+  @override
+  String get remHeroBody =>
+      'Waqt reminds you only at the most rewarded times: Arafah, Ashura, Laylat al-Qadr, every Friday. Each reminder says what to do and why, with its source.';
+
+  @override
+  String get remTurnOn => 'Turn on reminders';
+
+  @override
+  String get remComingUp => 'Coming up';
+
+  @override
+  String get remNothingSoon => 'Nothing in the next month. Turn on more reminders below.';
+
+  @override
+  String get remPreview => 'Preview';
+
+  @override
+  String get remTest => 'Send me a test reminder';
+
+  @override
+  String get remTestSent => 'Sent. Check your notifications.';
+
+  @override
+  String get remNow => 'now';
+
+  @override
+  String get remGroupSpecial => 'Special days';
+
+  @override
+  String get remGroupFriday => 'Every Friday';
+
+  @override
+  String get remGroupRamadan => 'In Ramadan';
+
+  @override
+  String get remGroupDaily => 'Every day';
+
+  @override
+  String get remDailyNote => 'Off by default, so the most important reminders stand out.';
 }
