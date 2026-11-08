@@ -390,5 +390,10 @@
   "onbRemindersBody": "عرفة وعاشوراء والعيد والجمعة. بلا إزعاج.",
   "onbRemindersOn": "فعّل التذكيرات",
   "onbLater": "لاحقًا",
-  "onbStep": "الخطوة {n} من {total}"
+  "onbStep": "الخطوة {n} من {total}",
+  "beadOnTime": "في وقتها",
+  "beadJamaah": "جماعة",
+  "beadLate": "قضاء",
+  "comingUpTitle": "القادم",
+  "comingIn": "بعد {time}"
 }

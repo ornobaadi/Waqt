@@ -89,10 +89,10 @@ class _DayGuideCardState extends ConsumerState<DayGuideCard> {
                     children: [
                       Expanded(
                         child: Text(
-                          (widget.label ?? l.dayGuideToday).toUpperCase(),
+                          widget.label ?? l.dayGuideToday,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: WaqtText.overline.copyWith(color: t.accent),
+                          style: WaqtText.label.copyWith(color: t.accent, fontWeight: FontWeight.w700),
                         ),
                       ),
                       Text(

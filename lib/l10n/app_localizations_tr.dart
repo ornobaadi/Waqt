@@ -1519,4 +1519,21 @@ class AppLocalizationsTr extends AppLocalizations {
   String onbStep(int n, int total) {
     return 'Adım $n / $total';
   }
+
+  @override
+  String get beadOnTime => 'vaktinde';
+
+  @override
+  String get beadJamaah => 'cemaatle';
+
+  @override
+  String get beadLate => 'kaza';
+
+  @override
+  String get comingUpTitle => 'Sırada';
+
+  @override
+  String comingIn(String time) {
+    return '$time sonra';
+  }
 }

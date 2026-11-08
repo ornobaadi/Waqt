@@ -75,6 +75,27 @@ class _MoonPainter extends CustomPainter {
           stops: const [0, 0.5, 1],
         ).createShader(disc),
     );
+    // A few soft maria and craters on the lit side, so it reads as the moon.
+    canvas.save();
+    canvas.clipPath(path);
+    final crater = Paint()..color = Color.lerp(lit, Colors.black, 0.3)!.withValues(alpha: 0.22);
+    for (final (x, y, s) in const [
+      (0.62, 0.32, 0.2),
+      (0.72, 0.6, 0.14),
+      (0.5, 0.7, 0.1),
+      (0.8, 0.42, 0.08),
+      (0.4, 0.4, 0.12),
+    ]) {
+      canvas.drawOval(
+        Rect.fromCenter(
+          center: Offset(size.width * x, size.height * y),
+          width: size.width * s,
+          height: size.width * s * 0.85,
+        ),
+        crater,
+      );
+    }
+    canvas.restore();
     canvas.restore();
 
     // Soft halo.

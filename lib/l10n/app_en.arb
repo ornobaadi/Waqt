@@ -951,5 +951,17 @@
         "type": "int"
       }
     }
+  },
+  "beadOnTime": "on time",
+  "beadJamaah": "jama'ah",
+  "beadLate": "late",
+  "comingUpTitle": "Coming up",
+  "comingIn": "in {time}",
+  "@comingIn": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
   }
 }

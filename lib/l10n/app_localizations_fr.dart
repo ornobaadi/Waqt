@@ -1521,4 +1521,21 @@ class AppLocalizationsFr extends AppLocalizations {
   String onbStep(int n, int total) {
     return 'Étape $n sur $total';
   }
+
+  @override
+  String get beadOnTime => 'à l\'heure';
+
+  @override
+  String get beadJamaah => 'en groupe';
+
+  @override
+  String get beadLate => 'rattrapée';
+
+  @override
+  String get comingUpTitle => 'À venir';
+
+  @override
+  String comingIn(String time) {
+    return 'dans $time';
+  }
 }

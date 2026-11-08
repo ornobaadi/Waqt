@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:intl/intl.dart';
+import 'package:intl/intl.dart' hide TextDirection;
 
 import '../../app/app_state.dart';
 import '../../app/sync.dart';
@@ -160,7 +160,12 @@ class NowScreen extends ConsumerWidget {
                       ],
                     ),
                   ),
-                  Celestial(at: now, night: palette.isDark, southern: (place?.latitude ?? 0) < 0),
+                  // Larger, and past the screen edge, so it fills the sky
+                  // without crowding the clock.
+                  Transform.translate(
+                    offset: Offset(Directionality.of(context) == TextDirection.rtl ? -28 : 28, -8),
+                    child: Celestial(at: now, night: palette.isDark, southern: (place?.latitude ?? 0) < 0, size: 112),
+                  ),
                 ],
               ),
               const SizedBox(height: WaqtSpace.x3),
@@ -272,7 +277,7 @@ class NowScreen extends ConsumerWidget {
               ],
               if (moments != null && moments.upcoming.isNotEmpty) ...[
                 const SizedBox(height: WaqtSpace.x6),
-                ComingUp(moments: moments.upcoming),
+                ComingUp(moments: moments.upcoming, now: now),
               ],
               if (place == null) ...[const SizedBox(height: WaqtSpace.x4), const _LocationCard()],
             ],
@@ -309,7 +314,7 @@ class _Clock extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.baseline,
           textBaseline: TextBaseline.alphabetic,
           children: [
-            Text(hm, style: WaqtText.clock.copyWith(color: t.ink)),
+            Text(hm, style: WaqtText.clock.copyWith(color: t.ink, fontSize: 80)),
             if (showSuffix) ...[
               const SizedBox(width: WaqtSpace.x2),
               Text(suffix, style: WaqtText.titleSmall.copyWith(color: t.inkMuted)),

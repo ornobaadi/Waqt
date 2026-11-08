@@ -53,29 +53,34 @@ class RamadanCard extends StatelessWidget {
       return h > 0 ? l.durHm(n(h), n(m)) : l.durM(n(m < 1 ? 1 : m));
     }
 
-    Widget tile(String label, DateTime? at, DateTime fallback) {
+    final line = t.ink.withValues(alpha: 0.12);
+
+    // Two equal halves built the same way, so label, time and status line
+    // up across the card.
+    Widget half(String label, DateTime? at, DateTime fallback) {
       final lit = at != null && at == next;
-      return Expanded(
-        child: Container(
-          padding: const EdgeInsets.all(WaqtSpace.x4),
-          decoration: BoxDecoration(
-            color: lit ? t.heroInk.withValues(alpha: 0.1) : Colors.transparent,
-            // Concentric with the card: its radius minus the 8 px inset.
-            borderRadius: BorderRadius.circular(WaqtRadii.card - WaqtSpace.x2),
-          ),
+      final time = fmt.format(at ?? fallback);
+      return Padding(
+        padding: const EdgeInsets.fromLTRB(WaqtSpace.x4, WaqtSpace.x3, WaqtSpace.x4, WaqtSpace.x4),
+        child: Opacity(
+          opacity: at == null ? 0.5 : 1,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(label, style: WaqtText.caption.copyWith(color: t.heroInk.withValues(alpha: 0.7))),
+              Text(label, style: WaqtText.label.copyWith(color: t.inkMuted)),
               const SizedBox(height: WaqtSpace.x1),
-              Text(
-                fmt.format(at ?? fallback),
-                style: WaqtText.titleSmall.copyWith(color: at == null ? t.heroInk.withValues(alpha: 0.4) : t.heroInk),
+              FittedBox(
+                fit: BoxFit.scaleDown,
+                alignment: AlignmentDirectional.centerStart,
+                child: Text(time, style: WaqtText.title.copyWith(color: t.ink)),
               ),
               const SizedBox(height: WaqtSpace.x1),
               Text(
-                lit ? l.ramadanIn(left(at)) : (at == null ? l.ramadanDone : ''),
-                style: WaqtText.caption.copyWith(color: lit ? t.accent : t.heroInk.withValues(alpha: 0.5)),
+                lit ? l.ramadanIn(left(at)) : (at == null ? l.ramadanDone : ' '),
+                style: WaqtText.label.copyWith(
+                  color: lit ? t.ink : t.inkMuted,
+                  fontWeight: lit ? FontWeight.w700 : null,
+                ),
               ),
             ],
           ),
@@ -84,28 +89,32 @@ class RamadanCard extends StatelessWidget {
     }
 
     return Container(
-      padding: const EdgeInsets.all(WaqtSpace.x2),
       decoration: BoxDecoration(
-        color: t.heroSurface,
         borderRadius: BorderRadius.circular(WaqtRadii.card),
-        boxShadow: t.hero,
+        border: Border.all(color: line),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(WaqtSpace.x4, WaqtSpace.x3, WaqtSpace.x4, 0),
-            child: Row(
-              children: [Text(l.occRamadan(n(day)).toUpperCase(), style: WaqtText.overline.copyWith(color: t.accent))],
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: WaqtSpace.x4, vertical: WaqtSpace.x3),
+            decoration: BoxDecoration(
+              border: Border(bottom: BorderSide(color: line)),
+            ),
+            child: Text(
+              l.occRamadan(n(day)),
+              style: WaqtText.label.copyWith(color: t.ink, fontWeight: FontWeight.w700),
             ),
           ),
-          const SizedBox(height: WaqtSpace.x2),
-          Row(
-            children: [
-              tile(l.ramadanSuhoor, suhoor, fajr),
-              const SizedBox(width: WaqtSpace.x2),
-              tile(l.ramadanIftar, iftar, maghrib),
-            ],
+          IntrinsicHeight(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Expanded(child: half(l.ramadanSuhoor, suhoor, fajr)),
+                VerticalDivider(width: 1, thickness: 1, color: line),
+                Expanded(child: half(l.ramadanIftar, iftar, maghrib)),
+              ],
+            ),
           ),
         ],
       ),

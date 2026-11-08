@@ -362,5 +362,10 @@
   "onbRemindersBody": "Arafah, Asyura, Id, dan Jumat. Tanpa gangguan.",
   "onbRemindersOn": "Nyalakan pengingat",
   "onbLater": "Nanti saja",
-  "onbStep": "Langkah {n} dari {total}"
+  "onbStep": "Langkah {n} dari {total}",
+  "beadOnTime": "tepat waktu",
+  "beadJamaah": "berjamaah",
+  "beadLate": "qada",
+  "comingUpTitle": "Berikutnya",
+  "comingIn": "{time} lagi"
 }

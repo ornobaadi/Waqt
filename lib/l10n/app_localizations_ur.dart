@@ -1514,4 +1514,21 @@ class AppLocalizationsUr extends AppLocalizations {
   String onbStep(int n, int total) {
     return 'مرحلہ $n از $total';
   }
+
+  @override
+  String get beadOnTime => 'وقت پر';
+
+  @override
+  String get beadJamaah => 'جماعت';
+
+  @override
+  String get beadLate => 'قضا';
+
+  @override
+  String get comingUpTitle => 'آگے';
+
+  @override
+  String comingIn(String time) {
+    return '$time میں';
+  }
 }
