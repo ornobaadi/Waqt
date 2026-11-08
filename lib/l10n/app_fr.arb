@@ -362,5 +362,11 @@
   "onbRemindersBody": "Arafat, Achoura, l'Aïd et le vendredi. Jamais de bruit.",
   "onbRemindersOn": "Activer les rappels",
   "onbLater": "Plus tard",
-  "onbStep": "Étape {n} sur {total}"
+  "onbStep": "Étape {n} sur {total}",
+  "beadOnTime": "à l'heure",
+  "beadJamaah": "en groupe",
+  "beadLate": "rattrapée",
+  "comingUpTitle": "À venir",
+  "comingIn": "dans {time}",
+  "beadTapToMark": "cocher"
 }

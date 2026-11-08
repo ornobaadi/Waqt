@@ -368,5 +368,11 @@
   "onbRemindersBody": "আরাফা, আশুরা, ঈদ আর জুমা। কোনো বাড়তি শব্দ নয়।",
   "onbRemindersOn": "রিমাইন্ডার চালু করুন",
   "onbLater": "পরে",
-  "onbStep": "ধাপ {n} / {total}"
+  "onbStep": "ধাপ {n} / {total}",
+  "beadOnTime": "সময়মতো",
+  "beadJamaah": "জামাআত",
+  "beadLate": "কাজা",
+  "comingUpTitle": "আসছে",
+  "comingIn": "{time} পর",
+  "beadTapToMark": "মার্ক"
 }

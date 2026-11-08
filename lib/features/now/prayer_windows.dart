@@ -55,7 +55,7 @@ class PrayerWindows extends ConsumerWidget {
         left = total <= 0 ? 1 : (now.difference(start).inSeconds / total).clamp(0.0, 1.0);
       }
       final note = ended
-          ? l.beadEnded
+          ? (log.salah[w] == null ? l.beadTapToMark : l.beadEnded)
           : current
           ? l.beadLeft(_short(l, n, _endOf(w).difference(now)))
           : !started
@@ -151,91 +151,58 @@ class _Bead extends StatelessWidget {
     final l = AppLocalizations.of(context);
     final t = WaqtTokens.of(context);
     final m = mark;
-    final fill = m != null ? MarkColors.of(t, m) : (started ? t.surface : t.surface.withValues(alpha: 0.5));
-    final ink = m == null ? t.ink : MarkColors.on(t, m);
-    final r = BorderRadius.circular(radius);
     final fast = MediaQuery.disableAnimationsOf(context) ? Duration.zero : WaqtMotion.ui;
 
-    final body = AnimatedContainer(
-      duration: fast,
-      curve: WaqtMotion.ease,
-      decoration: BoxDecoration(
-        color: fill,
-        borderRadius: r,
-        border: m != null
-            ? null
-            : current
-            ? Border.all(color: t.ink.withValues(alpha: 0.7), width: 1.5)
-            : Border.all(color: t.ink.withValues(alpha: started ? 0.1 : 0.05)),
-      ),
-      child: ClipRRect(
-        borderRadius: r,
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            // How much of this waqt has passed.
-            PositionedDirectional(
-              start: 8,
-              end: 8,
-              bottom: 6,
-              child: Container(
-                height: 3,
-                alignment: AlignmentDirectional.centerStart,
-                decoration: BoxDecoration(
-                  color: ink.withValues(alpha: m == null ? 0.1 : 0.25),
-                  borderRadius: BorderRadius.circular(2),
-                ),
-                child: FractionallySizedBox(
-                  widthFactor: left,
-                  heightFactor: 1,
-                  child: DecoratedBox(
-                    decoration: BoxDecoration(
-                      color: m != null ? ink : (current ? t.ink : t.ink.withValues(alpha: 0.3)),
-                      borderRadius: BorderRadius.circular(2),
-                    ),
-                  ),
+    // Horizon style: no box. Name and time, then one thin line that is
+    // the mark's colour once prayed, or fills as the waqt passes.
+    final line = m != null ? MarkColors.of(t, m) : t.ink;
+    final body = Opacity(
+      opacity: started ? 1 : 0.5,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            l.waqt(prayer),
+            maxLines: 1,
+            overflow: TextOverflow.fade,
+            softWrap: false,
+            style: WaqtText.caption.copyWith(
+              color: current ? t.ink : t.inkMuted,
+              fontWeight: current ? FontWeight.w700 : null,
+            ),
+          ),
+          const SizedBox(height: 2),
+          Text(
+            time,
+            maxLines: 1,
+            style: WaqtText.bodyStrong.copyWith(color: t.ink, fontSize: 17, fontWeight: FontWeight.w700),
+          ),
+          const SizedBox(height: WaqtSpace.x2),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 6),
+            child: Container(
+              height: 3,
+              alignment: AlignmentDirectional.centerStart,
+              decoration: BoxDecoration(color: t.ink.withValues(alpha: 0.14), borderRadius: BorderRadius.circular(2)),
+              child: FractionallySizedBox(
+                widthFactor: m != null ? 1 : (current ? left : 0),
+                heightFactor: 1,
+                child: AnimatedContainer(
+                  duration: fast,
+                  decoration: BoxDecoration(color: line, borderRadius: BorderRadius.circular(2)),
                 ),
               ),
             ),
-            // How it was kept: a small, quiet sign in the corner.
-            if (m != null)
-              PositionedDirectional(
-                end: 5,
-                top: 4,
-                child: MarkSign(mark: m, size: 11, color: ink.withValues(alpha: 0.65)),
-              ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(2, 15, 2, 14),
-              child: Opacity(
-                opacity: started ? 1 : 0.45,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      l.waqt(prayer),
-                      maxLines: 1,
-                      overflow: TextOverflow.fade,
-                      softWrap: false,
-                      style: WaqtText.caption.copyWith(
-                        fontSize: 11,
-                        color: ink.withValues(alpha: m == null ? 0.6 : 0.85),
-                        fontWeight: current ? FontWeight.w600 : null,
-                      ),
-                    ),
-                    const SizedBox(height: 2),
-                    Text(
-                      time,
-                      maxLines: 1,
-                      style: WaqtText.bodyStrong.copyWith(color: ink, fontSize: 16, fontWeight: FontWeight.w700),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
+    final word = switch (m) {
+      SalahMark.onTime => l.beadOnTime,
+      SalahMark.jamaah => l.beadJamaah,
+      SalahMark.qada => l.beadLate,
+      null => note,
+    };
 
     return Semantics(
       button: started,
@@ -274,7 +241,7 @@ class _Bead extends StatelessWidget {
             Expanded(child: _Press(child: body)),
             const SizedBox(height: 6),
             Text(
-              note,
+              current ? note : word,
               textAlign: TextAlign.center,
               maxLines: 1,
               overflow: TextOverflow.fade,

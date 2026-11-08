@@ -62,7 +62,7 @@ void main() {
     await tester.scrollUntilVisible(find.text('Before you sleep'), 200);
     expect(find.text('0 of 4'), findsOneWidget);
     // Folded: three of four show; the circle ticks, the title opens the hadith.
-    final tick = find.byIcon(Icons.radio_button_unchecked_rounded).first;
+    final tick = find.byKey(const ValueKey('checklist-tick')).first;
     await tester.ensureVisible(tick);
     await tester.pumpAndSettle();
     await tester.tap(tick);

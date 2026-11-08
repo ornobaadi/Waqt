@@ -368,5 +368,11 @@
   "onbRemindersBody": "Arefe, Aşure, bayram ve cuma. Gereksiz bildirim yok.",
   "onbRemindersOn": "Hatırlatmaları aç",
   "onbLater": "Sonra",
-  "onbStep": "Adım {n} / {total}"
+  "onbStep": "Adım {n} / {total}",
+  "beadOnTime": "vaktinde",
+  "beadJamaah": "cemaatle",
+  "beadLate": "kaza",
+  "comingUpTitle": "Sırada",
+  "comingIn": "{time} sonra",
+  "beadTapToMark": "işaretle"
 }

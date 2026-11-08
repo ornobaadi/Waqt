@@ -146,21 +146,31 @@ class NowScreen extends ConsumerWidget {
                   ],
                 ),
               const SizedBox(height: WaqtSpace.x4),
-              Row(
+              // The moon or sun sits behind the hero at the end edge, partly
+              // past the screen, so it is large without pushing text down.
+              Stack(
+                clipBehavior: Clip.none,
                 children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        _Clock(now: now, locale: locale),
-                        if (status != null) ...[
-                          const SizedBox(height: WaqtSpace.x1),
-                          _HeroLines(title: l.waqt(status.current), status: status, now: now, numbers: n),
-                        ],
-                      ],
-                    ),
+                  PositionedDirectional(
+                    end: -64,
+                    top: -36,
+                    child: Celestial(at: now, night: palette.isDark, southern: (place?.latitude ?? 0) < 0, size: 140),
                   ),
-                  Celestial(at: now, night: palette.isDark, southern: (place?.latitude ?? 0) < 0),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Room for the moon: long times scale down instead of
+                      // running into it.
+                      Padding(
+                        padding: const EdgeInsetsDirectional.only(end: 124),
+                        child: _Clock(now: now, locale: locale),
+                      ),
+                      if (status != null) ...[
+                        const SizedBox(height: WaqtSpace.x1),
+                        _HeroLines(title: l.waqt(status.current), status: status, now: now, numbers: n),
+                      ],
+                    ],
+                  ),
                 ],
               ),
               const SizedBox(height: WaqtSpace.x3),
@@ -272,7 +282,7 @@ class NowScreen extends ConsumerWidget {
               ],
               if (moments != null && moments.upcoming.isNotEmpty) ...[
                 const SizedBox(height: WaqtSpace.x6),
-                ComingUp(moments: moments.upcoming),
+                ComingUp(moments: moments.upcoming, now: now),
               ],
               if (place == null) ...[const SizedBox(height: WaqtSpace.x4), const _LocationCard()],
             ],
@@ -309,7 +319,7 @@ class _Clock extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.baseline,
           textBaseline: TextBaseline.alphabetic,
           children: [
-            Text(hm, style: WaqtText.clock.copyWith(color: t.ink)),
+            Text(hm, style: WaqtText.clock.copyWith(color: t.ink, fontSize: 76)),
             if (showSuffix) ...[
               const SizedBox(width: WaqtSpace.x2),
               Text(suffix, style: WaqtText.titleSmall.copyWith(color: t.inkMuted)),

@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 
 import '../../core/theme/tokens.dart';
 import '../../core/theme/waqt_theme.dart';
+import '../../core/utils/digits.dart';
 import '../../data/content/content_repository.dart';
 import '../../data/sources/days.dart';
 import '../../domain/moments/moment.dart';
@@ -83,10 +84,10 @@ class RightNowCard extends ConsumerWidget {
                       children: [
                         Expanded(
                           child: Text(
-                            l.rightNow.toUpperCase(),
+                            l.rightNow,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            style: WaqtText.overline.copyWith(color: t.accent),
+                            style: WaqtText.label.copyWith(color: t.accent, fontWeight: FontWeight.w700),
                           ),
                         ),
                         Text(
@@ -98,7 +99,16 @@ class RightNowCard extends ConsumerWidget {
                       ],
                     ),
                     const SizedBox(height: WaqtSpace.x3),
-                    Text(l.moment(moment), style: WaqtText.title.copyWith(color: ink)),
+                    Text(l.moment(moment), style: WaqtText.title.copyWith(color: ink, fontSize: 24)),
+                    const SizedBox(height: WaqtSpace.x3),
+                    // How much of the window has passed, right under its name.
+                    LinearProgressIndicator(
+                      value: progress,
+                      minHeight: 2,
+                      borderRadius: BorderRadius.circular(1),
+                      backgroundColor: ink.withValues(alpha: 0.12),
+                      color: t.accent,
+                    ),
                   ],
                 ),
               ),
@@ -121,7 +131,8 @@ class RightNowCard extends ConsumerWidget {
                   ],
                   if (sourced.isNotEmpty) ...[
                     const SizedBox(height: WaqtSpace.x3),
-                    for (final i in sourced.take(4)) _SourcedRow(item: i, onTap: () => onSourced?.call(i)),
+                    for (final (k, i) in sourced.take(4).indexed)
+                      _SourcedRow(item: i, first: k == 0, onTap: () => onSourced?.call(i)),
                   ] else if (items.isNotEmpty) ...[
                     const SizedBox(height: WaqtSpace.x4),
                     for (final item in items.take(3)) _ItemRow(item: item),
@@ -145,15 +156,6 @@ class RightNowCard extends ConsumerWidget {
                 ],
               ),
             ),
-            const SizedBox(height: WaqtSpace.x5),
-            // How much of the window has passed. Honest, glanceable, no copy.
-            LinearProgressIndicator(
-              value: progress,
-              minHeight: 3,
-              borderRadius: BorderRadius.circular(2),
-              backgroundColor: ink.withValues(alpha: 0.14),
-              color: t.accent,
-            ),
           ],
         ),
       ),
@@ -163,8 +165,9 @@ class RightNowCard extends ConsumerWidget {
 
 /// What to do now, and the hadith it comes from.
 class _SourcedRow extends StatelessWidget {
-  const _SourcedRow({required this.item, required this.onTap});
+  const _SourcedRow({required this.item, required this.onTap, this.first = false});
   final DayItem item;
+  final bool first;
   final VoidCallback onTap;
 
   @override
@@ -183,7 +186,7 @@ class _SourcedRow extends StatelessWidget {
           width: double.infinity,
           padding: const EdgeInsets.symmetric(vertical: WaqtSpace.x3),
           decoration: BoxDecoration(
-            border: Border(top: BorderSide(color: ink.withValues(alpha: 0.12))),
+            border: first ? null : Border(top: BorderSide(color: ink.withValues(alpha: 0.12))),
           ),
           child: Row(
             children: [
@@ -285,70 +288,93 @@ class _Chip extends StatelessWidget {
   );
 }
 
+/// What comes next, as a timeline: a line runs down the start edge, one
+/// dot per moment (the next one filled), its time at the end and how long
+/// until it underneath.
 class ComingUp extends StatelessWidget {
-  const ComingUp({super.key, required this.moments});
+  const ComingUp({super.key, required this.moments, required this.now});
   final List<Moment> moments;
+  final DateTime now;
 
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
     final t = WaqtTokens.of(context);
     final fmt = clockFormat(context);
+    final n = LocaleDigits(Localizations.localeOf(context).toLanguageTag());
+    String until(DateTime at) {
+      final d = at.difference(now);
+      final h = d.inHours, m = d.inMinutes % 60;
+      return l.comingIn(h > 0 ? l.durHm(n(h), n(m)) : l.durM(n(m < 1 ? 1 : m)));
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsetsDirectional.only(start: WaqtSpace.x1, bottom: WaqtSpace.x2),
-          child: Text(l.comingUp.toUpperCase(), style: WaqtText.overline.copyWith(color: t.inkMuted)),
+          padding: const EdgeInsetsDirectional.only(start: WaqtSpace.x1, bottom: WaqtSpace.x3),
+          child: Text(l.comingUpTitle, style: WaqtText.titleSmall.copyWith(color: t.ink)),
         ),
-        IntrinsicHeight(
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              for (var i = 0; i < moments.length; i++) ...[
-                if (i > 0) const SizedBox(width: WaqtSpace.x2),
+        for (var i = 0; i < moments.length; i++)
+          IntrinsicHeight(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                SizedBox(
+                  width: 24,
+                  child: Stack(
+                    alignment: Alignment.topCenter,
+                    children: [
+                      if (i < moments.length - 1)
+                        Positioned(
+                          top: 10,
+                          bottom: 0,
+                          child: Container(width: 2, color: t.ink.withValues(alpha: 0.14)),
+                        ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 4),
+                        child: Container(
+                          width: 12,
+                          height: 12,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: i == 0 ? t.ink : t.ground,
+                            border: Border.all(color: t.ink.withValues(alpha: i == 0 ? 1 : 0.4), width: 2),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(width: WaqtSpace.x3),
                 Expanded(
-                  child: Container(
-                    padding: const EdgeInsets.all(WaqtSpace.x4),
-                    decoration: BoxDecoration(color: t.surface, borderRadius: BorderRadius.circular(WaqtRadii.strip)),
+                  child: Padding(
+                    padding: EdgeInsets.only(bottom: i < moments.length - 1 ? WaqtSpace.x5 : 0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Container(
-                              width: 6,
-                              height: 6,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: moments[i].kind == MomentKind.restricted ? t.inkMuted : t.accent,
-                              ),
+                            Expanded(
+                              child: Text(l.moment(moments[i]), style: WaqtText.bodyStrong.copyWith(color: t.ink)),
                             ),
                             const SizedBox(width: WaqtSpace.x2),
-                            Flexible(
-                              child: Text(
-                                l.startsAt(fmt.format(moments[i].window.start)),
-                                style: WaqtText.caption.copyWith(color: t.inkMuted),
-                              ),
+                            Text(
+                              fmt.format(moments[i].window.start),
+                              style: WaqtText.bodyStrong.copyWith(color: t.ink, fontWeight: FontWeight.w700),
                             ),
                           ],
                         ),
-                        const SizedBox(height: WaqtSpace.x2),
-                        Text(
-                          l.moment(moments[i]),
-                          style: WaqtText.bodyStrong.copyWith(color: t.ink),
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                        ),
+                        const SizedBox(height: 2),
+                        Text(until(moments[i].window.start), style: WaqtText.label.copyWith(color: t.inkMuted)),
                       ],
                     ),
                   ),
                 ),
               ],
-              if (moments.length == 1) const Expanded(child: SizedBox()),
-            ],
+            ),
           ),
-        ),
       ],
     );
   }

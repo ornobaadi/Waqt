@@ -1521,4 +1521,24 @@ class AppLocalizationsId extends AppLocalizations {
   String onbStep(int n, int total) {
     return 'Langkah $n dari $total';
   }
+
+  @override
+  String get beadOnTime => 'tepat waktu';
+
+  @override
+  String get beadJamaah => 'berjamaah';
+
+  @override
+  String get beadLate => 'qada';
+
+  @override
+  String get comingUpTitle => 'Berikutnya';
+
+  @override
+  String comingIn(String time) {
+    return '$time lagi';
+  }
+
+  @override
+  String get beadTapToMark => 'tandai';
 }

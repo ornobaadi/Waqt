@@ -1524,4 +1524,24 @@ class AppLocalizationsEn extends AppLocalizations {
   String onbStep(int n, int total) {
     return 'Step $n of $total';
   }
+
+  @override
+  String get beadOnTime => 'on time';
+
+  @override
+  String get beadJamaah => 'jama\'ah';
+
+  @override
+  String get beadLate => 'late';
+
+  @override
+  String get comingUpTitle => 'Coming up';
+
+  @override
+  String comingIn(String time) {
+    return 'in $time';
+  }
+
+  @override
+  String get beadTapToMark => 'mark';
 }

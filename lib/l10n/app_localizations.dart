@@ -2648,6 +2648,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Step {n} of {total}'**
   String onbStep(int n, int total);
+
+  /// No description provided for @beadOnTime.
+  ///
+  /// In en, this message translates to:
+  /// **'on time'**
+  String get beadOnTime;
+
+  /// No description provided for @beadJamaah.
+  ///
+  /// In en, this message translates to:
+  /// **'jama\'ah'**
+  String get beadJamaah;
+
+  /// No description provided for @beadLate.
+  ///
+  /// In en, this message translates to:
+  /// **'late'**
+  String get beadLate;
+
+  /// No description provided for @comingUpTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Coming up'**
+  String get comingUpTitle;
+
+  /// No description provided for @comingIn.
+  ///
+  /// In en, this message translates to:
+  /// **'in {time}'**
+  String comingIn(String time);
+
+  /// No description provided for @beadTapToMark.
+  ///
+  /// In en, this message translates to:
+  /// **'mark'**
+  String get beadTapToMark;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -376,5 +376,11 @@
   "onbRemindersBody": "عرفہ، عاشورا، عید اور جمعہ۔ کوئی شور نہیں۔",
   "onbRemindersOn": "یاد دہانیاں آن کریں",
   "onbLater": "بعد میں",
-  "onbStep": "مرحلہ {n} از {total}"
+  "onbStep": "مرحلہ {n} از {total}",
+  "beadOnTime": "وقت پر",
+  "beadJamaah": "جماعت",
+  "beadLate": "قضا",
+  "comingUpTitle": "آگے",
+  "comingIn": "{time} میں",
+  "beadTapToMark": "نشان"
 }

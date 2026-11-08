@@ -1508,4 +1508,24 @@ class AppLocalizationsAr extends AppLocalizations {
   String onbStep(int n, int total) {
     return 'الخطوة $n من $total';
   }
+
+  @override
+  String get beadOnTime => 'في وقتها';
+
+  @override
+  String get beadJamaah => 'جماعة';
+
+  @override
+  String get beadLate => 'قضاء';
+
+  @override
+  String get comingUpTitle => 'القادم';
+
+  @override
+  String comingIn(String time) {
+    return 'بعد $time';
+  }
+
+  @override
+  String get beadTapToMark => 'سجّل';
 }

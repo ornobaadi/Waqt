@@ -53,59 +53,82 @@ class RamadanCard extends StatelessWidget {
       return h > 0 ? l.durHm(n(h), n(m)) : l.durM(n(m < 1 ? 1 : m));
     }
 
-    Widget tile(String label, DateTime? at, DateTime fallback) {
+    // Two halves built the same way so label, time and status line up,
+    // on one soft surface: no outline, no boxes inside.
+    Widget half(String label, DateTime? at, DateTime fallback) {
       final lit = at != null && at == next;
-      return Expanded(
-        child: Container(
-          padding: const EdgeInsets.all(WaqtSpace.x4),
-          decoration: BoxDecoration(
-            color: lit ? t.heroInk.withValues(alpha: 0.1) : Colors.transparent,
-            // Concentric with the card: its radius minus the 8 px inset.
-            borderRadius: BorderRadius.circular(WaqtRadii.card - WaqtSpace.x2),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(label, style: WaqtText.caption.copyWith(color: t.heroInk.withValues(alpha: 0.7))),
-              const SizedBox(height: WaqtSpace.x1),
-              Text(
-                fmt.format(at ?? fallback),
-                style: WaqtText.titleSmall.copyWith(color: at == null ? t.heroInk.withValues(alpha: 0.4) : t.heroInk),
+      final parts = fmt.format(at ?? fallback).split(RegExp(r'\s+'));
+      return Opacity(
+        opacity: at == null ? 0.45 : 1,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(label, style: WaqtText.label.copyWith(color: t.inkMuted)),
+            const SizedBox(height: WaqtSpace.x1),
+            FittedBox(
+              fit: BoxFit.scaleDown,
+              alignment: AlignmentDirectional.centerStart,
+              child: Text.rich(
+                TextSpan(
+                  children: [
+                    TextSpan(
+                      text: parts.first,
+                      style: WaqtText.title.copyWith(color: t.ink),
+                    ),
+                    if (parts.length > 1)
+                      TextSpan(
+                        text: ' ${parts.sublist(1).join(' ')}',
+                        style: WaqtText.label.copyWith(color: t.ink, fontWeight: FontWeight.w700),
+                      ),
+                  ],
+                ),
               ),
-              const SizedBox(height: WaqtSpace.x1),
-              Text(
-                lit ? l.ramadanIn(left(at)) : (at == null ? l.ramadanDone : ''),
-                style: WaqtText.caption.copyWith(color: lit ? t.accent : t.heroInk.withValues(alpha: 0.5)),
+            ),
+            const SizedBox(height: 2),
+            Text(
+              lit ? l.ramadanIn(left(at)) : (at == null ? l.ramadanDone : ' '),
+              style: WaqtText.label.copyWith(
+                color: lit ? Color.lerp(t.ink, t.accent, 0.65) : t.inkMuted,
+                fontWeight: lit ? FontWeight.w700 : null,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       );
     }
 
     return Container(
-      padding: const EdgeInsets.all(WaqtSpace.x2),
+      padding: const EdgeInsets.fromLTRB(WaqtSpace.x5, WaqtSpace.x4, WaqtSpace.x5, WaqtSpace.x5),
       decoration: BoxDecoration(
-        color: t.heroSurface,
+        color: t.ink.withValues(alpha: 0.05),
         borderRadius: BorderRadius.circular(WaqtRadii.card),
-        boxShadow: t.hero,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(WaqtSpace.x4, WaqtSpace.x3, WaqtSpace.x4, 0),
-            child: Row(
-              children: [Text(l.occRamadan(n(day)).toUpperCase(), style: WaqtText.overline.copyWith(color: t.accent))],
-            ),
-          ),
-          const SizedBox(height: WaqtSpace.x2),
           Row(
             children: [
-              tile(l.ramadanSuhoor, suhoor, fajr),
+              Icon(Icons.nights_stay_outlined, size: 16, color: Color.lerp(t.ink, t.accent, 0.65)),
               const SizedBox(width: WaqtSpace.x2),
-              tile(l.ramadanIftar, iftar, maghrib),
+              Text(
+                l.occRamadan(n(day)),
+                style: WaqtText.label.copyWith(color: Color.lerp(t.ink, t.accent, 0.65), fontWeight: FontWeight.w700),
+              ),
             ],
+          ),
+          const SizedBox(height: WaqtSpace.x4),
+          IntrinsicHeight(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Expanded(child: half(l.ramadanSuhoor, suhoor, fajr)),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: WaqtSpace.x4, vertical: WaqtSpace.x1),
+                  child: VerticalDivider(width: 1, thickness: 1, color: t.ink.withValues(alpha: 0.12)),
+                ),
+                Expanded(child: half(l.ramadanIftar, iftar, maghrib)),
+              ],
+            ),
           ),
         ],
       ),
