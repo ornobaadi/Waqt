@@ -111,4 +111,11 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('Öğle'), findsWidgets);
   });
+
+  testWidgets('after midnight Isha counts down to this morning Fajr, not the next day', (tester) async {
+    await tester.pumpWidget(await app(at: DateTime(2026, 11, 9, 0, 2), place: dhaka));
+    await tester.pumpAndSettle();
+    expect(find.textContaining(RegExp(r'^2\dh')), findsNothing);
+    expect(find.textContaining(RegExp(r'^4h \d+m left$')), findsOneWidget);
+  });
 }

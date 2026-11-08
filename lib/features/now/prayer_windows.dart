@@ -48,7 +48,9 @@ class PrayerWindows extends ConsumerWidget {
       // The meter fills as the waqt passes: empty before it starts, full once over.
       var left = ended ? 1.0 : 0.0;
       if (current) {
-        final start = status.today[w], end = _endOf(w);
+        // After midnight, Isha began yesterday evening.
+        final start = prevDay && w == Waqt.isha ? status.today[w].subtract(const Duration(days: 1)) : status.today[w];
+        final end = _endOf(w);
         final total = end.difference(start).inSeconds;
         left = total <= 0 ? 1 : (now.difference(start).inSeconds / total).clamp(0.0, 1.0);
       }
@@ -111,7 +113,12 @@ class PrayerWindows extends ConsumerWidget {
   /// When a prayer's own time runs out: Fajr at sunrise, the rest at the next.
   DateTime _endOf(Waqt w) => switch (w) {
     Waqt.fajr => status.today[Waqt.sunrise],
-    Waqt.isha => status.today[Waqt.fajr].add(const Duration(days: 1)), // about tomorrow's Fajr
+    // Isha lasts until the next Fajr: tonight's if it is still before
+    // midnight, today's once the date has turned.
+    Waqt.isha =>
+      now.isBefore(status.today[Waqt.fajr])
+          ? status.today[Waqt.fajr]
+          : status.today[Waqt.fajr].add(const Duration(days: 1)),
     _ => status.today[Waqt.values[w.index + 1]],
   };
 }
