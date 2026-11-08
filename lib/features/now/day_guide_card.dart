@@ -268,25 +268,13 @@ class FastingPill extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = WaqtTokens.of(context);
+    // A small filled pill in the moment's accent.
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: WaqtSpace.x3, vertical: WaqtSpace.x2),
-      decoration: BoxDecoration(
-        color: t.surface,
-        borderRadius: BorderRadius.circular(99),
-        border: Border.all(color: t.ink.withValues(alpha: 0.12)),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(Icons.nights_stay_outlined, size: 16, color: t.ink),
-          const SizedBox(width: WaqtSpace.x2),
-          Flexible(
-            child: Text(
-              text,
-              style: WaqtText.label.copyWith(color: t.ink, fontWeight: FontWeight.w600),
-            ),
-          ),
-        ],
+      padding: const EdgeInsets.symmetric(horizontal: WaqtSpace.x3, vertical: 6),
+      decoration: BoxDecoration(color: t.accent, borderRadius: BorderRadius.circular(99)),
+      child: Text(
+        text,
+        style: WaqtText.label.copyWith(color: const Color(0xFF14110C), fontWeight: FontWeight.w600),
       ),
     );
   }

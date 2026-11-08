@@ -118,18 +118,21 @@ class NowScreen extends ConsumerWidget {
                       ),
                     ),
                   ),
-                  // A faked clock is not announced here, so test mode can take
-                  // clean screenshots; Settings > Developer shows it.
-                  if (occasions.isNotEmpty)
-                    _Pill(
-                      text: l.occasion(occasions.first, ramadanDay: n(ramadanDay)),
-                      color: t.accent,
-                      ink: const Color(0xFF14110C),
+                  // A quiet ringed button, like the dock's: the Qibla finder.
+                  Tooltip(
+                    message: l.qiblaTitle,
+                    child: Material(
+                      type: MaterialType.transparency,
+                      shape: CircleBorder(side: BorderSide(color: t.ink.withValues(alpha: 0.22))),
+                      child: InkWell(
+                        customBorder: const CircleBorder(),
+                        onTap: () => context.push('/qibla'),
+                        child: SizedBox.square(
+                          dimension: WaqtSpace.minTouch,
+                          child: Icon(Icons.explore_outlined, size: 22, color: t.ink, semanticLabel: l.qiblaTitle),
+                        ),
+                      ),
                     ),
-                  IconButton(
-                    tooltip: l.qiblaTitle,
-                    onPressed: () => context.push('/qibla'),
-                    icon: Icon(Icons.explore_outlined, color: t.ink),
                   ),
                 ],
               ),
@@ -189,11 +192,13 @@ class NowScreen extends ConsumerWidget {
                   ),
                 ),
               ),
-              if (fastText != null) ...[
+              // One pill under the date: today's Sunnah fast, else the day itself.
+              if ((fastText ?? (occasions.isEmpty ? null : l.occasion(occasions.first, ramadanDay: n(ramadanDay))))
+                  case final pill?) ...[
                 const SizedBox(height: WaqtSpace.x3),
                 Align(
                   alignment: AlignmentDirectional.centerStart,
-                  child: FastingPill(text: fastText),
+                  child: FastingPill(text: pill),
                 ),
               ],
               const SizedBox(height: WaqtSpace.x6),
@@ -502,20 +507,6 @@ class _CardButton extends StatelessWidget {
       ),
     );
   }
-}
-
-class _Pill extends StatelessWidget {
-  const _Pill({required this.text, required this.color, required this.ink});
-  final String text;
-  final Color color;
-  final Color ink;
-
-  @override
-  Widget build(BuildContext context) => Container(
-    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-    decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(99)),
-    child: Text(text, style: WaqtText.overline.copyWith(color: ink)),
-  );
 }
 
 /// Asked once, after a location exists. It shows the very reminder this
