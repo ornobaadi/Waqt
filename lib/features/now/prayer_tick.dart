@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../core/theme/tokens.dart';
 import '../../core/theme/waqt_theme.dart';
+import '../../core/widgets/waqt_widgets.dart';
 import '../../domain/deeds/deeds.dart';
 import '../../domain/prayer/prayer_times_service.dart';
 import '../../l10n/app_localizations.dart';
@@ -33,6 +34,22 @@ IconData markIcon(SalahMark m) => switch (m) {
   SalahMark.qada => Icons.schedule_rounded,
 };
 
+/// How a prayer was kept, drawn small: one figure in sujood alone, two in
+/// congregation, a clock when made up late.
+class MarkSign extends StatelessWidget {
+  const MarkSign({super.key, required this.mark, required this.size, required this.color});
+  final SalahMark mark;
+  final double size;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) => switch (mark) {
+    SalahMark.onTime => SujoodGlyph(size: size, color: color),
+    SalahMark.jamaah => SujoodGlyph(count: 2, size: size, color: color),
+    SalahMark.qada => Icon(Icons.schedule_rounded, size: size + 2, color: color),
+  };
+}
+
 /// A swatch of a mark's colour with its sign; an outline when not marked.
 class SalahSwatch extends StatelessWidget {
   const SalahSwatch({super.key, required this.mark, this.size = 22});
@@ -51,7 +68,8 @@ class SalahSwatch extends StatelessWidget {
         borderRadius: BorderRadius.circular(size * 0.28),
         border: m == null ? Border.all(color: t.ink.withValues(alpha: 0.3), width: 1.5) : null,
       ),
-      child: m == null ? null : Icon(markIcon(m), size: size * 0.6, color: MarkColors.on(t, m)),
+      alignment: Alignment.center,
+      child: m == null ? null : MarkSign(mark: m, size: size * 0.42, color: MarkColors.on(t, m)),
     );
   }
 }

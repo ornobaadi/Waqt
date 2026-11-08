@@ -46,12 +46,12 @@ class PrayerWindows extends ConsumerWidget {
       final started = prevDay || !status.today[w].isAfter(now);
       final ended = prevDay ? w != Waqt.isha : !_endOf(w).isAfter(now);
       final current = running && w == status.current && started && !ended;
-      // The meter: what is left of this waqt. Gone once over, full before it starts.
-      var left = ended ? 0.0 : 1.0;
+      // The meter fills as the waqt passes: empty before it starts, full once over.
+      var left = ended ? 1.0 : 0.0;
       if (current) {
         final start = status.today[w], end = _endOf(w);
         final total = end.difference(start).inSeconds;
-        left = total <= 0 ? 0 : (end.difference(now).inSeconds / total).clamp(0.0, 1.0);
+        left = total <= 0 ? 1 : (now.difference(start).inSeconds / total).clamp(0.0, 1.0);
       }
       final note = ended
           ? l.beadEnded
@@ -173,14 +173,14 @@ class _Bead extends StatelessWidget {
         child: Stack(
           alignment: Alignment.center,
           children: [
-            // What is left of this waqt, draining toward its end.
+            // How much of this waqt has passed.
             PositionedDirectional(
               start: 8,
               end: 8,
               bottom: 6,
               child: Container(
                 height: 3,
-                alignment: AlignmentDirectional.centerEnd,
+                alignment: AlignmentDirectional.centerStart,
                 decoration: BoxDecoration(
                   color: ink.withValues(alpha: m == null ? 0.1 : 0.25),
                   borderRadius: BorderRadius.circular(2),
@@ -202,7 +202,7 @@ class _Bead extends StatelessWidget {
               PositionedDirectional(
                 end: 5,
                 top: 4,
-                child: Icon(markIcon(m), size: 12, color: ink.withValues(alpha: 0.6)),
+                child: MarkSign(mark: m, size: 11, color: ink.withValues(alpha: 0.65)),
               ),
             Padding(
               padding: const EdgeInsets.fromLTRB(2, 15, 2, 14),

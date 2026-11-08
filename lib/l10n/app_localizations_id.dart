@@ -82,7 +82,8 @@ class AppLocalizationsId extends AppLocalizations {
   String get settingsDeveloper => 'Test mode';
 
   @override
-  String get settingsDeveloperHint => 'Fake clock, day jumps and the reference checker';
+  String get settingsDeveloperHint =>
+      'Fake clock, day jumps and the reference checker';
 
   @override
   String get settingsAbout => 'Tentang Waqt';
@@ -184,16 +185,19 @@ class AppLocalizationsId extends AppLocalizations {
   String get locationLocating => 'Mencari lokasi…';
 
   @override
-  String get gpsServiceOff => 'Lokasi di ponsel ini mati. Nyalakan, atau pilih kota.';
+  String get gpsServiceOff =>
+      'Lokasi di ponsel ini mati. Nyalakan, atau pilih kota.';
 
   @override
   String get gpsDenied => 'Izin lokasi ditolak. Anda bisa memilih kota.';
 
   @override
-  String get gpsDeniedForever => 'Izin lokasi diblokir. Izinkan di pengaturan, atau pilih kota.';
+  String get gpsDeniedForever =>
+      'Izin lokasi diblokir. Izinkan di pengaturan, atau pilih kota.';
 
   @override
-  String get gpsTimeout => 'Lokasi tidak ditemukan. Coba lagi, atau pilih kota.';
+  String get gpsTimeout =>
+      'Lokasi tidak ditemukan. Coba lagi, atau pilih kota.';
 
   @override
   String get openSettings => 'Buka pengaturan';
@@ -226,7 +230,8 @@ class AppLocalizationsId extends AppLocalizations {
   String get asrStandard => 'Jumhur';
 
   @override
-  String get asrStandardHint => 'Syafi\'i, Maliki, Hanbali: bayangan sama dengan benda';
+  String get asrStandardHint =>
+      'Syafi\'i, Maliki, Hanbali: bayangan sama dengan benda';
 
   @override
   String get asrHanafi => 'Hanafi';
@@ -241,7 +246,8 @@ class AppLocalizationsId extends AppLocalizations {
   String get highLatAuto => 'Otomatis';
 
   @override
-  String get highLatAutoHint => 'Sepertujuh malam di atas 48°, tengah malam di bawahnya';
+  String get highLatAutoHint =>
+      'Sepertujuh malam di atas 48°, tengah malam di bawahnya';
 
   @override
   String get highLatMiddle => 'Tengah malam';
@@ -270,7 +276,8 @@ class AppLocalizationsId extends AppLocalizations {
   }
 
   @override
-  String get settingsAttribution => 'Data kota © GeoNames, CC BY 4.0. Jadwal salat dihitung di perangkat.';
+  String get settingsAttribution =>
+      'Data kota © GeoNames, CC BY 4.0. Jadwal salat dihitung di perangkat.';
 
   @override
   String get citySearchHint => 'Cari kota';
@@ -391,7 +398,8 @@ class AppLocalizationsId extends AppLocalizations {
   String get statusChecked => 'Diperiksa';
 
   @override
-  String get draftNotice => 'Draf belum diperiksa, hanya tampil di versi pengembangan';
+  String get draftNotice =>
+      'Draf belum diperiksa, hanya tampil di versi pengembangan';
 
   @override
   String get collectionQuran => 'Al-Qur\'an';
@@ -462,7 +470,8 @@ class AppLocalizationsId extends AppLocalizations {
   }
 
   @override
-  String get sheetTextPending => 'Teks akan muncul di sini setelah rujukan ini diperiksa dengan sumber aslinya.';
+  String get sheetTextPending =>
+      'Teks akan muncul di sini setelah rujukan ini diperiksa dengan sumber aslinya.';
 
   @override
   String get statusApproved => 'Disetujui ulama';
@@ -543,7 +552,8 @@ class AppLocalizationsId extends AppLocalizations {
   String get notifExact => 'Tepat waktu';
 
   @override
-  String get notifExactHint => 'Agar pengingat salat datang tepat pada menitnya';
+  String get notifExactHint =>
+      'Agar pengingat salat datang tepat pada menitnya';
 
   @override
   String get notifBattery => 'Optimasi baterai';
@@ -673,13 +683,15 @@ class AppLocalizationsId extends AppLocalizations {
   String get reportProblem => 'Laporkan masalah';
 
   @override
-  String get reportProblemHint => 'Membuka draf email. Anda melihat semuanya sebelum dikirim.';
+  String get reportProblemHint =>
+      'Membuka draf email. Anda melihat semuanya sebelum dikirim.';
 
   @override
   String get privacyTitle => 'Privasi';
 
   @override
-  String get privacyBody => 'Semuanya dihitung di ponsel ini. Waqt tanpa akun, iklan, atau analitik.';
+  String get privacyBody =>
+      'Semuanya dihitung di ponsel ini. Waqt tanpa akun, iklan, atau analitik.';
 
   @override
   String placeTime(String city) {
@@ -687,7 +699,8 @@ class AppLocalizationsId extends AppLocalizations {
   }
 
   @override
-  String get testModeUnlocked => 'Test mode is on. Find it at the bottom of Settings.';
+  String get testModeUnlocked =>
+      'Test mode is on. Find it at the bottom of Settings.';
 
   @override
   String get debugJumpDay => 'Jump to a day';
@@ -702,7 +715,8 @@ class AppLocalizationsId extends AppLocalizations {
   String get debugShowUnchecked => 'Show unchecked content';
 
   @override
-  String get debugShowUncheckedHint => 'On this phone only. Unchecked items are marked as drafts.';
+  String get debugShowUncheckedHint =>
+      'On this phone only. Unchecked items are marked as drafts.';
 
   @override
   String get debugLock => 'Turn off test mode';
@@ -728,7 +742,8 @@ class AppLocalizationsId extends AppLocalizations {
   String get checkerWrong => 'Wrong';
 
   @override
-  String get checkerWrongHint => 'What is wrong, and the correct reference if you know it';
+  String get checkerWrongHint =>
+      'What is wrong, and the correct reference if you know it';
 
   @override
   String get checkerSend => 'Email results';
@@ -793,15 +808,22 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String duaCount(int count) {
-    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$count doa', one: '1 doa');
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count doa',
+      one: '1 doa',
+    );
     return '$_temp0';
   }
 
   @override
-  String get libraryPreparing => 'Menyiapkan pencarian hadis. Ini hanya sekali.';
+  String get libraryPreparing =>
+      'Menyiapkan pencarian hadis. Ini hanya sekali.';
 
   @override
-  String get libraryRefine => 'Menampilkan 60 pertama. Tambah kata untuk mempersempit.';
+  String get libraryRefine =>
+      'Menampilkan 60 pertama. Tambah kata untuk mempersempit.';
 
   @override
   String get sourceHisn =>
@@ -921,7 +943,8 @@ class AppLocalizationsId extends AppLocalizations {
   }
 
   @override
-  String get announceOffline => 'Luring: menampilkan tanggal unduhan terakhir. Waqt memeriksa lagi saat tersambung.';
+  String get announceOffline =>
+      'Luring: menampilkan tanggal unduhan terakhir. Waqt memeriksa lagi saat tersambung.';
 
   @override
   String announceChecking(String time) {
@@ -944,7 +967,8 @@ class AppLocalizationsId extends AppLocalizations {
   String get authorityDiyanetHint => 'Kalender resmi Turki, diperbarui daring';
 
   @override
-  String get authorityLocalHint => 'Umm al-Qura; tanggal 29 Anda menjawab apakah hilal terlihat';
+  String get authorityLocalHint =>
+      'Umm al-Qura; tanggal 29 Anda menjawab apakah hilal terlihat';
 
   @override
   String calendarSourceLine(String authority, String time) {
@@ -971,7 +995,12 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String adjustSome(int count) {
-    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$count waktu', one: '1 waktu');
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count waktu',
+      one: '1 waktu',
+    );
     return '$_temp0';
   }
 
@@ -1001,7 +1030,8 @@ class AppLocalizationsId extends AppLocalizations {
   }
 
   @override
-  String get hadithUnavailable => 'Pencarian hadis tidak tersedia di sini. Berfungsi di aplikasi Android.';
+  String get hadithUnavailable =>
+      'Pencarian hadis tidak tersedia di sini. Berfungsi di aplikasi Android.';
 
   @override
   String get hadithLibraryTitle => 'Pustaka hadis';
@@ -1021,7 +1051,8 @@ class AppLocalizationsId extends AppLocalizations {
   }
 
   @override
-  String get hadithLibraryFailed => 'Unduhan belum selesai. Periksa koneksi Anda.';
+  String get hadithLibraryFailed =>
+      'Unduhan belum selesai. Periksa koneksi Anda.';
 
   @override
   String get hadithLibraryRetry => 'Coba lagi';
@@ -1181,7 +1212,8 @@ class AppLocalizationsId extends AppLocalizations {
   String get qiblaHoldFlat => 'Letakkan ponsel mendatar';
 
   @override
-  String get qiblaCalibrate => 'Jika arahnya bergeser, gerakkan ponsel membentuk angka 8, jauh dari logam dan magnet.';
+  String get qiblaCalibrate =>
+      'Jika arahnya bergeser, gerakkan ponsel membentuk angka 8, jauh dari logam dan magnet.';
 
   @override
   String qiblaNoCompass(String deg) {
@@ -1252,17 +1284,16 @@ class AppLocalizationsId extends AppLocalizations {
       'monday': 'Amal diperlihatkan pada hari Senin dan Kamis, dan Nabi ﷺ suka amalnya diperlihatkan saat berpuasa (Tirmidzi).',
       'thursday': 'Amal diperlihatkan pada hari Senin dan Kamis, dan Nabi ﷺ suka amalnya diperlihatkan saat berpuasa (Tirmidzi).',
       'jumuah': 'Mandi, berangkat lebih awal, baca surah al-Kahfi dan perbanyak selawat kepada Nabi ﷺ hari ini.',
-      'fridayLastHour':
-          'Pada hari Jumat ada satu waktu ketika setiap doa dikabulkan (Bukhari). Carilah sekarang, sebelum Magrib.',
+      'fridayLastHour': 'Pada hari Jumat ada satu waktu ketika setiap doa dikabulkan (Bukhari). Carilah sekarang, sebelum Magrib.',
       'suhoor': 'Bersahurlah, karena dalam sahur ada berkah (Bukhari). Subuh sebentar lagi.',
       'iftar': 'Manusia senantiasa dalam kebaikan selama menyegerakan berbuka (Bukhari). Berdoalah saat berbuka.',
-      'laylatAlQadr':
-          'Lebih baik dari seribu bulan. Salatlah, dan ucapkan: Allahumma innaka ʿafuwwun tuhibbul-ʿafwa faʿfu ʿanni.',
-      'morningAdhkar': 'Beberapa menit zikir untuk memulai hari dalam lindungan Allah.',
+      'laylatAlQadr': 'Lebih baik dari seribu bulan. Salatlah, dan ucapkan: Allahumma innaka ʿafuwwun tuhibbul-ʿafwa faʿfu ʿanni.',
+      'morningAdhkar':
+          'Beberapa menit zikir untuk memulai hari dalam lindungan Allah.',
       'eveningAdhkar': 'Zikir petang, sebelum Magrib. Ketuk untuk membacanya.',
-      'lastThird':
-          'Rabb kita turun ke langit dunia dan berfirman: siapa yang berdoa kepada-Ku, akan Aku kabulkan? (Bukhari)',
-      'bedtime': 'Ayat Kursi, dua ayat terakhir al-Baqarah dan doa tidur. Dua menit.',
+      'lastThird': 'Rabb kita turun ke langit dunia dan berfirman: siapa yang berdoa kepada-Ku, akan Aku kabulkan? (Bukhari)',
+      'bedtime':
+          'Ayat Kursi, dua ayat terakhir al-Baqarah dan doa tidur. Dua menit.',
       'other': '',
     });
     return '$_temp0';
@@ -1328,7 +1359,8 @@ class AppLocalizationsId extends AppLocalizations {
   String get remComingUp => 'Pengingat berikutnya';
 
   @override
-  String get remNothingSoon => 'Tidak ada dalam sebulan ke depan. Nyalakan pengingat lain di bawah.';
+  String get remNothingSoon =>
+      'Tidak ada dalam sebulan ke depan. Nyalakan pengingat lain di bawah.';
 
   @override
   String get remPreview => 'Pratinjau';
@@ -1355,7 +1387,8 @@ class AppLocalizationsId extends AppLocalizations {
   String get remGroupDaily => 'Setiap hari';
 
   @override
-  String get remDailyNote => 'Mati secara bawaan, agar pengingat yang paling penting tetap menonjol.';
+  String get remDailyNote =>
+      'Mati secara bawaan, agar pengingat yang paling penting tetap menonjol.';
 
   @override
   String get qiblaFromLabel => 'Kiblat dari';
@@ -1372,7 +1405,8 @@ class AppLocalizationsId extends AppLocalizations {
   }
 
   @override
-  String get qiblaHint => 'Putar sampai panah menunjuk ke atas dan layar menyala.';
+  String get qiblaHint =>
+      'Putar sampai panah menunjuk ke atas dan layar menyala.';
 
   @override
   String get deedOnTime => 'Tepat waktu';
@@ -1392,7 +1426,8 @@ class AppLocalizationsId extends AppLocalizations {
   }
 
   @override
-  String get deedRingHint => 'Centang salat di Sekarang setelah Anda menunaikannya. Hanya Anda yang melihatnya.';
+  String get deedRingHint =>
+      'Centang salat di Sekarang setelah Anda menunaikannya. Hanya Anda yang melihatnya.';
 
   @override
   String deedStreak(String days) {

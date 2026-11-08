@@ -82,7 +82,8 @@ class AppLocalizationsUr extends AppLocalizations {
   String get settingsDeveloper => 'Test mode';
 
   @override
-  String get settingsDeveloperHint => 'Fake clock, day jumps and the reference checker';
+  String get settingsDeveloperHint =>
+      'Fake clock, day jumps and the reference checker';
 
   @override
   String get settingsAbout => 'وقت کے بارے میں';
@@ -184,13 +185,16 @@ class AppLocalizationsUr extends AppLocalizations {
   String get locationLocating => 'مقام تلاش ہو رہا ہے…';
 
   @override
-  String get gpsServiceOff => 'اس فون پر مقام بند ہے۔ اسے آن کریں یا شہر منتخب کریں۔';
+  String get gpsServiceOff =>
+      'اس فون پر مقام بند ہے۔ اسے آن کریں یا شہر منتخب کریں۔';
 
   @override
-  String get gpsDenied => 'مقام کی اجازت نہیں دی گئی۔ آپ شہر منتخب کر سکتے ہیں۔';
+  String get gpsDenied =>
+      'مقام کی اجازت نہیں دی گئی۔ آپ شہر منتخب کر سکتے ہیں۔';
 
   @override
-  String get gpsDeniedForever => 'مقام کی اجازت بند ہے۔ ترتیبات میں اجازت دیں یا شہر منتخب کریں۔';
+  String get gpsDeniedForever =>
+      'مقام کی اجازت بند ہے۔ ترتیبات میں اجازت دیں یا شہر منتخب کریں۔';
 
   @override
   String get gpsTimeout => 'مقام نہیں ملا۔ دوبارہ کوشش کریں یا شہر منتخب کریں۔';
@@ -270,7 +274,8 @@ class AppLocalizationsUr extends AppLocalizations {
   }
 
   @override
-  String get settingsAttribution => 'شہروں کا ڈیٹا © GeoNames، CC BY 4.0۔ نماز کے اوقات آلے پر ہی حساب ہوتے ہیں۔';
+  String get settingsAttribution =>
+      'شہروں کا ڈیٹا © GeoNames، CC BY 4.0۔ نماز کے اوقات آلے پر ہی حساب ہوتے ہیں۔';
 
   @override
   String get citySearchHint => 'شہر تلاش کریں';
@@ -391,7 +396,8 @@ class AppLocalizationsUr extends AppLocalizations {
   String get statusChecked => 'جانچا گیا';
 
   @override
-  String get draftNotice => 'غیر جانچا مسودہ، صرف ترقیاتی ورژن میں دکھائی دیتا ہے';
+  String get draftNotice =>
+      'غیر جانچا مسودہ، صرف ترقیاتی ورژن میں دکھائی دیتا ہے';
 
   @override
   String get collectionQuran => 'قرآن';
@@ -462,7 +468,8 @@ class AppLocalizationsUr extends AppLocalizations {
   }
 
   @override
-  String get sheetTextPending => 'یہ حوالہ اصل ماخذ سے جانچنے کے بعد متن یہاں ظاہر ہوگا۔';
+  String get sheetTextPending =>
+      'یہ حوالہ اصل ماخذ سے جانچنے کے بعد متن یہاں ظاہر ہوگا۔';
 
   @override
   String get statusApproved => 'عالم سے منظور شدہ';
@@ -555,7 +562,8 @@ class AppLocalizationsUr extends AppLocalizations {
   String get notifBatteryFix => 'ترتیبات کھولیں';
 
   @override
-  String get notifBatteryHint => 'کچھ فون پس منظر میں یاد دہانیاں روک دیتے ہیں۔ وقت کو «غیر محدود» پر رکھیں۔';
+  String get notifBatteryHint =>
+      'کچھ فون پس منظر میں یاد دہانیاں روک دیتے ہیں۔ وقت کو «غیر محدود» پر رکھیں۔';
 
   @override
   String notifBatteryHintOem(String maker) {
@@ -589,7 +597,8 @@ class AppLocalizationsUr extends AppLocalizations {
   String get setupCardTitle => 'وقت کو یاد دلانے دیجیے';
 
   @override
-  String get setupCardBody => 'عرفہ، عاشورا یا عید سے پہلے کی رات، اور ہر جمعہ: کیا کرنا ہے اور کیوں۔';
+  String get setupCardBody =>
+      'عرفہ، عاشورا یا عید سے پہلے کی رات، اور ہر جمعہ: کیا کرنا ہے اور کیوں۔';
 
   @override
   String get setupCardAction => 'آن کریں';
@@ -671,13 +680,15 @@ class AppLocalizationsUr extends AppLocalizations {
   String get reportProblem => 'مسئلے کی اطلاع دیں';
 
   @override
-  String get reportProblemHint => 'ای میل کا مسودہ کھلتا ہے، بھیجنے سے پہلے آپ سب کچھ دیکھ سکتے ہیں۔';
+  String get reportProblemHint =>
+      'ای میل کا مسودہ کھلتا ہے، بھیجنے سے پہلے آپ سب کچھ دیکھ سکتے ہیں۔';
 
   @override
   String get privacyTitle => 'رازداری';
 
   @override
-  String get privacyBody => 'سب کچھ اسی فون پر حساب ہوتا ہے۔ وقت میں نہ اکاؤنٹ ہیں، نہ اشتہارات، نہ اینالیٹکس۔';
+  String get privacyBody =>
+      'سب کچھ اسی فون پر حساب ہوتا ہے۔ وقت میں نہ اکاؤنٹ ہیں، نہ اشتہارات، نہ اینالیٹکس۔';
 
   @override
   String placeTime(String city) {
@@ -685,7 +696,8 @@ class AppLocalizationsUr extends AppLocalizations {
   }
 
   @override
-  String get testModeUnlocked => 'Test mode is on. Find it at the bottom of Settings.';
+  String get testModeUnlocked =>
+      'Test mode is on. Find it at the bottom of Settings.';
 
   @override
   String get debugJumpDay => 'Jump to a day';
@@ -700,7 +712,8 @@ class AppLocalizationsUr extends AppLocalizations {
   String get debugShowUnchecked => 'Show unchecked content';
 
   @override
-  String get debugShowUncheckedHint => 'On this phone only. Unchecked items are marked as drafts.';
+  String get debugShowUncheckedHint =>
+      'On this phone only. Unchecked items are marked as drafts.';
 
   @override
   String get debugLock => 'Turn off test mode';
@@ -726,7 +739,8 @@ class AppLocalizationsUr extends AppLocalizations {
   String get checkerWrong => 'Wrong';
 
   @override
-  String get checkerWrongHint => 'What is wrong, and the correct reference if you know it';
+  String get checkerWrongHint =>
+      'What is wrong, and the correct reference if you know it';
 
   @override
   String get checkerSend => 'Email results';
@@ -791,15 +805,22 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String duaCount(int count) {
-    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$count دعائیں', one: '1 دعا');
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count دعائیں',
+      one: '1 دعا',
+    );
     return '$_temp0';
   }
 
   @override
-  String get libraryPreparing => 'احادیث کی تلاش تیار ہو رہی ہے۔ یہ صرف ایک بار ہوتا ہے۔';
+  String get libraryPreparing =>
+      'احادیث کی تلاش تیار ہو رہی ہے۔ یہ صرف ایک بار ہوتا ہے۔';
 
   @override
-  String get libraryRefine => 'پہلے 60 دکھائے جا رہے ہیں۔ محدود کرنے کے لیے لفظ شامل کریں۔';
+  String get libraryRefine =>
+      'پہلے 60 دکھائے جا رہے ہیں۔ محدود کرنے کے لیے لفظ شامل کریں۔';
 
   @override
   String get sourceHisn =>
@@ -919,7 +940,8 @@ class AppLocalizationsUr extends AppLocalizations {
   }
 
   @override
-  String get announceOffline => 'آف لائن: آخری ڈاؤن لوڈ شدہ تاریخیں۔ کنکشن پر وقت دوبارہ چیک کرے گا۔';
+  String get announceOffline =>
+      'آف لائن: آخری ڈاؤن لوڈ شدہ تاریخیں۔ کنکشن پر وقت دوبارہ چیک کرے گا۔';
 
   @override
   String announceChecking(String time) {
@@ -942,7 +964,8 @@ class AppLocalizationsUr extends AppLocalizations {
   String get authorityDiyanetHint => 'ترکیہ کا سرکاری کیلنڈر، آن لائن اپ ڈیٹ';
 
   @override
-  String get authorityLocalHint => 'ام القریٰ؛ 29 تاریخ کو آپ بتاتے ہیں کہ چاند نظر آیا یا نہیں';
+  String get authorityLocalHint =>
+      'ام القریٰ؛ 29 تاریخ کو آپ بتاتے ہیں کہ چاند نظر آیا یا نہیں';
 
   @override
   String calendarSourceLine(String authority, String time) {
@@ -969,7 +992,12 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String adjustSome(int count) {
-    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$count اوقات', one: '1 وقت');
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count اوقات',
+      one: '1 وقت',
+    );
     return '$_temp0';
   }
 
@@ -999,7 +1027,8 @@ class AppLocalizationsUr extends AppLocalizations {
   }
 
   @override
-  String get hadithUnavailable => 'احادیث کی تلاش یہاں دستیاب نہیں۔ اینڈرائیڈ ایپ میں کام کرتی ہے۔';
+  String get hadithUnavailable =>
+      'احادیث کی تلاش یہاں دستیاب نہیں۔ اینڈرائیڈ ایپ میں کام کرتی ہے۔';
 
   @override
   String get hadithLibraryTitle => 'حدیث لائبریری';
@@ -1025,7 +1054,8 @@ class AppLocalizationsUr extends AppLocalizations {
   String get hadithLibraryRetry => 'دوبارہ کوشش';
 
   @override
-  String get hadithLibraryNote => 'HadeethEnc.com سے، بغیر تبدیلی کے۔ ہوم، چیک لسٹ اور تسبیح اس کے بغیر بھی چلتے ہیں۔';
+  String get hadithLibraryNote =>
+      'HadeethEnc.com سے، بغیر تبدیلی کے۔ ہوم، چیک لسٹ اور تسبیح اس کے بغیر بھی چلتے ہیں۔';
 
   @override
   String counterToday(String count) {
@@ -1178,7 +1208,8 @@ class AppLocalizationsUr extends AppLocalizations {
   String get qiblaHoldFlat => 'فون کو سیدھا لٹا کر رکھیں';
 
   @override
-  String get qiblaCalibrate => 'اگر سمت بدلتی رہے تو فون کو 8 کی شکل میں گھمائیں، دھات اور مقناطیس سے دور۔';
+  String get qiblaCalibrate =>
+      'اگر سمت بدلتی رہے تو فون کو 8 کی شکل میں گھمائیں، دھات اور مقناطیس سے دور۔';
 
   @override
   String qiblaNoCompass(String deg) {
@@ -1241,14 +1272,14 @@ class AppLocalizationsUr extends AppLocalizations {
       'ramadan': 'آج رات تراویح، فجر سے پہلے سحری۔ جس نے ایمان اور ثواب کی نیت سے رمضان کے روزے رکھے، اس کے پچھلے گناہ معاف (بخاری)۔',
       'dhulHijjah': 'کوئی دن ایسے نہیں جن میں نیک عمل اللہ کو ان دس دنوں سے زیادہ محبوب ہو (بخاری)۔ تکبیر، روزہ، صدقہ۔',
       'arafah': 'اس کا روزہ پچھلے اور اگلے سال کے گناہ مٹا دیتا ہے (مسلم)۔ آج رات نیت کر لیجیے۔',
-      'eidFitr': 'عید کی نماز سے پہلے صدقۂ فطر ادا کیجیے، اور آج رات سے تکبیر کہیے۔',
+      'eidFitr':
+          'عید کی نماز سے پہلے صدقۂ فطر ادا کیجیے، اور آج رات سے تکبیر کہیے۔',
       'eidAdha': 'تکبیر کہیے، صبح عید کی نماز پڑھیے، پھر قربانی کیجیے۔',
       'tasua': 'نبی ﷺ نے عاشورا کے ساتھ نویں کا روزہ رکھنے کا ارادہ فرمایا (مسلم)۔ عاشورا اس کے بعد ہے۔',
       'ashura': 'عاشورا کا روزہ پچھلے سال کے گناہ مٹا دیتا ہے (مسلم)۔ آج رات نیت کر لیجیے۔',
       'whiteDays': '13، 14 اور 15 کا روزہ: ہر مہینے تین روزے پورے سال کے روزوں کی طرح ہیں (بخاری)۔',
       'monday': 'پیر اور جمعرات کو اعمال پیش ہوتے ہیں، اور نبی ﷺ پسند فرماتے تھے کہ روزے کی حالت میں پیش ہوں (ترمذی)۔',
-      'thursday':
-          'پیر اور جمعرات کو اعمال پیش ہوتے ہیں، اور نبی ﷺ پسند فرماتے تھے کہ روزے کی حالت میں پیش ہوں (ترمذی)۔',
+      'thursday': 'پیر اور جمعرات کو اعمال پیش ہوتے ہیں، اور نبی ﷺ پسند فرماتے تھے کہ روزے کی حالت میں پیش ہوں (ترمذی)۔',
       'jumuah': 'غسل کیجیے، جلدی جائیے، سورۂ کہف پڑھیے اور آج نبی ﷺ پر کثرت سے درود بھیجیے۔',
       'fridayLastHour': 'جمعہ میں ایک گھڑی ہے جس میں ہر دعا قبول ہوتی ہے (بخاری)۔ مغرب سے پہلے ابھی اسے تلاش کیجیے۔',
       'suhoor': 'سحری کھاؤ، اس میں برکت ہے (بخاری)۔ فجر قریب ہے۔',
@@ -1257,7 +1288,8 @@ class AppLocalizationsUr extends AppLocalizations {
       'morningAdhkar': 'چند منٹ کا ذکر، تاکہ دن اللہ کی حفاظت میں شروع ہو۔',
       'eveningAdhkar': 'مغرب سے پہلے شام کے اذکار۔ پڑھنے کے لیے ٹیپ کیجیے۔',
       'lastThird': 'ہمارا رب آسمانِ دنیا پر نزول فرماتا ہے اور کہتا ہے: کون مجھے پکارتا ہے کہ میں اس کی سنوں؟ (بخاری)',
-      'bedtime': 'آیت الکرسی، سورۂ بقرہ کی آخری دو آیات اور سونے کی دعا۔ دو منٹ۔',
+      'bedtime':
+          'آیت الکرسی، سورۂ بقرہ کی آخری دو آیات اور سونے کی دعا۔ دو منٹ۔',
       'other': '',
     });
     return '$_temp0';
@@ -1323,7 +1355,8 @@ class AppLocalizationsUr extends AppLocalizations {
   String get remComingUp => 'آنے والی یاد دہانیاں';
 
   @override
-  String get remNothingSoon => 'اگلے مہینے میں کچھ نہیں۔ نیچے مزید یاد دہانیاں آن کیجیے۔';
+  String get remNothingSoon =>
+      'اگلے مہینے میں کچھ نہیں۔ نیچے مزید یاد دہانیاں آن کیجیے۔';
 
   @override
   String get remPreview => 'جھلک';
@@ -1350,7 +1383,8 @@ class AppLocalizationsUr extends AppLocalizations {
   String get remGroupDaily => 'ہر روز';
 
   @override
-  String get remDailyNote => 'پہلے سے بند ہیں، تاکہ اہم ترین یاد دہانیاں نمایاں رہیں۔';
+  String get remDailyNote =>
+      'پہلے سے بند ہیں، تاکہ اہم ترین یاد دہانیاں نمایاں رہیں۔';
 
   @override
   String get qiblaFromLabel => 'قبلہ، یہاں سے';
@@ -1367,7 +1401,8 @@ class AppLocalizationsUr extends AppLocalizations {
   }
 
   @override
-  String get qiblaHint => 'گھومیے یہاں تک کہ تیر اوپر کی طرف ہو اور اسکرین روشن ہو جائے۔';
+  String get qiblaHint =>
+      'گھومیے یہاں تک کہ تیر اوپر کی طرف ہو اور اسکرین روشن ہو جائے۔';
 
   @override
   String get deedOnTime => 'وقت پر ادا کی';
@@ -1387,7 +1422,8 @@ class AppLocalizationsUr extends AppLocalizations {
   }
 
   @override
-  String get deedRingHint => 'نماز پڑھ کر \"ابھی\" پر اس پر نشان لگائیں۔ یہ صرف آپ دیکھتے ہیں۔';
+  String get deedRingHint =>
+      'نماز پڑھ کر \"ابھی\" پر اس پر نشان لگائیں۔ یہ صرف آپ دیکھتے ہیں۔';
 
   @override
   String deedStreak(String days) {
@@ -1412,7 +1448,8 @@ class AppLocalizationsUr extends AppLocalizations {
   }
 
   @override
-  String get progressReflection => '\"اللہ کو سب سے محبوب عمل وہ ہے جو ہمیشہ کیا جائے، چاہے تھوڑا ہو۔\" (بخاری، مسلم)';
+  String get progressReflection =>
+      '\"اللہ کو سب سے محبوب عمل وہ ہے جو ہمیشہ کیا جائے، چاہے تھوڑا ہو۔\" (بخاری، مسلم)';
 
   @override
   String progressOfPrayers(String total) {
@@ -1437,10 +1474,12 @@ class AppLocalizationsUr extends AppLocalizations {
   String get progressWeeks => 'پچھلے ١٢ ہفتے';
 
   @override
-  String get progressEmpty => 'نماز پڑھ کر \"ابھی\" پر اسے تھپتھپائیں۔ آپ کے دن یہاں بھرتے جائیں گے، صرف اسی فون پر۔';
+  String get progressEmpty =>
+      'نماز پڑھ کر \"ابھی\" پر اسے تھپتھپائیں۔ آپ کے دن یہاں بھرتے جائیں گے، صرف اسی فون پر۔';
 
   @override
-  String get progressEditHint => 'جو پڑھا وہ درج کرنے کے لیے کسی دن کو تھپتھپائیں۔';
+  String get progressEditHint =>
+      'جو پڑھا وہ درج کرنے کے لیے کسی دن کو تھپتھپائیں۔';
 
   @override
   String durShortHm(String h, String m) {

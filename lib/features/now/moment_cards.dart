@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
@@ -11,6 +12,7 @@ import '../../l10n/app_localizations.dart';
 import '../common/labels.dart';
 import '../duas/dua_sheet.dart';
 import '../duas/library_views.dart';
+import 'collapse.dart';
 
 DateFormat clockFormat(BuildContext context) {
   final locale = Localizations.localeOf(context).toLanguageTag();
@@ -24,7 +26,7 @@ DateFormat clockFormat(BuildContext context) {
 /// The hero: the highest-priority moment that is more specific than the
 /// waqt itself. Content (duas, actions with references) arrives in Phase 3;
 /// until then the card names the moment and how long it lasts.
-class RightNowCard extends StatelessWidget {
+class RightNowCard extends ConsumerWidget {
   const RightNowCard({
     super.key,
     required this.moment,
@@ -45,17 +47,18 @@ class RightNowCard extends StatelessWidget {
   final List<ContentItem> items;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final l = AppLocalizations.of(context);
     final t = WaqtTokens.of(context);
     final w = moment.window;
+    final foldId = 'moment.${moment.id.name}';
+    final open = !ref.watch(collapsedCardsProvider.select((s) => s.contains(foldId)));
     final progress = (now.difference(w.start).inSeconds / w.length.inSeconds).clamp(0.0, 1.0);
     final ink = t.heroInk;
 
     return Semantics(
       container: true,
       label: '${l.rightNow}: ${l.moment(moment)}, ${l.until(clockFormat(context).format(w.end))}',
-      excludeSemantics: true,
       child: Container(
         padding: const EdgeInsets.fromLTRB(WaqtSpace.x5, WaqtSpace.x5, WaqtSpace.x5, WaqtSpace.x5),
         decoration: BoxDecoration(
@@ -66,52 +69,82 @@ class RightNowCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              children: [
-                Text(l.rightNow.toUpperCase(), style: WaqtText.overline.copyWith(color: t.accent)),
-                const Spacer(),
-                Text(
-                  l.until(clockFormat(context).format(w.end)),
-                  style: WaqtText.caption.copyWith(color: ink.withValues(alpha: 0.72)),
+            // The header folds the card away, or opens it again.
+            Semantics(
+              button: true,
+              expanded: open,
+              child: GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: () => ref.read(collapsedCardsProvider.notifier).toggle(foldId),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            l.rightNow.toUpperCase(),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: WaqtText.overline.copyWith(color: t.accent),
+                          ),
+                        ),
+                        Text(
+                          l.until(clockFormat(context).format(w.end)),
+                          style: WaqtText.caption.copyWith(color: ink.withValues(alpha: 0.72)),
+                        ),
+                        const SizedBox(width: WaqtSpace.x1),
+                        FoldChevron(open: open, color: ink.withValues(alpha: 0.6)),
+                      ],
+                    ),
+                    const SizedBox(height: WaqtSpace.x3),
+                    Text(l.moment(moment), style: WaqtText.title.copyWith(color: ink)),
+                  ],
                 ),
-              ],
+              ),
             ),
-            const SizedBox(height: WaqtSpace.x3),
-            Text(l.moment(moment), style: WaqtText.title.copyWith(color: ink)),
-            if (moment.kind == MomentKind.restricted) ...[
-              const SizedBox(height: WaqtSpace.x3),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                decoration: BoxDecoration(
-                  border: Border.all(color: ink.withValues(alpha: 0.3)),
-                  borderRadius: BorderRadius.circular(99),
-                ),
-                child: Text(l.kindRestricted, style: WaqtText.caption.copyWith(color: ink)),
+            FoldBody(
+              open: open,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (moment.kind == MomentKind.restricted) ...[
+                    const SizedBox(height: WaqtSpace.x3),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: ink.withValues(alpha: 0.3)),
+                        borderRadius: BorderRadius.circular(99),
+                      ),
+                      child: Text(l.kindRestricted, style: WaqtText.caption.copyWith(color: ink)),
+                    ),
+                  ],
+                  if (sourced.isNotEmpty) ...[
+                    const SizedBox(height: WaqtSpace.x3),
+                    for (final i in sourced.take(4)) _SourcedRow(item: i, onTap: () => onSourced?.call(i)),
+                  ] else if (items.isNotEmpty) ...[
+                    const SizedBox(height: WaqtSpace.x4),
+                    for (final item in items.take(3)) _ItemRow(item: item),
+                  ],
+                  if (moment.id == MomentId.afterSalah) ...[
+                    const SizedBox(height: WaqtSpace.x3),
+                    TextButton.icon(
+                      onPressed: () => context.push('/counter'),
+                      style: TextButton.styleFrom(
+                        foregroundColor: ink,
+                        padding: EdgeInsets.zero,
+                        minimumSize: const Size(48, 44),
+                      ),
+                      icon: Icon(Icons.radio_button_checked_rounded, size: 18, color: t.accent),
+                      label: Text(
+                        l.counterOpen,
+                        style: WaqtText.label.copyWith(color: ink, fontWeight: FontWeight.w600),
+                      ),
+                    ),
+                  ],
+                ],
               ),
-            ],
-            if (sourced.isNotEmpty) ...[
-              const SizedBox(height: WaqtSpace.x3),
-              for (final i in sourced.take(4)) _SourcedRow(item: i, onTap: () => onSourced?.call(i)),
-            ] else if (items.isNotEmpty) ...[
-              const SizedBox(height: WaqtSpace.x4),
-              for (final item in items.take(3)) _ItemRow(item: item),
-            ],
-            if (moment.id == MomentId.afterSalah) ...[
-              const SizedBox(height: WaqtSpace.x3),
-              TextButton.icon(
-                onPressed: () => context.push('/counter'),
-                style: TextButton.styleFrom(
-                  foregroundColor: ink,
-                  padding: EdgeInsets.zero,
-                  minimumSize: const Size(48, 44),
-                ),
-                icon: Icon(Icons.radio_button_checked_rounded, size: 18, color: t.accent),
-                label: Text(
-                  l.counterOpen,
-                  style: WaqtText.label.copyWith(color: ink, fontWeight: FontWeight.w600),
-                ),
-              ),
-            ],
+            ),
             const SizedBox(height: WaqtSpace.x5),
             // How much of the window has passed. Honest, glanceable, no copy.
             LinearProgressIndicator(

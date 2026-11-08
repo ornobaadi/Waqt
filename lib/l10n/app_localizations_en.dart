@@ -82,7 +82,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsDeveloper => 'Test mode';
 
   @override
-  String get settingsDeveloperHint => 'Fake clock, day jumps and the reference checker';
+  String get settingsDeveloperHint =>
+      'Fake clock, day jumps and the reference checker';
 
   @override
   String get settingsAbout => 'About Waqt';
@@ -184,13 +185,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get locationLocating => 'Finding you…';
 
   @override
-  String get gpsServiceOff => 'Location is turned off on this phone. Turn it on, or choose a city.';
+  String get gpsServiceOff =>
+      'Location is turned off on this phone. Turn it on, or choose a city.';
 
   @override
-  String get gpsDenied => 'Location permission was declined. You can choose a city instead.';
+  String get gpsDenied =>
+      'Location permission was declined. You can choose a city instead.';
 
   @override
-  String get gpsDeniedForever => 'Location permission is blocked. Allow it in settings, or choose a city.';
+  String get gpsDeniedForever =>
+      'Location permission is blocked. Allow it in settings, or choose a city.';
 
   @override
   String get gpsTimeout => 'Couldn\'t get a fix. Try again, or choose a city.';
@@ -226,7 +230,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get asrStandard => 'Standard';
 
   @override
-  String get asrStandardHint => 'Shafi\'i, Maliki, Hanbali: shadow equals object length';
+  String get asrStandardHint =>
+      'Shafi\'i, Maliki, Hanbali: shadow equals object length';
 
   @override
   String get asrHanafi => 'Hanafi';
@@ -241,7 +246,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get highLatAuto => 'Automatic';
 
   @override
-  String get highLatAutoHint => 'Seventh of the night above 48°, middle of the night below';
+  String get highLatAutoHint =>
+      'Seventh of the night above 48°, middle of the night below';
 
   @override
   String get highLatMiddle => 'Middle of the night';
@@ -270,7 +276,8 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get settingsAttribution => 'City data © GeoNames, CC BY 4.0. Prayer times calculated on device.';
+  String get settingsAttribution =>
+      'City data © GeoNames, CC BY 4.0. Prayer times calculated on device.';
 
   @override
   String get citySearchHint => 'Search for a city';
@@ -544,7 +551,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get notifExact => 'On-time delivery';
 
   @override
-  String get notifExactHint => 'Lets prayer reminders arrive at the exact minute';
+  String get notifExactHint =>
+      'Lets prayer reminders arrive at the exact minute';
 
   @override
   String get notifBattery => 'Battery optimisation';
@@ -556,7 +564,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get notifBatteryFix => 'Open settings';
 
   @override
-  String get notifBatteryHint => 'Some phones stop reminders in the background. Set Waqt to Unrestricted.';
+  String get notifBatteryHint =>
+      'Some phones stop reminders in the background. Set Waqt to Unrestricted.';
 
   @override
   String notifBatteryHintOem(String maker) {
@@ -590,7 +599,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get setupCardTitle => 'Let Waqt remind you';
 
   @override
-  String get setupCardBody => 'The night before Arafah, Ashura or Eid, and every Friday: what to do, and why.';
+  String get setupCardBody =>
+      'The night before Arafah, Ashura or Eid, and every Friday: what to do, and why.';
 
   @override
   String get setupCardAction => 'Turn on';
@@ -672,13 +682,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get reportProblem => 'Report a problem';
 
   @override
-  String get reportProblemHint => 'Opens an email draft. You see everything before it is sent.';
+  String get reportProblemHint =>
+      'Opens an email draft. You see everything before it is sent.';
 
   @override
   String get privacyTitle => 'Privacy';
 
   @override
-  String get privacyBody => 'Everything is calculated on this phone. Waqt has no accounts, ads or analytics.';
+  String get privacyBody =>
+      'Everything is calculated on this phone. Waqt has no accounts, ads or analytics.';
 
   @override
   String placeTime(String city) {
@@ -686,7 +698,8 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get testModeUnlocked => 'Test mode is on. Find it at the bottom of Settings.';
+  String get testModeUnlocked =>
+      'Test mode is on. Find it at the bottom of Settings.';
 
   @override
   String get debugJumpDay => 'Jump to a day';
@@ -701,7 +714,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get debugShowUnchecked => 'Show unchecked content';
 
   @override
-  String get debugShowUncheckedHint => 'On this phone only. Unchecked items are marked as drafts.';
+  String get debugShowUncheckedHint =>
+      'On this phone only. Unchecked items are marked as drafts.';
 
   @override
   String get debugLock => 'Turn off test mode';
@@ -727,7 +741,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get checkerWrong => 'Wrong';
 
   @override
-  String get checkerWrongHint => 'What is wrong, and the correct reference if you know it';
+  String get checkerWrongHint =>
+      'What is wrong, and the correct reference if you know it';
 
   @override
   String get checkerSend => 'Email results';
@@ -792,7 +807,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String duaCount(int count) {
-    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$count duas', one: '1 dua');
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count duas',
+      one: '1 dua',
+    );
     return '$_temp0';
   }
 
@@ -828,7 +848,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get readingTitle => 'Reading size';
 
   @override
-  String get readingHint => 'Arabic, transliteration and meaning, each on its own';
+  String get readingHint =>
+      'Arabic, transliteration and meaning, each on its own';
 
   @override
   String get readingArabic => 'Arabic';
@@ -941,10 +962,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get authoritySaudiHint => 'Announced sightings, updated online';
 
   @override
-  String get authorityDiyanetHint => 'Türkiye\'s official calendar, updated online';
+  String get authorityDiyanetHint =>
+      'Türkiye\'s official calendar, updated online';
 
   @override
-  String get authorityLocalHint => 'Umm al-Qura; on the 29th you say whether the moon was seen';
+  String get authorityLocalHint =>
+      'Umm al-Qura; on the 29th you say whether the moon was seen';
 
   @override
   String calendarSourceLine(String authority, String time) {
@@ -971,7 +994,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String adjustSome(int count) {
-    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$count times', one: '1 time');
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count times',
+      one: '1 time',
+    );
     return '$_temp0';
   }
 
@@ -1001,7 +1029,8 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get hadithUnavailable => 'Hadith search isn\'t available here. It works in the Android app.';
+  String get hadithUnavailable =>
+      'Hadith search isn\'t available here. It works in the Android app.';
 
   @override
   String get hadithLibraryTitle => 'Hadith library';
@@ -1021,7 +1050,8 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get hadithLibraryFailed => 'The download didn\'t finish. Check your connection.';
+  String get hadithLibraryFailed =>
+      'The download didn\'t finish. Check your connection.';
 
   @override
   String get hadithLibraryRetry => 'Try again';
@@ -1244,27 +1274,23 @@ class AppLocalizationsEn extends AppLocalizations {
     String _temp0 = intl.Intl.selectLogic(topic, {
       'ramadan': 'Taraweeh tonight, suhoor before Fajr. Whoever fasts Ramadan with faith and hope of reward is forgiven his past sins (Bukhari).',
       'dhulHijjah': 'No days are good deeds more beloved to Allah than these ten (Bukhari). Takbir, fasting, charity: tap to plan them.',
-      'arafah':
-          'Fasting it wipes out the sins of the past year and the coming one (Muslim). Make your intention tonight.',
-      'eidFitr':
-          'Give zakat al-fitr before the Eid prayer, and say the takbir from tonight. Tap for the Sunnah of Eid.',
+      'arafah': 'Fasting it wipes out the sins of the past year and the coming one (Muslim). Make your intention tonight.',
+      'eidFitr': 'Give zakat al-fitr before the Eid prayer, and say the takbir from tonight. Tap for the Sunnah of Eid.',
       'eidAdha': 'Say the takbir, pray Eid in the morning, then offer your sacrifice. Tap for the Sunnah of Eid.',
       'tasua': 'The Prophet ﷺ meant to fast the 9th with Ashura (Muslim). Ashura comes the day after.',
       'ashura': 'Fasting Ashura wipes out the sins of the past year (Muslim). Make your intention tonight.',
       'whiteDays': 'Fast the 13th, 14th and 15th: three days a month is like fasting the whole year (Bukhari).',
       'monday': 'Deeds are shown to Allah on Mondays and Thursdays, and the Prophet ﷺ loved to be fasting (Tirmidhi).',
-      'thursday':
-          'Deeds are shown to Allah on Mondays and Thursdays, and the Prophet ﷺ loved to be fasting (Tirmidhi).',
+      'thursday': 'Deeds are shown to Allah on Mondays and Thursdays, and the Prophet ﷺ loved to be fasting (Tirmidhi).',
       'jumuah': 'Ghusl, go early, read Surat al-Kahf and send many blessings on the Prophet ﷺ today.',
       'fridayLastHour': 'There is an hour on Friday when every dua is answered (Bukhari). Seek it now, before Maghrib.',
       'suhoor': 'Eat suhoor, for there is blessing in it (Bukhari). Fajr is coming soon.',
       'iftar': 'People stay upon good as long as they hasten to break the fast (Bukhari). Make dua as you break it.',
-      'laylatAlQadr':
-          'Better than a thousand months. Pray, and say: Allahumma innaka ʿafuwwun tuhibbul-ʿafwa faʿfu ʿanni.',
+      'laylatAlQadr': 'Better than a thousand months. Pray, and say: Allahumma innaka ʿafuwwun tuhibbul-ʿafwa faʿfu ʿanni.',
       'morningAdhkar': 'A few minutes of remembrance to begin your day under Allah\'s protection.',
-      'eveningAdhkar': 'The evening remembrance, before Maghrib. Tap to read it.',
-      'lastThird':
-          'Allah descends to the lowest heaven and asks: who is calling on Me, that I may answer him? (Bukhari)',
+      'eveningAdhkar':
+          'The evening remembrance, before Maghrib. Tap to read it.',
+      'lastThird': 'Allah descends to the lowest heaven and asks: who is calling on Me, that I may answer him? (Bukhari)',
       'bedtime': 'Ayat al-Kursi, the last two verses of al-Baqarah and the sleep dua. Two minutes.',
       'other': '',
     });
@@ -1331,7 +1357,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get remComingUp => 'Coming up';
 
   @override
-  String get remNothingSoon => 'Nothing in the next month. Turn on more reminders below.';
+  String get remNothingSoon =>
+      'Nothing in the next month. Turn on more reminders below.';
 
   @override
   String get remPreview => 'Preview';
@@ -1358,7 +1385,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get remGroupDaily => 'Every day';
 
   @override
-  String get remDailyNote => 'Off by default, so the most important reminders stand out.';
+  String get remDailyNote =>
+      'Off by default, so the most important reminders stand out.';
 
   @override
   String get qiblaFromLabel => 'Qibla from';
@@ -1375,7 +1403,8 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get qiblaHint => 'Turn until the arrow points up and the screen glows.';
+  String get qiblaHint =>
+      'Turn until the arrow points up and the screen glows.';
 
   @override
   String get deedOnTime => 'Prayed on time';
@@ -1395,7 +1424,8 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get deedRingHint => 'Tick a prayer on Now once you have prayed it. Only you see this.';
+  String get deedRingHint =>
+      'Tick a prayer on Now once you have prayed it. Only you see this.';
 
   @override
   String deedStreak(String days) {

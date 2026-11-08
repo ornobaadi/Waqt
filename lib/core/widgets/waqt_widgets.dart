@@ -27,6 +27,45 @@ class WaqtMark extends StatelessWidget {
   }
 }
 
+/// A small believer in sujood, the figure from the mark: one for a prayer
+/// prayed alone, two side by side for one prayed in congregation.
+class SujoodGlyph extends StatelessWidget {
+  const SujoodGlyph({super.key, this.count = 1, required this.size, required this.color});
+  final int count;
+  final double size;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) => ExcludeSemantics(
+    child: CustomPaint(size: Size(size * (count == 1 ? 1.7 : 2.55), size), painter: _GlyphPainter(count, color)),
+  );
+}
+
+class _GlyphPainter extends CustomPainter {
+  _GlyphPainter(this.count, this.color);
+  final int count;
+  final Color color;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    // The figure spans about x 76..622, y 290..600 in its 640-unit box.
+    final unit = size.height / 330;
+    final paint = Paint()..color = color;
+    for (var i = 0; i < count; i++) {
+      canvas.save();
+      canvas.translate(i * size.height * 0.85, 0);
+      canvas.scale(unit);
+      canvas.translate(-76, -280);
+      canvas.drawPath(_MarkPainter._figure, paint);
+      canvas.drawCircle(const Offset(560, 538), 62, paint);
+      canvas.restore();
+    }
+  }
+
+  @override
+  bool shouldRepaint(_GlyphPainter o) => o.count != count || o.color != color;
+}
+
 class _MarkPainter extends CustomPainter {
   _MarkPainter(this.ink, this.accent);
   final Color ink, accent;

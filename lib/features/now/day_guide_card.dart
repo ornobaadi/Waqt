@@ -6,6 +6,7 @@ import '../../core/theme/waqt_theme.dart';
 import '../../core/utils/digits.dart';
 import '../../data/sources/days.dart';
 import '../../l10n/app_localizations.dart';
+import 'collapse.dart';
 import '../duas/library_views.dart';
 import '../../platform/haptics/haptics.dart';
 
@@ -53,6 +54,8 @@ class _DayGuideCardState extends ConsumerState<DayGuideCard> {
     final t = WaqtTokens.of(context);
     final n = LocaleDigits(Localizations.localeOf(context).toLanguageTag());
     final day = widget.day;
+    final foldId = 'guide.${widget.title}';
+    final unfolded = !ref.watch(collapsedCardsProvider.select((s) => s.contains(foldId)));
     ref.watch(dayTicksProvider);
     final done = ref.read(dayTicksProvider.notifier).doneOn(day);
     final items = [
@@ -72,18 +75,40 @@ class _DayGuideCardState extends ConsumerState<DayGuideCard> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Row(
-            children: [
-              Text((widget.label ?? l.dayGuideToday).toUpperCase(), style: WaqtText.overline.copyWith(color: t.accent)),
-              const Spacer(),
-              Text(
-                l.checklistProgress(n(count), n(items.length)),
-                style: WaqtText.caption.copyWith(color: t.heroInk.withValues(alpha: 0.72)),
+          // The header folds the card away, or opens it again.
+          Semantics(
+            button: true,
+            expanded: unfolded,
+            child: GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTap: () => ref.read(collapsedCardsProvider.notifier).toggle(foldId),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          (widget.label ?? l.dayGuideToday).toUpperCase(),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: WaqtText.overline.copyWith(color: t.accent),
+                        ),
+                      ),
+                      Text(
+                        l.checklistProgress(n(count), n(items.length)),
+                        style: WaqtText.caption.copyWith(color: t.heroInk.withValues(alpha: 0.72)),
+                      ),
+                      const SizedBox(width: WaqtSpace.x1),
+                      FoldChevron(open: unfolded, color: t.heroInk.withValues(alpha: 0.6)),
+                    ],
+                  ),
+                  const SizedBox(height: WaqtSpace.x2),
+                  Text(widget.title, style: WaqtText.title.copyWith(color: t.heroInk)),
+                ],
               ),
-            ],
+            ),
           ),
-          const SizedBox(height: WaqtSpace.x2),
-          Text(widget.title, style: WaqtText.title.copyWith(color: t.heroInk)),
           const SizedBox(height: WaqtSpace.x3),
           ClipRRect(
             borderRadius: BorderRadius.circular(2),
@@ -98,30 +123,38 @@ class _DayGuideCardState extends ConsumerState<DayGuideCard> {
               ),
             ),
           ),
-          const SizedBox(height: WaqtSpace.x2),
-          ...() {
-            // Now's items first, then any-time ones, then the rest; ticked last.
-            int rank(DayItem i) => done.contains(i.id)
-                ? 3
-                : i.when == widget.phase || (i.when == 'morning' && widget.phase == 'day')
-                ? 0
-                : i.when == null
-                ? 1
-                : 2;
-            final ordered = [...items]..sort((a, b) => rank(a).compareTo(rank(b)));
-            final shown = _open ? items : ordered.where((i) => !done.contains(i.id)).take(_folded).toList();
-            return [for (final i in shown) _Row(item: i, done: done.contains(i.id), day: day)];
-          }(),
-          if (items.length > _folded)
-            Align(
-              alignment: AlignmentDirectional.centerStart,
-              child: TextButton.icon(
-                onPressed: () => setState(() => _open = !_open),
-                style: TextButton.styleFrom(foregroundColor: t.heroInk),
-                icon: Icon(_open ? Icons.expand_less_rounded : Icons.expand_more_rounded, size: 20),
-                label: Text(_open ? l.showLess : l.showAll(items.length)),
-              ),
+          FoldBody(
+            open: unfolded,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const SizedBox(height: WaqtSpace.x2),
+                ...() {
+                  // Now's items first, then any-time ones, then the rest; ticked last.
+                  int rank(DayItem i) => done.contains(i.id)
+                      ? 3
+                      : i.when == widget.phase || (i.when == 'morning' && widget.phase == 'day')
+                      ? 0
+                      : i.when == null
+                      ? 1
+                      : 2;
+                  final ordered = [...items]..sort((a, b) => rank(a).compareTo(rank(b)));
+                  final shown = _open ? items : ordered.where((i) => !done.contains(i.id)).take(_folded).toList();
+                  return [for (final i in shown) _Row(item: i, done: done.contains(i.id), day: day)];
+                }(),
+                if (items.length > _folded)
+                  Align(
+                    alignment: AlignmentDirectional.centerStart,
+                    child: TextButton.icon(
+                      onPressed: () => setState(() => _open = !_open),
+                      style: TextButton.styleFrom(foregroundColor: t.heroInk),
+                      icon: Icon(_open ? Icons.expand_less_rounded : Icons.expand_more_rounded, size: 20),
+                      label: Text(_open ? l.showLess : l.showAll(items.length)),
+                    ),
+                  ),
+              ],
             ),
+          ),
         ],
       ),
     );

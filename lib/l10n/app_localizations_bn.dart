@@ -82,7 +82,8 @@ class AppLocalizationsBn extends AppLocalizations {
   String get settingsDeveloper => 'Test mode';
 
   @override
-  String get settingsDeveloperHint => 'Fake clock, day jumps and the reference checker';
+  String get settingsDeveloperHint =>
+      'Fake clock, day jumps and the reference checker';
 
   @override
   String get settingsAbout => 'Waqt সম্পর্কে';
@@ -184,16 +185,20 @@ class AppLocalizationsBn extends AppLocalizations {
   String get locationLocating => 'অবস্থান খোঁজা হচ্ছে…';
 
   @override
-  String get gpsServiceOff => 'এই ফোনে লোকেশন বন্ধ। চালু করুন, অথবা একটি শহর বেছে নিন।';
+  String get gpsServiceOff =>
+      'এই ফোনে লোকেশন বন্ধ। চালু করুন, অথবা একটি শহর বেছে নিন।';
 
   @override
-  String get gpsDenied => 'লোকেশনের অনুমতি দেওয়া হয়নি। আপনি একটি শহর বেছে নিতে পারেন।';
+  String get gpsDenied =>
+      'লোকেশনের অনুমতি দেওয়া হয়নি। আপনি একটি শহর বেছে নিতে পারেন।';
 
   @override
-  String get gpsDeniedForever => 'লোকেশনের অনুমতি বন্ধ করা আছে। সেটিংসে অনুমতি দিন, অথবা একটি শহর বেছে নিন।';
+  String get gpsDeniedForever =>
+      'লোকেশনের অনুমতি বন্ধ করা আছে। সেটিংসে অনুমতি দিন, অথবা একটি শহর বেছে নিন।';
 
   @override
-  String get gpsTimeout => 'অবস্থান পাওয়া যায়নি। আবার চেষ্টা করুন, অথবা একটি শহর বেছে নিন।';
+  String get gpsTimeout =>
+      'অবস্থান পাওয়া যায়নি। আবার চেষ্টা করুন, অথবা একটি শহর বেছে নিন।';
 
   @override
   String get openSettings => 'সেটিংস খুলুন';
@@ -270,7 +275,8 @@ class AppLocalizationsBn extends AppLocalizations {
   }
 
   @override
-  String get settingsAttribution => 'শহরের তথ্য © GeoNames, CC BY 4.0। নামাজের সময় ডিভাইসেই হিসাব হয়।';
+  String get settingsAttribution =>
+      'শহরের তথ্য © GeoNames, CC BY 4.0। নামাজের সময় ডিভাইসেই হিসাব হয়।';
 
   @override
   String get citySearchHint => 'শহর খুঁজুন';
@@ -317,7 +323,8 @@ class AppLocalizationsBn extends AppLocalizations {
   String get methodMoonsighting => 'চাঁদ দেখা কমিটি';
 
   @override
-  String get timesEstimated => 'আনুমানিক। আজ এখানে সূর্য স্বাভাবিকভাবে ওঠে বা ডোবে না, তাই সময় ৬৫° অক্ষাংশ অনুযায়ী।';
+  String get timesEstimated =>
+      'আনুমানিক। আজ এখানে সূর্য স্বাভাবিকভাবে ওঠে বা ডোবে না, তাই সময় ৬৫° অক্ষাংশ অনুযায়ী।';
 
   @override
   String get momentLastThird => 'রাতের শেষ তৃতীয়াংশ';
@@ -390,7 +397,8 @@ class AppLocalizationsBn extends AppLocalizations {
   String get statusChecked => 'যাচাইকৃত';
 
   @override
-  String get draftNotice => 'যাচাই না করা খসড়া, শুধু ডেভেলপমেন্ট সংস্করণে দেখা যায়';
+  String get draftNotice =>
+      'যাচাই না করা খসড়া, শুধু ডেভেলপমেন্ট সংস্করণে দেখা যায়';
 
   @override
   String get collectionQuran => 'কুরআন';
@@ -461,7 +469,8 @@ class AppLocalizationsBn extends AppLocalizations {
   }
 
   @override
-  String get sheetTextPending => 'এই সূত্রটি মূল উৎসের সাথে যাচাই হলে লেখাটি এখানে দেখা যাবে।';
+  String get sheetTextPending =>
+      'এই সূত্রটি মূল উৎসের সাথে যাচাই হলে লেখাটি এখানে দেখা যাবে।';
 
   @override
   String get statusApproved => 'আলেম কর্তৃক অনুমোদিত';
@@ -554,7 +563,8 @@ class AppLocalizationsBn extends AppLocalizations {
   String get notifBatteryFix => 'সেটিংস খুলুন';
 
   @override
-  String get notifBatteryHint => 'কিছু ফোন ব্যাকগ্রাউন্ডে রিমাইন্ডার বন্ধ করে দেয়। Waqt-কে সীমাবদ্ধ নয় হিসেবে রাখুন।';
+  String get notifBatteryHint =>
+      'কিছু ফোন ব্যাকগ্রাউন্ডে রিমাইন্ডার বন্ধ করে দেয়। Waqt-কে সীমাবদ্ধ নয় হিসেবে রাখুন।';
 
   @override
   String notifBatteryHintOem(String maker) {
@@ -588,7 +598,8 @@ class AppLocalizationsBn extends AppLocalizations {
   String get setupCardTitle => 'ওয়াক্তকে মনে করিয়ে দিতে দিন';
 
   @override
-  String get setupCardBody => 'আরাফা, আশুরা বা ঈদের আগের রাতে, আর প্রতি জুমায়: কী করবেন, আর কেন।';
+  String get setupCardBody =>
+      'আরাফা, আশুরা বা ঈদের আগের রাতে, আর প্রতি জুমায়: কী করবেন, আর কেন।';
 
   @override
   String get setupCardAction => 'চালু করুন';
@@ -670,13 +681,15 @@ class AppLocalizationsBn extends AppLocalizations {
   String get reportProblem => 'সমস্যা জানান';
 
   @override
-  String get reportProblemHint => 'একটি ইমেইল খসড়া খোলে। পাঠানোর আগে আপনি সব দেখতে পাবেন।';
+  String get reportProblemHint =>
+      'একটি ইমেইল খসড়া খোলে। পাঠানোর আগে আপনি সব দেখতে পাবেন।';
 
   @override
   String get privacyTitle => 'গোপনীয়তা';
 
   @override
-  String get privacyBody => 'সবকিছু এই ফোনেই হিসাব হয়। Waqt-এ কোনো অ্যাকাউন্ট, বিজ্ঞাপন বা অ্যানালিটিক্স নেই।';
+  String get privacyBody =>
+      'সবকিছু এই ফোনেই হিসাব হয়। Waqt-এ কোনো অ্যাকাউন্ট, বিজ্ঞাপন বা অ্যানালিটিক্স নেই।';
 
   @override
   String placeTime(String city) {
@@ -684,7 +697,8 @@ class AppLocalizationsBn extends AppLocalizations {
   }
 
   @override
-  String get testModeUnlocked => 'Test mode is on. Find it at the bottom of Settings.';
+  String get testModeUnlocked =>
+      'Test mode is on. Find it at the bottom of Settings.';
 
   @override
   String get debugJumpDay => 'Jump to a day';
@@ -699,7 +713,8 @@ class AppLocalizationsBn extends AppLocalizations {
   String get debugShowUnchecked => 'Show unchecked content';
 
   @override
-  String get debugShowUncheckedHint => 'On this phone only. Unchecked items are marked as drafts.';
+  String get debugShowUncheckedHint =>
+      'On this phone only. Unchecked items are marked as drafts.';
 
   @override
   String get debugLock => 'Turn off test mode';
@@ -725,7 +740,8 @@ class AppLocalizationsBn extends AppLocalizations {
   String get checkerWrong => 'Wrong';
 
   @override
-  String get checkerWrongHint => 'What is wrong, and the correct reference if you know it';
+  String get checkerWrongHint =>
+      'What is wrong, and the correct reference if you know it';
 
   @override
   String get checkerSend => 'Email results';
@@ -790,7 +806,12 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String duaCount(int count) {
-    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$countটি দোয়া', one: '১টি দোয়া');
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countটি দোয়া',
+      one: '১টি দোয়া',
+    );
     return '$_temp0';
   }
 
@@ -798,7 +819,8 @@ class AppLocalizationsBn extends AppLocalizations {
   String get libraryPreparing => 'হাদিস খোঁজার প্রস্তুতি চলছে। এটি একবারই হয়।';
 
   @override
-  String get libraryRefine => 'প্রথম ৬০টি দেখানো হচ্ছে। সংকুচিত করতে শব্দ যোগ করুন।';
+  String get libraryRefine =>
+      'প্রথম ৬০টি দেখানো হচ্ছে। সংকুচিত করতে শব্দ যোগ করুন।';
 
   @override
   String get sourceHisn =>
@@ -874,7 +896,8 @@ class AppLocalizationsBn extends AppLocalizations {
   }
 
   @override
-  String get sightingBody => 'আপনার উত্তর ক্যালেন্ডার সরিয়ে দেয় যাতে রমজান, ঈদ ও আরাফা আপনার সমাজের দিনে পড়ে।';
+  String get sightingBody =>
+      'আপনার উত্তর ক্যালেন্ডার সরিয়ে দেয় যাতে রমজান, ঈদ ও আরাফা আপনার সমাজের দিনে পড়ে।';
 
   @override
   String sightingSeen(String month) {
@@ -917,7 +940,8 @@ class AppLocalizationsBn extends AppLocalizations {
   }
 
   @override
-  String get announceOffline => 'অফলাইন: সর্বশেষ ডাউনলোড করা তারিখ দেখানো হচ্ছে। সংযোগ পেলে আবার দেখা হবে।';
+  String get announceOffline =>
+      'অফলাইন: সর্বশেষ ডাউনলোড করা তারিখ দেখানো হচ্ছে। সংযোগ পেলে আবার দেখা হবে।';
 
   @override
   String announceChecking(String time) {
@@ -937,10 +961,12 @@ class AppLocalizationsBn extends AppLocalizations {
   String get authoritySaudiHint => 'ঘোষিত চাঁদ দেখা, অনলাইনে হালনাগাদ';
 
   @override
-  String get authorityDiyanetHint => 'তুরস্কের সরকারি ক্যালেন্ডার, অনলাইনে হালনাগাদ';
+  String get authorityDiyanetHint =>
+      'তুরস্কের সরকারি ক্যালেন্ডার, অনলাইনে হালনাগাদ';
 
   @override
-  String get authorityLocalHint => 'উম্মুল কুরা; ২৯ তারিখে আপনি জানান চাঁদ দেখা গেছে কি না';
+  String get authorityLocalHint =>
+      'উম্মুল কুরা; ২৯ তারিখে আপনি জানান চাঁদ দেখা গেছে কি না';
 
   @override
   String calendarSourceLine(String authority, String time) {
@@ -967,7 +993,12 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String adjustSome(int count) {
-    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$countটি সময়', one: '১টি সময়');
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countটি সময়',
+      one: '১টি সময়',
+    );
     return '$_temp0';
   }
 
@@ -997,7 +1028,8 @@ class AppLocalizationsBn extends AppLocalizations {
   }
 
   @override
-  String get hadithUnavailable => 'হাদিস খোঁজা এখানে নেই। অ্যান্ড্রয়েড অ্যাপে কাজ করে।';
+  String get hadithUnavailable =>
+      'হাদিস খোঁজা এখানে নেই। অ্যান্ড্রয়েড অ্যাপে কাজ করে।';
 
   @override
   String get hadithLibraryTitle => 'হাদিস লাইব্রেরি';
@@ -1023,7 +1055,8 @@ class AppLocalizationsBn extends AppLocalizations {
   String get hadithLibraryRetry => 'আবার চেষ্টা করুন';
 
   @override
-  String get hadithLibraryNote => 'HadeethEnc.com থেকে, হুবহু। হোম, চেকলিস্ট ও তাসবিহ এটি ছাড়াই চলে।';
+  String get hadithLibraryNote =>
+      'HadeethEnc.com থেকে, হুবহু। হোম, চেকলিস্ট ও তাসবিহ এটি ছাড়াই চলে।';
 
   @override
   String counterToday(String count) {
@@ -1176,7 +1209,8 @@ class AppLocalizationsBn extends AppLocalizations {
   String get qiblaHoldFlat => 'ফোনটি সমতলে রাখুন';
 
   @override
-  String get qiblaCalibrate => 'দিক সরে গেলে ফোনটি ইংরেজি 8-এর মতো করে ঘোরান, ধাতু ও চুম্বক থেকে দূরে।';
+  String get qiblaCalibrate =>
+      'দিক সরে গেলে ফোনটি ইংরেজি 8-এর মতো করে ঘোরান, ধাতু ও চুম্বক থেকে দূরে।';
 
   @override
   String qiblaNoCompass(String deg) {
@@ -1239,7 +1273,8 @@ class AppLocalizationsBn extends AppLocalizations {
       'ramadan': 'আজ রাতে তারাবিহ, ফজরের আগে সাহরি। যে ঈমান ও সওয়াবের আশায় রমজানের রোজা রাখে, তার আগের গুনাহ মাফ হয় (বুখারি)।',
       'dhulHijjah': 'এই দশ দিনের চেয়ে আল্লাহর কাছে নেক আমল প্রিয় হয় এমন কোনো দিন নেই (বুখারি)। তাকবির, রোজা, দান।',
       'arafah': 'এর রোজা আগের ও পরের বছরের গুনাহ মুছে দেয় (মুসলিম)। আজ রাতেই নিয়ত করুন।',
-      'eidFitr': 'ঈদের নামাজের আগে সদাকাতুল ফিতর দিন, আর আজ রাত থেকে তাকবির বলুন।',
+      'eidFitr':
+          'ঈদের নামাজের আগে সদাকাতুল ফিতর দিন, আর আজ রাত থেকে তাকবির বলুন।',
       'eidAdha': 'তাকবির বলুন, সকালে ঈদের নামাজ পড়ুন, তারপর কুরবানি দিন।',
       'tasua': 'নবী ﷺ আশুরার সঙ্গে নবম তারিখেও রোজা রাখার ইচ্ছা করেছিলেন (মুসলিম)। পরের দিন আশুরা।',
       'ashura': 'আশুরার রোজা আগের বছরের গুনাহ মুছে দেয় (মুসলিম)। আজ রাতেই নিয়ত করুন।',
@@ -1250,9 +1285,9 @@ class AppLocalizationsBn extends AppLocalizations {
       'fridayLastHour': 'জুমার দিনে এমন একটি সময় আছে যখন সব দোয়া কবুল হয় (বুখারি)। মাগরিবের আগে এখনই খুঁজুন।',
       'suhoor': 'সাহরি খাও, কারণ সাহরিতে বরকত আছে (বুখারি)। ফজর কাছেই।',
       'iftar': 'মানুষ ততদিন কল্যাণে থাকবে যতদিন তারা দ্রুত ইফতার করবে (বুখারি)। ইফতারের সময় দোয়া করুন।',
-      'laylatAlQadr':
-          'হাজার মাসের চেয়ে উত্তম। নামাজ পড়ুন আর বলুন: আল্লাহুম্মা ইন্নাকা আফুউন তুহিব্বুল আফওয়া ফা’ফু আন্নি।',
-      'morningAdhkar': 'কয়েক মিনিটের জিকির, যাতে দিন শুরু হয় আল্লাহর হেফাজতে।',
+      'laylatAlQadr': 'হাজার মাসের চেয়ে উত্তম। নামাজ পড়ুন আর বলুন: আল্লাহুম্মা ইন্নাকা আফুউন তুহিব্বুল আফওয়া ফা’ফু আন্নি।',
+      'morningAdhkar':
+          'কয়েক মিনিটের জিকির, যাতে দিন শুরু হয় আল্লাহর হেফাজতে।',
       'eveningAdhkar': 'মাগরিবের আগে সন্ধ্যার জিকির। পড়তে ট্যাপ করুন।',
       'lastThird': 'আমাদের রব দুনিয়ার আকাশে নেমে আসেন এবং বলেন: কে আমাকে ডাকে, আমি তার ডাকে সাড়া দেব? (বুখারি)',
       'bedtime': 'আয়াতুল কুরসি, সূরা বাকারার শেষ দুই আয়াত আর ঘুমের দোয়া। দুই মিনিট।',
@@ -1321,7 +1356,8 @@ class AppLocalizationsBn extends AppLocalizations {
   String get remComingUp => 'সামনের রিমাইন্ডার';
 
   @override
-  String get remNothingSoon => 'আগামী এক মাসে কিছু নেই। নিচে আরও রিমাইন্ডার চালু করুন।';
+  String get remNothingSoon =>
+      'আগামী এক মাসে কিছু নেই। নিচে আরও রিমাইন্ডার চালু করুন।';
 
   @override
   String get remPreview => 'দেখুন কেমন হবে';
@@ -1348,7 +1384,8 @@ class AppLocalizationsBn extends AppLocalizations {
   String get remGroupDaily => 'প্রতিদিন';
 
   @override
-  String get remDailyNote => 'শুরুতে বন্ধ থাকে, যাতে সবচেয়ে জরুরি রিমাইন্ডারগুলো আলাদা করে চোখে পড়ে।';
+  String get remDailyNote =>
+      'শুরুতে বন্ধ থাকে, যাতে সবচেয়ে জরুরি রিমাইন্ডারগুলো আলাদা করে চোখে পড়ে।';
 
   @override
   String get qiblaFromLabel => 'কিবলা, যেখান থেকে';
@@ -1365,7 +1402,8 @@ class AppLocalizationsBn extends AppLocalizations {
   }
 
   @override
-  String get qiblaHint => 'ঘুরুন, যতক্ষণ না তীর ওপরে দেখায় আর স্ক্রিন উজ্জ্বল হয়।';
+  String get qiblaHint =>
+      'ঘুরুন, যতক্ষণ না তীর ওপরে দেখায় আর স্ক্রিন উজ্জ্বল হয়।';
 
   @override
   String get deedOnTime => 'সময়মতো পড়েছি';
@@ -1385,7 +1423,8 @@ class AppLocalizationsBn extends AppLocalizations {
   }
 
   @override
-  String get deedRingHint => 'নামাজ পড়ার পর \"এখন\" পাতায় টিক দিন। শুধু আপনিই দেখবেন।';
+  String get deedRingHint =>
+      'নামাজ পড়ার পর \"এখন\" পাতায় টিক দিন। শুধু আপনিই দেখবেন।';
 
   @override
   String deedStreak(String days) {

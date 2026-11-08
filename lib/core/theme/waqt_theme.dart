@@ -69,11 +69,8 @@ class WaqtTokens extends ThemeExtension<WaqtTokens> {
     BoxShadow(color: ink.withValues(alpha: 0.05), blurRadius: 12, offset: const Offset(0, 4)),
   ];
 
-  /// Hero card: `0 10px 30px ink@18%`.
-  List<BoxShadow> get hero => [
-    BoxShadow(color: ink.withValues(alpha: 0.06), spreadRadius: 1),
-    BoxShadow(color: ink.withValues(alpha: 0.18), blurRadius: 30, offset: const Offset(0, 10)),
-  ];
+  /// Hero card: a hairline edge, no glow.
+  List<BoxShadow> get hero => [BoxShadow(color: ink.withValues(alpha: 0.08), spreadRadius: 1)];
 
   static WaqtTokens of(BuildContext context) => Theme.of(context).extension<WaqtTokens>()!;
 
