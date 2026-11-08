@@ -331,7 +331,7 @@
   "progressTitle": "Vos progrès",
   "progressThisWeek": "Cette semaine",
   "progressBestRun": "Plus longue série des cinq",
-  "progressQada": "À rattraper (30 derniers jours)",
+  "progressQada": "Non cochées, à rattraper (30 j)",
   "progressDays": "{days} jours",
   "progressReflection": "« Les œuvres les plus aimées d’Allah sont les plus régulières, même si elles sont peu nombreuses. » (Bukhari, Muslim)",
   "progressOfPrayers": "sur {total} prières",

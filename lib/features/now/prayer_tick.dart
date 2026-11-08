@@ -83,7 +83,8 @@ String markLabel(AppLocalizations l, SalahMark? m) => switch (m) {
 
 /// The detail for one prayer. Returns the choice (its mark, null = clear),
 /// or null when dismissed.
-Future<(SalahMark?,)?> showSalahSheet(BuildContext context, Waqt prayer, SalahMark? current) {
+/// [late] offers "made up late"; a prayer whose time is still running can't be late.
+Future<(SalahMark?,)?> showSalahSheet(BuildContext context, Waqt prayer, SalahMark? current, {bool late = true}) {
   final l = AppLocalizations.of(context);
   final t = WaqtTokens.of(context);
   return showModalBottomSheet<(SalahMark?,)>(
@@ -100,7 +101,7 @@ Future<(SalahMark?,)?> showSalahSheet(BuildContext context, Waqt prayer, SalahMa
           children: [
             Text(l.waqt(prayer), style: WaqtText.titleSmall.copyWith(color: t.ink)),
             const SizedBox(height: WaqtSpace.x3),
-            for (final m in <SalahMark?>[SalahMark.onTime, SalahMark.jamaah, SalahMark.qada, null])
+            for (final m in <SalahMark?>[SalahMark.onTime, SalahMark.jamaah, if (late) SalahMark.qada, null])
               ListTile(
                 contentPadding: EdgeInsets.zero,
                 leading: SalahSwatch(mark: m, size: 26),

@@ -26,12 +26,11 @@ class PrayerWindows extends ConsumerWidget {
   static const prayers = fivePrayers;
 
   /// Bead corners: the strip's radius minus its inset, kept small on purpose.
-  static const double _outer = 12, _inset = 4;
+  static const double _outer = 12, _inset = 4; // bead radius = outer - inset
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l = AppLocalizations.of(context);
-    final t = WaqtTokens.of(context);
     final locale = Localizations.localeOf(context).toLanguageTag();
     final n = LocaleDigits(locale);
     final fmt = MediaQuery.alwaysUse24HourFormatOf(context) ? DateFormat.Hm(locale) : DateFormat('h:mm', locale);
@@ -83,28 +82,24 @@ class PrayerWindows extends ConsumerWidget {
 
     final twoRows = MediaQuery.textScalerOf(context).scale(10) > 13;
     final per = twoRows ? 3 : 5;
-    return Container(
-      padding: const EdgeInsets.fromLTRB(_inset + 2, _inset + 2, _inset + 2, WaqtSpace.x2),
-      decoration: BoxDecoration(color: t.surface, borderRadius: BorderRadius.circular(_outer)),
-      child: Column(
-        children: [
-          for (var r = 0; r * per < prayers.length; r++)
-            Padding(
-              padding: EdgeInsets.only(top: r == 0 ? 0 : _inset),
-              child: IntrinsicHeight(
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    for (var i = r * per; i < r * per + per; i++) ...[
-                      if (i > r * per) const SizedBox(width: _inset),
-                      Expanded(child: i < prayers.length ? bead(prayers[i]) : const SizedBox()),
-                    ],
+    return Column(
+      children: [
+        for (var r = 0; r * per < prayers.length; r++)
+          Padding(
+            padding: EdgeInsets.only(top: r == 0 ? 0 : WaqtSpace.x3),
+            child: IntrinsicHeight(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  for (var i = r * per; i < r * per + per; i++) ...[
+                    if (i > r * per) const SizedBox(width: WaqtSpace.x2),
+                    Expanded(child: i < prayers.length ? bead(prayers[i]) : const SizedBox()),
                   ],
-                ),
+                ],
               ),
             ),
-        ],
-      ),
+          ),
+      ],
     );
   }
 
@@ -149,7 +144,7 @@ class _Bead extends StatelessWidget {
     final l = AppLocalizations.of(context);
     final t = WaqtTokens.of(context);
     final m = mark;
-    final fill = m == null ? (current ? t.ink.withValues(alpha: 0.05) : Colors.transparent) : MarkColors.of(t, m);
+    final fill = m != null ? MarkColors.of(t, m) : (started ? t.surface : t.surface.withValues(alpha: 0.5));
     final ink = m == null ? t.ink : MarkColors.on(t, m);
     final r = BorderRadius.circular(radius);
     final fast = MediaQuery.disableAnimationsOf(context) ? Duration.zero : WaqtMotion.ui;
@@ -164,9 +159,7 @@ class _Bead extends StatelessWidget {
             ? null
             : current
             ? Border.all(color: t.ink.withValues(alpha: 0.7), width: 1.5)
-            : started
-            ? Border.all(color: t.ink.withValues(alpha: 0.14))
-            : null,
+            : Border.all(color: t.ink.withValues(alpha: started ? 0.1 : 0.05)),
       ),
       child: ClipRRect(
         borderRadius: r,
@@ -244,18 +237,27 @@ class _Bead extends StatelessWidget {
       excludeSemantics: true,
       child: GestureDetector(
         behavior: HitTestBehavior.opaque,
-        // Tap cycles: prayed (alone, or late once its time is over), then congregation, then clear.
+        // Over: late, alone, congregation, clear. Still running: alone, congregation, clear.
         onTap: started
-            ? () => onMark(switch (m) {
-                null => ended ? SalahMark.qada : SalahMark.onTime,
-                SalahMark.jamaah => null,
-                _ => SalahMark.jamaah,
-              })
+            ? () => onMark(
+                ended
+                    ? switch (m) {
+                        null => SalahMark.qada,
+                        SalahMark.qada => SalahMark.onTime,
+                        SalahMark.onTime => SalahMark.jamaah,
+                        SalahMark.jamaah => null,
+                      }
+                    : switch (m) {
+                        null || SalahMark.qada => SalahMark.onTime,
+                        SalahMark.onTime => SalahMark.jamaah,
+                        SalahMark.jamaah => null,
+                      },
+              )
             : null,
         onLongPress: started
             ? () async {
                 Haptics.tick();
-                final picked = await showSalahSheet(context, prayer, m);
+                final picked = await showSalahSheet(context, prayer, m, late: ended);
                 if (picked != null) onMark(picked.$1);
               }
             : null,

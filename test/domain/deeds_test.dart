@@ -34,7 +34,8 @@ void main() {
   test('on time share, qada owed, fasts', () {
     final s = DeedStats({k(1): full, k(2): three.copyWith(fast: true), k(10): const DayLog(fast: true)});
     expect(s.onTimeShare(today.subtract(const Duration(days: 3)), today), closeTo(6 / 8, 1e-9));
-    expect(s.qadaOwed(today.subtract(const Duration(days: 30)), today), 2); // day k(10) had no prayers marked
+    // Since k(10): k(1) full, k(2) three, the other eight days nothing marked.
+    expect(s.qadaOwed(today.subtract(const Duration(days: 30)), today), 2 + 8 * 5);
     expect(s.firstDay, today.subtract(const Duration(days: 10)));
     expect(s.trackedDays(today.subtract(const Duration(days: 30)), today).length, 11);
     expect(s.prayedIn(today.subtract(const Duration(days: 3)), today), 8);

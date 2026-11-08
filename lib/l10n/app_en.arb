@@ -858,7 +858,7 @@
   "progressTitle": "Your progress",
   "progressThisWeek": "This week",
   "progressBestRun": "Longest run of all five",
-  "progressQada": "To make up (last 30 days)",
+  "progressQada": "Not marked, to make up (30 days)",
   "progressDays": "{days} days",
   "@progressDays": {
     "placeholders": {

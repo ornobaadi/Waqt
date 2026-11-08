@@ -337,7 +337,7 @@
   "progressTitle": "İlerlemeniz",
   "progressThisWeek": "Bu hafta",
   "progressBestRun": "Beş vaktin en uzun serisi",
-  "progressQada": "Kaza (son 30 gün)",
+  "progressQada": "İşaretsiz, kaza (30 gün)",
   "progressDays": "{days} gün",
   "progressReflection": "“Allah’a en sevimli amel, az da olsa devamlı olanıdır.” (Buhârî, Müslim)",
   "progressOfPrayers": "{total} vakitten",

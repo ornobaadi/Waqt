@@ -118,13 +118,14 @@ class DeedStats {
     return marked == 0 ? null : onTime / marked;
   }
 
-  /// Prayers left unmarked on days that had at least one prayer marked,
-  /// between [from] and the day before [today]. A gentle "to make up".
+  /// Prayers not marked on any day since tracking began, from [from] up to
+  /// the day before [today]: unmarked is taken as not yet prayed, to make up
+  /// (or to mark, if it was prayed and forgotten). Days before someone
+  /// started tracking never count.
   int qadaOwed(DateTime from, DateTime today) {
     var owed = 0;
-    for (var d = _date(from); d.isBefore(_date(today)); d = d.add(const Duration(days: 1))) {
-      final log = of(d);
-      if (log.salah.isNotEmpty) owed += 5 - log.prayed;
+    for (final d in trackedDays(from, _date(today).subtract(const Duration(days: 1)))) {
+      owed += 5 - of(d).prayed;
     }
     return owed;
   }
