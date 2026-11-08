@@ -10,7 +10,7 @@ void main() {
     expect(find.text('Where are you praying from?'), findsOneWidget);
     expect(find.text('Use my location'), findsOneWidget);
 
-    await tester.tap(find.text('Duas'));
+    await tester.tap(find.byTooltip('Duas'));
     await tester.pumpAndSettle();
     expect(find.text('Search hadith and duas'), findsOneWidget);
   });
@@ -33,7 +33,7 @@ void main() {
   testWidgets('Duas: what fits now opens its hadith, in Bangla, before any download', (tester) async {
     await tester.pumpWidget(await app(at: DateTime(2026, 11, 6, 22, 45), place: dhaka, locale: const Locale('bn')));
     await tester.pumpAndSettle();
-    await tester.tap(find.text('দোয়া'));
+    await tester.tap(find.byTooltip('দোয়া'));
     await tester.pumpAndSettle();
     await tester.tap(find.text('বিছানা ঝেড়ে নিন, তারপর দোয়া পড়ুন'));
     await tester.pumpAndSettle();

@@ -11,4 +11,6 @@ abstract final class Runtime {
   /// Notifications, the home-screen widget and the battery channel exist
   /// only on the phone.
   static final bool hasPlatformPlugins = !kIsWeb && !isTest;
+
+  static final bool isAndroid = !kIsWeb && Platform.isAndroid;
 }

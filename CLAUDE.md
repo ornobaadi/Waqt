@@ -25,12 +25,12 @@ Generated `lib/l10n/app_localizations*.dart` is reformatted at width 80 by gen-l
 Builds (for the user to run): `flutter build apk --profile` (Waqt Dev, debug tools, drafts visible), `flutter build apk --release`, `flutter build appbundle --release`. Release hides unreviewed content.
 
 ## Layout
-- `lib/app` — app, router (go_router), app state, sync
+- `lib/app` — app, router (go_router), floating Material 3 Expressive dock (`dock.dart`, spring motion), app state, sync
 - `lib/core` — clock (fakeable), config (flavor = build mode, `runtime.dart` for kIsWeb-safe platform checks, test mode), theme tokens, shared widgets, diagnostics
 - `lib/domain` — pure Dart: `moments/moment_engine.dart` (the heart), prayer times (adhan), Hijri, occasions, moon, place time zones, reminder planner
 - `lib/data` — content repository, HadeethEnc sources/library, places (GeoNames), Hijri calendar sync, user prefs, checklists
 - `lib/features` — qibla (precision-finding screen; heading from the native `waqt/heading` EventChannel in MainActivity.kt: fused rotation vector, true north; fallback magnetometer maths; drawn per frame with a short settle), now (Home: sky shader, sun arc, moment cards, prayer windows, Ramadan, sighting), today, duas library, counter (misbaha), calendar, settings (adjust, city picker, reminders, reading, developer/test mode, reference checker)
-- `lib/platform` — GPS, local notifications, home-screen widget bridge
+- `lib/platform` — GPS, local notifications, home-screen widget bridge, haptics (`waqt/haptics` channel: vibrator effects, stronger than view feedback)
 - `content/` YAML source of truth → `assets/content/`; `tool/` build scripts; `shaders/sky.frag`
 - `test/` — domain, data, app, content pipeline, screenshots (goldens)
 

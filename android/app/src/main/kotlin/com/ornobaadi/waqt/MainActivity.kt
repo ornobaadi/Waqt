@@ -9,6 +9,9 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Build
 import android.os.PowerManager
+import android.os.VibrationEffect
+import android.os.Vibrator
+import android.os.VibratorManager
 import android.provider.Settings
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
@@ -38,7 +41,52 @@ class MainActivity : FlutterActivity() {
                 else -> result.notImplemented()
             }
         }
+        // Haptics straight from the vibrator: crisper and stronger than the
+        // view-level feedback Flutter uses, which many phones mute or soften.
+        MethodChannel(flutterEngine.dartExecutor.binaryMessenger, "waqt/haptics").setMethodCallHandler { call, result ->
+            playHaptic(call.arguments as? String ?: "click")
+            result.success(null)
+        }
         EventChannel(flutterEngine.dartExecutor.binaryMessenger, "waqt/heading").setStreamHandler(HeadingStream(this))
+    }
+
+    private val vibrator: Vibrator? by lazy {
+        if (Build.VERSION.SDK_INT >= 31) {
+            (getSystemService(VIBRATOR_MANAGER_SERVICE) as? VibratorManager)?.defaultVibrator
+        } else {
+            @Suppress("DEPRECATION")
+            getSystemService(VIBRATOR_SERVICE) as? Vibrator
+        }
+    }
+
+    private fun playHaptic(kind: String) {
+        val v = vibrator ?: return
+        if (!v.hasVibrator()) return
+        try {
+            if (Build.VERSION.SDK_INT >= 29) {
+                val effect = when (kind) {
+                    "tick" -> VibrationEffect.createPredefined(VibrationEffect.EFFECT_TICK)
+                    "heavy" -> VibrationEffect.createPredefined(VibrationEffect.EFFECT_HEAVY_CLICK)
+                    "double" -> VibrationEffect.createPredefined(VibrationEffect.EFFECT_DOUBLE_CLICK)
+                    "success" -> VibrationEffect.createWaveform(longArrayOf(0, 28, 90, 28, 90, 60), intArrayOf(0, 255, 0, 255, 0, 255), -1)
+                    else -> VibrationEffect.createPredefined(VibrationEffect.EFFECT_CLICK)
+                }
+                v.vibrate(effect)
+            } else if (Build.VERSION.SDK_INT >= 26) {
+                val (ms, amp) = when (kind) {
+                    "tick" -> 8L to 120
+                    "heavy" -> 30L to 255
+                    "double", "success" -> 24L to 255
+                    else -> 16L to 200
+                }
+                val amplitude = if (v.hasAmplitudeControl()) amp else VibrationEffect.DEFAULT_AMPLITUDE
+                v.vibrate(VibrationEffect.createOneShot(ms, amplitude))
+            } else {
+                @Suppress("DEPRECATION")
+                v.vibrate(if (kind == "tick") 8L else 20L)
+            }
+        } catch (_: Exception) {
+        }
     }
 }
 

@@ -82,7 +82,12 @@ class NowScreen extends ConsumerWidget {
         SafeArea(
           bottom: false,
           child: ListView(
-            padding: const EdgeInsets.fromLTRB(WaqtSpace.screen, WaqtSpace.x3, WaqtSpace.screen, WaqtSpace.x8),
+            padding: EdgeInsets.fromLTRB(
+              WaqtSpace.screen,
+              WaqtSpace.x3,
+              WaqtSpace.screen,
+              WaqtSpace.x8 + MediaQuery.paddingOf(context).bottom, // clear the floating dock
+            ),
             children: [
               Row(
                 children: [

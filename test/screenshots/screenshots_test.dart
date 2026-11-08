@@ -79,7 +79,7 @@ void main() {
       t,
       '08_settings',
       await app(at: DateTime(2026, 11, 6, 12, 38), place: dhaka),
-      then: () async => t.tap(find.text('Settings')),
+      then: () async => t.tap(find.byTooltip('Settings')),
     ),
   );
 
@@ -90,7 +90,7 @@ void main() {
       '09_method_sheet',
       await app(at: DateTime(2026, 11, 6, 12, 38), place: dhaka),
       then: () async {
-        await t.tap(find.text('Settings'));
+        await t.tap(find.byTooltip('Settings'));
         await t.pumpAndSettle();
         await t.tap(find.text('Calculation method'));
       },
@@ -119,7 +119,7 @@ void main() {
       t,
       '11_today_timeline',
       await app(at: DateTime(2026, 11, 6, 16, 20), place: dhaka),
-      then: () async => t.tap(find.text('Today')),
+      then: () async => t.tap(find.byTooltip('Today')),
     ),
   );
 
@@ -145,7 +145,7 @@ void main() {
       '15_developer',
       await app(at: DateTime(2026, 11, 6, 16, 20), place: dhaka),
       then: () async {
-        await t.tap(find.text('Settings'));
+        await t.tap(find.byTooltip('Settings'));
         await t.pumpAndSettle();
         await t.scrollUntilVisible(find.text('Fake clock, day jumps and the reference checker'), 200);
         await t.tap(find.text('Fake clock, day jumps and the reference checker'));
@@ -159,7 +159,7 @@ void main() {
       t,
       '16_duas_library',
       await app(at: DateTime(2026, 11, 6, 9, 41), place: dhaka),
-      then: () async => t.tap(find.text('Duas')),
+      then: () async => t.tap(find.byTooltip('Duas')),
     ),
   );
 
@@ -170,7 +170,7 @@ void main() {
       '16c_duas_search',
       await app(at: DateTime(2026, 11, 6, 9, 41), place: dhaka),
       then: () async {
-        await t.tap(find.text('Duas'));
+        await t.tap(find.byTooltip('Duas'));
         await t.pumpAndSettle();
         await t.enterText(find.byType(TextField), 'travel');
       },
@@ -184,7 +184,7 @@ void main() {
       '41b_reading_size',
       await app(at: DateTime(2026, 11, 6, 9, 41), place: dhaka),
       then: () async {
-        await t.tap(find.text('Settings'));
+        await t.tap(find.byTooltip('Settings'));
         await t.pumpAndSettle();
         await t.scrollUntilVisible(find.text('Saudi High Judiciary Council'), 200);
         await t.pumpAndSettle();
@@ -200,7 +200,7 @@ void main() {
       '16d_hadith_download',
       await app(at: DateTime(2026, 11, 6, 9, 41), place: dhaka),
       then: () async {
-        await t.tap(find.text('Duas'));
+        await t.tap(find.byTooltip('Duas'));
         await t.pumpAndSettle();
         await t.enterText(find.byType(TextField), 'patience');
       },
@@ -242,7 +242,7 @@ void main() {
       '20_reminders',
       await app(at: DateTime(2026, 11, 6, 12, 38), place: dhaka),
       then: () async {
-        await t.tap(find.text('Settings'));
+        await t.tap(find.byTooltip('Settings'));
         await t.pumpAndSettle();
         await t.tap(find.text("Arafah, Ashura, Jumu'ah, Ramadan and more"));
       },
@@ -274,7 +274,7 @@ void main() {
       '66_adjust_times',
       await app(at: DateTime(2026, 11, 6, 9, 41), place: dhaka),
       then: () async {
-        await t.tap(find.text('Settings'));
+        await t.tap(find.byTooltip('Settings'));
         await t.pumpAndSettle();
         await t.tap(find.text('Adjust times'));
       },
@@ -322,7 +322,7 @@ void main() {
       '22_counter',
       await app(at: DateTime(2026, 11, 6, 12, 38), place: dhaka),
       then: () async {
-        await t.tap(find.text('Duas'));
+        await t.tap(find.byTooltip('Duas'));
         await t.pumpAndSettle();
         await t.tap(find.byTooltip('Open counter'));
         await t.pumpAndSettle();
@@ -335,7 +335,7 @@ void main() {
   );
 
   Future<void> openCounter(WidgetTester t) async {
-    await t.tap(find.text('Duas'));
+    await t.tap(find.byTooltip('Duas'));
     await t.pumpAndSettle();
     await t.tap(find.byTooltip('Open counter'));
     await t.pumpAndSettle();
@@ -454,7 +454,7 @@ void main() {
       '41_a11y_settings_200',
       await app(at: DateTime(2026, 11, 6, 16, 20), place: dhaka),
       textScale: 2,
-      then: () async => t.tap(find.text('Settings')),
+      then: () async => t.tap(find.byTooltip('Settings')),
     ),
   );
 
@@ -465,7 +465,7 @@ void main() {
       '42_a11y_today_200',
       await app(at: DateTime(2026, 11, 6, 16, 20), place: dhaka),
       textScale: 2,
-      then: () async => t.tap(find.text('Today')),
+      then: () async => t.tap(find.byTooltip('Today')),
     ),
   );
 
@@ -504,7 +504,7 @@ void main() {
         name,
         await app(at: at, place: dhaka),
         then: () async {
-          await t.tap(find.text('Settings'));
+          await t.tap(find.byTooltip('Settings'));
           await t.pumpAndSettle();
           await t.scrollUntilVisible(find.text('Remember me in your duas.'), 300);
           await t.runAsync(() async {
@@ -522,12 +522,12 @@ void main() {
       t,
       '11b_today_empty',
       await app(at: DateTime(2026, 11, 6, 9, 41)),
-      then: () async => t.tap(find.text('Today')),
+      then: () async => t.tap(find.byTooltip('Today')),
     ),
   );
 
   Future<void> openReminders(WidgetTester t) async {
-    await t.tap(find.text('Settings'));
+    await t.tap(find.byTooltip('Settings'));
     await t.pumpAndSettle();
     await t.tap(find.text("Arafah, Ashura, Jumu'ah, Ramadan and more"));
   }

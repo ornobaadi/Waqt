@@ -2,7 +2,6 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -14,6 +13,7 @@ import '../../data/user/user_prefs.dart';
 import '../../domain/qibla/qibla.dart';
 import '../../l10n/app_localizations.dart';
 import '../../platform/sensors/heading.dart';
+import '../../platform/haptics/haptics.dart';
 
 /// Within this many degrees the phone counts as facing the Qibla.
 const _aligned = 4.0;
@@ -91,10 +91,10 @@ class _QiblaScreenState extends ConsumerState<QiblaScreen> with SingleTickerProv
   /// Haptics: a light tick every 5° inside 30°, a firm one on arriving.
   void _feel(double turn) {
     final aligned = turn.abs() <= _aligned;
-    if (aligned && !_wasAligned) HapticFeedback.heavyImpact();
+    if (aligned && !_wasAligned) Haptics.heavy();
     _wasAligned = aligned;
     final step = turn.abs() <= 30 ? (turn.abs() / 5).floor() : -1;
-    if (step != _step && step >= 0 && !aligned) HapticFeedback.selectionClick();
+    if (step != _step && step >= 0 && !aligned) Haptics.tick();
     _step = step;
   }
 

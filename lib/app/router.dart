@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../core/theme/waqt_theme.dart';
+import 'dock.dart';
 import '../features/calendar/calendar_screen.dart';
 import '../features/counter/counter_screen.dart';
 import '../features/duas/duas_screen.dart';
@@ -91,40 +92,23 @@ class _Shell extends StatelessWidget {
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: (dark ? SystemUiOverlayStyle.light : SystemUiOverlayStyle.dark).copyWith(
         statusBarColor: Colors.transparent,
-        systemNavigationBarColor: t.ground,
+        systemNavigationBarColor: Colors.transparent,
+        systemNavigationBarContrastEnforced: false,
       ),
       child: Scaffold(
+        // The dock floats: content runs under it, visible and touchable
+        // around it, and scrolling lists get its height as bottom padding.
+        extendBody: true,
         body: shell,
-        bottomNavigationBar: DecoratedBox(
-          decoration: BoxDecoration(
-            border: Border(top: BorderSide(color: t.hairline)),
-          ),
-          child: NavigationBar(
-            selectedIndex: shell.currentIndex,
-            onDestinationSelected: (i) => shell.goBranch(i, initialLocation: i == shell.currentIndex),
-            destinations: [
-              NavigationDestination(
-                icon: const Icon(Icons.wb_twilight_outlined),
-                selectedIcon: const Icon(Icons.wb_twilight_rounded),
-                label: l.navNow,
-              ),
-              NavigationDestination(
-                icon: const Icon(Icons.view_timeline_outlined),
-                selectedIcon: const Icon(Icons.view_timeline_rounded),
-                label: l.navToday,
-              ),
-              NavigationDestination(
-                icon: const Icon(Icons.menu_book_outlined),
-                selectedIcon: const Icon(Icons.menu_book_rounded),
-                label: l.navDuas,
-              ),
-              NavigationDestination(
-                icon: const Icon(Icons.tune_outlined),
-                selectedIcon: const Icon(Icons.tune_rounded),
-                label: l.navSettings,
-              ),
-            ],
-          ),
+        bottomNavigationBar: WaqtDock(
+          selected: shell.currentIndex,
+          onSelect: (i) => shell.goBranch(i, initialLocation: i == shell.currentIndex),
+          items: [
+            DockItem(icon: Icons.wb_twilight_outlined, selectedIcon: Icons.wb_twilight_rounded, label: l.navNow),
+            DockItem(icon: Icons.view_timeline_outlined, selectedIcon: Icons.view_timeline_rounded, label: l.navToday),
+            DockItem(icon: Icons.menu_book_outlined, selectedIcon: Icons.menu_book_rounded, label: l.navDuas),
+            DockItem(icon: Icons.tune_outlined, selectedIcon: Icons.tune_rounded, label: l.navSettings),
+          ],
         ),
       ),
     );

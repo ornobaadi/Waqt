@@ -15,6 +15,7 @@ import '../../core/utils/digits.dart';
 import '../../l10n/app_localizations.dart';
 import '../duas/library_views.dart';
 import 'dhikr.dart';
+import '../../platform/haptics/haptics.dart';
 
 class CounterState {
   CounterState({
@@ -247,11 +248,10 @@ class _CounterScreenState extends ConsumerState<CounterScreen> with TickerProvid
   void _count() {
     final done = ref.read(counterProvider.notifier).tap();
     if (done) {
-      // Milestone: two heavy pulses, unmistakable from a single count.
-      HapticFeedback.heavyImpact();
-      Future.delayed(const Duration(milliseconds: 140), HapticFeedback.heavyImpact);
+      // Milestone: three strong pulses, unmistakable from a single count.
+      Haptics.success();
     } else if (ref.read(counterHapticsProvider)) {
-      HapticFeedback.lightImpact();
+      Haptics.click();
     }
     if (MediaQuery.disableAnimationsOf(context)) return;
     final c = AnimationController(vsync: this, duration: const Duration(milliseconds: 900));

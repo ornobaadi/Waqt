@@ -148,7 +148,7 @@ class _DuasScreenState extends ConsumerState<DuasScreen> {
               ),
             ],
           ],
-          const SliverToBoxAdapter(child: SizedBox(height: WaqtSpace.x12)),
+          SliverToBoxAdapter(child: SizedBox(height: WaqtSpace.x12 + MediaQuery.paddingOf(context).bottom)),
         ],
       ),
     );

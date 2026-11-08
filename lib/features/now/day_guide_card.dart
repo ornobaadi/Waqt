@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/theme/tokens.dart';
@@ -8,6 +7,7 @@ import '../../core/utils/digits.dart';
 import '../../data/sources/days.dart';
 import '../../l10n/app_localizations.dart';
 import '../duas/library_views.dart';
+import '../../platform/haptics/haptics.dart';
 
 /// Today's special day as a checklist: each Sunnah, ticked as it is done,
 /// opening the hadith it comes from.
@@ -147,7 +147,7 @@ class _Row extends ConsumerWidget {
         children: [
           IconButton(
             onPressed: () {
-              HapticFeedback.lightImpact();
+              Haptics.click();
               ref.read(dayTicksProvider.notifier).toggle(day, item.id);
             },
             icon: AnimatedSwitcher(

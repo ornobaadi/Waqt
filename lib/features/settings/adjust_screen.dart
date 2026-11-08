@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../app/app_state.dart';
@@ -12,6 +11,7 @@ import '../../domain/prayer/prayer_times_service.dart';
 import '../../l10n/app_localizations.dart';
 import '../common/labels.dart';
 import '../now/moment_cards.dart';
+import '../../platform/haptics/haptics.dart';
 
 /// Minute-by-minute adjustments, to match a local timetable (an Islamic
 /// Foundation's district table, a mosque's board). Each row shows today's
@@ -38,7 +38,7 @@ class AdjustScreen extends ConsumerWidget {
     final fmt = clockFormat(context);
 
     void set(String key, int v) {
-      HapticFeedback.selectionClick();
+      Haptics.tick();
       final m = {...settings.minutes};
       if (v == 0) {
         m.remove(key);

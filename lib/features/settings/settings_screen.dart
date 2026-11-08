@@ -68,7 +68,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     return SafeArea(
       bottom: false,
       child: ListView(
-        padding: const EdgeInsets.only(bottom: WaqtSpace.x8),
+        padding: EdgeInsets.only(bottom: WaqtSpace.x8 + MediaQuery.paddingOf(context).bottom),
         children: [
           ScreenTitle(l.navSettings),
           Padding(

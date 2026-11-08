@@ -67,7 +67,12 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
       bottom: false,
       // A day has ~30 rows: build them all so "now" can be scrolled to.
       child: SingleChildScrollView(
-        padding: const EdgeInsets.fromLTRB(WaqtSpace.screen - 4, 0, WaqtSpace.screen - 4, WaqtSpace.x12),
+        padding: EdgeInsets.fromLTRB(
+          WaqtSpace.screen - 4,
+          0,
+          WaqtSpace.screen - 4,
+          WaqtSpace.x12 + MediaQuery.paddingOf(context).bottom,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
