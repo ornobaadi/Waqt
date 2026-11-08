@@ -6,7 +6,6 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../core/config/flavor.dart';
 import '../../core/theme/tokens.dart';
 import '../../core/theme/waqt_theme.dart';
-import '../../core/widgets/waqt_widgets.dart';
 import '../../l10n/app_localizations.dart';
 
 /// "Handcrafted by" with the maker's signature, at the foot of Settings, as in
@@ -47,8 +46,6 @@ class _CreatorFooterState extends State<CreatorFooter> {
     return Column(
       children: [
         const SizedBox(height: WaqtSpace.x12),
-        const ArcMark(size: 30),
-        const SizedBox(height: WaqtSpace.x5),
         Text(l.footerHandcrafted, textAlign: TextAlign.center, style: caption),
         const SizedBox(height: WaqtSpace.x2),
         Semantics(

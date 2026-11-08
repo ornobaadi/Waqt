@@ -512,4 +512,14 @@ void main() {
       ),
     );
   }
+
+  testWidgets(
+    'today empty',
+    (t) async => shoot(
+      t,
+      '11b_today_empty',
+      await app(at: DateTime(2026, 11, 6, 9, 41)),
+      then: () async => t.tap(find.text('Today')),
+    ),
+  );
 }

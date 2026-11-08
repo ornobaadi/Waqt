@@ -1,75 +1,117 @@
-import 'dart:math' as math;
-
 import 'package:flutter/material.dart';
 
 import '../theme/tokens.dart';
 import '../theme/waqt_theme.dart';
 
-/// A miniature of the sun arc: the app's signature, used as a quiet mark
-/// in place of generic icons.
-class ArcMark extends StatelessWidget {
-  const ArcMark({super.key, this.size = 44, this.progress = 0.62});
+/// The Waqt mark: a believer in sujood under the crescent, the same drawing
+/// as the app icon (tool/brand/waqt_icon.py). Ink for the figure and floor,
+/// the moment's accent for the crescent.
+class WaqtMark extends StatelessWidget {
+  const WaqtMark({super.key, this.size = 64});
 
+  /// Width; the mark is a little wider than tall.
   final double size;
-
-  /// 0 = sunrise (start edge), 1 = sunset (end edge).
-  final double progress;
 
   @override
   Widget build(BuildContext context) {
     final t = WaqtTokens.of(context);
-    final rtl = Directionality.of(context) == TextDirection.rtl;
     return ExcludeSemantics(
-      child: CustomPaint(
-        size: Size(size, size / 2 + 6),
-        painter: _ArcPainter(t.hairline.withValues(alpha: 0.5), t.accent, t.ink, progress, rtl),
-      ),
+      child: CustomPaint(size: Size(size, size * _MarkPainter.aspect), painter: _MarkPainter(t.ink, t.accent)),
     );
   }
 }
 
-class _ArcPainter extends CustomPainter {
-  _ArcPainter(this.track, this.accent, this.ink, this.progress, this.rtl);
-  final Color track, accent, ink;
-  final double progress;
-  final bool rtl;
+class _MarkPainter extends CustomPainter {
+  _MarkPainter(this.ink, this.accent);
+  final Color ink, accent;
+
+  // The icon scene's artwork box (256-unit canvas).
+  static const _left = 36.0, _top = 38.0, _w = 184.0, _h = 172.0;
+  static const aspect = _h / _w;
+
+  /// Body and arm as one outline, in the figure's 640-unit box (floor at 600).
+  static const _body =
+      'M96 600 L300 600 C328 600 342 582 338 558 C334 530 318 500 314 474 C312 456 330 446 352 452 '
+      'L388 468 C384 500 388 530 398 550 C406 566 418 578 428 588 C434 596 440 600 450 600 L484 600 '
+      'C494 600 496 586 486 584 L456 580 C448 576 444 566 446 556 C450 528 458 500 470 474 '
+      'C478 452 468 436 448 426 L322 324 C276 292 206 296 186 346 C172 382 178 428 198 462 '
+      'C210 486 206 520 172 530 L118 534 C90 536 76 556 80 580 C82 594 88 600 96 600 Z';
+
+  static Path _parse(String d) {
+    final p = Path();
+    final tok = d.split(RegExp(r'\s+')).where((s) => s.isNotEmpty).toList();
+    var i = 0;
+    double n() => double.parse(tok[i++]);
+    var cmd = 'M';
+    while (i < tok.length) {
+      final s = tok[i];
+      if (RegExp(r'^[MLCZ]').hasMatch(s)) {
+        cmd = s[0];
+        if (s.length > 1) {
+          tok[i] = s.substring(1);
+        } else {
+          i++;
+        }
+        if (cmd == 'Z') {
+          p.close();
+          continue;
+        }
+      }
+      switch (cmd) {
+        case 'M':
+          p.moveTo(n(), n());
+        case 'L':
+          p.lineTo(n(), n());
+        case 'C':
+          p.cubicTo(n(), n(), n(), n(), n(), n());
+      }
+    }
+    return p;
+  }
+
+  static final Path _figure = _parse(_body);
 
   @override
   void paint(Canvas canvas, Size size) {
-    final stroke = size.width * 0.05;
-    final r = size.width / 2 - stroke;
-    final c = Offset(size.width / 2, size.height - 3);
-    final rect = Rect.fromCircle(center: c, radius: r);
-    final base = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = stroke
-      ..strokeCap = StrokeCap.round;
+    canvas.save();
+    canvas.scale(size.width / _w);
+    canvas.translate(-_left, -_top);
+    final fill = Paint()..color = ink;
 
-    canvas.drawArc(rect, math.pi, math.pi, false, base..color = ink.withValues(alpha: 0.14));
-    final sweep = math.pi * progress;
-    canvas.drawArc(rect, rtl ? 0 : math.pi, rtl ? -sweep : sweep, false, base..color = accent);
-    final a = rtl ? -sweep : math.pi + sweep;
-    final sun = c + Offset(math.cos(a) * r, math.sin(a) * r);
-    canvas.drawCircle(sun, stroke * 2.4, Paint()..color = accent.withValues(alpha: 0.28));
-    canvas.drawCircle(sun, stroke * 1.4, Paint()..color = accent);
-    canvas.drawLine(
-      Offset(0, c.dy + stroke),
-      Offset(size.width, c.dy + stroke),
-      Paint()
-        ..color = ink.withValues(alpha: 0.18)
-        ..strokeWidth = 1,
+    // Floor.
+    canvas.drawRRect(
+      RRect.fromRectAndRadius(const Rect.fromLTWH(36, 204, 184, 5), const Radius.circular(2.5)),
+      Paint()..color = ink.withValues(alpha: 0.75),
     );
+
+    // Figure: sujood(cx 122, floor 204, 186 wide) from the icon.
+    const k = 186 / 640;
+    canvas.save();
+    canvas.translate(122 - 320 * k, 204 - 600 * k);
+    canvas.scale(k);
+    final head = Path()..addOval(Rect.fromCircle(center: const Offset(560, 538), radius: 62));
+    final gap = Path()..addOval(Rect.fromCircle(center: const Offset(560, 538), radius: 82));
+    canvas.drawPath(Path.combine(PathOperation.difference, _figure, gap), fill);
+    canvas.drawPath(head, fill);
+    canvas.restore();
+
+    // Crescent.
+    const r = 18.0;
+    final disc = Path()..addOval(Rect.fromCircle(center: const Offset(186, 58), radius: r));
+    final bite = Path()
+      ..addOval(Rect.fromCircle(center: const Offset(186 + 0.36 * r, 58 - 0.36 * r * 0.45), radius: 0.84 * r));
+    canvas.drawPath(Path.combine(PathOperation.difference, disc, bite), Paint()..color = accent);
+    canvas.restore();
   }
 
   @override
-  bool shouldRepaint(_ArcPainter o) => o.progress != progress || o.accent != accent || o.ink != ink || o.rtl != rtl;
+  bool shouldRepaint(_MarkPainter o) => o.ink != ink || o.accent != accent;
 }
 
 class EmptyState extends StatelessWidget {
-  const EmptyState({super.key, required this.title, required this.body, this.progress = 0.62});
+  const EmptyState({super.key, required this.title, required this.body});
   final String title;
   final String body;
-  final double progress;
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +122,7 @@ class EmptyState extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          ArcMark(size: 56, progress: progress),
+          const WaqtMark(size: 72),
           const SizedBox(height: WaqtSpace.x6),
           Text(
             title,

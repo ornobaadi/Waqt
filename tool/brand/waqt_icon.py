@@ -11,6 +11,7 @@ Outputs
   android/app/src/main/res/drawable-*/        splash mark + notification icon
   docs/store/play-icon-512.png               Play Console icon
   docs/store/feature-graphic.png             Play Console feature graphic (1024x500)
+  web/icons/*, web/favicon.png               web app icons
 """
 import math
 import os
@@ -239,6 +240,11 @@ def main():
         render(masters['notification.svg'], RES / f'drawable-{d}/ic_notification.png', round(24 * s), round(24 * s))
 
     render(masters['waqt-icon.svg'], STORE / 'play-icon-512.png', 512, 512, transparent=False)
+    web = ROOT / 'web'
+    for name, px in [('icons/Icon-192.png', 192), ('icons/Icon-512.png', 512),
+                     ('icons/Icon-maskable-192.png', 192), ('icons/Icon-maskable-512.png', 512)]:
+        render(masters['waqt-icon.svg'], web / name, px, px, transparent=False)
+    render(masters['waqt-icon.svg'], web / 'favicon.png', 32, 32, rounded='22%')
     render(masters['feature-graphic.svg'], STORE / 'feature-graphic.png', 1024, 500, transparent=False)
 
 

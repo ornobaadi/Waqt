@@ -43,7 +43,7 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
           children: [
             ScreenTitle(l.navToday),
             Expanded(
-              child: EmptyState(title: l.todayEmptyTitle, body: l.todayEmptyBody, progress: 0.35),
+              child: EmptyState(title: l.todayEmptyTitle, body: l.todayEmptyBody),
             ),
           ],
         ),
