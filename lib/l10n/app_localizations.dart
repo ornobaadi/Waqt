@@ -2522,6 +2522,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Tap a day to fill in what you prayed.'**
   String get progressEditHint;
+
+  /// No description provided for @durShortHm.
+  ///
+  /// In en, this message translates to:
+  /// **'{h}h {m}m'**
+  String durShortHm(String h, String m);
+
+  /// No description provided for @durShortM.
+  ///
+  /// In en, this message translates to:
+  /// **'{m}m'**
+  String durShortM(String m);
+
+  /// No description provided for @beadLeft.
+  ///
+  /// In en, this message translates to:
+  /// **'{time} left'**
+  String beadLeft(String time);
+
+  /// No description provided for @beadIn.
+  ///
+  /// In en, this message translates to:
+  /// **'in {time}'**
+  String beadIn(String time);
+
+  /// No description provided for @beadEnded.
+  ///
+  /// In en, this message translates to:
+  /// **'ended'**
+  String get beadEnded;
+
+  /// No description provided for @beadAlone.
+  ///
+  /// In en, this message translates to:
+  /// **'On time'**
+  String get beadAlone;
+
+  /// No description provided for @beadJamaah.
+  ///
+  /// In en, this message translates to:
+  /// **'Congregation'**
+  String get beadJamaah;
+
+  /// No description provided for @beadLate.
+  ///
+  /// In en, this message translates to:
+  /// **'Late'**
+  String get beadLate;
+
+  /// No description provided for @beadHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap a prayer once you have prayed it. Tap again for congregation; hold for more.'**
+  String get beadHint;
+
+  /// No description provided for @beadHintDismiss.
+  ///
+  /// In en, this message translates to:
+  /// **'Got it'**
+  String get beadHintDismiss;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

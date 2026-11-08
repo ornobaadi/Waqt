@@ -355,5 +355,15 @@
   "progressHardest": "اس وقت {prayer} پر سب سے زیادہ توجہ چاہیے۔",
   "progressWeeks": "پچھلے ١٢ ہفتے",
   "progressEmpty": "نماز پڑھ کر \"ابھی\" پر اسے تھپتھپائیں۔ آپ کے دن یہاں بھرتے جائیں گے، صرف اسی فون پر۔",
-  "progressEditHint": "جو پڑھا وہ درج کرنے کے لیے کسی دن کو تھپتھپائیں۔"
+  "progressEditHint": "جو پڑھا وہ درج کرنے کے لیے کسی دن کو تھپتھپائیں۔",
+  "durShortHm": "{h}گھ {m}م",
+  "durShortM": "{m}م",
+  "beadLeft": "{time} باقی",
+  "beadIn": "{time} میں",
+  "beadEnded": "ختم",
+  "beadAlone": "بروقت",
+  "beadJamaah": "باجماعت",
+  "beadLate": "قضا",
+  "beadHint": "نماز پڑھ کر اسے تھپتھپائیں۔ باجماعت کے لیے دوبارہ تھپتھپائیں؛ مزید کے لیے دبائے رکھیں۔",
+  "beadHintDismiss": "سمجھ گیا"
 }

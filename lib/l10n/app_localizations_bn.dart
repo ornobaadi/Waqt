@@ -1441,4 +1441,42 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get progressEditHint => 'যা পড়েছেন তা লিখতে কোনো দিনে চাপুন।';
+
+  @override
+  String durShortHm(String h, String m) {
+    return '$hঘ $mমি';
+  }
+
+  @override
+  String durShortM(String m) {
+    return '$mমি';
+  }
+
+  @override
+  String beadLeft(String time) {
+    return '$time বাকি';
+  }
+
+  @override
+  String beadIn(String time) {
+    return '$time পরে';
+  }
+
+  @override
+  String get beadEnded => 'শেষ';
+
+  @override
+  String get beadAlone => 'সময়মতো';
+
+  @override
+  String get beadJamaah => 'জামাতে';
+
+  @override
+  String get beadLate => 'কাজা';
+
+  @override
+  String get beadHint => 'নামাজ পড়ার পর চাপুন। জামাতের জন্য আবার চাপুন; আরও বিকল্পের জন্য চেপে ধরুন।';
+
+  @override
+  String get beadHintDismiss => 'বুঝেছি';
 }

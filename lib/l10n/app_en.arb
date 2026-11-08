@@ -889,5 +889,46 @@
   },
   "progressWeeks": "Last 12 weeks",
   "progressEmpty": "Tap a prayer on Now once you have prayed it. Your days fill in here, on this phone only.",
-  "progressEditHint": "Tap a day to fill in what you prayed."
+  "progressEditHint": "Tap a day to fill in what you prayed.",
+  "durShortHm": "{h}h {m}m",
+  "@durShortHm": {
+    "placeholders": {
+      "h": {
+        "type": "String"
+      },
+      "m": {
+        "type": "String"
+      }
+    }
+  },
+  "durShortM": "{m}m",
+  "@durShortM": {
+    "placeholders": {
+      "m": {
+        "type": "String"
+      }
+    }
+  },
+  "beadLeft": "{time} left",
+  "@beadLeft": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "beadIn": "in {time}",
+  "@beadIn": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "beadEnded": "ended",
+  "beadAlone": "On time",
+  "beadJamaah": "Congregation",
+  "beadLate": "Late",
+  "beadHint": "Tap a prayer once you have prayed it. Tap again for congregation; hold for more.",
+  "beadHintDismiss": "Got it"
 }

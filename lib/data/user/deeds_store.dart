@@ -80,3 +80,27 @@ class DeedsNotifier extends Notifier<Map<String, DayLog>> {
 final deedsProvider = NotifierProvider<DeedsNotifier, Map<String, DayLog>>(DeedsNotifier.new);
 
 final deedStatsProvider = Provider<DeedStats>((ref) => DeedStats(ref.watch(deedsProvider)));
+
+/// Whether the strip still shows what its colours mean. It hides by itself
+/// after a few prayers are marked, or when dismissed.
+class BeadHint extends Notifier<bool> {
+  static const _key = 'deeds.hint.marks';
+  static const _enough = 5;
+
+  @override
+  bool build() => (ref.read(sharedPrefsProvider).getInt(_key) ?? 0) < _enough;
+
+  void marked() {
+    final sp = ref.read(sharedPrefsProvider);
+    final n = (sp.getInt(_key) ?? 0) + 1;
+    sp.setInt(_key, n);
+    if (n >= _enough) state = false;
+  }
+
+  void dismiss() {
+    ref.read(sharedPrefsProvider).setInt(_key, _enough);
+    state = false;
+  }
+}
+
+final beadHintProvider = NotifierProvider<BeadHint, bool>(BeadHint.new);

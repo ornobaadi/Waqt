@@ -1448,4 +1448,42 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get progressEditHint => 'Ketuk sebuah hari untuk mengisi salat Anda.';
+
+  @override
+  String durShortHm(String h, String m) {
+    return '${h}j ${m}m';
+  }
+
+  @override
+  String durShortM(String m) {
+    return '${m}m';
+  }
+
+  @override
+  String beadLeft(String time) {
+    return 'sisa $time';
+  }
+
+  @override
+  String beadIn(String time) {
+    return '$time lagi';
+  }
+
+  @override
+  String get beadEnded => 'selesai';
+
+  @override
+  String get beadAlone => 'Tepat waktu';
+
+  @override
+  String get beadJamaah => 'Berjamaah';
+
+  @override
+  String get beadLate => 'Qadha';
+
+  @override
+  String get beadHint => 'Ketuk salat setelah menunaikannya. Ketuk lagi untuk berjamaah; tahan untuk pilihan lain.';
+
+  @override
+  String get beadHintDismiss => 'Mengerti';
 }

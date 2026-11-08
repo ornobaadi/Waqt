@@ -1446,4 +1446,42 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get progressEditHint => 'Kıldıklarınızı girmek için bir güne dokunun.';
+
+  @override
+  String durShortHm(String h, String m) {
+    return '${h}sa ${m}dk';
+  }
+
+  @override
+  String durShortM(String m) {
+    return '${m}dk';
+  }
+
+  @override
+  String beadLeft(String time) {
+    return '$time kaldı';
+  }
+
+  @override
+  String beadIn(String time) {
+    return '$time sonra';
+  }
+
+  @override
+  String get beadEnded => 'bitti';
+
+  @override
+  String get beadAlone => 'Vaktinde';
+
+  @override
+  String get beadJamaah => 'Cemaatle';
+
+  @override
+  String get beadLate => 'Kaza';
+
+  @override
+  String get beadHint => 'Kıldıktan sonra namaza dokunun. Cemaat için tekrar dokunun; daha fazlası için basılı tutun.';
+
+  @override
+  String get beadHintDismiss => 'Anladım';
 }

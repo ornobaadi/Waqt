@@ -341,5 +341,15 @@
   "progressHardest": "{prayer} paling perlu dijaga saat ini.",
   "progressWeeks": "12 minggu terakhir",
   "progressEmpty": "Ketuk salat di Sekarang setelah Anda menunaikannya. Hari-hari Anda terisi di sini, hanya di ponsel ini.",
-  "progressEditHint": "Ketuk sebuah hari untuk mengisi salat Anda."
+  "progressEditHint": "Ketuk sebuah hari untuk mengisi salat Anda.",
+  "durShortHm": "{h}j {m}m",
+  "durShortM": "{m}m",
+  "beadLeft": "sisa {time}",
+  "beadIn": "{time} lagi",
+  "beadEnded": "selesai",
+  "beadAlone": "Tepat waktu",
+  "beadJamaah": "Berjamaah",
+  "beadLate": "Qadha",
+  "beadHint": "Ketuk salat setelah menunaikannya. Ketuk lagi untuk berjamaah; tahan untuk pilihan lain.",
+  "beadHintDismiss": "Mengerti"
 }

@@ -25,7 +25,15 @@ abstract final class MarkColors {
       : const Color(0xFF17120A);
 }
 
-/// A plain swatch of a mark's colour; an outline when not marked.
+/// The small sign for how a prayer was kept, worn in a bead's corner so
+/// colour is never the only cue: alone, in congregation, or made up late.
+IconData markIcon(SalahMark m) => switch (m) {
+  SalahMark.onTime => Icons.person_rounded,
+  SalahMark.jamaah => Icons.groups_rounded,
+  SalahMark.qada => Icons.history_rounded,
+};
+
+/// A swatch of a mark's colour with its sign; an outline when not marked.
 class SalahSwatch extends StatelessWidget {
   const SalahSwatch({super.key, required this.mark, this.size = 22});
   final SalahMark? mark;
@@ -43,6 +51,7 @@ class SalahSwatch extends StatelessWidget {
         borderRadius: BorderRadius.circular(size * 0.28),
         border: m == null ? Border.all(color: t.ink.withValues(alpha: 0.3), width: 1.5) : null,
       ),
+      child: m == null ? null : Icon(markIcon(m), size: size * 0.6, color: MarkColors.on(t, m)),
     );
   }
 }

@@ -1441,4 +1441,42 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get progressEditHint => 'جو پڑھا وہ درج کرنے کے لیے کسی دن کو تھپتھپائیں۔';
+
+  @override
+  String durShortHm(String h, String m) {
+    return '$hگھ $mم';
+  }
+
+  @override
+  String durShortM(String m) {
+    return '$mم';
+  }
+
+  @override
+  String beadLeft(String time) {
+    return '$time باقی';
+  }
+
+  @override
+  String beadIn(String time) {
+    return '$time میں';
+  }
+
+  @override
+  String get beadEnded => 'ختم';
+
+  @override
+  String get beadAlone => 'بروقت';
+
+  @override
+  String get beadJamaah => 'باجماعت';
+
+  @override
+  String get beadLate => 'قضا';
+
+  @override
+  String get beadHint => 'نماز پڑھ کر اسے تھپتھپائیں۔ باجماعت کے لیے دوبارہ تھپتھپائیں؛ مزید کے لیے دبائے رکھیں۔';
+
+  @override
+  String get beadHintDismiss => 'سمجھ گیا';
 }

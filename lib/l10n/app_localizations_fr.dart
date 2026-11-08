@@ -1448,4 +1448,43 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get progressEditHint => 'Touchez un jour pour noter vos prières.';
+
+  @override
+  String durShortHm(String h, String m) {
+    return '${h}h$m';
+  }
+
+  @override
+  String durShortM(String m) {
+    return '$m min';
+  }
+
+  @override
+  String beadLeft(String time) {
+    return 'reste $time';
+  }
+
+  @override
+  String beadIn(String time) {
+    return 'dans $time';
+  }
+
+  @override
+  String get beadEnded => 'terminé';
+
+  @override
+  String get beadAlone => 'À l’heure';
+
+  @override
+  String get beadJamaah => 'En assemblée';
+
+  @override
+  String get beadLate => 'En retard';
+
+  @override
+  String get beadHint =>
+      'Touchez une prière une fois accomplie. Touchez encore pour l’assemblée ; maintenez pour plus.';
+
+  @override
+  String get beadHintDismiss => 'Compris';
 }

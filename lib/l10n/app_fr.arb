@@ -341,5 +341,15 @@
   "progressHardest": "{prayer} demande le plus d’attention en ce moment.",
   "progressWeeks": "12 dernières semaines",
   "progressEmpty": "Touchez une prière sur Maintenant une fois accomplie. Vos jours se remplissent ici, sur ce téléphone seulement.",
-  "progressEditHint": "Touchez un jour pour noter vos prières."
+  "progressEditHint": "Touchez un jour pour noter vos prières.",
+  "durShortHm": "{h}h{m}",
+  "durShortM": "{m} min",
+  "beadLeft": "reste {time}",
+  "beadIn": "dans {time}",
+  "beadEnded": "terminé",
+  "beadAlone": "À l’heure",
+  "beadJamaah": "En assemblée",
+  "beadLate": "En retard",
+  "beadHint": "Touchez une prière une fois accomplie. Touchez encore pour l’assemblée ; maintenez pour plus.",
+  "beadHintDismiss": "Compris"
 }

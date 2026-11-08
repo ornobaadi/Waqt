@@ -546,6 +546,15 @@ void main() {
   );
 
   testWidgets(
+    'salah ticks, hint already seen',
+    (t) async => shoot(
+      t,
+      '40c_now_salah_seen',
+      await app(at: DateTime(2026, 11, 6, 16, 20), place: dhaka, stored: {...deedsSeed, 'deeds.hint.marks': 5}),
+    ),
+  );
+
+  testWidgets(
     'salah ticks at night',
     (t) async =>
         shoot(t, '40b_now_salah_night', await app(at: DateTime(2026, 11, 6, 23, 5), place: dhaka, stored: deedsSeed)),

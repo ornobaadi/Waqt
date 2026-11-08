@@ -1435,4 +1435,42 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get progressEditHint => 'اضغط على يوم لتسجّل ما صليت.';
+
+  @override
+  String durShortHm(String h, String m) {
+    return '$hس $mد';
+  }
+
+  @override
+  String durShortM(String m) {
+    return '$mد';
+  }
+
+  @override
+  String beadLeft(String time) {
+    return 'باقي $time';
+  }
+
+  @override
+  String beadIn(String time) {
+    return 'بعد $time';
+  }
+
+  @override
+  String get beadEnded => 'انتهى';
+
+  @override
+  String get beadAlone => 'في وقتها';
+
+  @override
+  String get beadJamaah => 'جماعة';
+
+  @override
+  String get beadLate => 'قضاء';
+
+  @override
+  String get beadHint => 'اضغط على الصلاة بعد أن تصليها، واضغط مرة أخرى للجماعة، واضغط مطولًا للمزيد.';
+
+  @override
+  String get beadHintDismiss => 'فهمت';
 }

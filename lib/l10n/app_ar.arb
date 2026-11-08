@@ -369,5 +369,15 @@
   "progressHardest": "صلاة {prayer} تحتاج عناية أكثر الآن.",
   "progressWeeks": "آخر ١٢ أسبوعًا",
   "progressEmpty": "اضغط على الصلاة في صفحة «الآن» بعد أن تصليها. تمتلئ أيامك هنا، على هذا الهاتف فقط.",
-  "progressEditHint": "اضغط على يوم لتسجّل ما صليت."
+  "progressEditHint": "اضغط على يوم لتسجّل ما صليت.",
+  "durShortHm": "{h}س {m}د",
+  "durShortM": "{m}د",
+  "beadLeft": "باقي {time}",
+  "beadIn": "بعد {time}",
+  "beadEnded": "انتهى",
+  "beadAlone": "في وقتها",
+  "beadJamaah": "جماعة",
+  "beadLate": "قضاء",
+  "beadHint": "اضغط على الصلاة بعد أن تصليها، واضغط مرة أخرى للجماعة، واضغط مطولًا للمزيد.",
+  "beadHintDismiss": "فهمت"
 }

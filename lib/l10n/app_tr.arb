@@ -347,5 +347,15 @@
   "progressHardest": "Şu an en çok özen isteyen vakit {prayer}.",
   "progressWeeks": "Son 12 hafta",
   "progressEmpty": "Kıldıktan sonra Şimdi ekranında namaza dokunun. Günleriniz burada dolar, yalnızca bu telefonda.",
-  "progressEditHint": "Kıldıklarınızı girmek için bir güne dokunun."
+  "progressEditHint": "Kıldıklarınızı girmek için bir güne dokunun.",
+  "durShortHm": "{h}sa {m}dk",
+  "durShortM": "{m}dk",
+  "beadLeft": "{time} kaldı",
+  "beadIn": "{time} sonra",
+  "beadEnded": "bitti",
+  "beadAlone": "Vaktinde",
+  "beadJamaah": "Cemaatle",
+  "beadLate": "Kaza",
+  "beadHint": "Kıldıktan sonra namaza dokunun. Cemaat için tekrar dokunun; daha fazlası için basılı tutun.",
+  "beadHintDismiss": "Anladım"
 }
