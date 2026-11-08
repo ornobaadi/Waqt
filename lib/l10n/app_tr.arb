@@ -336,11 +336,16 @@
   "deedStreak": "Üst üste {days} gün beş vakit",
   "progressTitle": "İlerlemeniz",
   "progressThisWeek": "Bu hafta",
-  "progressYear": "Son bir yıl",
-  "progressOnTime": "Bu ay vaktinde",
   "progressBestRun": "Beş vaktin en uzun serisi",
-  "progressFasts": "Bu yılki oruçlar",
   "progressQada": "Kaza (son 30 gün)",
   "progressDays": "{days} gün",
-  "progressReflection": "“Allah’a en sevimli amel, az da olsa devamlı olanıdır.” (Buhârî, Müslim)"
+  "progressReflection": "“Allah’a en sevimli amel, az da olsa devamlı olanıdır.” (Buhârî, Müslim)",
+  "progressOfPrayers": "{total} vakitten",
+  "progressOnTimeShort": "vaktinde",
+  "progressCurrentRun": "gün üst üste",
+  "progressByPrayer": "Her vakit, son 30 gün",
+  "progressHardest": "Şu an en çok özen isteyen vakit {prayer}.",
+  "progressWeeks": "Son 12 hafta",
+  "progressEmpty": "Kıldıktan sonra Şimdi ekranında namaza dokunun. Günleriniz burada dolar, yalnızca bu telefonda.",
+  "progressEditHint": "Kıldıklarınızı girmek için bir güne dokunun."
 }

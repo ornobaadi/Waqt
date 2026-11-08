@@ -857,10 +857,7 @@
   },
   "progressTitle": "Your progress",
   "progressThisWeek": "This week",
-  "progressYear": "The past year",
-  "progressOnTime": "On time this month",
   "progressBestRun": "Longest run of all five",
-  "progressFasts": "Fasts this year",
   "progressQada": "To make up (last 30 days)",
   "progressDays": "{days} days",
   "@progressDays": {
@@ -870,5 +867,27 @@
       }
     }
   },
-  "progressReflection": "“The most beloved deeds to Allah are those done consistently, even if small.” (Bukhari, Muslim)"
+  "progressReflection": "“The most beloved deeds to Allah are those done consistently, even if small.” (Bukhari, Muslim)",
+  "progressOfPrayers": "of {total} prayers",
+  "@progressOfPrayers": {
+    "placeholders": {
+      "total": {
+        "type": "String"
+      }
+    }
+  },
+  "progressOnTimeShort": "on time",
+  "progressCurrentRun": "days in a row",
+  "progressByPrayer": "Each prayer, last 30 days",
+  "progressHardest": "{prayer} needs the most care right now.",
+  "@progressHardest": {
+    "placeholders": {
+      "prayer": {
+        "type": "String"
+      }
+    }
+  },
+  "progressWeeks": "Last 12 weeks",
+  "progressEmpty": "Tap a prayer on Now once you have prayed it. Your days fill in here, on this phone only.",
+  "progressEditHint": "Tap a day to fill in what you prayed."
 }

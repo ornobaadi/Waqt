@@ -1406,16 +1406,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get progressThisWeek => 'Minggu ini';
 
   @override
-  String get progressYear => 'Setahun terakhir';
-
-  @override
-  String get progressOnTime => 'Tepat waktu bulan ini';
-
-  @override
   String get progressBestRun => 'Rangkaian terpanjang lima waktu';
-
-  @override
-  String get progressFasts => 'Puasa tahun ini';
 
   @override
   String get progressQada => 'Untuk diqadha (30 hari terakhir)';
@@ -1428,4 +1419,33 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String get progressReflection =>
       '“Amalan yang paling dicintai Allah adalah yang paling rutin meskipun sedikit.” (Bukhari, Muslim)';
+
+  @override
+  String progressOfPrayers(String total) {
+    return 'dari $total salat';
+  }
+
+  @override
+  String get progressOnTimeShort => 'tepat waktu';
+
+  @override
+  String get progressCurrentRun => 'hari berturut-turut';
+
+  @override
+  String get progressByPrayer => 'Tiap salat, 30 hari terakhir';
+
+  @override
+  String progressHardest(String prayer) {
+    return '$prayer paling perlu dijaga saat ini.';
+  }
+
+  @override
+  String get progressWeeks => '12 minggu terakhir';
+
+  @override
+  String get progressEmpty =>
+      'Ketuk salat di Sekarang setelah Anda menunaikannya. Hari-hari Anda terisi di sini, hanya di ponsel ini.';
+
+  @override
+  String get progressEditHint => 'Ketuk sebuah hari untuk mengisi salat Anda.';
 }

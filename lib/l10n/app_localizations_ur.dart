@@ -1401,16 +1401,7 @@ class AppLocalizationsUr extends AppLocalizations {
   String get progressThisWeek => 'یہ ہفتہ';
 
   @override
-  String get progressYear => 'پچھلا سال';
-
-  @override
-  String get progressOnTime => 'اس مہینے بروقت';
-
-  @override
   String get progressBestRun => 'پانچوں نمازوں کا طویل ترین سلسلہ';
-
-  @override
-  String get progressFasts => 'اس سال کے روزے';
 
   @override
   String get progressQada => 'قضا (پچھلے ٣٠ دن)';
@@ -1422,4 +1413,32 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get progressReflection => '\"اللہ کو سب سے محبوب عمل وہ ہے جو ہمیشہ کیا جائے، چاہے تھوڑا ہو۔\" (بخاری، مسلم)';
+
+  @override
+  String progressOfPrayers(String total) {
+    return '$total نمازوں میں سے';
+  }
+
+  @override
+  String get progressOnTimeShort => 'بروقت';
+
+  @override
+  String get progressCurrentRun => 'لگاتار دن';
+
+  @override
+  String get progressByPrayer => 'ہر نماز، پچھلے ٣٠ دن';
+
+  @override
+  String progressHardest(String prayer) {
+    return 'اس وقت $prayer پر سب سے زیادہ توجہ چاہیے۔';
+  }
+
+  @override
+  String get progressWeeks => 'پچھلے ١٢ ہفتے';
+
+  @override
+  String get progressEmpty => 'نماز پڑھ کر \"ابھی\" پر اسے تھپتھپائیں۔ آپ کے دن یہاں بھرتے جائیں گے، صرف اسی فون پر۔';
+
+  @override
+  String get progressEditHint => 'جو پڑھا وہ درج کرنے کے لیے کسی دن کو تھپتھپائیں۔';
 }

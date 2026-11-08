@@ -2451,29 +2451,11 @@ abstract class AppLocalizations {
   /// **'This week'**
   String get progressThisWeek;
 
-  /// No description provided for @progressYear.
-  ///
-  /// In en, this message translates to:
-  /// **'The past year'**
-  String get progressYear;
-
-  /// No description provided for @progressOnTime.
-  ///
-  /// In en, this message translates to:
-  /// **'On time this month'**
-  String get progressOnTime;
-
   /// No description provided for @progressBestRun.
   ///
   /// In en, this message translates to:
   /// **'Longest run of all five'**
   String get progressBestRun;
-
-  /// No description provided for @progressFasts.
-  ///
-  /// In en, this message translates to:
-  /// **'Fasts this year'**
-  String get progressFasts;
 
   /// No description provided for @progressQada.
   ///
@@ -2492,6 +2474,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'“The most beloved deeds to Allah are those done consistently, even if small.” (Bukhari, Muslim)'**
   String get progressReflection;
+
+  /// No description provided for @progressOfPrayers.
+  ///
+  /// In en, this message translates to:
+  /// **'of {total} prayers'**
+  String progressOfPrayers(String total);
+
+  /// No description provided for @progressOnTimeShort.
+  ///
+  /// In en, this message translates to:
+  /// **'on time'**
+  String get progressOnTimeShort;
+
+  /// No description provided for @progressCurrentRun.
+  ///
+  /// In en, this message translates to:
+  /// **'days in a row'**
+  String get progressCurrentRun;
+
+  /// No description provided for @progressByPrayer.
+  ///
+  /// In en, this message translates to:
+  /// **'Each prayer, last 30 days'**
+  String get progressByPrayer;
+
+  /// No description provided for @progressHardest.
+  ///
+  /// In en, this message translates to:
+  /// **'{prayer} needs the most care right now.'**
+  String progressHardest(String prayer);
+
+  /// No description provided for @progressWeeks.
+  ///
+  /// In en, this message translates to:
+  /// **'Last 12 weeks'**
+  String get progressWeeks;
+
+  /// No description provided for @progressEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap a prayer on Now once you have prayed it. Your days fill in here, on this phone only.'**
+  String get progressEmpty;
+
+  /// No description provided for @progressEditHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap a day to fill in what you prayed.'**
+  String get progressEditHint;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

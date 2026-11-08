@@ -344,11 +344,16 @@
   "deedStreak": "مسلسل {days} دن پانچوں نمازیں",
   "progressTitle": "آپ کی پیش رفت",
   "progressThisWeek": "یہ ہفتہ",
-  "progressYear": "پچھلا سال",
-  "progressOnTime": "اس مہینے بروقت",
   "progressBestRun": "پانچوں نمازوں کا طویل ترین سلسلہ",
-  "progressFasts": "اس سال کے روزے",
   "progressQada": "قضا (پچھلے ٣٠ دن)",
   "progressDays": "{days} دن",
-  "progressReflection": "\"اللہ کو سب سے محبوب عمل وہ ہے جو ہمیشہ کیا جائے، چاہے تھوڑا ہو۔\" (بخاری، مسلم)"
+  "progressReflection": "\"اللہ کو سب سے محبوب عمل وہ ہے جو ہمیشہ کیا جائے، چاہے تھوڑا ہو۔\" (بخاری، مسلم)",
+  "progressOfPrayers": "{total} نمازوں میں سے",
+  "progressOnTimeShort": "بروقت",
+  "progressCurrentRun": "لگاتار دن",
+  "progressByPrayer": "ہر نماز، پچھلے ٣٠ دن",
+  "progressHardest": "اس وقت {prayer} پر سب سے زیادہ توجہ چاہیے۔",
+  "progressWeeks": "پچھلے ١٢ ہفتے",
+  "progressEmpty": "نماز پڑھ کر \"ابھی\" پر اسے تھپتھپائیں۔ آپ کے دن یہاں بھرتے جائیں گے، صرف اسی فون پر۔",
+  "progressEditHint": "جو پڑھا وہ درج کرنے کے لیے کسی دن کو تھپتھپائیں۔"
 }

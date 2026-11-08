@@ -557,7 +557,7 @@ void main() {
       t,
       '41_salah_sheet',
       await app(at: DateTime(2026, 11, 6, 16, 20), place: dhaka, stored: deedsSeed),
-      then: () async => t.longPress(find.bySemanticsLabel(RegExp('^Asr: '))),
+      then: () async => t.longPress(find.bySemanticsLabel(RegExp('^Asr 3:40'))),
     ),
   );
 

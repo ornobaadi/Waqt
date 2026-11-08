@@ -330,11 +330,16 @@
   "deedStreak": "{days} hari berturut-turut lima waktu",
   "progressTitle": "Perkembangan Anda",
   "progressThisWeek": "Minggu ini",
-  "progressYear": "Setahun terakhir",
-  "progressOnTime": "Tepat waktu bulan ini",
   "progressBestRun": "Rangkaian terpanjang lima waktu",
-  "progressFasts": "Puasa tahun ini",
   "progressQada": "Untuk diqadha (30 hari terakhir)",
   "progressDays": "{days} hari",
-  "progressReflection": "“Amalan yang paling dicintai Allah adalah yang paling rutin meskipun sedikit.” (Bukhari, Muslim)"
+  "progressReflection": "“Amalan yang paling dicintai Allah adalah yang paling rutin meskipun sedikit.” (Bukhari, Muslim)",
+  "progressOfPrayers": "dari {total} salat",
+  "progressOnTimeShort": "tepat waktu",
+  "progressCurrentRun": "hari berturut-turut",
+  "progressByPrayer": "Tiap salat, 30 hari terakhir",
+  "progressHardest": "{prayer} paling perlu dijaga saat ini.",
+  "progressWeeks": "12 minggu terakhir",
+  "progressEmpty": "Ketuk salat di Sekarang setelah Anda menunaikannya. Hari-hari Anda terisi di sini, hanya di ponsel ini.",
+  "progressEditHint": "Ketuk sebuah hari untuk mengisi salat Anda."
 }

@@ -94,9 +94,9 @@ Margins awaiting scholar review: see `docs/moment-rules.md`.
 ## Phase 12 — Deeds (salah, fasting, habits)
 - [x] Tick each prayer on the Now strip (tap = prayed, on time or made up by the clock; long-press = on time / jama'ah / qada / clear). Stored per prayer day, per month, on the phone only.
 - [x] Today ring (five arcs) pinned above the timeline; streak with "never miss twice".
-- [x] Progress screen: week of rings, past year field, on time %, longest run, fasts, to make up, a sourced hadith on consistency.
-- [ ] Fasting row on sunnah/Ramadan days; Ramadan make-up count.
-- [ ] Curated habits (Quran, adhkar, witr, duha, sadaqah, dhikr) + up to 5 custom; auto-fill from checklists and misbaha.
+- [x] Strip as colour-only beads: green on time, amber made up, sapphire congregation; the current bead drains as its time passes.
+- [x] Progress: month figures, editable week of beads, each prayer over 30 days, last 12 weeks.
+- [ ] Fasting and habits: set aside for now (salah only).
 - [ ] "Did you pray?" prompt after a waqt ends unticked.
 
 ## Later

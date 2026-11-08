@@ -35,7 +35,14 @@ void main() {
     final s = DeedStats({k(1): full, k(2): three.copyWith(fast: true), k(10): const DayLog(fast: true)});
     expect(s.onTimeShare(today.subtract(const Duration(days: 3)), today), closeTo(6 / 8, 1e-9));
     expect(s.qadaOwed(today.subtract(const Duration(days: 30)), today), 2); // day k(10) had no prayers marked
-    expect(s.fastsIn(2026), 2);
+    expect(s.firstDay, today.subtract(const Duration(days: 10)));
+    expect(s.trackedDays(today.subtract(const Duration(days: 30)), today).length, 11);
+    expect(s.prayedIn(today.subtract(const Duration(days: 3)), today), 8);
+    expect(s.keptShare(Waqt.fajr, today.subtract(const Duration(days: 2)), today.subtract(const Duration(days: 1))), 1);
+    expect(
+      s.keptShare(Waqt.isha, today.subtract(const Duration(days: 2)), today.subtract(const Duration(days: 1))),
+      0.5,
+    );
     expect(DeedStats({}).onTimeShare(today, today), isNull);
   });
 

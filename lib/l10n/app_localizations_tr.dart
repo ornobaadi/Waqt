@@ -1405,16 +1405,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get progressThisWeek => 'Bu hafta';
 
   @override
-  String get progressYear => 'Son bir yıl';
-
-  @override
-  String get progressOnTime => 'Bu ay vaktinde';
-
-  @override
   String get progressBestRun => 'Beş vaktin en uzun serisi';
-
-  @override
-  String get progressFasts => 'Bu yılki oruçlar';
 
   @override
   String get progressQada => 'Kaza (son 30 gün)';
@@ -1426,4 +1417,33 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get progressReflection => '“Allah’a en sevimli amel, az da olsa devamlı olanıdır.” (Buhârî, Müslim)';
+
+  @override
+  String progressOfPrayers(String total) {
+    return '$total vakitten';
+  }
+
+  @override
+  String get progressOnTimeShort => 'vaktinde';
+
+  @override
+  String get progressCurrentRun => 'gün üst üste';
+
+  @override
+  String get progressByPrayer => 'Her vakit, son 30 gün';
+
+  @override
+  String progressHardest(String prayer) {
+    return 'Şu an en çok özen isteyen vakit $prayer.';
+  }
+
+  @override
+  String get progressWeeks => 'Son 12 hafta';
+
+  @override
+  String get progressEmpty =>
+      'Kıldıktan sonra Şimdi ekranında namaza dokunun. Günleriniz burada dolar, yalnızca bu telefonda.';
+
+  @override
+  String get progressEditHint => 'Kıldıklarınızı girmek için bir güne dokunun.';
 }

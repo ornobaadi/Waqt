@@ -330,11 +330,16 @@
   "deedStreak": "{days} jours de suite avec les cinq",
   "progressTitle": "Vos progrès",
   "progressThisWeek": "Cette semaine",
-  "progressYear": "L’année écoulée",
-  "progressOnTime": "À l’heure ce mois-ci",
   "progressBestRun": "Plus longue série des cinq",
-  "progressFasts": "Jeûnes cette année",
   "progressQada": "À rattraper (30 derniers jours)",
   "progressDays": "{days} jours",
-  "progressReflection": "« Les œuvres les plus aimées d’Allah sont les plus régulières, même si elles sont peu nombreuses. » (Bukhari, Muslim)"
+  "progressReflection": "« Les œuvres les plus aimées d’Allah sont les plus régulières, même si elles sont peu nombreuses. » (Bukhari, Muslim)",
+  "progressOfPrayers": "sur {total} prières",
+  "progressOnTimeShort": "à l’heure",
+  "progressCurrentRun": "jours de suite",
+  "progressByPrayer": "Chaque prière, 30 derniers jours",
+  "progressHardest": "{prayer} demande le plus d’attention en ce moment.",
+  "progressWeeks": "12 dernières semaines",
+  "progressEmpty": "Touchez une prière sur Maintenant une fois accomplie. Vos jours se remplissent ici, sur ce téléphone seulement.",
+  "progressEditHint": "Touchez un jour pour noter vos prières."
 }

@@ -9,6 +9,7 @@ import '../../core/utils/digits.dart';
 import '../../data/user/deeds_store.dart';
 import '../../domain/deeds/deeds.dart';
 import '../../l10n/app_localizations.dart';
+import '../now/prayer_tick.dart';
 
 /// Five arcs, one per prayer, filled as they are ticked. On time and in
 /// congregation glow in the accent; made up later in a quieter ink.
@@ -24,9 +25,10 @@ class DayRing extends StatelessWidget {
     return CustomPaint(
       size: Size.square(size),
       painter: _RingPainter(
-        marks: [for (final p in fivePrayers) log.salah[p]],
-        accent: t.accent,
-        ink: t.ink,
+        colors: [
+          for (final p in fivePrayers)
+            log.salah[p] == null ? t.ink.withValues(alpha: 0.1) : MarkColors.of(t, log.salah[p]!),
+        ],
         stroke: stroke ?? size * 0.12,
       ),
     );
@@ -34,9 +36,8 @@ class DayRing extends StatelessWidget {
 }
 
 class _RingPainter extends CustomPainter {
-  _RingPainter({required this.marks, required this.accent, required this.ink, required this.stroke});
-  final List<SalahMark?> marks;
-  final Color accent, ink;
+  _RingPainter({required this.colors, required this.stroke});
+  final List<Color> colors;
   final double stroke;
 
   @override
@@ -46,29 +47,22 @@ class _RingPainter extends CustomPainter {
     const gap = 0.22; // radians between arcs
     const sweep = 2 * math.pi / 5;
     for (var i = 0; i < 5; i++) {
-      final m = marks[i];
       final paint = Paint()
         ..style = PaintingStyle.stroke
         ..strokeWidth = stroke
         ..strokeCap = StrokeCap.round
-        ..color = switch (m) {
-          null => ink.withValues(alpha: 0.1),
-          SalahMark.qada => ink.withValues(alpha: 0.5),
-          _ => accent,
-        };
+        ..color = colors[i];
       canvas.drawArc(r, -math.pi / 2 + i * sweep + gap / 2, sweep - gap, false, paint);
     }
   }
 
   @override
-  bool shouldRepaint(_RingPainter o) =>
-      o.accent != accent || o.ink != ink || o.stroke != stroke || !_same(o.marks, marks);
-
-  static bool _same(List<SalahMark?> a, List<SalahMark?> b) {
-    for (var i = 0; i < a.length; i++) {
-      if (a[i] != b[i]) return false;
+  bool shouldRepaint(_RingPainter o) {
+    if (o.stroke != stroke) return true;
+    for (var i = 0; i < colors.length; i++) {
+      if (o.colors[i] != colors[i]) return true;
     }
-    return true;
+    return false;
   }
 }
 

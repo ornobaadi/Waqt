@@ -358,11 +358,16 @@
   "deedStreak": "{days} أيام متتالية بالصلوات الخمس",
   "progressTitle": "تقدّمك",
   "progressThisWeek": "هذا الأسبوع",
-  "progressYear": "العام الماضي",
-  "progressOnTime": "في وقتها هذا الشهر",
   "progressBestRun": "أطول سلسلة بالصلوات الخمس",
-  "progressFasts": "صيام هذا العام",
   "progressQada": "للقضاء (آخر ٣٠ يومًا)",
   "progressDays": "{days} أيام",
-  "progressReflection": "«أحبُّ الأعمالِ إلى اللهِ أدومُها وإن قلَّ» (متفق عليه)"
+  "progressReflection": "«أحبُّ الأعمالِ إلى اللهِ أدومُها وإن قلَّ» (متفق عليه)",
+  "progressOfPrayers": "من {total} صلاة",
+  "progressOnTimeShort": "في وقتها",
+  "progressCurrentRun": "أيام متتالية",
+  "progressByPrayer": "كل صلاة، آخر ٣٠ يومًا",
+  "progressHardest": "صلاة {prayer} تحتاج عناية أكثر الآن.",
+  "progressWeeks": "آخر ١٢ أسبوعًا",
+  "progressEmpty": "اضغط على الصلاة في صفحة «الآن» بعد أن تصليها. تمتلئ أيامك هنا، على هذا الهاتف فقط.",
+  "progressEditHint": "اضغط على يوم لتسجّل ما صليت."
 }

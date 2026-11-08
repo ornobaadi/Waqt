@@ -1406,16 +1406,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get progressThisWeek => 'Cette semaine';
 
   @override
-  String get progressYear => 'L’année écoulée';
-
-  @override
-  String get progressOnTime => 'À l’heure ce mois-ci';
-
-  @override
   String get progressBestRun => 'Plus longue série des cinq';
-
-  @override
-  String get progressFasts => 'Jeûnes cette année';
 
   @override
   String get progressQada => 'À rattraper (30 derniers jours)';
@@ -1428,4 +1419,33 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get progressReflection =>
       '« Les œuvres les plus aimées d’Allah sont les plus régulières, même si elles sont peu nombreuses. » (Bukhari, Muslim)';
+
+  @override
+  String progressOfPrayers(String total) {
+    return 'sur $total prières';
+  }
+
+  @override
+  String get progressOnTimeShort => 'à l’heure';
+
+  @override
+  String get progressCurrentRun => 'jours de suite';
+
+  @override
+  String get progressByPrayer => 'Chaque prière, 30 derniers jours';
+
+  @override
+  String progressHardest(String prayer) {
+    return '$prayer demande le plus d’attention en ce moment.';
+  }
+
+  @override
+  String get progressWeeks => '12 dernières semaines';
+
+  @override
+  String get progressEmpty =>
+      'Touchez une prière sur Maintenant une fois accomplie. Vos jours se remplissent ici, sur ce téléphone seulement.';
+
+  @override
+  String get progressEditHint => 'Touchez un jour pour noter vos prières.';
 }

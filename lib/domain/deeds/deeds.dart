@@ -129,7 +129,34 @@ class DeedStats {
     return owed;
   }
 
-  int fastsIn(int year) => logs.entries.where((e) => e.key.startsWith('$year-') && e.value.fast == true).length;
+  /// The first day anything was marked: tracking began here, so earlier
+  /// days are not counted against anyone.
+  DateTime? get firstDay {
+    if (logs.isEmpty) return null;
+    return DateTime.parse(logs.keys.reduce((a, b) => a.compareTo(b) <= 0 ? a : b));
+  }
+
+  /// Days from [from] (or the first tracked day, if later) to [to], inclusive.
+  List<DateTime> trackedDays(DateTime from, DateTime to) {
+    final first = firstDay;
+    if (first == null) return const [];
+    var d = _date(from).isBefore(first) ? first : _date(from);
+    final out = <DateTime>[];
+    for (; !d.isAfter(_date(to)); d = d.add(const Duration(days: 1))) {
+      out.add(d);
+    }
+    return out;
+  }
+
+  /// Prayers marked in a span of tracked days.
+  int prayedIn(DateTime from, DateTime to) => trackedDays(from, to).fold(0, (n, d) => n + of(d).prayed);
+
+  /// Of the tracked days in the span, the share on which [prayer] was marked.
+  double? keptShare(Waqt prayer, DateTime from, DateTime to) {
+    final days = trackedDays(from, to);
+    if (days.isEmpty) return null;
+    return days.where((d) => of(d).salah.containsKey(prayer)).length / days.length;
+  }
 
   bool _anyBefore(DateTime d) {
     final k = dayKey(d);

@@ -1,169 +1,97 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 import '../../core/theme/tokens.dart';
 import '../../core/theme/waqt_theme.dart';
-import '../../core/utils/digits.dart';
 import '../../data/user/deeds_store.dart';
 import '../../domain/deeds/deeds.dart';
 import '../../domain/prayer/prayer_times_service.dart';
 import '../../l10n/app_localizations.dart';
+import '../../platform/haptics/haptics.dart';
 import '../common/labels.dart';
 import 'prayer_tick.dart';
 
-/// The five prayers in a plain row, and beneath it one quiet line: the
-/// prayer in progress, the time it has left, draining toward the next.
-/// Under each prayer, once its time has come, a ring to tick it prayed.
+/// The five prayers as five beads in one row. Each bead is also the way to
+/// tick it: tap when prayed (made up late once its time has gone), tap
+/// again to clear, hold for the detail. Colour alone tells how it was kept.
+/// The running prayer's bead holds what is left of its time as a fill that
+/// drains toward its end.
 class PrayerWindows extends ConsumerWidget {
   const PrayerWindows({super.key, required this.status, required this.now});
   final PrayerStatus status;
   final DateTime now;
 
-  static const prayers = [Waqt.fajr, Waqt.dhuhr, Waqt.asr, Waqt.maghrib, Waqt.isha];
+  static const prayers = fivePrayers;
 
-  /// Where the running prayer's time ends, and what ends it. Fajr ends at
-  /// sunrise; the others at the next prayer.
-  (DateTime, String) _end(AppLocalizations l) {
-    if (status.current == Waqt.fajr) return (status.today[Waqt.sunrise], l.waqt(Waqt.sunrise));
-    return (status.nextAt, l.waqt(status.next));
-  }
+  /// Bead corners: the strip's radius minus its inset, kept small on purpose.
+  static const double _outer = 12, _inset = 4;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final l = AppLocalizations.of(context);
     final t = WaqtTokens.of(context);
     final locale = Localizations.localeOf(context).toLanguageTag();
-    final n = LocaleDigits(locale);
     final fmt = MediaQuery.alwaysUse24HourFormatOf(context) ? DateFormat.Hm(locale) : DateFormat('h:mm', locale);
-    // Between sunrise and Dhuhr no prayer is running: the line counts to Dhuhr.
-    final running = status.current != Waqt.sunrise;
-    final (end, endName) = _end(l);
-    final total = end.difference(status.currentStart).inSeconds;
-    final left = end.difference(now);
-    final remaining = total <= 0 ? 0.0 : (left.inSeconds / total).clamp(0.0, 1.0);
-    final rows = MediaQuery.textScalerOf(context).scale(10) > 13 ? 2 : 1;
-    final per = (prayers.length / rows).ceil();
 
     // Before Fajr the night still belongs to yesterday's prayer day.
     final prevDay = now.isBefore(status.today[Waqt.fajr]);
     final dayKey = DeedStats.dayKey(prevDay ? status.today[Waqt.fajr].subtract(const Duration(days: 1)) : now);
     final log = ref.watch(deedsProvider.select((d) => d[dayKey] ?? DayLog.empty));
+    final running = status.current != Waqt.sunrise;
 
-    Widget cell(Waqt w) {
-      final current = running && w == status.current && !status.today[w].isAfter(now);
-      final past = !current && !status.today[w].isAfter(now);
+    Widget bead(Waqt w) {
       final started = prevDay || !status.today[w].isAfter(now);
-      final ended = prevDay ? w != Waqt.isha : _endOf(w).isAfter(now) == false;
-      return Column(
+      final ended = prevDay ? w != Waqt.isha : !_endOf(w).isAfter(now);
+      final current = running && w == status.current && started && !ended;
+      double? left;
+      if (current) {
+        final start = status.today[w], end = _endOf(w);
+        final total = end.difference(start).inSeconds;
+        left = total <= 0 ? 0 : (end.difference(now).inSeconds / total).clamp(0.0, 1.0);
+      }
+      return _Bead(
+        prayer: w,
+        time: fmt.format(status.today[w]),
+        mark: log.salah[w],
+        started: started,
+        ended: ended,
+        current: current,
+        left: left,
+        radius: _outer - _inset,
+        onMark: (m) {
+          if (m == null) {
+            Haptics.tick();
+          } else {
+            Haptics.click();
+          }
+          ref.read(deedsProvider.notifier).markSalah(dayKey, w, m);
+        },
+      );
+    }
+
+    final twoRows = MediaQuery.textScalerOf(context).scale(10) > 13;
+    final per = twoRows ? 3 : 5;
+    return Container(
+      padding: const EdgeInsets.all(_inset),
+      decoration: BoxDecoration(color: t.surface, borderRadius: BorderRadius.circular(_outer)),
+      child: Column(
         children: [
-          Semantics(
-            selected: current,
-            label: '${l.waqt(w)} ${fmt.format(status.today[w])}',
-            excludeSemantics: true,
-            child: Opacity(
-              opacity: past ? 0.42 : 1,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: WaqtSpace.x1),
-                child: Column(
+          for (var r = 0; r * per < prayers.length; r++)
+            Padding(
+              padding: EdgeInsets.only(top: r == 0 ? 0 : _inset),
+              child: IntrinsicHeight(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    Text(
-                      l.waqt(w),
-                      maxLines: 1,
-                      overflow: TextOverflow.fade,
-                      softWrap: false,
-                      style: WaqtText.caption.copyWith(
-                        color: current ? t.ink : t.inkMuted,
-                        fontWeight: current ? FontWeight.w700 : null,
-                      ),
-                    ),
-                    const SizedBox(height: WaqtSpace.x1),
-                    Text(fmt.format(status.today[w]), style: WaqtText.bodyStrong.copyWith(color: t.ink)),
+                    for (var i = r * per; i < r * per + per; i++) ...[
+                      if (i > r * per) const SizedBox(width: _inset),
+                      Expanded(child: i < prayers.length ? bead(prayers[i]) : const SizedBox()),
+                    ],
                   ],
                 ),
               ),
             ),
-          ),
-          const SizedBox(height: WaqtSpace.x1),
-          PrayerTick(prayer: w, day: dayKey, mark: log.salah[w], started: started, ended: ended),
         ],
-      );
-    }
-
-    return Material(
-      color: t.surface,
-      borderRadius: BorderRadius.circular(WaqtRadii.strip),
-      clipBehavior: Clip.antiAlias,
-      child: InkWell(
-        onTap: () => context.go('/today'),
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(WaqtSpace.x2, WaqtSpace.x3, WaqtSpace.x2, WaqtSpace.x4),
-          child: Column(
-            children: [
-              for (var r = 0; r < rows; r++)
-                Row(
-                  children: [
-                    for (final w in prayers.skip(r * per).take(per)) Expanded(child: cell(w)),
-                    for (var i = prayers.skip(r * per).take(per).length; i < per; i++)
-                      const Expanded(child: SizedBox()),
-                  ],
-                ),
-              const SizedBox(height: WaqtSpace.x3),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: WaqtSpace.x2),
-                child: Semantics(
-                  label: l.stripLeft(_dur(l, n, left), endName),
-                  excludeSemantics: true,
-                  child: Row(
-                    children: [
-                      if (running) ...[
-                        Flexible(
-                          child: Text(
-                            l.waqt(status.current),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: WaqtText.caption.copyWith(color: t.inkMuted),
-                          ),
-                        ),
-                        const SizedBox(width: WaqtSpace.x3),
-                      ],
-                      // What is left of the window, sitting at the end it
-                      // runs toward, shrinking as the time passes.
-                      Expanded(
-                        flex: 2,
-                        child: Container(
-                          height: 3,
-                          decoration: BoxDecoration(
-                            color: t.ink.withValues(alpha: 0.1),
-                            borderRadius: BorderRadius.circular(2),
-                          ),
-                          alignment: AlignmentDirectional.centerEnd,
-                          child: FractionallySizedBox(
-                            widthFactor: remaining,
-                            child: DecoratedBox(
-                              decoration: BoxDecoration(color: t.ink, borderRadius: BorderRadius.circular(2)),
-                              child: const SizedBox(height: 3),
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: WaqtSpace.x3),
-                      // Large text: the label may wrap, never overflow.
-                      Flexible(
-                        flex: 3,
-                        child: Text(
-                          l.stripLeft(_dur(l, n, left), endName),
-                          style: WaqtText.caption.copyWith(color: t.ink, fontWeight: FontWeight.w600),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
       ),
     );
   }
@@ -174,9 +102,138 @@ class PrayerWindows extends ConsumerWidget {
     Waqt.isha => status.today[Waqt.isha].add(const Duration(days: 1)),
     _ => status.today[Waqt.values[w.index + 1]],
   };
+}
 
-  static String _dur(AppLocalizations l, LocaleDigits n, Duration d) {
-    final h = d.inHours, m = d.inMinutes % 60;
-    return h > 0 ? l.durHm(n(h), n(m)) : l.durM(n(m < 1 ? 1 : m));
+class _Bead extends StatelessWidget {
+  const _Bead({
+    required this.prayer,
+    required this.time,
+    required this.mark,
+    required this.started,
+    required this.ended,
+    required this.current,
+    required this.left,
+    required this.radius,
+    required this.onMark,
+  });
+
+  final Waqt prayer;
+  final String time;
+  final SalahMark? mark;
+  final bool started, ended, current;
+  final double? left;
+  final double radius;
+  final ValueChanged<SalahMark?> onMark;
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+    final t = WaqtTokens.of(context);
+    final m = mark;
+    final fill = m == null ? (current ? t.ink.withValues(alpha: 0.05) : Colors.transparent) : MarkColors.of(t, m);
+    final ink = m == null ? t.ink : MarkColors.on(t, m);
+    final r = BorderRadius.circular(radius);
+    final fast = MediaQuery.disableAnimationsOf(context) ? Duration.zero : WaqtMotion.ui;
+
+    final body = AnimatedContainer(
+      duration: fast,
+      curve: WaqtMotion.ease,
+      decoration: BoxDecoration(
+        color: fill,
+        borderRadius: r,
+        border: m != null
+            ? null
+            : current
+            ? Border.all(color: t.ink.withValues(alpha: 0.7), width: 1.5)
+            : started
+            ? Border.all(color: t.ink.withValues(alpha: 0.14))
+            : null,
+      ),
+      child: ClipRRect(
+        borderRadius: r,
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            // What is left of the running prayer's time, draining toward its end.
+            if (left != null && m == null)
+              Positioned.fill(
+                child: FractionallySizedBox(
+                  alignment: AlignmentDirectional.centerEnd,
+                  widthFactor: left,
+                  child: ColoredBox(color: t.ink.withValues(alpha: 0.07)),
+                ),
+              ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: WaqtSpace.x3, horizontal: 2),
+              child: Opacity(
+                opacity: started ? 1 : 0.45,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      l.waqt(prayer),
+                      maxLines: 1,
+                      overflow: TextOverflow.fade,
+                      softWrap: false,
+                      style: WaqtText.caption.copyWith(
+                        color: ink.withValues(alpha: m == null ? 0.65 : 0.85),
+                        fontWeight: current ? FontWeight.w700 : null,
+                      ),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(time, maxLines: 1, style: WaqtText.bodyStrong.copyWith(color: ink)),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+
+    return Semantics(
+      button: started,
+      checked: started ? m != null : null,
+      label: '${l.waqt(prayer)} $time${started ? ', ${markLabel(l, m)}' : ''}',
+      excludeSemantics: true,
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: started ? () => onMark(m != null ? null : (ended ? SalahMark.qada : SalahMark.onTime)) : null,
+        onLongPress: started
+            ? () async {
+                Haptics.tick();
+                final picked = await showSalahSheet(context, prayer, m);
+                if (picked != null) onMark(picked.$1);
+              }
+            : null,
+        child: _Press(child: body),
+      ),
+    );
   }
+}
+
+/// A short squash on touch, springing back.
+class _Press extends StatefulWidget {
+  const _Press({required this.child});
+  final Widget child;
+
+  @override
+  State<_Press> createState() => _PressState();
+}
+
+class _PressState extends State<_Press> {
+  bool _down = false;
+
+  @override
+  Widget build(BuildContext context) => Listener(
+    onPointerDown: (_) => setState(() => _down = true),
+    onPointerUp: (_) => setState(() => _down = false),
+    onPointerCancel: (_) => setState(() => _down = false),
+    child: AnimatedScale(
+      scale: _down ? 0.94 : 1,
+      duration: MediaQuery.disableAnimationsOf(context) ? Duration.zero : const Duration(milliseconds: 220),
+      curve: _down ? Curves.easeOut : Curves.easeOutBack,
+      child: widget.child,
+    ),
+  );
 }

@@ -1395,16 +1395,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get progressThisWeek => 'هذا الأسبوع';
 
   @override
-  String get progressYear => 'العام الماضي';
-
-  @override
-  String get progressOnTime => 'في وقتها هذا الشهر';
-
-  @override
   String get progressBestRun => 'أطول سلسلة بالصلوات الخمس';
-
-  @override
-  String get progressFasts => 'صيام هذا العام';
 
   @override
   String get progressQada => 'للقضاء (آخر ٣٠ يومًا)';
@@ -1416,4 +1407,32 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get progressReflection => '«أحبُّ الأعمالِ إلى اللهِ أدومُها وإن قلَّ» (متفق عليه)';
+
+  @override
+  String progressOfPrayers(String total) {
+    return 'من $total صلاة';
+  }
+
+  @override
+  String get progressOnTimeShort => 'في وقتها';
+
+  @override
+  String get progressCurrentRun => 'أيام متتالية';
+
+  @override
+  String get progressByPrayer => 'كل صلاة، آخر ٣٠ يومًا';
+
+  @override
+  String progressHardest(String prayer) {
+    return 'صلاة $prayer تحتاج عناية أكثر الآن.';
+  }
+
+  @override
+  String get progressWeeks => 'آخر ١٢ أسبوعًا';
+
+  @override
+  String get progressEmpty => 'اضغط على الصلاة في صفحة «الآن» بعد أن تصليها. تمتلئ أيامك هنا، على هذا الهاتف فقط.';
+
+  @override
+  String get progressEditHint => 'اضغط على يوم لتسجّل ما صليت.';
 }

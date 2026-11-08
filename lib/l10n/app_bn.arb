@@ -336,11 +336,16 @@
   "deedStreak": "টানা {days} দিন পাঁচ ওয়াক্ত",
   "progressTitle": "আপনার অগ্রগতি",
   "progressThisWeek": "এই সপ্তাহ",
-  "progressYear": "গত এক বছর",
-  "progressOnTime": "এ মাসে সময়মতো",
   "progressBestRun": "পাঁচ ওয়াক্তের দীর্ঘতম ধারা",
-  "progressFasts": "এ বছরের রোজা",
   "progressQada": "কাজা (গত ৩০ দিন)",
   "progressDays": "{days} দিন",
-  "progressReflection": "\"আল্লাহর কাছে সবচেয়ে প্রিয় আমল তা-ই, যা নিয়মিত করা হয়, যদিও তা অল্প হয়।\" (বুখারি, মুসলিম)"
+  "progressReflection": "\"আল্লাহর কাছে সবচেয়ে প্রিয় আমল তা-ই, যা নিয়মিত করা হয়, যদিও তা অল্প হয়।\" (বুখারি, মুসলিম)",
+  "progressOfPrayers": "{total} ওয়াক্তের মধ্যে",
+  "progressOnTimeShort": "সময়মতো",
+  "progressCurrentRun": "টানা দিন",
+  "progressByPrayer": "প্রতি ওয়াক্ত, গত ৩০ দিন",
+  "progressHardest": "এখন {prayer} সবচেয়ে বেশি যত্ন চায়।",
+  "progressWeeks": "গত ১২ সপ্তাহ",
+  "progressEmpty": "নামাজ পড়ার পর \"এখন\" পাতায় সেটিতে চাপুন। আপনার দিনগুলো এখানে ভরে উঠবে, শুধু এই ফোনেই।",
+  "progressEditHint": "যা পড়েছেন তা লিখতে কোনো দিনে চাপুন।"
 }

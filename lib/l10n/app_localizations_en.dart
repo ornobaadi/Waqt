@@ -1409,16 +1409,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get progressThisWeek => 'This week';
 
   @override
-  String get progressYear => 'The past year';
-
-  @override
-  String get progressOnTime => 'On time this month';
-
-  @override
   String get progressBestRun => 'Longest run of all five';
-
-  @override
-  String get progressFasts => 'Fasts this year';
 
   @override
   String get progressQada => 'To make up (last 30 days)';
@@ -1431,4 +1422,33 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get progressReflection =>
       '“The most beloved deeds to Allah are those done consistently, even if small.” (Bukhari, Muslim)';
+
+  @override
+  String progressOfPrayers(String total) {
+    return 'of $total prayers';
+  }
+
+  @override
+  String get progressOnTimeShort => 'on time';
+
+  @override
+  String get progressCurrentRun => 'days in a row';
+
+  @override
+  String get progressByPrayer => 'Each prayer, last 30 days';
+
+  @override
+  String progressHardest(String prayer) {
+    return '$prayer needs the most care right now.';
+  }
+
+  @override
+  String get progressWeeks => 'Last 12 weeks';
+
+  @override
+  String get progressEmpty =>
+      'Tap a prayer on Now once you have prayed it. Your days fill in here, on this phone only.';
+
+  @override
+  String get progressEditHint => 'Tap a day to fill in what you prayed.';
 }

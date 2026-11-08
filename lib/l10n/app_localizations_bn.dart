@@ -1399,16 +1399,7 @@ class AppLocalizationsBn extends AppLocalizations {
   String get progressThisWeek => 'এই সপ্তাহ';
 
   @override
-  String get progressYear => 'গত এক বছর';
-
-  @override
-  String get progressOnTime => 'এ মাসে সময়মতো';
-
-  @override
   String get progressBestRun => 'পাঁচ ওয়াক্তের দীর্ঘতম ধারা';
-
-  @override
-  String get progressFasts => 'এ বছরের রোজা';
 
   @override
   String get progressQada => 'কাজা (গত ৩০ দিন)';
@@ -1421,4 +1412,33 @@ class AppLocalizationsBn extends AppLocalizations {
   @override
   String get progressReflection =>
       '\"আল্লাহর কাছে সবচেয়ে প্রিয় আমল তা-ই, যা নিয়মিত করা হয়, যদিও তা অল্প হয়।\" (বুখারি, মুসলিম)';
+
+  @override
+  String progressOfPrayers(String total) {
+    return '$total ওয়াক্তের মধ্যে';
+  }
+
+  @override
+  String get progressOnTimeShort => 'সময়মতো';
+
+  @override
+  String get progressCurrentRun => 'টানা দিন';
+
+  @override
+  String get progressByPrayer => 'প্রতি ওয়াক্ত, গত ৩০ দিন';
+
+  @override
+  String progressHardest(String prayer) {
+    return 'এখন $prayer সবচেয়ে বেশি যত্ন চায়।';
+  }
+
+  @override
+  String get progressWeeks => 'গত ১২ সপ্তাহ';
+
+  @override
+  String get progressEmpty =>
+      'নামাজ পড়ার পর \"এখন\" পাতায় সেটিতে চাপুন। আপনার দিনগুলো এখানে ভরে উঠবে, শুধু এই ফোনেই।';
+
+  @override
+  String get progressEditHint => 'যা পড়েছেন তা লিখতে কোনো দিনে চাপুন।';
 }

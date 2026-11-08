@@ -1,118 +1,51 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/theme/tokens.dart';
 import '../../core/theme/waqt_theme.dart';
-import '../../data/user/deeds_store.dart';
 import '../../domain/deeds/deeds.dart';
 import '../../domain/prayer/prayer_times_service.dart';
 import '../../l10n/app_localizations.dart';
-import '../../platform/haptics/haptics.dart';
 import '../common/labels.dart';
 
-/// The ring under a prayer. One tap: prayed (on time while its time lasts,
-/// made up after). Tap again to clear. Long-press for the detail. Before its
-/// time comes there is nothing to tick, so nothing is drawn.
-class PrayerTick extends ConsumerWidget {
-  const PrayerTick({
-    super.key,
-    required this.prayer,
-    required this.day,
-    required this.mark,
-    required this.started,
-    required this.ended,
-  });
+/// How a prayer was kept, told by colour alone, everywhere it appears (the
+/// strip, the ring, the week, the year): green prayed on time, amber made
+/// up late, sapphire prayed in congregation, the reward multiplied.
+abstract final class MarkColors {
+  static bool _dark(WaqtTokens t) => ThemeData.estimateBrightnessForColor(t.ground) == Brightness.dark;
 
-  final Waqt prayer;
-  final String day;
+  static Color of(WaqtTokens t, SalahMark m) => switch (m) {
+    SalahMark.onTime => _dark(t) ? const Color(0xFF5DBE86) : const Color(0xFF2F8A55),
+    SalahMark.qada => _dark(t) ? const Color(0xFFE7B547) : const Color(0xFFD09A1E),
+    SalahMark.jamaah => _dark(t) ? const Color(0xFF7FA4F4) : const Color(0xFF2950A0),
+  };
+
+  /// Text that reads on top of [of].
+  static Color on(WaqtTokens t, SalahMark m) => ThemeData.estimateBrightnessForColor(of(t, m)) == Brightness.dark
+      ? const Color(0xFFFFFFFF)
+      : const Color(0xFF17120A);
+}
+
+/// A plain swatch of a mark's colour; an outline when not marked.
+class SalahSwatch extends StatelessWidget {
+  const SalahSwatch({super.key, required this.mark, this.size = 22});
   final SalahMark? mark;
-  final bool started, ended;
-
-  static const double size = 26;
+  final double size;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    if (!started) return const SizedBox(height: size + 8);
-    final l = AppLocalizations.of(context);
+  Widget build(BuildContext context) {
     final t = WaqtTokens.of(context);
-    final deeds = ref.read(deedsProvider.notifier);
-
-    void set(SalahMark? m) {
-      if (m == null) {
-        Haptics.tick();
-      } else {
-        Haptics.click();
-      }
-      deeds.markSalah(day, prayer, m);
-    }
-
-    return Semantics(
-      button: true,
-      checked: mark != null,
-      label: '${l.waqt(prayer)}: ${markLabel(l, mark)}',
-      excludeSemantics: true,
-      child: GestureDetector(
-        behavior: HitTestBehavior.opaque,
-        onTap: () => set(mark != null ? null : (ended ? SalahMark.qada : SalahMark.onTime)),
-        onLongPress: () async {
-          Haptics.tick();
-          final picked = await showSalahSheet(context, prayer, mark);
-          if (picked != null) set(picked.$1);
-        },
-        child: Padding(
-          padding: const EdgeInsets.all(4),
-          child: AnimatedSwitcher(
-            duration: MediaQuery.disableAnimationsOf(context) ? Duration.zero : const Duration(milliseconds: 380),
-            switchInCurve: Curves.easeOutBack,
-            switchOutCurve: Curves.easeIn,
-            transitionBuilder: (child, a) => ScaleTransition(scale: a, child: child),
-            child: SalahMarkDot(key: ValueKey(mark), mark: mark, size: size, ink: t.ink, accent: t.accent),
-          ),
-        ),
+    final m = mark;
+    return Container(
+      width: size,
+      height: size,
+      decoration: BoxDecoration(
+        color: m == null ? null : MarkColors.of(t, m),
+        borderRadius: BorderRadius.circular(size * 0.28),
+        border: m == null ? Border.all(color: t.ink.withValues(alpha: 0.3), width: 1.5) : null,
       ),
     );
   }
 }
-
-/// A prayer's mark as a small round badge: hollow when not marked.
-class SalahMarkDot extends StatelessWidget {
-  const SalahMarkDot({super.key, required this.mark, required this.size, required this.ink, required this.accent});
-  final SalahMark? mark;
-  final double size;
-  final Color ink, accent;
-
-  @override
-  Widget build(BuildContext context) {
-    final m = mark;
-    if (m == null) {
-      return Container(
-        width: size,
-        height: size,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          border: Border.all(color: ink.withValues(alpha: 0.28), width: 1.6),
-        ),
-      );
-    }
-    // Made up later is shown quieter than on time: kept, not celebrated less.
-    final fill = m == SalahMark.qada ? ink.withValues(alpha: 0.55) : accent;
-    final onFill = ThemeData.estimateBrightnessForColor(fill) == Brightness.dark
-        ? const Color(0xFFFBF3E2)
-        : const Color(0xFF14110C);
-    return Container(
-      width: size,
-      height: size,
-      decoration: BoxDecoration(shape: BoxShape.circle, color: fill),
-      child: Icon(markIcon(m), size: size * 0.62, color: onFill),
-    );
-  }
-}
-
-IconData markIcon(SalahMark m) => switch (m) {
-  SalahMark.onTime => Icons.check_rounded,
-  SalahMark.jamaah => Icons.groups_rounded,
-  SalahMark.qada => Icons.history_rounded,
-};
 
 String markLabel(AppLocalizations l, SalahMark? m) => switch (m) {
   null => l.deedNotPrayed,
@@ -143,7 +76,7 @@ Future<(SalahMark?,)?> showSalahSheet(BuildContext context, Waqt prayer, SalahMa
             for (final m in <SalahMark?>[SalahMark.onTime, SalahMark.jamaah, SalahMark.qada, null])
               ListTile(
                 contentPadding: EdgeInsets.zero,
-                leading: SalahMarkDot(mark: m, size: 30, ink: t.ink, accent: t.accent),
+                leading: SalahSwatch(mark: m, size: 26),
                 title: Text(markLabel(l, m), style: WaqtText.body.copyWith(color: t.ink)),
                 trailing: m == current ? Icon(Icons.check_rounded, color: t.ink) : null,
                 onTap: () => Navigator.pop(context, (m,)),
