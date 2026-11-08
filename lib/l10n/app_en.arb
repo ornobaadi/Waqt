@@ -925,5 +925,31 @@
       }
     }
   },
-  "beadEnded": "ended"
+  "beadEnded": "ended",
+  "onbWelcomeTitle": "The right dua for every moment",
+  "onbWelcomeBody": "Each one from the Sunnah, with its source.",
+  "onbWelcomeNote": "Free. No account, no ads.",
+  "onbBegin": "Begin",
+  "onbLanguageTitle": "Choose your language",
+  "onbLanguageBody": "Duas always keep their Arabic.",
+  "onbPhoneLanguage": "Phone language",
+  "onbContinue": "Continue",
+  "onbLocationTitle": "Where do you pray from?",
+  "onbLocationBody": "For prayer times and the Qibla. It stays on this phone.",
+  "onbCityInstead": "Choose a city instead",
+  "onbRemindersTitle": "Only the moments that count",
+  "onbRemindersBody": "Arafah, Ashura, Eid and Fridays. Never noise.",
+  "onbRemindersOn": "Turn on reminders",
+  "onbLater": "Maybe later",
+  "onbStep": "Step {n} of {total}",
+  "@onbStep": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  }
 }

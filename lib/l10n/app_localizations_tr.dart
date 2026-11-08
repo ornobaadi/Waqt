@@ -1469,4 +1469,54 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get beadEnded => 'bitti';
+
+  @override
+  String get onbWelcomeTitle => 'Her ana uygun dua';
+
+  @override
+  String get onbWelcomeBody => 'Hepsi Sünnet\'ten, kaynağıyla.';
+
+  @override
+  String get onbWelcomeNote => 'Ücretsiz. Hesap yok, reklam yok.';
+
+  @override
+  String get onbBegin => 'Başla';
+
+  @override
+  String get onbLanguageTitle => 'Dilini seç';
+
+  @override
+  String get onbLanguageBody => 'Dualar hep Arapça kalır.';
+
+  @override
+  String get onbPhoneLanguage => 'Telefonunun dili';
+
+  @override
+  String get onbContinue => 'Devam';
+
+  @override
+  String get onbLocationTitle => 'Nerede namaz kılıyorsun?';
+
+  @override
+  String get onbLocationBody => 'Namaz vakitleri ve kıble için. Bu telefonda kalır.';
+
+  @override
+  String get onbCityInstead => 'Bunun yerine şehir seç';
+
+  @override
+  String get onbRemindersTitle => 'Yalnızca değerli anlar';
+
+  @override
+  String get onbRemindersBody => 'Arefe, Aşure, bayram ve cuma. Gereksiz bildirim yok.';
+
+  @override
+  String get onbRemindersOn => 'Hatırlatmaları aç';
+
+  @override
+  String get onbLater => 'Sonra';
+
+  @override
+  String onbStep(int n, int total) {
+    return 'Adım $n / $total';
+  }
 }

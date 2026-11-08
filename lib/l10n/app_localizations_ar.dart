@@ -1458,4 +1458,54 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get beadEnded => 'انتهى';
+
+  @override
+  String get onbWelcomeTitle => 'الدعاء المناسب لكل لحظة';
+
+  @override
+  String get onbWelcomeBody => 'كلّه من السنّة، مع مصدره.';
+
+  @override
+  String get onbWelcomeNote => 'مجاني. بلا حساب ولا إعلانات.';
+
+  @override
+  String get onbBegin => 'ابدأ';
+
+  @override
+  String get onbLanguageTitle => 'اختر لغتك';
+
+  @override
+  String get onbLanguageBody => 'الأدعية تبقى بعربيتها دائمًا.';
+
+  @override
+  String get onbPhoneLanguage => 'لغة هاتفك';
+
+  @override
+  String get onbContinue => 'متابعة';
+
+  @override
+  String get onbLocationTitle => 'من أين تصلّي؟';
+
+  @override
+  String get onbLocationBody => 'لمواقيت الصلاة والقبلة. يبقى على هاتفك.';
+
+  @override
+  String get onbCityInstead => 'اختر مدينة بدلًا من ذلك';
+
+  @override
+  String get onbRemindersTitle => 'اللحظات التي تستحق فقط';
+
+  @override
+  String get onbRemindersBody => 'عرفة وعاشوراء والعيد والجمعة. بلا إزعاج.';
+
+  @override
+  String get onbRemindersOn => 'فعّل التذكيرات';
+
+  @override
+  String get onbLater => 'لاحقًا';
+
+  @override
+  String onbStep(int n, int total) {
+    return 'الخطوة $n من $total';
+  }
 }

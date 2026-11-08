@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:waqt/data/user/user_prefs.dart';
+
 import '../helpers/harness.dart';
 
 void main() {
@@ -72,5 +76,39 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('London time'), findsOneWidget);
     expect(find.text('4:00'), findsOneWidget);
+  });
+
+  testWidgets('onboarding: language is saved, a place moves on, reminders finish', (tester) async {
+    tester.view.physicalSize = const Size(1170, 2532);
+    tester.view.devicePixelRatio = 3;
+    addTearDown(tester.view.reset);
+    await tester.pumpWidget(await app(at: DateTime(2026, 11, 6, 9, 41), onboarding: true));
+    await tester.pumpAndSettle();
+    expect(find.text('The right dua for every moment'), findsOneWidget);
+    await tester.tap(find.text('Begin'));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text('Türkçe'));
+    await tester.pumpAndSettle();
+    expect(find.text('Dilini seç'), findsOneWidget);
+    await tester.tap(find.text('Devam'));
+    await tester.pumpAndSettle();
+    expect((await SharedPreferences.getInstance()).getString('locale.v1'), 'tr');
+
+    expect(find.text('Nerede namaz kılıyorsun?'), findsOneWidget);
+    ProviderScope.containerOf(tester.element(find.byType(MaterialApp)))
+        .read(userPrefsProvider.notifier)
+        .setPlace(dhaka);
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Sonra'));
+    await tester.pumpAndSettle();
+    expect(find.text('Dhaka'), findsOneWidget);
+    expect((await SharedPreferences.getInstance()).getBool('onboarded.v1'), true);
+  });
+
+  testWidgets('a saved language is used on the next launch', (tester) async {
+    await tester.pumpWidget(await app(at: DateTime(2026, 11, 6, 16, 20), place: dhaka, stored: {'locale.v1': 'tr'}));
+    await tester.pumpAndSettle();
+    expect(find.text('Öğle'), findsWidgets);
   });
 }

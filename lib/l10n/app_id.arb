@@ -346,5 +346,21 @@
   "durShortM": "{m}m",
   "beadLeft": "sisa {time}",
   "beadIn": "{time} lagi",
-  "beadEnded": "selesai"
+  "beadEnded": "selesai",
+  "onbWelcomeTitle": "Doa yang tepat untuk setiap saat",
+  "onbWelcomeBody": "Semuanya dari Sunnah, lengkap dengan sumbernya.",
+  "onbWelcomeNote": "Gratis. Tanpa akun, tanpa iklan.",
+  "onbBegin": "Mulai",
+  "onbLanguageTitle": "Pilih bahasa Anda",
+  "onbLanguageBody": "Doa selalu tetap dalam bahasa Arab.",
+  "onbPhoneLanguage": "Bahasa ponsel Anda",
+  "onbContinue": "Lanjut",
+  "onbLocationTitle": "Di mana Anda salat?",
+  "onbLocationBody": "Untuk jadwal salat dan kiblat. Tetap di ponsel ini.",
+  "onbCityInstead": "Pilih kota saja",
+  "onbRemindersTitle": "Hanya saat-saat yang berarti",
+  "onbRemindersBody": "Arafah, Asyura, Id, dan Jumat. Tanpa gangguan.",
+  "onbRemindersOn": "Nyalakan pengingat",
+  "onbLater": "Nanti saja",
+  "onbStep": "Langkah {n} dari {total}"
 }

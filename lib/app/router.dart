@@ -10,6 +10,8 @@ import '../features/counter/counter_screen.dart';
 import '../features/duas/duas_screen.dart';
 import '../features/duas/library_views.dart';
 import '../features/now/now_screen.dart';
+import '../features/onboarding/onboarding_screen.dart';
+import '../data/user/user_prefs.dart';
 import '../features/progress/progress_screen.dart';
 import '../features/qibla/qibla_screen.dart';
 import '../features/settings/city_picker_screen.dart';
@@ -24,8 +26,13 @@ import '../l10n/app_localizations.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
   return GoRouter(
-    initialLocation: '/now',
+    initialLocation: needsOnboarding(ref.read(sharedPrefsProvider)) ? '/welcome' : '/now',
     routes: [
+      GoRoute(
+        path: '/welcome',
+        builder: (_, _) => const OnboardingScreen(),
+        routes: [GoRoute(path: 'city', builder: (_, _) => const CityPickerScreen())],
+      ),
       GoRoute(path: '/counter', builder: (_, _) => const CounterScreen()),
       GoRoute(
         path: '/calendar',

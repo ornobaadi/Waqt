@@ -360,5 +360,21 @@
   "durShortM": "{m}م",
   "beadLeft": "{time} باقی",
   "beadIn": "{time} میں",
-  "beadEnded": "ختم"
+  "beadEnded": "ختم",
+  "onbWelcomeTitle": "ہر لمحے کی صحیح دعا",
+  "onbWelcomeBody": "سب سنت سے، حوالے کے ساتھ۔",
+  "onbWelcomeNote": "مفت۔ نہ اکاؤنٹ، نہ اشتہار۔",
+  "onbBegin": "شروع کریں",
+  "onbLanguageTitle": "اپنی زبان چنیں",
+  "onbLanguageBody": "دعائیں ہمیشہ عربی میں رہتی ہیں۔",
+  "onbPhoneLanguage": "آپ کے فون کی زبان",
+  "onbContinue": "آگے",
+  "onbLocationTitle": "آپ کہاں نماز پڑھتے ہیں؟",
+  "onbLocationBody": "نماز کے اوقات اور قبلہ کے لیے۔ یہ اسی فون پر رہتا ہے۔",
+  "onbCityInstead": "اس کے بجائے شہر چنیں",
+  "onbRemindersTitle": "صرف اہم لمحات",
+  "onbRemindersBody": "عرفہ، عاشورا، عید اور جمعہ۔ کوئی شور نہیں۔",
+  "onbRemindersOn": "یاد دہانیاں آن کریں",
+  "onbLater": "بعد میں",
+  "onbStep": "مرحلہ {n} از {total}"
 }

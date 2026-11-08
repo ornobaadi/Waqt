@@ -1464,4 +1464,54 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get beadEnded => 'ختم';
+
+  @override
+  String get onbWelcomeTitle => 'ہر لمحے کی صحیح دعا';
+
+  @override
+  String get onbWelcomeBody => 'سب سنت سے، حوالے کے ساتھ۔';
+
+  @override
+  String get onbWelcomeNote => 'مفت۔ نہ اکاؤنٹ، نہ اشتہار۔';
+
+  @override
+  String get onbBegin => 'شروع کریں';
+
+  @override
+  String get onbLanguageTitle => 'اپنی زبان چنیں';
+
+  @override
+  String get onbLanguageBody => 'دعائیں ہمیشہ عربی میں رہتی ہیں۔';
+
+  @override
+  String get onbPhoneLanguage => 'آپ کے فون کی زبان';
+
+  @override
+  String get onbContinue => 'آگے';
+
+  @override
+  String get onbLocationTitle => 'آپ کہاں نماز پڑھتے ہیں؟';
+
+  @override
+  String get onbLocationBody => 'نماز کے اوقات اور قبلہ کے لیے۔ یہ اسی فون پر رہتا ہے۔';
+
+  @override
+  String get onbCityInstead => 'اس کے بجائے شہر چنیں';
+
+  @override
+  String get onbRemindersTitle => 'صرف اہم لمحات';
+
+  @override
+  String get onbRemindersBody => 'عرفہ، عاشورا، عید اور جمعہ۔ کوئی شور نہیں۔';
+
+  @override
+  String get onbRemindersOn => 'یاد دہانیاں آن کریں';
+
+  @override
+  String get onbLater => 'بعد میں';
+
+  @override
+  String onbStep(int n, int total) {
+    return 'مرحلہ $n از $total';
+  }
 }

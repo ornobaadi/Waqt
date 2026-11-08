@@ -2552,6 +2552,102 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'ended'**
   String get beadEnded;
+
+  /// No description provided for @onbWelcomeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'The right dua for every moment'**
+  String get onbWelcomeTitle;
+
+  /// No description provided for @onbWelcomeBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Each one from the Sunnah, with its source.'**
+  String get onbWelcomeBody;
+
+  /// No description provided for @onbWelcomeNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Free. No account, no ads.'**
+  String get onbWelcomeNote;
+
+  /// No description provided for @onbBegin.
+  ///
+  /// In en, this message translates to:
+  /// **'Begin'**
+  String get onbBegin;
+
+  /// No description provided for @onbLanguageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose your language'**
+  String get onbLanguageTitle;
+
+  /// No description provided for @onbLanguageBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Duas always keep their Arabic.'**
+  String get onbLanguageBody;
+
+  /// No description provided for @onbPhoneLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone language'**
+  String get onbPhoneLanguage;
+
+  /// No description provided for @onbContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get onbContinue;
+
+  /// No description provided for @onbLocationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Where do you pray from?'**
+  String get onbLocationTitle;
+
+  /// No description provided for @onbLocationBody.
+  ///
+  /// In en, this message translates to:
+  /// **'For prayer times and the Qibla. It stays on this phone.'**
+  String get onbLocationBody;
+
+  /// No description provided for @onbCityInstead.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a city instead'**
+  String get onbCityInstead;
+
+  /// No description provided for @onbRemindersTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Only the moments that count'**
+  String get onbRemindersTitle;
+
+  /// No description provided for @onbRemindersBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Arafah, Ashura, Eid and Fridays. Never noise.'**
+  String get onbRemindersBody;
+
+  /// No description provided for @onbRemindersOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn on reminders'**
+  String get onbRemindersOn;
+
+  /// No description provided for @onbLater.
+  ///
+  /// In en, this message translates to:
+  /// **'Maybe later'**
+  String get onbLater;
+
+  /// No description provided for @onbStep.
+  ///
+  /// In en, this message translates to:
+  /// **'Step {n} of {total}'**
+  String onbStep(int n, int total);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

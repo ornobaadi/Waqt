@@ -99,6 +99,12 @@ Margins awaiting scholar review: see `docs/moment-rules.md`.
 - [ ] Fasting and habits: set aside for now (salah only).
 - [ ] "Did you pray?" prompt after a waqt ends unticked.
 
+## Phase 13 — Onboarding
+- [x] Four screens on first launch, each in a time of day: welcome (dawn moon), language (sunrise script tiles), location (noon globe and pin), reminders (night bell with a real notification preview). Drawn, shaded objects with gentle loops; still under reduced motion.
+- [x] Language chosen here or in Settings is saved (`locale.v1`) and used on every launch.
+- [x] Both permissions explained first and skippable ("Choose a city instead", "Maybe later"). Older installs with a place skip onboarding.
+- [ ] On-device check of GPS and notification prompts from onboarding.
+
 ## Later
 iOS · OTA signed content updates · more languages · cloud backup.
 

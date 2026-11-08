@@ -1471,4 +1471,54 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get beadEnded => 'selesai';
+
+  @override
+  String get onbWelcomeTitle => 'Doa yang tepat untuk setiap saat';
+
+  @override
+  String get onbWelcomeBody => 'Semuanya dari Sunnah, lengkap dengan sumbernya.';
+
+  @override
+  String get onbWelcomeNote => 'Gratis. Tanpa akun, tanpa iklan.';
+
+  @override
+  String get onbBegin => 'Mulai';
+
+  @override
+  String get onbLanguageTitle => 'Pilih bahasa Anda';
+
+  @override
+  String get onbLanguageBody => 'Doa selalu tetap dalam bahasa Arab.';
+
+  @override
+  String get onbPhoneLanguage => 'Bahasa ponsel Anda';
+
+  @override
+  String get onbContinue => 'Lanjut';
+
+  @override
+  String get onbLocationTitle => 'Di mana Anda salat?';
+
+  @override
+  String get onbLocationBody => 'Untuk jadwal salat dan kiblat. Tetap di ponsel ini.';
+
+  @override
+  String get onbCityInstead => 'Pilih kota saja';
+
+  @override
+  String get onbRemindersTitle => 'Hanya saat-saat yang berarti';
+
+  @override
+  String get onbRemindersBody => 'Arafah, Asyura, Id, dan Jumat. Tanpa gangguan.';
+
+  @override
+  String get onbRemindersOn => 'Nyalakan pengingat';
+
+  @override
+  String get onbLater => 'Nanti saja';
+
+  @override
+  String onbStep(int n, int total) {
+    return 'Langkah $n dari $total';
+  }
 }

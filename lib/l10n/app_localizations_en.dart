@@ -1474,4 +1474,54 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get beadEnded => 'ended';
+
+  @override
+  String get onbWelcomeTitle => 'The right dua for every moment';
+
+  @override
+  String get onbWelcomeBody => 'Each one from the Sunnah, with its source.';
+
+  @override
+  String get onbWelcomeNote => 'Free. No account, no ads.';
+
+  @override
+  String get onbBegin => 'Begin';
+
+  @override
+  String get onbLanguageTitle => 'Choose your language';
+
+  @override
+  String get onbLanguageBody => 'Duas always keep their Arabic.';
+
+  @override
+  String get onbPhoneLanguage => 'Phone language';
+
+  @override
+  String get onbContinue => 'Continue';
+
+  @override
+  String get onbLocationTitle => 'Where do you pray from?';
+
+  @override
+  String get onbLocationBody => 'For prayer times and the Qibla. It stays on this phone.';
+
+  @override
+  String get onbCityInstead => 'Choose a city instead';
+
+  @override
+  String get onbRemindersTitle => 'Only the moments that count';
+
+  @override
+  String get onbRemindersBody => 'Arafah, Ashura, Eid and Fridays. Never noise.';
+
+  @override
+  String get onbRemindersOn => 'Turn on reminders';
+
+  @override
+  String get onbLater => 'Maybe later';
+
+  @override
+  String onbStep(int n, int total) {
+    return 'Step $n of $total';
+  }
 }

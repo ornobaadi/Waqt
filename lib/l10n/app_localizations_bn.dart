@@ -1464,4 +1464,54 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get beadEnded => 'শেষ';
+
+  @override
+  String get onbWelcomeTitle => 'প্রতিটি মুহূর্তের সঠিক দোয়া';
+
+  @override
+  String get onbWelcomeBody => 'সবই সুন্নাহ থেকে, সূত্রসহ।';
+
+  @override
+  String get onbWelcomeNote => 'ফ্রি। কোনো অ্যাকাউন্ট নেই, বিজ্ঞাপন নেই।';
+
+  @override
+  String get onbBegin => 'শুরু করুন';
+
+  @override
+  String get onbLanguageTitle => 'আপনার ভাষা বেছে নিন';
+
+  @override
+  String get onbLanguageBody => 'দোয়া সবসময় আরবিতেই থাকে।';
+
+  @override
+  String get onbPhoneLanguage => 'আপনার ফোনের ভাষা';
+
+  @override
+  String get onbContinue => 'এগিয়ে যান';
+
+  @override
+  String get onbLocationTitle => 'আপনি কোথা থেকে নামাজ পড়েন?';
+
+  @override
+  String get onbLocationBody => 'নামাজের সময় ও কিবলার জন্য। এটি এই ফোনেই থাকে।';
+
+  @override
+  String get onbCityInstead => 'বরং একটি শহর বেছে নিন';
+
+  @override
+  String get onbRemindersTitle => 'শুধু গুরুত্বপূর্ণ মুহূর্তগুলো';
+
+  @override
+  String get onbRemindersBody => 'আরাফা, আশুরা, ঈদ আর জুমা। কোনো বাড়তি শব্দ নয়।';
+
+  @override
+  String get onbRemindersOn => 'রিমাইন্ডার চালু করুন';
+
+  @override
+  String get onbLater => 'পরে';
+
+  @override
+  String onbStep(int n, int total) {
+    return 'ধাপ $n / $total';
+  }
 }

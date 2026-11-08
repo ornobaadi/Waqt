@@ -352,5 +352,21 @@
   "durShortM": "{m}মি",
   "beadLeft": "{time} বাকি",
   "beadIn": "{time} পরে",
-  "beadEnded": "শেষ"
+  "beadEnded": "শেষ",
+  "onbWelcomeTitle": "প্রতিটি মুহূর্তের সঠিক দোয়া",
+  "onbWelcomeBody": "সবই সুন্নাহ থেকে, সূত্রসহ।",
+  "onbWelcomeNote": "ফ্রি। কোনো অ্যাকাউন্ট নেই, বিজ্ঞাপন নেই।",
+  "onbBegin": "শুরু করুন",
+  "onbLanguageTitle": "আপনার ভাষা বেছে নিন",
+  "onbLanguageBody": "দোয়া সবসময় আরবিতেই থাকে।",
+  "onbPhoneLanguage": "আপনার ফোনের ভাষা",
+  "onbContinue": "এগিয়ে যান",
+  "onbLocationTitle": "আপনি কোথা থেকে নামাজ পড়েন?",
+  "onbLocationBody": "নামাজের সময় ও কিবলার জন্য। এটি এই ফোনেই থাকে।",
+  "onbCityInstead": "বরং একটি শহর বেছে নিন",
+  "onbRemindersTitle": "শুধু গুরুত্বপূর্ণ মুহূর্তগুলো",
+  "onbRemindersBody": "আরাফা, আশুরা, ঈদ আর জুমা। কোনো বাড়তি শব্দ নয়।",
+  "onbRemindersOn": "রিমাইন্ডার চালু করুন",
+  "onbLater": "পরে",
+  "onbStep": "ধাপ {n} / {total}"
 }

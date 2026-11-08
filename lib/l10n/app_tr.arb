@@ -352,5 +352,21 @@
   "durShortM": "{m}dk",
   "beadLeft": "{time} kaldı",
   "beadIn": "{time} sonra",
-  "beadEnded": "bitti"
+  "beadEnded": "bitti",
+  "onbWelcomeTitle": "Her ana uygun dua",
+  "onbWelcomeBody": "Hepsi Sünnet'ten, kaynağıyla.",
+  "onbWelcomeNote": "Ücretsiz. Hesap yok, reklam yok.",
+  "onbBegin": "Başla",
+  "onbLanguageTitle": "Dilini seç",
+  "onbLanguageBody": "Dualar hep Arapça kalır.",
+  "onbPhoneLanguage": "Telefonunun dili",
+  "onbContinue": "Devam",
+  "onbLocationTitle": "Nerede namaz kılıyorsun?",
+  "onbLocationBody": "Namaz vakitleri ve kıble için. Bu telefonda kalır.",
+  "onbCityInstead": "Bunun yerine şehir seç",
+  "onbRemindersTitle": "Yalnızca değerli anlar",
+  "onbRemindersBody": "Arefe, Aşure, bayram ve cuma. Gereksiz bildirim yok.",
+  "onbRemindersOn": "Hatırlatmaları aç",
+  "onbLater": "Sonra",
+  "onbStep": "Adım {n} / {total}"
 }

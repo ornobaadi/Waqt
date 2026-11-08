@@ -346,5 +346,21 @@
   "durShortM": "{m} min",
   "beadLeft": "reste {time}",
   "beadIn": "dans {time}",
-  "beadEnded": "terminé"
+  "beadEnded": "terminé",
+  "onbWelcomeTitle": "La bonne invocation pour chaque instant",
+  "onbWelcomeBody": "Toutes tirées de la Sunna, avec leur source.",
+  "onbWelcomeNote": "Gratuit. Sans compte, sans publicité.",
+  "onbBegin": "Commencer",
+  "onbLanguageTitle": "Choisissez votre langue",
+  "onbLanguageBody": "Les invocations restent toujours en arabe.",
+  "onbPhoneLanguage": "Langue du téléphone",
+  "onbContinue": "Continuer",
+  "onbLocationTitle": "D'où priez-vous ?",
+  "onbLocationBody": "Pour les heures de prière et la qibla. Elle reste sur ce téléphone.",
+  "onbCityInstead": "Choisir une ville",
+  "onbRemindersTitle": "Seulement les moments qui comptent",
+  "onbRemindersBody": "Arafat, Achoura, l'Aïd et le vendredi. Jamais de bruit.",
+  "onbRemindersOn": "Activer les rappels",
+  "onbLater": "Plus tard",
+  "onbStep": "Étape {n} sur {total}"
 }

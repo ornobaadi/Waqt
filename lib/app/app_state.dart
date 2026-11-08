@@ -176,11 +176,22 @@ Future<GpsError?> locateWithGps(WidgetRef ref) async {
   }
 }
 
-/// `null` follows the device locale.
+/// The language the person chose; `null` follows the device. Saved, so a
+/// choice made in onboarding or Settings survives a restart.
 class LocaleOverride extends Notifier<Locale?> {
+  static const _key = 'locale.v1';
+
   @override
-  Locale? build() => null;
-  void set(Locale? l) => state = l;
+  Locale? build() {
+    final code = ref.read(sharedPrefsProvider).getString(_key);
+    return code == null ? null : Locale(code);
+  }
+
+  void set(Locale? l) {
+    final sp = ref.read(sharedPrefsProvider);
+    l == null ? sp.remove(_key) : sp.setString(_key, l.languageCode);
+    state = l;
+  }
 }
 
 final localeOverrideProvider = NotifierProvider<LocaleOverride, Locale?>(LocaleOverride.new);

@@ -1471,4 +1471,54 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get beadEnded => 'terminé';
+
+  @override
+  String get onbWelcomeTitle => 'La bonne invocation pour chaque instant';
+
+  @override
+  String get onbWelcomeBody => 'Toutes tirées de la Sunna, avec leur source.';
+
+  @override
+  String get onbWelcomeNote => 'Gratuit. Sans compte, sans publicité.';
+
+  @override
+  String get onbBegin => 'Commencer';
+
+  @override
+  String get onbLanguageTitle => 'Choisissez votre langue';
+
+  @override
+  String get onbLanguageBody => 'Les invocations restent toujours en arabe.';
+
+  @override
+  String get onbPhoneLanguage => 'Langue du téléphone';
+
+  @override
+  String get onbContinue => 'Continuer';
+
+  @override
+  String get onbLocationTitle => 'D\'où priez-vous ?';
+
+  @override
+  String get onbLocationBody => 'Pour les heures de prière et la qibla. Elle reste sur ce téléphone.';
+
+  @override
+  String get onbCityInstead => 'Choisir une ville';
+
+  @override
+  String get onbRemindersTitle => 'Seulement les moments qui comptent';
+
+  @override
+  String get onbRemindersBody => 'Arafat, Achoura, l\'Aïd et le vendredi. Jamais de bruit.';
+
+  @override
+  String get onbRemindersOn => 'Activer les rappels';
+
+  @override
+  String get onbLater => 'Plus tard';
+
+  @override
+  String onbStep(int n, int total) {
+    return 'Étape $n sur $total';
+  }
 }

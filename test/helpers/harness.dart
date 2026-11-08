@@ -69,6 +69,7 @@ Future<Widget> app({
   Place? place,
   Locale? locale,
   bool setupCard = false,
+  bool onboarding = false,
   Heading? heading,
   Map<String, Object> stored = const {},
 }) async {
@@ -76,6 +77,8 @@ Future<Widget> app({
     if (place != null) 'place.v1': jsonEncode(place.toJson()),
     // Screenshots show the reminder card only when asked to.
     if (!setupCard) 'reminders.setup.v1': true,
+    // Most tests start past onboarding; its own tests opt in.
+    if (!onboarding) 'onboarded.v1': true,
     ...stored,
   });
   final prefs = await SharedPreferences.getInstance();

@@ -6,6 +6,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:waqt/data/user/user_prefs.dart';
 
 import 'package:waqt/domain/hijri/hijri_service.dart';
 import 'package:waqt/platform/sensors/heading.dart';
@@ -596,6 +598,55 @@ void main() {
         await t.pumpAndSettle();
         await t.tap(find.byIcon(Icons.chevron_right_rounded).first);
       },
+    ),
+  );
+
+  Future<Widget> fresh({Locale? locale}) => app(at: DateTime(2026, 11, 6, 9, 41), onboarding: true, locale: locale);
+
+  testWidgets('onboarding welcome', (t) async => shoot(t, '50_onboarding_welcome', await fresh()));
+
+  testWidgets(
+    'onboarding language',
+    (t) async => shoot(t, '50b_onboarding_language', await fresh(), then: () async => t.tap(find.text('Begin'))),
+  );
+
+  testWidgets(
+    'onboarding location',
+    (t) async => shoot(
+      t,
+      '50c_onboarding_location',
+      await fresh(),
+      then: () async {
+        await t.tap(find.text('Begin'));
+        await t.pumpAndSettle();
+        await t.tap(find.text('Continue'));
+      },
+    ),
+  );
+
+  testWidgets(
+    'onboarding reminders',
+    (t) async => shoot(
+      t,
+      '50d_onboarding_reminders',
+      await fresh(),
+      then: () async {
+        await t.tap(find.text('Begin'));
+        await t.pumpAndSettle();
+        await t.tap(find.text('Continue'));
+        await t.pumpAndSettle();
+        ProviderScope.containerOf(t.element(find.byType(MaterialApp))).read(userPrefsProvider.notifier).setPlace(dhaka);
+      },
+    ),
+  );
+
+  testWidgets(
+    'onboarding language arabic',
+    (t) async => shoot(
+      t,
+      '50e_onboarding_language_ar',
+      await fresh(locale: const Locale('ar')),
+      then: () async => t.tap(find.text('ابدأ')),
     ),
   );
 
