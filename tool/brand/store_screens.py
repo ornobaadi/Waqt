@@ -24,10 +24,11 @@ DAWN = ('#F7E7C8', '#EFD3A6', '#1C1814', '#5E5240')
 SHOTS = [
     ('The right dua, right now', 'for the moment you are in', NIGHT, 'tilt', ['40_now_salah_ticks']),
     ('Changes with the sky', 'from Fajr to the last third of the night', DAWN, 'pair', ['03_now_dhuhr', '12_now_last_third']),
-    ('Every hadith sourced', 'book, number and grade, every time', NIGHT, 'straight', ['17_dua_sheet']),
+    ('Every hadith sourced', 'Arabic, meaning and grade, every time', NIGHT, 'tilt-r', ['17b_dua_sheet_short']),
     ('Track your salah, gently', 'one tap a prayer, no guilt', DAWN, 'pair', ['42_today_ring', '43_progress']),
     ('Ramadan, made easy', 'suhoor, iftar and the last ten nights', NIGHT, 'tilt-r', ['21_now_ramadan_qadr']),
     ('Find the Qibla', 'turn until it glows', NIGHT, 'straight', ['30_qibla_turn']),
+    ('Face the Qibla at night', 'turn, and the screen glows blue', NIGHT, 'pair', ['34_qibla_night_turn', '34b_qibla_night_aligned']),
     ('A tasbih that remembers', 'your count and today\'s total', DAWN, 'tilt', ['22_counter']),
     ('In seven languages', 'English, العربية, اردو, বাংলা and more', NIGHT, 'pair', ['07_now_arabic_rtl', '30_now_bn']),
 ]

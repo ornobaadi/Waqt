@@ -227,6 +227,21 @@ void main() {
   );
 
   testWidgets(
+    'short hadith sheet',
+    (t) async => shoot(
+      t,
+      '17b_dua_sheet_short',
+      await app(at: DateTime(2026, 11, 7, 3, 10), place: dhaka),
+      then: () async {
+        await t.runAsync(() async {
+          await t.tap(find.textContaining('Allah descends').first);
+          await Future<void>.delayed(const Duration(milliseconds: 500));
+        });
+      },
+    ),
+  );
+
+  testWidgets(
     'jumuah morning',
     (t) async => shoot(t, '18_now_jumuah_morning', await app(at: DateTime(2026, 11, 6, 9, 41), place: dhaka)),
   );
@@ -476,18 +491,21 @@ void main() {
     (t) async => shoot(t, '50_now_london_from_dhaka', await app(at: DateTime.utc(2026, 11, 6, 16), place: london)),
   );
 
-  for (final (name, heading, locale) in [
-    ('30_qibla_turn', const Heading(240, 4), null),
-    ('31_qibla_aligned', const Heading(277.5, 3), null),
-    ('32_qibla_ar', const Heading(330, 5), const Locale('ar')),
-    ('33_qibla_calibrate', const Heading(200, 5, accuracy: 40), null),
+  final day = DateTime(2026, 11, 6, 9, 41), lastThird = DateTime(2026, 11, 7, 3, 10);
+  for (final (name, heading, locale, at) in [
+    ('30_qibla_turn', const Heading(240, 4), null, day),
+    ('31_qibla_aligned', const Heading(277.5, 3), null, day),
+    ('32_qibla_ar', const Heading(330, 5), const Locale('ar'), day),
+    ('33_qibla_calibrate', const Heading(200, 5, accuracy: 40), null, day),
+    ('34_qibla_night_turn', const Heading(240, 4), null, lastThird),
+    ('34b_qibla_night_aligned', const Heading(277.5, 3), null, lastThird),
   ]) {
     testWidgets(
       name,
       (t) async => shoot(
         t,
         name,
-        await app(at: DateTime(2026, 11, 6, 9, 41), place: dhaka, heading: heading, locale: locale),
+        await app(at: at, place: dhaka, heading: heading, locale: locale),
         then: () async {
           await t.tap(find.byIcon(Icons.explore_outlined));
         },
