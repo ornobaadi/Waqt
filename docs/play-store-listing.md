@@ -47,8 +47,8 @@ English, العربية, اردو, বাংলা, Bahasa Indonesia, Türkçe a
 | Feature graphic | `docs/store/feature-graphic.png` | 1024×500 PNG |
 | Phone screenshots | `docs/store/screenshots/01…08_*.png` | 1080×1920, upload in order |
 
-Regenerate: `python tool/brand/waqt_icon.py` (icon, feature graphic, Android icons) and
-`flutter test --tags screenshots --update-goldens && python tool/brand/store_screens.py` (screenshots).
+Regenerate: `python tool/brand/waqt_icon.py` (icon, Android icons) and
+`flutter test --tags screenshots --update-goldens && python tool/brand/store_screens.py` (feature graphic and screenshots).
 
 ## App content answers
 - **Privacy policy:** URL above.
