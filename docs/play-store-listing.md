@@ -11,7 +11,7 @@ Everything to paste into Play Console. Step-by-step order: `docs/publish-checkli
 - **Privacy policy:** https://ornobaadi.github.io/Waqt/privacy/
 
 ## Short description (80)
-`Prayer times, Qibla & the sunnah dua for every moment, Friday and Ramadan.`
+`Prayer times, Qibla and the right dua for every moment: Friday, Ramadan, night.`
 
 ## Full description (4000)
 Waqt knows which moment of the day you are in, and shows the dua and sunnah that fit it, each with its source.
@@ -26,13 +26,16 @@ Each hadith shows its collection, its grade and an explanation, from HadeethEnc.
 The evening before Arafah, Ashura, Eid or the white days, the night Ramadan begins, every Friday and every Ramadan suhoor: Waqt tells you what to do and why, with its source. You choose which; daily reminders stay off unless you want them.
 
 **Prayer times you can trust**
-Calculated on your phone with twelve methods, including Umm al-Qura, Diyanet, JAKIM, Kemenag, ISNA, Egyptian, Karachi and MWL. Standard or Hanafi Asr, high-latitude rules, and minute adjustments to match your mosque. Works fully offline.
+Calculated on your phone with twelve methods, including Umm al-Qura, Diyanet, JAKIM, Kemenag, ISNA, Egyptian, Karachi and MWL. Standard or Hanafi Asr, high-latitude rules, and minute adjustments to match your mosque. Calculated on your phone.
+
+**Track your salah, gently**
+Tick each prayer as you pray it, see your day on a ring and your week at a glance. Missed ones are for making up, never a red mark. Everything stays on your phone.
 
 **Qibla finder**
 Turn your phone until the Kaaba mark glows. Shows the direction in degrees and your distance to Makkah.
 
 **Ramadan and the special days**
-Suhoor and iftar times, Laylat al-Qadr nights, Eid, Arafah, Ashura, the white days and Monday and Thursday fasts, with what to do on each. A live Hijri calendar follows the announced moon sighting, or your own local sighting.
+Suhoor and iftar times, Laylat al-Qadr nights with its dua and source, Eid, Arafah, Ashura, the white days and Monday and Thursday fasts, with what to do on each. A live Hijri calendar follows the announced moon sighting, or your own local sighting.
 
 **Calm by design**
 Gentle reminders you choose, a home-screen widget, a sky that follows the time of day, the real moon phase, and a tasbih counter that remembers your count. No ads, no accounts, no tracking.
