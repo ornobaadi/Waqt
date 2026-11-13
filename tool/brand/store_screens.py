@@ -96,7 +96,32 @@ def feature_graphic() -> str:
 </div></div>'''
 
 
+def beta_graphic() -> str:
+    """Reddit / forum banner asking for closed-beta testers (same art, a tester call instead of the tagline)."""
+    top, bottom, ink, soft = NIGHT
+    icon = (STORE / 'play-icon-512.png').as_uri()
+    phones = (phone('06_now_night', 250, 590, 70, 'rotateY(22deg) rotateZ(-6deg) translateZ(-80px)', 1, .5)
+              + phone('40_now_salah_ticks', 270, 760, 36, 'rotateY(-18deg) rotateZ(4deg)', 2, .55))
+    return f'''{fonts()}<div class="r"><div style="position:relative;width:1024px;height:500px;overflow:hidden;
+  background:radial-gradient(520px 420px at 78% 40%,rgba(255,236,190,.18),transparent 70%),linear-gradient(150deg,{top},{bottom});
+  font-family:Inter">
+<div style="position:absolute;left:72px;top:70px;display:flex;align-items:center;gap:18px">
+  <img src="{icon}" style="width:72px;height:72px;border-radius:18px;box-shadow:0 10px 26px rgba(0,0,0,.4)">
+  <div style="color:{ink};font-family:Disp;font-weight:800;font-size:56px;letter-spacing:-2px;line-height:1">Waqt</div></div>
+<div style="position:absolute;left:72px;top:176px;padding:8px 18px;border-radius:999px;background:#F2C46D;color:#1C1814;
+  font-size:22px;font-weight:700;letter-spacing:2px">CLOSED BETA · ANDROID</div>
+<div style="position:absolute;left:66px;top:226px;width:520px;color:{ink};font-family:Disp;font-weight:800;font-size:78px;
+  letter-spacing:-3px;line-height:.98;font-variation-settings:'opsz' 96">Beta testers<br>wanted</div>
+<div style="position:absolute;left:72px;top:400px;width:470px;color:{soft};font-size:24px;font-weight:500;line-height:1.3">
+  Help test Waqt for 14 days. Free, no ads, no account.</div>
+<div style="position:absolute;inset:0;perspective:1800px">{phones}</div>
+</div></div>'''
+
+
 def main():
+    if '--beta' in sys.argv:
+        render(beta_graphic(), STORE / 'beta-testers.png', 1024, 500, transparent=False)
+        return
     OUT.mkdir(parents=True, exist_ok=True)
     for old in OUT.glob('*.png'):
         old.unlink()
