@@ -174,8 +174,66 @@ void main() {
       then: () async {
         await t.tap(find.byTooltip('Duas'));
         await t.pumpAndSettle();
+        await t.tap(find.text('Hadith'));
+        await t.pumpAndSettle();
         await t.enterText(find.byType(TextField), 'travel');
       },
+    ),
+  );
+
+  testWidgets(
+    'duas hadith tab',
+    (t) async => shoot(
+      t,
+      '16b_duas_hadith',
+      await app(at: DateTime(2026, 11, 6, 9, 41), place: dhaka),
+      then: () async {
+        await t.tap(find.byTooltip('Duas'));
+        await t.pumpAndSettle();
+        await t.tap(find.text('Hadith'));
+      },
+    ),
+  );
+
+  testWidgets(
+    'dua task',
+    (t) async => shoot(
+      t,
+      '16e_dua_task',
+      await app(at: DateTime(2026, 11, 6, 9, 41), place: dhaka),
+      then: () async {
+        await t.tap(find.byTooltip('Duas'));
+        await t.pumpAndSettle();
+        await t.tap(find.text('Sleep and waking'));
+      },
+    ),
+  );
+
+  Future<void> openBedDua(WidgetTester t, String duas, String task, String when) async {
+    await t.tap(find.byTooltip(duas));
+    await t.pumpAndSettle();
+    await t.tap(find.text(task));
+    await t.pumpAndSettle();
+    await t.tap(find.text(when));
+  }
+
+  testWidgets(
+    'dua page',
+    (t) async => shoot(
+      t,
+      '16f_dua_page',
+      await app(at: DateTime(2026, 11, 6, 9, 41), place: dhaka),
+      then: () => openBedDua(t, 'Duas', 'Sleep and waking', 'In bed, after dusting it off'),
+    ),
+  );
+
+  testWidgets(
+    'dua page, Arabic',
+    (t) async => shoot(
+      t,
+      '16g_dua_page_ar',
+      await app(at: DateTime(2026, 11, 6, 9, 41), place: dhaka, locale: const Locale('ar')),
+      then: () => openBedDua(t, 'الأدعية', 'النوم والاستيقاظ', 'عند الاضطجاع على الفراش'),
     ),
   );
 
@@ -203,6 +261,8 @@ void main() {
       await app(at: DateTime(2026, 11, 6, 9, 41), place: dhaka),
       then: () async {
         await t.tap(find.byTooltip('Duas'));
+        await t.pumpAndSettle();
+        await t.tap(find.text('Hadith'));
         await t.pumpAndSettle();
         await t.enterText(find.byType(TextField), 'patience');
       },

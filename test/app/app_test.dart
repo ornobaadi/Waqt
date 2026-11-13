@@ -5,7 +5,18 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:waqt/data/user/user_prefs.dart';
 
+import 'package:waqt/features/duas/dua_views.dart';
+
 import '../helpers/harness.dart';
+
+/// Scrolls the dua on screen until [f] is built and visible.
+Future<void> scrollPage(WidgetTester tester, Finder f) async {
+  final page = find.descendant(of: find.byType(DuaPage), matching: find.byType(Scrollable)).first;
+  await tester.scrollUntilVisible(f, 200, scrollable: page);
+  await tester.ensureVisible(f);
+  await tester.pumpAndSettle();
+  expect(f, findsOneWidget);
+}
 
 void main() {
   testWidgets('first run asks for a location, tabs navigate', (tester) async {
@@ -15,6 +26,9 @@ void main() {
     expect(find.text('Use my location'), findsOneWidget);
 
     await tester.tap(find.byTooltip('Duas'));
+    await tester.pumpAndSettle();
+    expect(find.text('Duas to say'), findsOneWidget);
+    await tester.tap(find.text('Hadith'));
     await tester.pumpAndSettle();
     expect(find.text('Search hadith and duas'), findsOneWidget);
   });
@@ -50,10 +64,59 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.byTooltip('দোয়া'));
     await tester.pumpAndSettle();
+    await tester.tap(find.text('হাদিস'));
+    await tester.pumpAndSettle();
     await tester.tap(find.text('বিছানা ঝেড়ে নিন, তারপর দোয়া পড়ুন'));
     await tester.pumpAndSettle();
     expect(find.textContaining('HadeethEnc.com'), findsWidgets);
     expect(find.textContaining('বিছানা'), findsWidgets);
+  });
+
+  testWidgets('Duas by task: the words first, the hadith on request', (tester) async {
+    tester.view.physicalSize = const Size(1170, 2532);
+    tester.view.devicePixelRatio = 3;
+    addTearDown(tester.view.reset);
+    await tester.pumpWidget(await app(at: DateTime(2026, 11, 6, 9, 41), place: dhaka));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byTooltip('Duas'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Sleep and waking'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('In bed, after dusting it off'));
+    await tester.pumpAndSettle();
+    expect(find.textContaining('وضعت جنبي'), findsOneWidget);
+    await scrollPage(tester, find.textContaining('Bismika rabbi'));
+    await scrollPage(tester, find.textContaining('I place my side'));
+    expect(find.text('2 of 4'), findsOneWidget);
+    // Swipe on: waking has no English meaning on HadeethEnc, so a note, not another language.
+    await tester.tap(find.text('Next'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Next'));
+    await tester.pumpAndSettle();
+    expect(find.text('When you wake up'), findsOneWidget);
+    await scrollPage(tester, find.textContaining("hasn't published these words"));
+    await scrollPage(tester, find.text('See the full hadith'));
+    await tester.tap(find.text('See the full hadith'));
+    await tester.pumpAndSettle();
+    // The whole hadith it is cut from, with its narrator.
+    expect(find.textContaining('عَنْ حُذَيْفَةَ'), findsOneWidget);
+  });
+
+  testWidgets("Duas by task in Bangla: HadeethEnc's own Bangla meaning", (tester) async {
+    tester.view.physicalSize = const Size(1170, 2532);
+    tester.view.devicePixelRatio = 3;
+    addTearDown(tester.view.reset);
+    await tester.pumpWidget(await app(at: DateTime(2026, 11, 6, 9, 41), place: dhaka, locale: const Locale('bn')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byTooltip('দোয়া'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('সফর'));
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.text('মুসাফিরকে বিদায় দেওয়ার সময়'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('মুসাফিরকে বিদায় দেওয়ার সময়'));
+    await tester.pumpAndSettle();
+    await scrollPage(tester, find.textContaining('আল্লাহকে সঁপে দিলাম'));
   });
 
   testWidgets('bedtime checklist ticks and resets with the prayer day', (tester) async {

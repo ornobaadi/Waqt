@@ -1541,4 +1541,70 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get beadTapToMark => 'cocher';
+
+  @override
+  String get duasTabSay => 'Invocations à dire';
+
+  @override
+  String get duasTabHadith => 'Hadiths';
+
+  @override
+  String get duasRightNow => 'En ce moment';
+
+  @override
+  String get duasByTask => 'Selon ce que vous faites';
+
+  @override
+  String duasCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$count invocations', one: '1 invocation');
+    return '$_temp0';
+  }
+
+  @override
+  String get duasTaskIntro => 'Les paroles à dire, dans l\'ordre. Ouvrez-en une pour son sens et sa source.';
+
+  @override
+  String get duasGoThrough => 'Les lire une à une';
+
+  @override
+  String duaSayTimes(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'À dire $count fois',
+      one: 'À dire une fois',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get duaHowToSay => 'Prononciation';
+
+  @override
+  String get duaMeaning => 'Sens';
+
+  @override
+  String get duaReference => 'Source';
+
+  @override
+  String get duaSeeHadith => 'Voir le hadith en entier';
+
+  @override
+  String duaNoMeaning(String language) {
+    return 'HadeethEnc n\'a pas encore publié le sens de ces paroles seules en $language. Le hadith complet montre ce qui existe.';
+  }
+
+  @override
+  String duaPosition(int index, int total) {
+    return '$index sur $total';
+  }
+
+  @override
+  String get duaNext => 'Suivante';
+
+  @override
+  String get duaPrevious => 'Précédente';
+
+  @override
+  String get duaDone => 'Terminé';
 }

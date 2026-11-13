@@ -964,5 +964,53 @@
       }
     }
   },
-  "beadTapToMark": "mark"
+  "beadTapToMark": "mark",
+  "duasTabSay": "Duas to say",
+  "duasTabHadith": "Hadith",
+  "duasRightNow": "Right now",
+  "duasByTask": "By what you are doing",
+  "duasCount": "{count, plural, =1{1 dua} other{{count} duas}}",
+  "@duasCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "duasTaskIntro": "The words to say, in order. Open one for its meaning and reference.",
+  "duasGoThrough": "Go through them one by one",
+  "duaSayTimes": "{count, plural, =1{Say once} other{Say {count} times}}",
+  "@duaSayTimes": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "duaHowToSay": "How to say it",
+  "duaMeaning": "Meaning",
+  "duaReference": "Reference",
+  "duaSeeHadith": "See the full hadith",
+  "duaNoMeaning": "HadeethEnc hasn't published these words on their own in {language} yet. The full hadith shows what it has.",
+  "@duaNoMeaning": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "duaPosition": "{index} of {total}",
+  "@duaPosition": {
+    "placeholders": {
+      "index": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "duaNext": "Next",
+  "duaPrevious": "Previous",
+  "duaDone": "Done"
 }

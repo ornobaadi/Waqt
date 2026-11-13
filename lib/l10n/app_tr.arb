@@ -374,5 +374,22 @@
   "beadLate": "kaza",
   "comingUpTitle": "Sırada",
   "comingIn": "{time} sonra",
-  "beadTapToMark": "işaretle"
+  "beadTapToMark": "işaretle",
+  "duasTabSay": "Okunacak dualar",
+  "duasTabHadith": "Hadisler",
+  "duasRightNow": "Şu an",
+  "duasByTask": "Yaptığınız işe göre",
+  "duasCount": "{count, plural, other{{count} dua}}",
+  "duasTaskIntro": "Söylenecek sözler, sırasıyla. Anlamı ve kaynağı için birine dokunun.",
+  "duasGoThrough": "Tek tek okuyun",
+  "duaSayTimes": "{count, plural, =1{Bir kez söyleyin} other{{count} kez söyleyin}}",
+  "duaHowToSay": "Okunuşu",
+  "duaMeaning": "Anlamı",
+  "duaReference": "Kaynak",
+  "duaSeeHadith": "Hadisin tamamını gör",
+  "duaNoMeaning": "HadeethEnc bu sözlerin {language} anlamını henüz ayrıca yayımlamadı. Mevcut olanlar için hadisin tamamına bakın.",
+  "duaPosition": "{total} içinden {index}",
+  "duaNext": "Sonraki",
+  "duaPrevious": "Önceki",
+  "duaDone": "Bitti"
 }

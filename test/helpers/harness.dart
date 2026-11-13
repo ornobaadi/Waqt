@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:waqt/platform/sensors/heading.dart';
 import 'package:waqt/data/sources/days.dart';
+import 'package:waqt/data/sources/duas.dart';
 import 'package:waqt/data/sources/hadeethenc.dart';
 import 'package:waqt/app/app.dart';
 import 'package:waqt/app/app_state.dart';
@@ -91,6 +92,7 @@ Future<Widget> app({
       ),
       dayGuidesProvider.overrideWith((ref) => DayGuides.parse(File('assets/sources/days.json').readAsStringSync())),
       heBundleProvider.overrideWith((ref) => HeBundle.parse(File('assets/sources/hadeethenc.json').readAsStringSync())),
+      duaBookProvider.overrideWith((ref) => DuaBook.parse(File('assets/sources/duas.json').readAsStringSync())),
       if (at != null) nowProvider.overrideWith((ref) => Stream.value(at)),
       if (heading != null) headingProvider.overrideWith((ref) => Stream.value(heading)),
       if (locale != null) localeOverrideProvider.overrideWith(() => _Locale(locale)),

@@ -382,5 +382,22 @@
   "beadLate": "قضا",
   "comingUpTitle": "آگے",
   "comingIn": "{time} میں",
-  "beadTapToMark": "نشان"
+  "beadTapToMark": "نشان",
+  "duasTabSay": "پڑھنے کی دعائیں",
+  "duasTabHadith": "احادیث",
+  "duasRightNow": "ابھی",
+  "duasByTask": "آپ کے کام کے مطابق",
+  "duasCount": "{count, plural, =1{1 دعا} other{{count} دعائیں}}",
+  "duasTaskIntro": "پڑھنے کے الفاظ، ترتیب سے۔ معنی اور حوالے کے لیے کوئی بھی کھولیں۔",
+  "duasGoThrough": "ایک ایک کر کے پڑھیں",
+  "duaSayTimes": "{count, plural, =1{ایک بار پڑھیں} other{{count} بار پڑھیں}}",
+  "duaHowToSay": "تلفظ",
+  "duaMeaning": "مطلب",
+  "duaReference": "حوالہ",
+  "duaSeeHadith": "پوری حدیث دیکھیں",
+  "duaNoMeaning": "HadeethEnc نے یہ الفاظ ابھی الگ سے {language} میں شائع نہیں کیے۔ پوری حدیث میں جو دستیاب ہے وہ دیکھیں۔",
+  "duaPosition": "{total} میں سے {index}",
+  "duaNext": "اگلی",
+  "duaPrevious": "پچھلی",
+  "duaDone": "مکمل"
 }

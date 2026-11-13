@@ -1540,4 +1540,70 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get beadTapToMark => 'tandai';
+
+  @override
+  String get duasTabSay => 'Doa untuk dibaca';
+
+  @override
+  String get duasTabHadith => 'Hadis';
+
+  @override
+  String get duasRightNow => 'Saat ini';
+
+  @override
+  String get duasByTask => 'Sesuai yang sedang Anda lakukan';
+
+  @override
+  String duasCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$count doa');
+    return '$_temp0';
+  }
+
+  @override
+  String get duasTaskIntro => 'Kalimat yang diucapkan, berurutan. Buka salah satunya untuk melihat arti dan sumbernya.';
+
+  @override
+  String get duasGoThrough => 'Baca satu per satu';
+
+  @override
+  String duaSayTimes(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Ucapkan $count kali',
+      one: 'Ucapkan sekali',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get duaHowToSay => 'Cara membaca';
+
+  @override
+  String get duaMeaning => 'Arti';
+
+  @override
+  String get duaReference => 'Sumber';
+
+  @override
+  String get duaSeeHadith => 'Lihat hadis lengkap';
+
+  @override
+  String duaNoMeaning(String language) {
+    return 'HadeethEnc belum menerbitkan arti kalimat ini secara terpisah dalam $language. Lihat hadis lengkap untuk yang tersedia.';
+  }
+
+  @override
+  String duaPosition(int index, int total) {
+    return '$index dari $total';
+  }
+
+  @override
+  String get duaNext => 'Berikutnya';
+
+  @override
+  String get duaPrevious => 'Sebelumnya';
+
+  @override
+  String get duaDone => 'Selesai';
 }

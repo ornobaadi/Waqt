@@ -207,7 +207,7 @@ const builtInDhikr = <Dhikr>[
       'bn': 'ইউনুস (আ.)-এর দোয়া: যে এ দিয়ে ডাকে, কবুল হয়',
       'id': 'Doa Nabi Yunus a.s.: siapa berdoa dengannya dikabulkan',
       'tr': 'Hz. Yunus\'un duası: onunla dua edene icabet edilir',
-      'fr': 'L\'invocation de Younous : celui qui l\'invoque est exaucé',
+      'fr': 'L\'invocation de Younous (paix sur lui) : celui qui l\'invoque est exaucé',
     },
   ),
   Dhikr(

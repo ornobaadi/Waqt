@@ -396,5 +396,22 @@
   "beadLate": "قضاء",
   "comingUpTitle": "القادم",
   "comingIn": "بعد {time}",
-  "beadTapToMark": "سجّل"
+  "beadTapToMark": "سجّل",
+  "duasTabSay": "أدعية تقولها",
+  "duasTabHadith": "الأحاديث",
+  "duasRightNow": "الآن",
+  "duasByTask": "بحسب ما تفعل",
+  "duasCount": "{count, plural, =1{دعاء واحد} =2{دعاءان} few{{count} أدعية} other{{count} دعاء}}",
+  "duasTaskIntro": "الكلمات التي تقال، بالترتيب. افتح أيًّا منها لترى معناه ومصدره.",
+  "duasGoThrough": "اقرأها واحدًا تلو الآخر",
+  "duaSayTimes": "{count, plural, =1{تقال مرة واحدة} =2{تقال مرتين} few{تقال {count} مرات} other{تقال {count} مرة}}",
+  "duaHowToSay": "النطق بالحروف اللاتينية",
+  "duaMeaning": "المعنى",
+  "duaReference": "المصدر",
+  "duaSeeHadith": "عرض الحديث كاملًا",
+  "duaNoMeaning": "لم تنشر HadeethEnc معنى هذه الكلمات وحدها بـ{language} بعد. الحديث كاملًا يعرض ما لديها.",
+  "duaPosition": "{index} من {total}",
+  "duaNext": "التالي",
+  "duaPrevious": "السابق",
+  "duaDone": "تم"
 }

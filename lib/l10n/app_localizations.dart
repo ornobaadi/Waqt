@@ -2684,6 +2684,108 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'mark'**
   String get beadTapToMark;
+
+  /// No description provided for @duasTabSay.
+  ///
+  /// In en, this message translates to:
+  /// **'Duas to say'**
+  String get duasTabSay;
+
+  /// No description provided for @duasTabHadith.
+  ///
+  /// In en, this message translates to:
+  /// **'Hadith'**
+  String get duasTabHadith;
+
+  /// No description provided for @duasRightNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Right now'**
+  String get duasRightNow;
+
+  /// No description provided for @duasByTask.
+  ///
+  /// In en, this message translates to:
+  /// **'By what you are doing'**
+  String get duasByTask;
+
+  /// No description provided for @duasCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 dua} other{{count} duas}}'**
+  String duasCount(int count);
+
+  /// No description provided for @duasTaskIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'The words to say, in order. Open one for its meaning and reference.'**
+  String get duasTaskIntro;
+
+  /// No description provided for @duasGoThrough.
+  ///
+  /// In en, this message translates to:
+  /// **'Go through them one by one'**
+  String get duasGoThrough;
+
+  /// No description provided for @duaSayTimes.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Say once} other{Say {count} times}}'**
+  String duaSayTimes(int count);
+
+  /// No description provided for @duaHowToSay.
+  ///
+  /// In en, this message translates to:
+  /// **'How to say it'**
+  String get duaHowToSay;
+
+  /// No description provided for @duaMeaning.
+  ///
+  /// In en, this message translates to:
+  /// **'Meaning'**
+  String get duaMeaning;
+
+  /// No description provided for @duaReference.
+  ///
+  /// In en, this message translates to:
+  /// **'Reference'**
+  String get duaReference;
+
+  /// No description provided for @duaSeeHadith.
+  ///
+  /// In en, this message translates to:
+  /// **'See the full hadith'**
+  String get duaSeeHadith;
+
+  /// No description provided for @duaNoMeaning.
+  ///
+  /// In en, this message translates to:
+  /// **'HadeethEnc hasn\'t published these words on their own in {language} yet. The full hadith shows what it has.'**
+  String duaNoMeaning(String language);
+
+  /// No description provided for @duaPosition.
+  ///
+  /// In en, this message translates to:
+  /// **'{index} of {total}'**
+  String duaPosition(int index, int total);
+
+  /// No description provided for @duaNext.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get duaNext;
+
+  /// No description provided for @duaPrevious.
+  ///
+  /// In en, this message translates to:
+  /// **'Previous'**
+  String get duaPrevious;
+
+  /// No description provided for @duaDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get duaDone;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

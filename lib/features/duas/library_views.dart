@@ -213,7 +213,7 @@ Future<void> showHadithSheet(BuildContext context, HeHadith h) {
                 SelectableText(tr.text, style: meaning),
               ] else if (lang != 'ar') ...[
                 const SizedBox(height: WaqtSpace.x4),
-                _Note(l.heNotTranslated(_selfName[lang] ?? lang)),
+                _Note(l.heNotTranslated(languageSelfName[lang] ?? lang)),
               ],
               if (meta?.explanation case final x? when x.isNotEmpty) ...[
                 const SizedBox(height: WaqtSpace.x6),
@@ -255,7 +255,7 @@ Future<void> showHadithSheet(BuildContext context, HeHadith h) {
 }
 
 /// Each language's name for itself, for "not yet in বাংলা".
-const _selfName = {
+const languageSelfName = {
   'en': 'English',
   'ur': 'اردو',
   'bn': 'বাংলা',

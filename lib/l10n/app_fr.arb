@@ -368,5 +368,22 @@
   "beadLate": "rattrapée",
   "comingUpTitle": "À venir",
   "comingIn": "dans {time}",
-  "beadTapToMark": "cocher"
+  "beadTapToMark": "cocher",
+  "duasTabSay": "Invocations à dire",
+  "duasTabHadith": "Hadiths",
+  "duasRightNow": "En ce moment",
+  "duasByTask": "Selon ce que vous faites",
+  "duasCount": "{count, plural, =1{1 invocation} other{{count} invocations}}",
+  "duasTaskIntro": "Les paroles à dire, dans l'ordre. Ouvrez-en une pour son sens et sa source.",
+  "duasGoThrough": "Les lire une à une",
+  "duaSayTimes": "{count, plural, =1{À dire une fois} other{À dire {count} fois}}",
+  "duaHowToSay": "Prononciation",
+  "duaMeaning": "Sens",
+  "duaReference": "Source",
+  "duaSeeHadith": "Voir le hadith en entier",
+  "duaNoMeaning": "HadeethEnc n'a pas encore publié le sens de ces paroles seules en {language}. Le hadith complet montre ce qui existe.",
+  "duaPosition": "{index} sur {total}",
+  "duaNext": "Suivante",
+  "duaPrevious": "Précédente",
+  "duaDone": "Terminé"
 }

@@ -368,5 +368,22 @@
   "beadLate": "qada",
   "comingUpTitle": "Berikutnya",
   "comingIn": "{time} lagi",
-  "beadTapToMark": "tandai"
+  "beadTapToMark": "tandai",
+  "duasTabSay": "Doa untuk dibaca",
+  "duasTabHadith": "Hadis",
+  "duasRightNow": "Saat ini",
+  "duasByTask": "Sesuai yang sedang Anda lakukan",
+  "duasCount": "{count, plural, other{{count} doa}}",
+  "duasTaskIntro": "Kalimat yang diucapkan, berurutan. Buka salah satunya untuk melihat arti dan sumbernya.",
+  "duasGoThrough": "Baca satu per satu",
+  "duaSayTimes": "{count, plural, =1{Ucapkan sekali} other{Ucapkan {count} kali}}",
+  "duaHowToSay": "Cara membaca",
+  "duaMeaning": "Arti",
+  "duaReference": "Sumber",
+  "duaSeeHadith": "Lihat hadis lengkap",
+  "duaNoMeaning": "HadeethEnc belum menerbitkan arti kalimat ini secara terpisah dalam {language}. Lihat hadis lengkap untuk yang tersedia.",
+  "duaPosition": "{index} dari {total}",
+  "duaNext": "Berikutnya",
+  "duaPrevious": "Sebelumnya",
+  "duaDone": "Selesai"
 }

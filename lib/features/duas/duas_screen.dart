@@ -15,13 +15,15 @@ import '../../domain/moments/moment.dart';
 import '../../domain/occasions/occasions.dart';
 import '../../l10n/app_localizations.dart';
 import '../common/labels.dart';
+import 'dua_views.dart';
 import 'library_views.dart';
 
 /// HadeethEnc's topic of duas and remembrance ("فقه الأدعية والأذكار").
 const duasTopic = 268;
 
-/// The library: what fits right now, today's Sunnah, then HadeethEnc's
-/// topics and a search, all in the reader's language.
+/// Two halves. "Duas to say": the words for what you are doing, by task.
+/// "Hadith": what fits right now, today's Sunnah, then HadeethEnc's topics
+/// and a search, all in the reader's language.
 class DuasScreen extends ConsumerStatefulWidget {
   const DuasScreen({super.key});
 
@@ -32,6 +34,7 @@ class DuasScreen extends ConsumerStatefulWidget {
 class _DuasScreenState extends ConsumerState<DuasScreen> {
   final _search = TextEditingController();
   String _q = '';
+  var _tab = 0;
   Timer? _debounce;
   Future<List<HeHadith>>? _results;
 
@@ -86,66 +89,80 @@ class _DuasScreenState extends ConsumerState<DuasScreen> {
             ),
           ),
           _pad(
-            TextField(
-              controller: _search,
-              onChanged: _onQuery,
-              textInputAction: TextInputAction.search,
-              style: WaqtText.body.copyWith(color: t.ink),
-              cursorColor: t.ink,
-              decoration: InputDecoration(
-                hintText: l.librarySearchAll,
-                hintStyle: WaqtText.body.copyWith(color: t.inkMuted),
-                filled: true,
-                fillColor: t.surface,
-                contentPadding: const EdgeInsets.symmetric(horizontal: WaqtSpace.x4, vertical: WaqtSpace.x3),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(WaqtRadii.row),
-                  borderSide: BorderSide.none,
-                ),
-                prefixIcon: Icon(Icons.search_rounded, size: 20, color: t.inkMuted),
-                suffixIcon: q.isEmpty
-                    ? null
-                    : IconButton(
-                        tooltip: MaterialLocalizations.of(context).deleteButtonTooltip,
-                        onPressed: () {
-                          _search.clear();
-                          _onQuery('');
-                        },
-                        icon: Icon(Icons.close_rounded, size: 20, color: t.inkMuted),
-                      ),
-              ),
+            _Segments(
+              labels: [l.duasTabSay, l.duasTabHadith],
+              selected: _tab,
+              onSelect: (i) => setState(() => _tab = i),
             ),
           ),
-          if (q.isNotEmpty)
-            ..._searchResults(context, q, ready)
+          if (_tab == 0)
+            ...sayDuasSlivers(context, ref)
           else ...[
-            ..._forNow(context),
-            if (!ready)
-              _pad(
-                const Padding(
-                  padding: EdgeInsets.only(top: WaqtSpace.x6),
-                  child: HadithDownloadCard(),
-                ),
-              )
-            else if (lib != null) ...[
-              _pad(SectionLabel(lib.topic(duasTopic)?.title ?? l.scopeDuas)),
-              _pad(
-                RowGroup(
-                  children: [
-                    for (final s in lib.children(duasTopic))
-                      RowTile(title: s.title, onTap: () => context.push('/duas/topic/${s.id}')),
-                  ],
+            _pad(
+              Padding(
+                padding: const EdgeInsets.only(top: WaqtSpace.x4),
+                child: TextField(
+                  controller: _search,
+                  onChanged: _onQuery,
+                  textInputAction: TextInputAction.search,
+                  style: WaqtText.body.copyWith(color: t.ink),
+                  cursorColor: t.ink,
+                  decoration: InputDecoration(
+                    hintText: l.librarySearchAll,
+                    hintStyle: WaqtText.body.copyWith(color: t.inkMuted),
+                    filled: true,
+                    fillColor: t.surface,
+                    contentPadding: const EdgeInsets.symmetric(horizontal: WaqtSpace.x4, vertical: WaqtSpace.x3),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(WaqtRadii.row),
+                      borderSide: BorderSide.none,
+                    ),
+                    prefixIcon: Icon(Icons.search_rounded, size: 20, color: t.inkMuted),
+                    suffixIcon: q.isEmpty
+                        ? null
+                        : IconButton(
+                            tooltip: MaterialLocalizations.of(context).deleteButtonTooltip,
+                            onPressed: () {
+                              _search.clear();
+                              _onQuery('');
+                            },
+                            icon: Icon(Icons.close_rounded, size: 20, color: t.inkMuted),
+                          ),
+                  ),
                 ),
               ),
-              _pad(SectionLabel(l.libraryAllTopics)),
-              _pad(
-                RowGroup(
-                  children: [
-                    for (final s in lib.children(0))
-                      RowTile(title: s.title, onTap: () => context.push('/duas/topic/${s.id}')),
-                  ],
+            ),
+            if (q.isNotEmpty)
+              ..._searchResults(context, q, ready)
+            else ...[
+              ..._forNow(context),
+              if (!ready)
+                _pad(
+                  const Padding(
+                    padding: EdgeInsets.only(top: WaqtSpace.x6),
+                    child: HadithDownloadCard(),
+                  ),
+                )
+              else if (lib != null) ...[
+                _pad(SectionLabel(lib.topic(duasTopic)?.title ?? l.scopeDuas)),
+                _pad(
+                  RowGroup(
+                    children: [
+                      for (final s in lib.children(duasTopic))
+                        RowTile(title: s.title, onTap: () => context.push('/duas/topic/${s.id}')),
+                    ],
+                  ),
                 ),
-              ),
+                _pad(SectionLabel(l.libraryAllTopics)),
+                _pad(
+                  RowGroup(
+                    children: [
+                      for (final s in lib.children(0))
+                        RowTile(title: s.title, onTap: () => context.push('/duas/topic/${s.id}')),
+                    ],
+                  ),
+                ),
+              ],
             ],
           ],
           SliverToBoxAdapter(child: SizedBox(height: WaqtSpace.x12 + MediaQuery.paddingOf(context).bottom)),
@@ -267,6 +284,54 @@ class _Sourced extends StatelessWidget {
       ),
     ],
   );
+}
+
+/// Two-way switch: a pill track, the chosen side filled with ink.
+class _Segments extends StatelessWidget {
+  const _Segments({required this.labels, required this.selected, required this.onSelect});
+  final List<String> labels;
+  final int selected;
+  final ValueChanged<int> onSelect;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = WaqtTokens.of(context);
+    return Container(
+      height: WaqtSpace.minTouch,
+      padding: const EdgeInsets.all(WaqtSpace.x1),
+      decoration: BoxDecoration(color: t.surface, borderRadius: BorderRadius.circular(WaqtSpace.minTouch / 2)),
+      child: Row(
+        children: [
+          for (final (i, label) in labels.indexed)
+            Expanded(
+              child: Semantics(
+                selected: i == selected,
+                button: true,
+                child: Material(
+                  color: i == selected ? t.ink : Colors.transparent,
+                  shape: const StadiumBorder(),
+                  child: InkWell(
+                    customBorder: const StadiumBorder(),
+                    onTap: () => onSelect(i),
+                    child: Center(
+                      child: Text(
+                        label,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: WaqtText.label.copyWith(
+                          color: i == selected ? t.ground : t.ink,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+        ],
+      ),
+    );
+  }
 }
 
 class _Note extends StatelessWidget {

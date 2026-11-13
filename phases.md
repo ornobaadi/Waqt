@@ -105,6 +105,19 @@ Margins awaiting scholar review: see `docs/moment-rules.md`.
 - [x] Both permissions explained first and skippable ("Choose a city instead", "Maybe later"). Older installs with a place skip onboarding.
 - [ ] On-device check of GPS and notification prompts from onboarding.
 
+## Phase 14 — Duas by task
+- [x] Duas tab split into "Duas to say" (by task) and "Hadith" (the HadeethEnc library as before).
+- [x] 30 duas in 8 tasks (Hisn al-Muslim's list and order), each tied to a HadeethEnc hadith. `tool/duas_data.py` holds only start/end markers; `tool/build_content.py` cuts the Arabic and each language's meaning out of HadeethEnc unchanged → `assets/sources/duas.json`. Where HadeethEnc's translation has no stand-alone meaning, the Arabic shows with a note.
+- [x] Task list, one dua per page (when, times, Arabic, transliteration, meaning, reference, full hadith on request), "Right now" card for morning/evening, bedtime, after salah, iftar.
+- [ ] Review: transliterations (ours) and the choice of excerpts, by a qualified reviewer.
+- [ ] Meanings still missing: ur/bn/id/tr/fr for some items (HadeethEnc quotes only the Arabic there); 65913, 65997, 65919 are Arabic-only on HadeethEnc.
+
+## Phase 15 — Quran reader (planned)
+Tanzil Uthmani text bundled verbatim; QuranEnc translations per language on demand; Amiri Quran font; fifth dock tab.
+
+## Phase 16 — Recitation (planned)
+EveryAyah per-ayah audio, streamed or downloaded per surah; just_audio + audio_service. Written permission from EveryAyah before release.
+
 ## Later
 iOS · OTA signed content updates · more languages · cloud backup.
 

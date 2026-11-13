@@ -7,6 +7,7 @@ import '../core/theme/waqt_theme.dart';
 import 'dock.dart';
 import '../features/calendar/calendar_screen.dart';
 import '../features/counter/counter_screen.dart';
+import '../features/duas/dua_views.dart';
 import '../features/duas/duas_screen.dart';
 import '../features/duas/library_views.dart';
 import '../features/now/now_screen.dart';
@@ -39,6 +40,12 @@ final routerProvider = Provider<GoRouter>((ref) {
         builder: (_, s) => CalendarScreen(focus: DateTime.tryParse(s.uri.queryParameters['day'] ?? '')),
       ),
       GoRoute(path: '/qibla', builder: (_, _) => const QiblaScreen()),
+      // Above the dock: the pager has its own Previous / Next bar.
+      GoRoute(
+        path: '/dua/:task/:index',
+        builder: (_, s) =>
+            DuaPagerScreen(task: s.pathParameters['task']!, index: int.tryParse(s.pathParameters['index']!) ?? 0),
+      ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, shell) => _Shell(shell: shell),
         branches: [
@@ -60,6 +67,10 @@ final routerProvider = Provider<GoRouter>((ref) {
                 path: '/duas',
                 builder: (_, _) => const DuasScreen(),
                 routes: [
+                  GoRoute(
+                    path: 'task/:id',
+                    builder: (_, s) => DuaTaskScreen(id: s.pathParameters['id']!),
+                  ),
                   GoRoute(
                     path: 'topic/:id',
                     builder: (_, s) => TopicScreen(id: int.parse(s.pathParameters['id']!)),

@@ -31,6 +31,7 @@ import re
 import sqlite3
 import sys
 import tempfile
+import unicodedata
 import urllib.request
 import zipfile
 
@@ -193,6 +194,58 @@ def norm(s):
     return " ".join(s.split())
 
 
+ARABIC_LETTER = re.compile("[ء-ي]")
+INVISIBLE = "‎‏­﻿"
+
+
+def _folded(s, arabic):
+    """s folded for matching, with each folded char's index in s."""
+    out, idx = [], []
+
+    def put(c, i):
+        if c == " " and (not out or out[-1] == " "):
+            return
+        out.append(c)
+        idx.append(i)
+
+    for i, c in enumerate(s):
+        if c in INVISIBLE:
+            continue
+        if arabic:
+            if MARKS.match(c):
+                continue
+            c = {"أ": "ا", "إ": "ا", "آ": "ا", "ٱ": "ا", "ى": "ي", "ؤ": "و", "ئ": "ي", "ة": "ه"}.get(c, c)
+            put(c if ARABIC_LETTER.match(c) else " ", i)
+        else:
+            c = {"’": "'", "‘": "'", "ʼ": "'", "“": '"', "”": '"', "«": '"', "»": '"'}.get(c, c)
+            for d in unicodedata.normalize("NFD", c):
+                put(" " if d.isspace() else d, i)
+    return "".join(out), idx
+
+
+def excerpt(text, marker, arabic, where):
+    """The words of `text` from a start marker to an end marker, unchanged.
+
+    A string marker is the whole excerpt. Arabic is matched without
+    diacritics; the excerpt keeps them.
+    """
+    start, end = (marker, marker) if isinstance(marker, str) else marker
+    folded, idx = _folded(text, arabic)
+    s = _folded(start, arabic)[0].strip()
+    e = _folded(end, arabic)[0].strip()
+    a = folded.find(s)
+    if a < 0:
+        raise SystemExit(f"{where}: start not found: {start}")
+    b = folded.find(e, a)
+    if b < 0:
+        raise SystemExit(f"{where}: end not found: {end}")
+    lo, hi = idx[a], idx[b + len(e) - 1] + 1
+    while arabic and hi < len(text) and MARKS.match(text[hi]):
+        hi += 1
+    out = "".join(c for c in text[lo:hi] if c not in INVISIBLE)
+    return " ".join(out.split())
+
+
 def language(lang):
     os.makedirs(CACHE, exist_ok=True)
     path = os.path.join(CACHE, f"{lang}.sqlite")
@@ -270,6 +323,41 @@ def main():
             f"const afterSalahHe = {AFTER_SALAH};\n"
             f"const afterSalahVirtue = {{{', '.join(f'{dart(k)}: {dart(x)}' for k, x in v.items())}}};\n"
         )
+
+    # Duas by task: the words are cut out of the HadeethEnc text, never typed.
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import duas_data as D
+    if set(D.LANGS) != set(LANGS):
+        raise SystemExit("duas_data.LANGS differs from LANGS")
+    tasks = [{"id": k, "icon": v[0], "title": dict(zip(D.LANGS, v[1:]))} for k, v in D.TASKS.items()]
+    items, seen = [], set()
+    for when, task, i, times, arabic, latin, meaning in D.DUAS:
+        where = f"dua {when}"
+        if task not in D.TASKS:
+            raise SystemExit(f"{where}: unknown task {task}")
+        if when in seen:
+            raise SystemExit(f"{where}: used twice")
+        seen.add(when)
+        check(i, where)
+        row = {
+            "id": when,
+            "task": task,
+            "he": i,
+            "times": times,
+            "when": labels(when, D.WHEN),
+            "arabic": excerpt(ar[i]["hadeeth"], arabic, True, f"{where} ar"),
+            "latin": latin,
+            "meaning": {},
+        }
+        for lang, marker in meaning.items():
+            r = he[lang].get(i)
+            if r is None or not r["hadeeth"]:
+                raise SystemExit(f"{where}: HadeethEnc {i} has no {lang} text")
+            row["meaning"][lang] = excerpt(r["hadeeth"], marker, False, f"{where} {lang}")
+        items.append(row)
+    with open(os.path.join(ROOT, "assets", "sources", "duas.json"), "w", encoding="utf8") as f:
+        json.dump({"source": "HadeethEnc.com", "list": "Hisn al-Muslim", "tasks": tasks, "items": items}, f,
+                  ensure_ascii=False, separators=(",", ":"))
 
     # Every hadith Waqt points to, in every language HadeethEnc has it in.
     out = {}

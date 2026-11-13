@@ -1538,4 +1538,70 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get beadTapToMark => 'işaretle';
+
+  @override
+  String get duasTabSay => 'Okunacak dualar';
+
+  @override
+  String get duasTabHadith => 'Hadisler';
+
+  @override
+  String get duasRightNow => 'Şu an';
+
+  @override
+  String get duasByTask => 'Yaptığınız işe göre';
+
+  @override
+  String duasCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$count dua');
+    return '$_temp0';
+  }
+
+  @override
+  String get duasTaskIntro => 'Söylenecek sözler, sırasıyla. Anlamı ve kaynağı için birine dokunun.';
+
+  @override
+  String get duasGoThrough => 'Tek tek okuyun';
+
+  @override
+  String duaSayTimes(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count kez söyleyin',
+      one: 'Bir kez söyleyin',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get duaHowToSay => 'Okunuşu';
+
+  @override
+  String get duaMeaning => 'Anlamı';
+
+  @override
+  String get duaReference => 'Kaynak';
+
+  @override
+  String get duaSeeHadith => 'Hadisin tamamını gör';
+
+  @override
+  String duaNoMeaning(String language) {
+    return 'HadeethEnc bu sözlerin $language anlamını henüz ayrıca yayımlamadı. Mevcut olanlar için hadisin tamamına bakın.';
+  }
+
+  @override
+  String duaPosition(int index, int total) {
+    return '$total içinden $index';
+  }
+
+  @override
+  String get duaNext => 'Sonraki';
+
+  @override
+  String get duaPrevious => 'Önceki';
+
+  @override
+  String get duaDone => 'Bitti';
 }

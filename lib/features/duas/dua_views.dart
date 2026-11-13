@@ -1,0 +1,459 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../app/app_state.dart';
+import '../../core/theme/tokens.dart';
+import '../../core/theme/waqt_theme.dart';
+import '../../core/widgets/waqt_widgets.dart';
+import '../../data/sources/duas.dart';
+import '../../data/user/reading_prefs.dart';
+import '../../l10n/app_localizations.dart';
+import '../common/labels.dart';
+import 'library_views.dart';
+
+IconData duaTaskIcon(String key) => switch (key) {
+  'sun' => Icons.wb_sunny_outlined,
+  'moon' => Icons.bedtime_outlined,
+  'drop' => Icons.water_drop_outlined,
+  'mosque' => Icons.mosque_outlined,
+  'home' => Icons.door_front_door_outlined,
+  'food' => Icons.restaurant_outlined,
+  'travel' => Icons.luggage_outlined,
+  'heart' => Icons.healing_outlined,
+  _ => Icons.menu_book_outlined,
+};
+
+/// "Duas to say": the task that fits this moment, then every task.
+List<Widget> sayDuasSlivers(BuildContext context, WidgetRef ref) {
+  final l = AppLocalizations.of(context);
+  final lang = Localizations.localeOf(context).languageCode;
+  final book = ref.watch(duaBookProvider).value;
+  if (book == null) return const [];
+  // A string, not the list: the snapshot changes every second.
+  final key = ref.watch(
+    momentSnapshotProvider.select((s) {
+      for (final m in (s?.active ?? const []).reversed) {
+        final task = DuaBook.taskFor(m.id);
+        if (task != null) return '$task|${l.moment(m)}';
+      }
+      return '';
+    }),
+  );
+  final now = key.isEmpty ? null : key.split('|');
+  final nowTask = now == null ? null : book.task(now[0]);
+  return [
+    if (nowTask != null)
+      _pad(
+        Padding(
+          padding: const EdgeInsets.only(top: WaqtSpace.x2),
+          child: _NowCard(task: nowTask, moment: now![1], count: book.forTask(nowTask.id).length),
+        ),
+      ),
+    _pad(SectionLabel(l.duasByTask)),
+    _pad(
+      RowGroup(
+        children: [
+          for (final t in book.tasks)
+            _TaskRow(
+              icon: duaTaskIcon(t.icon),
+              title: t.title(lang),
+              count: l.duasCount(book.forTask(t.id).length),
+              onTap: () => context.push('/duas/task/${t.id}'),
+            ),
+        ],
+      ),
+    ),
+  ];
+}
+
+Widget _pad(Widget child) => SliverPadding(
+  padding: const EdgeInsets.symmetric(horizontal: WaqtSpace.screen),
+  sliver: SliverToBoxAdapter(child: child),
+);
+
+class _NowCard extends StatelessWidget {
+  const _NowCard({required this.task, required this.moment, required this.count});
+  final DuaTask task;
+  final String moment;
+  final int count;
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+    final t = WaqtTokens.of(context);
+    final lang = Localizations.localeOf(context).languageCode;
+    return Material(
+      color: t.heroSurface,
+      borderRadius: BorderRadius.circular(WaqtRadii.card),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(WaqtRadii.card),
+        onTap: () => context.push('/duas/task/${task.id}'),
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(WaqtSpace.x5, WaqtSpace.x4, WaqtSpace.x4, WaqtSpace.x4),
+          child: Row(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '${l.duasRightNow} · $moment'.toUpperCase(),
+                      style: WaqtText.overline.copyWith(color: t.heroInk.withValues(alpha: 0.75)),
+                    ),
+                    const SizedBox(height: WaqtSpace.x1),
+                    Text(task.title(lang), style: WaqtText.titleSmall.copyWith(color: t.heroInk)),
+                    const SizedBox(height: 2),
+                    Text(l.duasCount(count), style: WaqtText.label.copyWith(color: t.heroInk.withValues(alpha: 0.75))),
+                  ],
+                ),
+              ),
+              Icon(
+                Icons.chevron_right_rounded,
+                color: t.heroInk.withValues(alpha: 0.75),
+                textDirection: Directionality.of(context),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _TaskRow extends StatelessWidget {
+  const _TaskRow({required this.icon, required this.title, required this.count, required this.onTap});
+  final IconData icon;
+  final String title;
+  final String count;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = WaqtTokens.of(context);
+    return Material(
+      type: MaterialType.transparency,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(WaqtRadii.row),
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(minHeight: 56),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: WaqtSpace.x3, vertical: WaqtSpace.x3),
+            child: Row(
+              children: [
+                Icon(icon, size: 22, color: t.ink),
+                const SizedBox(width: WaqtSpace.x3),
+                Expanded(
+                  child: Text(title, style: WaqtText.bodyStrong.copyWith(color: t.ink)),
+                ),
+                Text(count, style: WaqtText.label.copyWith(color: t.inkMuted)),
+                const SizedBox(width: WaqtSpace.x2),
+                Icon(
+                  Icons.chevron_right_rounded,
+                  size: 20,
+                  color: t.inkMuted,
+                  textDirection: Directionality.of(context),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// One task: its duas in order, each as its first Arabic line.
+class DuaTaskScreen extends ConsumerWidget {
+  const DuaTaskScreen({super.key, required this.id});
+  final String id;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l = AppLocalizations.of(context);
+    final t = WaqtTokens.of(context);
+    final lang = Localizations.localeOf(context).languageCode;
+    final book = ref.watch(duaBookProvider).value;
+    final task = book?.task(id);
+    final duas = book?.forTask(id) ?? const <Dua>[];
+    return Scaffold(
+      backgroundColor: t.ground,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        surfaceTintColor: Colors.transparent,
+        foregroundColor: t.ink,
+        title: Text(task?.title(lang) ?? '', style: WaqtText.bodyStrong.copyWith(color: t.ink)),
+      ),
+      body: book == null
+          ? const Center(child: CircularProgressIndicator())
+          : ListView(
+              padding: EdgeInsets.fromLTRB(
+                WaqtSpace.screen,
+                0,
+                WaqtSpace.screen,
+                // Clear of the floating dock.
+                WaqtSpace.x12 + WaqtSpace.x12 + MediaQuery.paddingOf(context).bottom,
+              ),
+              children: [
+                Text(l.duasTaskIntro, style: WaqtText.body.copyWith(color: t.inkMuted)),
+                const SizedBox(height: WaqtSpace.x4),
+                RowGroup(
+                  children: [
+                    for (final (i, d) in duas.indexed) _DuaRow(dua: d, onTap: () => context.push('/dua/$id/$i')),
+                  ],
+                ),
+                if (duas.length > 1) ...[
+                  const SizedBox(height: WaqtSpace.x5),
+                  FilledButton(
+                    onPressed: () => context.push('/dua/$id/0'),
+                    style: FilledButton.styleFrom(
+                      backgroundColor: t.ink,
+                      foregroundColor: t.ground,
+                      minimumSize: const Size.fromHeight(WaqtSpace.minTouch),
+                      shape: const StadiumBorder(),
+                    ),
+                    child: Text(l.duasGoThrough),
+                  ),
+                ],
+              ],
+            ),
+    );
+  }
+}
+
+class _DuaRow extends StatelessWidget {
+  const _DuaRow({required this.dua, required this.onTap});
+  final Dua dua;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = WaqtTokens.of(context);
+    final lang = Localizations.localeOf(context).languageCode;
+    return Material(
+      type: MaterialType.transparency,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(WaqtRadii.row),
+        child: Padding(
+          padding: const EdgeInsets.all(WaqtSpace.x3),
+          child: Row(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text(dua.whenIn(lang), style: WaqtText.bodyStrong.copyWith(color: t.ink)),
+                    const SizedBox(height: WaqtSpace.x1),
+                    Text(
+                      dua.arabic,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      textDirection: TextDirection.rtl,
+                      style: WaqtText.arabic.copyWith(color: t.inkMuted, fontSize: 19, height: 1.6),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: WaqtSpace.x2),
+              Icon(Icons.chevron_right_rounded, size: 20, color: t.inkMuted, textDirection: Directionality.of(context)),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// A task's duas one per page: the words, how to say them, what they mean,
+/// and the hadith they come from on request.
+class DuaPagerScreen extends ConsumerStatefulWidget {
+  const DuaPagerScreen({super.key, required this.task, required this.index});
+  final String task;
+  final int index;
+
+  @override
+  ConsumerState<DuaPagerScreen> createState() => _DuaPagerScreenState();
+}
+
+class _DuaPagerScreenState extends ConsumerState<DuaPagerScreen> {
+  late final _pages = PageController(initialPage: widget.index);
+  late int _page = widget.index;
+
+  @override
+  void dispose() {
+    _pages.dispose();
+    super.dispose();
+  }
+
+  void _go(int i) => _pages.animateToPage(i, duration: WaqtMotion.ui, curve: WaqtMotion.ease);
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+    final t = WaqtTokens.of(context);
+    final lang = Localizations.localeOf(context).languageCode;
+    final book = ref.watch(duaBookProvider).value;
+    final duas = book?.forTask(widget.task) ?? const <Dua>[];
+    final last = _page >= duas.length - 1;
+    return Scaffold(
+      backgroundColor: t.ground,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        surfaceTintColor: Colors.transparent,
+        foregroundColor: t.ink,
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(book?.task(widget.task)?.title(lang) ?? '', style: WaqtText.bodyStrong.copyWith(color: t.ink)),
+            if (duas.length > 1)
+              Text(
+                l.duaPosition(_page + 1, duas.length),
+                style: WaqtText.caption.copyWith(color: t.inkMuted, fontFeatures: const [FontFeature.tabularFigures()]),
+              ),
+          ],
+        ),
+      ),
+      body: duas.isEmpty
+          ? const Center(child: CircularProgressIndicator())
+          : PageView.builder(
+              controller: _pages,
+              itemCount: duas.length,
+              onPageChanged: (i) => setState(() => _page = i),
+              itemBuilder: (_, i) => DuaPage(dua: duas[i]),
+            ),
+      bottomNavigationBar: duas.isEmpty
+          ? null
+          : SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(WaqtSpace.screen, WaqtSpace.x2, WaqtSpace.screen, WaqtSpace.x3),
+                child: Row(
+                  children: [
+                    if (_page > 0) ...[
+                      Expanded(
+                        child: OutlinedButton(
+                          onPressed: () => _go(_page - 1),
+                          style: OutlinedButton.styleFrom(
+                            foregroundColor: t.ink,
+                            side: BorderSide(color: t.hairline),
+                            minimumSize: const Size.fromHeight(WaqtSpace.minTouch),
+                            shape: const StadiumBorder(),
+                          ),
+                          child: Text(l.duaPrevious),
+                        ),
+                      ),
+                      const SizedBox(width: WaqtSpace.x3),
+                    ],
+                    Expanded(
+                      child: FilledButton(
+                        onPressed: last ? () => Navigator.of(context).maybePop() : () => _go(_page + 1),
+                        style: FilledButton.styleFrom(
+                          backgroundColor: t.ink,
+                          foregroundColor: t.ground,
+                          minimumSize: const Size.fromHeight(WaqtSpace.minTouch),
+                          shape: const StadiumBorder(),
+                        ),
+                        child: Text(last ? l.duaDone : l.duaNext),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+    );
+  }
+}
+
+/// One dua: when to say it, the Arabic, how to say it, its meaning, and
+/// its reference with the full hadith a tap away.
+class DuaPage extends ConsumerWidget {
+  const DuaPage({super.key, required this.dua});
+  final Dua dua;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l = AppLocalizations.of(context);
+    final t = WaqtTokens.of(context);
+    final rp = ref.watch(readingPrefsProvider);
+    final lang = Localizations.localeOf(context).languageCode;
+    final meaning = dua.meaningIn(lang);
+    Widget label(String s) => Padding(
+      padding: const EdgeInsets.only(top: WaqtSpace.x6, bottom: WaqtSpace.x2),
+      child: Text(s.toUpperCase(), style: WaqtText.overline.copyWith(color: t.inkMuted)),
+    );
+    return ListView(
+      padding: const EdgeInsets.fromLTRB(WaqtSpace.screen, WaqtSpace.x2, WaqtSpace.screen, WaqtSpace.x8),
+      children: [
+        Semantics(
+          header: true,
+          child: Text(dua.whenIn(lang), style: WaqtText.titleSmall.copyWith(color: t.ink)),
+        ),
+        const SizedBox(height: WaqtSpace.x2),
+        Align(
+          alignment: AlignmentDirectional.centerStart,
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: WaqtSpace.x3, vertical: WaqtSpace.x1),
+            decoration: BoxDecoration(color: t.accent.withValues(alpha: 0.35), borderRadius: BorderRadius.circular(99)),
+            child: Text(
+              l.duaSayTimes(dua.times),
+              style: WaqtText.caption.copyWith(color: t.ink, fontWeight: FontWeight.w600),
+            ),
+          ),
+        ),
+        const SizedBox(height: WaqtSpace.x6),
+        SelectableText(
+          dua.arabic,
+          textAlign: TextAlign.center,
+          textDirection: TextDirection.rtl,
+          style: ReadingPrefs.scaled(WaqtText.arabic.copyWith(color: t.ink, fontSize: 28, height: 1.9), rp.arabic),
+        ),
+        label(l.duaHowToSay),
+        SelectableText(
+          dua.latin,
+          textDirection: TextDirection.ltr,
+          style: ReadingPrefs.scaled(
+            WaqtText.body.copyWith(color: t.ink, fontStyle: FontStyle.italic, height: 1.55),
+            rp.transliteration,
+          ),
+        ),
+        if (lang != 'ar') ...[
+          label(l.duaMeaning),
+          if (meaning != null)
+            SelectableText(
+              meaning,
+              style: ReadingPrefs.scaled(WaqtText.body.copyWith(color: t.ink, height: 1.6), rp.meaning),
+            )
+          else
+            Container(
+              padding: const EdgeInsets.all(WaqtSpace.x3),
+              decoration: BoxDecoration(color: t.surface, borderRadius: BorderRadius.circular(WaqtRadii.row)),
+              child: Text(
+                l.duaNoMeaning(languageSelfName[lang] ?? lang),
+                style: WaqtText.label.copyWith(color: t.inkMuted),
+              ),
+            ),
+        ],
+        label(l.duaReference),
+        HeSourceText(
+          id: dua.he,
+          style: WaqtText.label.copyWith(color: t.ink),
+        ),
+        const SizedBox(height: WaqtSpace.x2),
+        Align(
+          alignment: AlignmentDirectional.centerStart,
+          child: TextButton.icon(
+            onPressed: () => openHadith(context, ref, dua.he),
+            style: TextButton.styleFrom(
+              foregroundColor: t.ink,
+              minimumSize: const Size(0, WaqtSpace.minTouch),
+              padding: const EdgeInsets.symmetric(horizontal: WaqtSpace.x2),
+            ),
+            icon: const Icon(Icons.menu_book_outlined, size: 18),
+            label: Text(l.duaSeeHadith),
+          ),
+        ),
+      ],
+    );
+  }
+}

@@ -374,5 +374,22 @@
   "beadLate": "কাজা",
   "comingUpTitle": "আসছে",
   "comingIn": "{time} পর",
-  "beadTapToMark": "মার্ক"
+  "beadTapToMark": "মার্ক",
+  "duasTabSay": "পড়ার দোয়া",
+  "duasTabHadith": "হাদিস",
+  "duasRightNow": "এখন",
+  "duasByTask": "আপনি যা করছেন সে অনুযায়ী",
+  "duasCount": "{count, plural, other{{count}টি দোয়া}}",
+  "duasTaskIntro": "যা বলবেন, ক্রমানুসারে। অর্থ ও সূত্র দেখতে যেকোনোটি খুলুন।",
+  "duasGoThrough": "একটি একটি করে পড়ুন",
+  "duaSayTimes": "{count, plural, =1{একবার বলুন} other{{count} বার বলুন}}",
+  "duaHowToSay": "উচ্চারণ",
+  "duaMeaning": "অর্থ",
+  "duaReference": "সূত্র",
+  "duaSeeHadith": "পুরো হাদিস দেখুন",
+  "duaNoMeaning": "HadeethEnc এখনও এই বাক্যগুলোর আলাদা {language} অর্থ প্রকাশ করেনি। পুরো হাদিসে যা আছে দেখুন।",
+  "duaPosition": "{total}টির মধ্যে {index}",
+  "duaNext": "পরবর্তী",
+  "duaPrevious": "আগের",
+  "duaDone": "শেষ"
 }

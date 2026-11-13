@@ -1533,4 +1533,65 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get beadTapToMark => 'মার্ক';
+
+  @override
+  String get duasTabSay => 'পড়ার দোয়া';
+
+  @override
+  String get duasTabHadith => 'হাদিস';
+
+  @override
+  String get duasRightNow => 'এখন';
+
+  @override
+  String get duasByTask => 'আপনি যা করছেন সে অনুযায়ী';
+
+  @override
+  String duasCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$countটি দোয়া');
+    return '$_temp0';
+  }
+
+  @override
+  String get duasTaskIntro => 'যা বলবেন, ক্রমানুসারে। অর্থ ও সূত্র দেখতে যেকোনোটি খুলুন।';
+
+  @override
+  String get duasGoThrough => 'একটি একটি করে পড়ুন';
+
+  @override
+  String duaSayTimes(int count) {
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$count বার বলুন', one: 'একবার বলুন');
+    return '$_temp0';
+  }
+
+  @override
+  String get duaHowToSay => 'উচ্চারণ';
+
+  @override
+  String get duaMeaning => 'অর্থ';
+
+  @override
+  String get duaReference => 'সূত্র';
+
+  @override
+  String get duaSeeHadith => 'পুরো হাদিস দেখুন';
+
+  @override
+  String duaNoMeaning(String language) {
+    return 'HadeethEnc এখনও এই বাক্যগুলোর আলাদা $language অর্থ প্রকাশ করেনি। পুরো হাদিসে যা আছে দেখুন।';
+  }
+
+  @override
+  String duaPosition(int index, int total) {
+    return '$totalটির মধ্যে $index';
+  }
+
+  @override
+  String get duaNext => 'পরবর্তী';
+
+  @override
+  String get duaPrevious => 'আগের';
+
+  @override
+  String get duaDone => 'শেষ';
 }

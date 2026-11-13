@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:waqt/data/sources/days.dart';
+import 'package:waqt/data/sources/duas.dart';
 import 'package:waqt/data/sources/hadeethenc.dart';
 import 'package:waqt/data/sources/he_library.dart';
 import 'package:waqt/data/sources/search_text.dart';
@@ -77,6 +78,51 @@ void main() {
       for (final e in (raw['items'] as Map).values.cast<Map<String, Object?>>()) {
         expect('${(e['ar']! as Map)['grade']}', isNot(contains('ضعيف')));
       }
+    });
+  });
+
+  group('duas by task', () {
+    final bundle = HeBundle.parse(File('assets/sources/hadeethenc.json').readAsStringSync());
+    final book = DuaBook.parse(File('assets/sources/duas.json').readAsStringSync());
+    String flat(String s) => s.replaceAll(RegExp('[‎‏­﻿]'), '').split(RegExp(r'\s+')).join(' ');
+
+    test('every task has duas, every label is in every language', () {
+      expect(book.tasks, hasLength(8));
+      for (final t in book.tasks) {
+        expect(book.forTask(t.id), isNotEmpty, reason: t.id);
+        for (final l in langs) {
+          expect(t.titles[l], isNotEmpty, reason: '${t.id} $l');
+        }
+      }
+      for (final d in book.items) {
+        for (final l in langs) {
+          expect(d.when[l], isNotEmpty, reason: '${d.id} $l');
+        }
+        expect(d.latin, isNotEmpty, reason: d.id);
+      }
+    });
+
+    test("the words are HadeethEnc's, cut from the bundled hadith, unchanged", () {
+      for (final d in book.items) {
+        final h = bundle[d.he];
+        expect(h, isNotNull, reason: '${d.id}: hadith ${d.he} bundled');
+        expect(
+          SearchText.normalize(h!.arabic!.text),
+          contains(SearchText.normalize(d.arabic)),
+          reason: '${d.id}: Arabic is in the hadith',
+        );
+        expect(d.meaning.containsKey('ar'), isFalse, reason: d.id);
+        for (final MapEntry(key: l, value: m) in d.meaning.entries) {
+          expect(flat(h.translation(l)!.text), contains(m), reason: '${d.id} $l: meaning is in the translation');
+        }
+      }
+    });
+
+    test("no meaning in another language: the reader's, or none", () {
+      final waking = book.items.firstWhere((d) => d.id == 'waking');
+      expect(waking.meaningIn('en'), isNull);
+      expect(book.items.firstWhere((d) => d.id == 'farewell').meaningIn('bn'), contains('আল্লাহকে'));
+      expect(book.items.first.meaningIn('ar'), isNull);
     });
   });
 

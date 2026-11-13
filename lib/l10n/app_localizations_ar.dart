@@ -1528,4 +1528,79 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get beadTapToMark => 'سجّل';
+
+  @override
+  String get duasTabSay => 'أدعية تقولها';
+
+  @override
+  String get duasTabHadith => 'الأحاديث';
+
+  @override
+  String get duasRightNow => 'الآن';
+
+  @override
+  String get duasByTask => 'بحسب ما تفعل';
+
+  @override
+  String duasCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count دعاء',
+      few: '$count أدعية',
+      two: 'دعاءان',
+      one: 'دعاء واحد',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get duasTaskIntro => 'الكلمات التي تقال، بالترتيب. افتح أيًّا منها لترى معناه ومصدره.';
+
+  @override
+  String get duasGoThrough => 'اقرأها واحدًا تلو الآخر';
+
+  @override
+  String duaSayTimes(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'تقال $count مرة',
+      few: 'تقال $count مرات',
+      two: 'تقال مرتين',
+      one: 'تقال مرة واحدة',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get duaHowToSay => 'النطق بالحروف اللاتينية';
+
+  @override
+  String get duaMeaning => 'المعنى';
+
+  @override
+  String get duaReference => 'المصدر';
+
+  @override
+  String get duaSeeHadith => 'عرض الحديث كاملًا';
+
+  @override
+  String duaNoMeaning(String language) {
+    return 'لم تنشر HadeethEnc معنى هذه الكلمات وحدها بـ$language بعد. الحديث كاملًا يعرض ما لديها.';
+  }
+
+  @override
+  String duaPosition(int index, int total) {
+    return '$index من $total';
+  }
+
+  @override
+  String get duaNext => 'التالي';
+
+  @override
+  String get duaPrevious => 'السابق';
+
+  @override
+  String get duaDone => 'تم';
 }
