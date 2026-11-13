@@ -504,5 +504,6 @@
   "todayQuranStart": "ابدأ القراءة",
   "quranSearch": "ابحث عن سورة",
   "quranSearchHint": "الاسم أو الرقم، مثل يس أو ٣٦",
-  "quranSearchNone": "لا توجد سورة بهذا الاسم"
+  "quranSearchNone": "لا توجد سورة بهذا الاسم",
+  "onbGreeting": "السلام عليكم،"
 }

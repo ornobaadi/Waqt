@@ -1178,5 +1178,6 @@
   },
   "quranSearch": "Find a surah",
   "quranSearchHint": "Name or number, like Yasin or 36",
-  "quranSearchNone": "No surah by that name"
+  "quranSearchNone": "No surah by that name",
+  "onbGreeting": "Assalaamu Alaikum,"
 }

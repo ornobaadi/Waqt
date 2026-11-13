@@ -1903,4 +1903,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get quranSearchNone => 'Aucune sourate de ce nom';
+
+  @override
+  String get onbGreeting => 'Assalamou alaykoum,';
 }

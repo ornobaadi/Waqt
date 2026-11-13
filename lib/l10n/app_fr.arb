@@ -476,5 +476,6 @@
   "todayQuranStart": "Commencer la lecture",
   "quranSearch": "Trouver une sourate",
   "quranSearchHint": "Nom ou numéro, par exemple Yasin ou 36",
-  "quranSearchNone": "Aucune sourate de ce nom"
+  "quranSearchNone": "Aucune sourate de ce nom",
+  "onbGreeting": "Assalamou alaykoum,"
 }

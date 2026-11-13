@@ -1899,4 +1899,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get quranSearchNone => 'No surah by that name';
+
+  @override
+  String get onbGreeting => 'Assalaamu Alaikum,';
 }

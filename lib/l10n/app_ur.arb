@@ -490,5 +490,6 @@
   "todayQuranStart": "پڑھنا شروع کریں",
   "quranSearch": "سورت تلاش کریں",
   "quranSearchHint": "نام یا نمبر، جیسے یٰسین یا 36",
-  "quranSearchNone": "اس نام کی کوئی سورت نہیں"
+  "quranSearchNone": "اس نام کی کوئی سورت نہیں",
+  "onbGreeting": "السلام علیکم،"
 }

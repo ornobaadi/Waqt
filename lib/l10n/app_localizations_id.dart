@@ -1902,4 +1902,7 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get quranSearchNone => 'Tidak ada surah dengan nama itu';
+
+  @override
+  String get onbGreeting => 'Assalamu\'alaikum,';
 }

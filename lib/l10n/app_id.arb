@@ -476,5 +476,6 @@
   "todayQuranStart": "Mulai membaca",
   "quranSearch": "Cari surah",
   "quranSearchHint": "Nama atau nomor, misalnya Yasin atau 36",
-  "quranSearchNone": "Tidak ada surah dengan nama itu"
+  "quranSearchNone": "Tidak ada surah dengan nama itu",
+  "onbGreeting": "Assalamu'alaikum,"
 }

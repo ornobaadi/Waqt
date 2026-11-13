@@ -3332,6 +3332,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No surah by that name'**
   String get quranSearchNone;
+
+  /// No description provided for @onbGreeting.
+  ///
+  /// In en, this message translates to:
+  /// **'Assalaamu Alaikum,'**
+  String get onbGreeting;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

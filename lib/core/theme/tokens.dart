@@ -60,6 +60,9 @@ abstract final class WaqtFonts {
 
   /// DigitalKhatt IndoPak (OFL), for the IndoPak script.
   static const String indoPak = 'IndoPak';
+
+  /// Instrument Serif italic (OFL): the welcome greeting only.
+  static const String greeting = 'InstrumentSerif';
   static const String urdu = 'NotoNastaliqUrdu';
   static const String bengali = 'NotoSansBengali';
 

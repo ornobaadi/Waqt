@@ -208,6 +208,25 @@ class _Frame extends StatelessWidget {
 }
 
 TextStyle _headline(Color ink) => WaqtText.title.copyWith(fontSize: 32, height: 1.1, color: ink);
+
+/// Latin scripts in Instrument Serif italic; Arabic, Urdu and Bangla in their
+/// own fonts, upright, since the serif has no glyphs for them.
+TextStyle _greeting(String lang) {
+  const plum = Color(0xFF6A4E7E);
+  return switch (lang) {
+    'ar' => WaqtText.arabic.copyWith(fontSize: 26, height: 1.4, color: plum),
+    'ur' => const TextStyle(fontFamily: WaqtFonts.urdu, fontSize: 24, height: 1.7, color: plum),
+    'bn' => const TextStyle(fontFamily: WaqtFonts.bengali, fontSize: 24, height: 1.4, color: plum),
+    _ => const TextStyle(
+      fontFamily: WaqtFonts.greeting,
+      fontStyle: FontStyle.italic,
+      fontSize: 30,
+      height: 1.1,
+      color: plum,
+    ),
+  };
+}
+
 TextStyle _lede(Color ink) => WaqtText.body.copyWith(fontSize: 16, height: 1.45, color: ink);
 
 class _Button extends StatelessWidget {
@@ -313,7 +332,10 @@ class _WelcomePage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         const Expanded(child: Center(child: _Moon())),
-        Text(l.onbWelcomeTitle, style: _headline(look.ink).copyWith(fontSize: 36)),
+        // A warm, quiet greeting, like the first line of a letter (board 17).
+        Text(l.onbGreeting, style: _greeting(Localizations.localeOf(context).languageCode)),
+        const SizedBox(height: WaqtSpace.x2),
+        Text(l.onbWelcomeTitle, style: _headline(look.ink).copyWith(fontSize: 38, height: 1.08)),
         const SizedBox(height: WaqtSpace.x3),
         Text(l.onbWelcomeBody, style: _lede(look.muted)),
         const SizedBox(height: WaqtSpace.x8),

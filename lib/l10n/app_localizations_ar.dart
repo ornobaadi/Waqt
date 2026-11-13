@@ -1904,4 +1904,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get quranSearchNone => 'لا توجد سورة بهذا الاسم';
+
+  @override
+  String get onbGreeting => 'السلام عليكم،';
 }

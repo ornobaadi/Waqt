@@ -482,5 +482,6 @@
   "todayQuranStart": "Okumaya başla",
   "quranSearch": "Sure bul",
   "quranSearchHint": "Ad veya numara, örneğin Yasin ya da 36",
-  "quranSearchNone": "Bu adla bir sure yok"
+  "quranSearchNone": "Bu adla bir sure yok",
+  "onbGreeting": "Esselâmü aleyküm,"
 }

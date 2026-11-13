@@ -1888,4 +1888,7 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get quranSearchNone => 'এই নামে কোনো সূরা নেই';
+
+  @override
+  String get onbGreeting => 'আসসালামু আলাইকুম,';
 }

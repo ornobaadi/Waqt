@@ -1898,4 +1898,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get quranSearchNone => 'Bu adla bir sure yok';
+
+  @override
+  String get onbGreeting => 'Esselâmü aleyküm,';
 }

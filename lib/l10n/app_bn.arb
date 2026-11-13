@@ -482,5 +482,6 @@
   "todayQuranStart": "পড়া শুরু করুন",
   "quranSearch": "সূরা খুঁজুন",
   "quranSearchHint": "নাম বা নম্বর, যেমন ইয়াসিন বা ৩৬",
-  "quranSearchNone": "এই নামে কোনো সূরা নেই"
+  "quranSearchNone": "এই নামে কোনো সূরা নেই",
+  "onbGreeting": "আসসালামু আলাইকুম,"
 }
