@@ -145,7 +145,7 @@ Margins awaiting scholar review: see `docs/moment-rules.md`.
 - [x] Reading settings (board 09): small and large A on the size slider.
 - [x] Source lines: book and grade in the reader's language even where HadeethEnc has not translated the hadith yet (HadeethEnc's own wording for that book and grade); one line in lists.
 - [x] Right now rows do the thing: Ayat al-Kursi opens the reader at 2:255, the 33-each and Fatimah tasbih open the after-salah counter, salawat and SubhanAllah wa bihamdihi open their dhikr, a row that is a dua opens its words. The hadith moved behind an info button (`ACTIONS` in build_content.py, `doItem` in library_views.dart).
-- [x] Several moments at once: one line of chips that scrolls, instead of a boxed tab bar.
+- [x] Several moments at once: one tab bar, each tab on one line and sized to its name.
 - [x] Onboarding greets with "Assalaamu Alaikum," (Instrument Serif italic, OFL; Arabic/Urdu/Bangla in their own fonts).
 - [ ] Not built from the canvas yet: saved duas, share, transliteration toggle (no licensed source), repeat-ayah in the player, "Read al-Kahf" on Friday (no sourced hadith).
 
