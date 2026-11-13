@@ -1871,4 +1871,35 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get momentSayDuas => 'Baca doanya';
+
+  @override
+  String get textSmaller => 'Teks lebih kecil';
+
+  @override
+  String get textLarger => 'Teks lebih besar';
+
+  @override
+  String get todayDhikr => 'Zikir';
+
+  @override
+  String todayDhikrCount(String count) {
+    return '$count hari ini';
+  }
+
+  @override
+  String todayQuranAt(String surah, String ayah) {
+    return '$surah, ayat $ayah';
+  }
+
+  @override
+  String get todayQuranStart => 'Mulai membaca';
+
+  @override
+  String get quranSearch => 'Cari surah';
+
+  @override
+  String get quranSearchHint => 'Nama atau nomor, misalnya Yasin atau 36';
+
+  @override
+  String get quranSearchNone => 'Tidak ada surah dengan nama itu';
 }

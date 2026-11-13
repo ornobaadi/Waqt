@@ -11,7 +11,11 @@ import '../../core/theme/tokens.dart';
 import '../../core/theme/waqt_theme.dart';
 import '../../core/widgets/waqt_widgets.dart';
 import '../../domain/moments/moment.dart';
+import '../../core/clock/clock.dart';
+import '../../core/utils/digits.dart';
+import '../../data/quran/quran.dart';
 import '../../data/quran/quran_prefs.dart';
+import '../counter/counter_screen.dart' show counterProvider;
 import '../../l10n/app_localizations.dart';
 import '../quran/quran_screen.dart' show openReader;
 import '../common/labels.dart';
@@ -89,6 +93,9 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
                     final last = ref.read(quranProgressProvider).last;
                     last == null ? context.go('/quran') : openReader(context, last);
                   },
+                  quranPlace: _quranPlace(context),
+                  onDhikr: () => context.push('/counter'),
+                  dhikrToday: _dhikrToday(),
                 ),
               ],
             ),
@@ -108,6 +115,27 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
         ],
       ),
     );
+  }
+}
+
+extension on _TodayScreenState {
+  /// "Al-Kahf, ayah 45", in the Arabic name for an Arabic reader.
+  String? _quranPlace(BuildContext context) {
+    final last = ref.watch(quranProgressProvider).last;
+    final q = ref.watch(quranProvider).value;
+    if (last == null || q == null) return null;
+    final s = q.surah(last.surah);
+    final tag = Localizations.localeOf(context).toLanguageTag();
+    final name = Localizations.localeOf(context).languageCode == 'ar' ? s.arabic : s.name;
+    return AppLocalizations.of(context).todayQuranAt(name, LocaleDigits(tag)(last.ayah));
+  }
+
+  /// Everything counted on the misbaha today.
+  int _dhikrToday() {
+    final c = ref.watch(counterProvider);
+    final now = readNow(ref.watch(fakeClockProvider));
+    if (c.day != '${now.year}-${now.month}-${now.day}') return 0;
+    return c.today.values.fold(0, (a, b) => a + b);
   }
 }
 

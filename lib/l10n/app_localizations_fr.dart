@@ -1872,4 +1872,35 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get momentSayDuas => 'Dire les invocations';
+
+  @override
+  String get textSmaller => 'Texte plus petit';
+
+  @override
+  String get textLarger => 'Texte plus grand';
+
+  @override
+  String get todayDhikr => 'Dhikr';
+
+  @override
+  String todayDhikrCount(String count) {
+    return '$count aujourd\'hui';
+  }
+
+  @override
+  String todayQuranAt(String surah, String ayah) {
+    return '$surah, verset $ayah';
+  }
+
+  @override
+  String get todayQuranStart => 'Commencer la lecture';
+
+  @override
+  String get quranSearch => 'Trouver une sourate';
+
+  @override
+  String get quranSearchHint => 'Nom ou numéro, par exemple Yasin ou 36';
+
+  @override
+  String get quranSearchNone => 'Aucune sourate de ce nom';
 }

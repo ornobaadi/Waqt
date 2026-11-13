@@ -473,5 +473,14 @@
   "quranIndoPak": "ইন্দো-পাক",
   "quranIndoPakSource": "আরবি পাঠ: DigitalKhatt ইন্দো-পাক (১৩ লাইনের মুসহাফ), MIT; ফন্ট OFL। প্রতিটি আয়াত অপরিবর্তিত।",
   "occShaban": "শাবান",
-  "momentSayDuas": "দোয়াগুলো পড়ুন"
+  "momentSayDuas": "দোয়াগুলো পড়ুন",
+  "textSmaller": "লেখা ছোট করুন",
+  "textLarger": "লেখা বড় করুন",
+  "todayDhikr": "জিকির",
+  "todayDhikrCount": "আজ {count}",
+  "todayQuranAt": "{surah}, আয়াত {ayah}",
+  "todayQuranStart": "পড়া শুরু করুন",
+  "quranSearch": "সূরা খুঁজুন",
+  "quranSearchHint": "নাম বা নম্বর, যেমন ইয়াসিন বা ৩৬",
+  "quranSearchNone": "এই নামে কোনো সূরা নেই"
 }

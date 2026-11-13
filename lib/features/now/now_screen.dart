@@ -246,23 +246,22 @@ class NowScreen extends ConsumerWidget {
               // Everything happening now, newest on top: when Bedtime begins
               // at 9 pm, it sits above "After Isha", which runs until Fajr.
               if (moments != null)
-                for (final m in nowStack(moments.active, guides)) ...[
+                for (final group in _groups(nowStack(moments.active, guides))) ...[
                   const SizedBox(height: WaqtSpace.x4),
-                  if (checklistMoments.contains(m.id))
+                  if (checklistMoments.contains(group.first.id))
                     DayGuideCard(
                       // Bedtime and Friday: sourced practices, ticked per prayer day.
                       label: l.rightNow,
-                      title: m.id == MomentId.bedtime ? l.checklistTitleBedtime : l.checklistTitleJumuah,
-                      items: guides!.forMoment(m.id),
-                      day: '${m.id.name}-${prayerDayKey(moments.timeline.first.window.start)}',
+                      title: group.first.id == MomentId.bedtime ? l.checklistTitleBedtime : l.checklistTitleJumuah,
+                      items: guides!.forMoment(group.first.id),
+                      day: '${group.first.id.name}-${prayerDayKey(moments.timeline.first.window.start)}',
                     )
                   else
-                    RightNowCard(
-                      moment: m,
+                    RightNowTabs(
+                      moments: group,
                       now: now,
                       // Only sourced, checked items: nothing unreviewed on Home.
-                      items: const [],
-                      sourced: guides?.forMoment(m.id) ?? const [],
+                      sourced: (m) => guides?.forMoment(m.id) ?? const [],
                       onSourced: (i) => openItem(context, ref, i),
                     ),
                 ],
@@ -571,6 +570,20 @@ class _SetupCard extends StatelessWidget {
       ),
     );
   }
+}
+
+/// Checklist moments keep a card each; every other moment happening now
+/// shares one card with a tab each.
+List<List<Moment>> _groups(List<Moment> stack) {
+  final tabs = [
+    for (final m in stack)
+      if (!checklistMoments.contains(m.id)) m,
+  ];
+  var placed = false;
+  return [
+    for (final m in stack)
+      if (checklistMoments.contains(m.id)) [m] else if (!placed && (placed = true)) tabs,
+  ];
 }
 
 /// The moments to show now, newest first, one card each: only those with

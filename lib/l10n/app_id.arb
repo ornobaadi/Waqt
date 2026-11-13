@@ -467,5 +467,14 @@
   "quranIndoPak": "IndoPak",
   "quranIndoPakSource": "Teks Arab: DigitalKhatt IndoPak (mushaf IndoPak 13 baris), MIT; font OFL. Setiap ayat tanpa perubahan.",
   "occShaban": "Syakban",
-  "momentSayDuas": "Baca doanya"
+  "momentSayDuas": "Baca doanya",
+  "textSmaller": "Teks lebih kecil",
+  "textLarger": "Teks lebih besar",
+  "todayDhikr": "Zikir",
+  "todayDhikrCount": "{count} hari ini",
+  "todayQuranAt": "{surah}, ayat {ayah}",
+  "todayQuranStart": "Mulai membaca",
+  "quranSearch": "Cari surah",
+  "quranSearchHint": "Nama atau nomor, misalnya Yasin atau 36",
+  "quranSearchNone": "Tidak ada surah dengan nama itu"
 }

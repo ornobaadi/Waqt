@@ -70,9 +70,24 @@ class _RingPainter extends CustomPainter {
 
 /// Today's ring with its count, at the top of the Today tab.
 class DayRingCard extends ConsumerWidget {
-  const DayRingCard({super.key, required this.dayKey, this.onTap, this.onQuran});
+  const DayRingCard({
+    super.key,
+    required this.dayKey,
+    this.onTap,
+    this.onQuran,
+    this.quranPlace,
+    this.onDhikr,
+    this.dhikrToday = 0,
+  });
   final String dayKey;
   final VoidCallback? onTap;
+
+  /// "Al-Kahf, ayah 45": where the reader stopped, if anywhere.
+  final String? quranPlace;
+
+  /// Today's dhikr count; tapping opens the counter.
+  final VoidCallback? onDhikr;
+  final int dhikrToday;
 
   /// When set, a Quran row sits under the ring: ayat read today, tap to read on.
   final VoidCallback? onQuran;
@@ -94,28 +109,35 @@ class DayRingCard extends ConsumerWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           _ring(context, l, t, n, log, streak),
-          if (onQuran != null)
-            InkWell(
-              onTap: onQuran,
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border(top: BorderSide(color: t.hairline)),
-                ),
-                padding: const EdgeInsets.symmetric(horizontal: WaqtSpace.x4, vertical: WaqtSpace.x3),
+          if (onQuran != null || onDhikr != null)
+            // Board 02: where you are in the Quran, and today's dhikr, side by side.
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: WaqtSpace.x4),
+              decoration: BoxDecoration(
+                border: Border(top: BorderSide(color: t.hairline)),
+              ),
+              child: IntrinsicHeight(
                 child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    Icon(Icons.auto_stories_outlined, size: 20, color: ayat > 0 ? t.accent : t.inkMuted),
-                    const SizedBox(width: WaqtSpace.x3),
-                    Text(l.navQuran, style: WaqtText.bodyStrong.copyWith(color: t.ink)),
-                    const SizedBox(width: WaqtSpace.x2),
-                    Expanded(
-                      child: Text(
-                        ayat > 0 ? l.todayQuranRead(l.quranAyat(ayat)) : l.todayQuranNone,
-                        textAlign: TextAlign.end,
-                        style: WaqtText.label.copyWith(color: t.inkMuted),
+                    if (onQuran != null)
+                      Expanded(
+                        child: _Cell(
+                          label: ayat > 0 ? '${l.navQuran} · ${l.todayQuranRead(l.quranAyat(ayat))}' : l.navQuran,
+                          value: quranPlace ?? l.todayQuranStart,
+                          onTap: onQuran!,
+                        ),
                       ),
-                    ),
-                    Icon(Icons.chevron_right_rounded, color: t.inkMuted),
+                    if (onQuran != null && onDhikr != null) VerticalDivider(width: 1, color: t.hairline),
+                    if (onDhikr != null)
+                      Expanded(
+                        child: _Cell(
+                          label: l.todayDhikr,
+                          value: l.todayDhikrCount(n(dhikrToday)),
+                          onTap: onDhikr!,
+                          start: onQuran != null,
+                        ),
+                      ),
                   ],
                 ),
               ),
@@ -158,4 +180,40 @@ class DayRingCard extends ConsumerWidget {
           ),
         ),
       );
+}
+
+/// One half of the strip under the ring: a small label and a value.
+class _Cell extends StatelessWidget {
+  const _Cell({required this.label, required this.value, required this.onTap, this.start = false});
+  final String label;
+  final String value;
+  final VoidCallback onTap;
+
+  /// Padding on the start side, after the divider.
+  final bool start;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = WaqtTokens.of(context);
+    return InkWell(
+      onTap: onTap,
+      child: Padding(
+        padding: EdgeInsetsDirectional.fromSTEB(start ? WaqtSpace.x4 : 0, WaqtSpace.x3, WaqtSpace.x2, WaqtSpace.x3),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              label,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: WaqtText.caption.copyWith(color: t.inkMuted),
+            ),
+            const SizedBox(height: 2),
+            Text(value, style: WaqtText.bodyStrong.copyWith(color: t.ink)),
+          ],
+        ),
+      ),
+    );
+  }
 }

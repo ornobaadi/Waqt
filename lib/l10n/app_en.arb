@@ -1152,5 +1152,31 @@
   "quranIndoPak": "IndoPak",
   "quranIndoPakSource": "Arabic text: DigitalKhatt IndoPak (13-line IndoPak mushaf), MIT; font OFL. Each ayah unchanged.",
   "occShaban": "Sha'ban",
-  "momentSayDuas": "Say the duas"
+  "momentSayDuas": "Say the duas",
+  "textSmaller": "Smaller text",
+  "textLarger": "Larger text",
+  "todayDhikr": "Dhikr",
+  "todayDhikrCount": "{count} today",
+  "todayQuranAt": "{surah}, ayah {ayah}",
+  "todayQuranStart": "Start reading",
+  "@todayDhikrCount": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "@todayQuranAt": {
+    "placeholders": {
+      "surah": {
+        "type": "String"
+      },
+      "ayah": {
+        "type": "String"
+      }
+    }
+  },
+  "quranSearch": "Find a surah",
+  "quranSearchHint": "Name or number, like Yasin or 36",
+  "quranSearchNone": "No surah by that name"
 }

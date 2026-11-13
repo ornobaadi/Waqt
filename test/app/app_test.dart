@@ -3,6 +3,8 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/services.dart';
+import 'package:waqt/data/user/reading_prefs.dart';
 import 'package:waqt/data/user/user_prefs.dart';
 
 import 'package:waqt/features/duas/dua_views.dart';
@@ -154,7 +156,8 @@ void main() {
     // Reading shows on Today, and its row opens the reader where you stopped.
     await tester.tap(find.byTooltip('Today'));
     await tester.pumpAndSettle();
-    expect(find.textContaining(RegExp(r'^\d+ (ayah|ayat) read today$')), findsOneWidget);
+    expect(find.textContaining(RegExp(r'^Quran · \d+ (ayah|ayat) read today$')), findsOneWidget);
+    expect(find.text('Al-Faatiha, ayah 2'), findsOneWidget);
     await tester.tap(find.textContaining('read today'));
     await tester.pumpAndSettle();
     expect(find.byKey(const ValueKey('ayah-1:2')), findsOneWidget);
@@ -166,6 +169,11 @@ void main() {
     addTearDown(tester.view.reset);
     await tester.pumpWidget(await app(at: DateTime(2026, 11, 6, 16, 20), place: dhaka));
     await tester.pumpAndSettle();
+    // Two moments at once share one card: a tab each, the newest (Friday's last hour) first.
+    expect(find.text('Last hour of Friday'), findsWidgets);
+    await tester.ensureVisible(find.text('After Asr'));
+    await tester.tap(find.text('After Asr'));
+    await tester.pumpAndSettle();
     final say = find.text('Say the duas · 4');
     await tester.scrollUntilVisible(say, 200);
     await tester.drag(find.byType(Scrollable).first, const Offset(0, -300));
@@ -174,6 +182,64 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('1 of 4'), findsOneWidget);
     expect(find.text('After wudu'), findsOneWidget);
+  });
+
+  testWidgets('Dua page: text grows and shrinks together; copy gives the words with their source', (tester) async {
+    tester.view.physicalSize = const Size(1170, 2532);
+    tester.view.devicePixelRatio = 3;
+    addTearDown(tester.view.reset);
+    String? copied;
+    tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(SystemChannels.platform, (call) async {
+      if (call.method == 'Clipboard.setData') copied = (call.arguments as Map)['text'] as String?;
+      return null;
+    });
+    await tester.pumpWidget(await app(at: DateTime(2026, 11, 6, 9, 41), place: dhaka));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byTooltip('Duas'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Sleep and waking'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Go through them one by one'));
+    await tester.pumpAndSettle();
+    final container = ProviderScope.containerOf(tester.element(find.byType(DuaPagerScreen)));
+    await tester.tap(find.byTooltip('Larger text'));
+    await tester.pumpAndSettle();
+    expect(container.read(readingPrefsProvider).arabic, 1.1);
+    expect(container.read(readingPrefsProvider).meaning, 1.1);
+    await tester.tap(find.byTooltip('Smaller text'));
+    await tester.tap(find.byTooltip('Smaller text'));
+    await tester.pumpAndSettle();
+    expect(container.read(readingPrefsProvider).arabic, 0.9);
+    await tester.tap(find.byTooltip('Copy'));
+    await tester.pumpAndSettle();
+    expect(find.text('Copied'), findsOneWidget);
+    expect(copied, contains('أَمُوتُ'));
+    expect(copied, contains('Bismika'));
+    expect(copied, contains('HadeethEnc.com'));
+  });
+
+  testWidgets('Quran: find a surah by a common spelling and open it', (tester) async {
+    tester.view.physicalSize = const Size(1170, 2532);
+    tester.view.devicePixelRatio = 3;
+    addTearDown(tester.view.reset);
+    await tester.pumpWidget(await app(at: DateTime(2026, 11, 6, 9, 41), place: dhaka));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byTooltip('Quran'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byTooltip('Find a surah'));
+    await tester.pumpAndSettle();
+    await tester.enterText(find.byType(TextField), 'yasin');
+    await tester.pumpAndSettle();
+    expect(find.text('Yaseen'), findsWidgets);
+    expect(find.text('Al-Faatiha'), findsNothing);
+    await tester.enterText(find.byType(TextField), 'nothing like this');
+    await tester.pumpAndSettle();
+    expect(find.text('No surah by that name'), findsOneWidget);
+    await tester.enterText(find.byType(TextField), '18');
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Al-Kahf'));
+    await tester.pumpAndSettle();
+    expect(find.text('The Cave'), findsOneWidget);
   });
 
   testWidgets('bedtime checklist ticks and resets with the prayer day', (tester) async {

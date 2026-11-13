@@ -467,5 +467,14 @@
   "quranIndoPak": "IndoPak",
   "quranIndoPakSource": "Texte arabe : DigitalKhatt IndoPak (mushaf IndoPak de 13 lignes), MIT ; police OFL. Chaque verset inchangé.",
   "occShaban": "Cha'ban",
-  "momentSayDuas": "Dire les invocations"
+  "momentSayDuas": "Dire les invocations",
+  "textSmaller": "Texte plus petit",
+  "textLarger": "Texte plus grand",
+  "todayDhikr": "Dhikr",
+  "todayDhikrCount": "{count} aujourd'hui",
+  "todayQuranAt": "{surah}, verset {ayah}",
+  "todayQuranStart": "Commencer la lecture",
+  "quranSearch": "Trouver une sourate",
+  "quranSearchHint": "Nom ou numéro, par exemple Yasin ou 36",
+  "quranSearchNone": "Aucune sourate de ce nom"
 }

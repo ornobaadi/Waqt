@@ -1873,4 +1873,35 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get momentSayDuas => 'قل الأذكار';
+
+  @override
+  String get textSmaller => 'تصغير الخط';
+
+  @override
+  String get textLarger => 'تكبير الخط';
+
+  @override
+  String get todayDhikr => 'الذكر';
+
+  @override
+  String todayDhikrCount(String count) {
+    return '$count اليوم';
+  }
+
+  @override
+  String todayQuranAt(String surah, String ayah) {
+    return '$surah، الآية $ayah';
+  }
+
+  @override
+  String get todayQuranStart => 'ابدأ القراءة';
+
+  @override
+  String get quranSearch => 'ابحث عن سورة';
+
+  @override
+  String get quranSearchHint => 'الاسم أو الرقم، مثل يس أو ٣٦';
+
+  @override
+  String get quranSearchNone => 'لا توجد سورة بهذا الاسم';
 }

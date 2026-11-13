@@ -1857,4 +1857,35 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get momentSayDuas => 'দোয়াগুলো পড়ুন';
+
+  @override
+  String get textSmaller => 'লেখা ছোট করুন';
+
+  @override
+  String get textLarger => 'লেখা বড় করুন';
+
+  @override
+  String get todayDhikr => 'জিকির';
+
+  @override
+  String todayDhikrCount(String count) {
+    return 'আজ $count';
+  }
+
+  @override
+  String todayQuranAt(String surah, String ayah) {
+    return '$surah, আয়াত $ayah';
+  }
+
+  @override
+  String get todayQuranStart => 'পড়া শুরু করুন';
+
+  @override
+  String get quranSearch => 'সূরা খুঁজুন';
+
+  @override
+  String get quranSearchHint => 'নাম বা নম্বর, যেমন ইয়াসিন বা ৩৬';
+
+  @override
+  String get quranSearchNone => 'এই নামে কোনো সূরা নেই';
 }

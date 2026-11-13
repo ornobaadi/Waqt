@@ -5,6 +5,7 @@ import 'package:waqt/data/quran/quran.dart';
 import 'package:waqt/data/quran/quran_prefs.dart';
 import 'package:waqt/data/quran/quran_translation.dart';
 import 'package:waqt/data/quran/recitation.dart';
+import 'package:waqt/features/quran/quran_screen.dart' show findSurahs;
 
 void main() {
   final raw = File('assets/quran/quran-uthmani.txt').readAsStringSync();
@@ -98,5 +99,26 @@ void main() {
       (back.arabicScale, back.translation, back.reciter, back.mobileData, back.speed, back.indoPak),
       (1.4, false, 'ghamdi', true, 1.25, true),
     );
+  });
+
+  test('find a surah by number, common spelling, English or Arabic name', () {
+    List<int> f(String query) => findSurahs(q, query).map((s) => s.n).toList();
+    expect(f('36'), [36]);
+    expect(f('٣٦'), [36]);
+    expect(f('2:255'), [2]);
+    expect(f('999'), isEmpty);
+    expect(f('yasin'), contains(36));
+    expect(f('Ya-Sin'), contains(36));
+    expect(f('kahf'), [18]);
+    expect(f('Al-Fatihah'), [1]);
+    expect(f('baqarah'), [2]);
+    expect(f('mulk'), [67]);
+    expect(f('The Cow'), [2]);
+    expect(f('الكهف'), [18]);
+    expect(f('كهف'), [18]);
+    expect(f('zzzz'), isEmpty);
+    expect(f('al'), containsAll([1, 2, 18, 67]));
+    expect(f('al-kahf'), [18]);
+    expect(f(''), hasLength(114));
   });
 }

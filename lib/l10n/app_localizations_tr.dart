@@ -1867,4 +1867,35 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get momentSayDuas => 'Duaları okuyun';
+
+  @override
+  String get textSmaller => 'Metni küçült';
+
+  @override
+  String get textLarger => 'Metni büyüt';
+
+  @override
+  String get todayDhikr => 'Zikir';
+
+  @override
+  String todayDhikrCount(String count) {
+    return 'Bugün $count';
+  }
+
+  @override
+  String todayQuranAt(String surah, String ayah) {
+    return '$surah, $ayah. ayet';
+  }
+
+  @override
+  String get todayQuranStart => 'Okumaya başla';
+
+  @override
+  String get quranSearch => 'Sure bul';
+
+  @override
+  String get quranSearchHint => 'Ad veya numara, örneğin Yasin ya da 36';
+
+  @override
+  String get quranSearchNone => 'Bu adla bir sure yok';
 }

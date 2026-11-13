@@ -3278,6 +3278,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Say the duas'**
   String get momentSayDuas;
+
+  /// No description provided for @textSmaller.
+  ///
+  /// In en, this message translates to:
+  /// **'Smaller text'**
+  String get textSmaller;
+
+  /// No description provided for @textLarger.
+  ///
+  /// In en, this message translates to:
+  /// **'Larger text'**
+  String get textLarger;
+
+  /// No description provided for @todayDhikr.
+  ///
+  /// In en, this message translates to:
+  /// **'Dhikr'**
+  String get todayDhikr;
+
+  /// No description provided for @todayDhikrCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} today'**
+  String todayDhikrCount(String count);
+
+  /// No description provided for @todayQuranAt.
+  ///
+  /// In en, this message translates to:
+  /// **'{surah}, ayah {ayah}'**
+  String todayQuranAt(String surah, String ayah);
+
+  /// No description provided for @todayQuranStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Start reading'**
+  String get todayQuranStart;
+
+  /// No description provided for @quranSearch.
+  ///
+  /// In en, this message translates to:
+  /// **'Find a surah'**
+  String get quranSearch;
+
+  /// No description provided for @quranSearchHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Name or number, like Yasin or 36'**
+  String get quranSearchHint;
+
+  /// No description provided for @quranSearchNone.
+  ///
+  /// In en, this message translates to:
+  /// **'No surah by that name'**
+  String get quranSearchNone;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

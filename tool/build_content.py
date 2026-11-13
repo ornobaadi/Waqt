@@ -393,6 +393,22 @@ def main():
         json.dump({"source": "HadeethEnc.com", "list": "Hisn al-Muslim", "tasks": tasks, "items": items}, f,
                   ensure_ascii=False, separators=(",", ":"))
 
+    # HadeethEnc writes book and grade the same way on every hadith, so a
+    # hadith not yet translated can still name them in the reader's language:
+    # the Arabic (book, grade) pair -> the most common wording HadeethEnc
+    # itself uses for that pair in each language. Only the source line; the
+    # text stays Arabic with the app's note.
+    from collections import Counter
+    src_words = {}
+    for lang in LANGS[:1] + LANGS[2:]:
+        seen = {}
+        for i, r in he[lang].items():
+            a = ar.get(i)
+            if a is None or not r["attribution"] or not r["grade"]:
+                continue
+            seen.setdefault((a["attribution"], a["grade"]), Counter())[(r["attribution"], r["grade"])] += 1
+        src_words[lang] = {k: c.most_common(1)[0][0] for k, c in seen.items()}
+
     # Every hadith Waqt points to, in every language HadeethEnc has it in.
     out = {}
     for i in sorted(used):
@@ -410,6 +426,15 @@ def main():
                 "explanation": r["explanation"],
                 "version": r["version"] if "version" in keys else r["ar_version"],
             }
+        src = {}
+        for lang in LANGS:
+            if lang == "ar" or lang in entry:
+                continue
+            w = src_words[lang].get((ar[i]["attribution"], ar[i]["grade"]))
+            if w:
+                src[lang] = {"attribution": w[0], "grade": w[1]}
+        if src:
+            entry["src"] = src
         out[str(i)] = entry
     with open(os.path.join(ROOT, "assets", "sources", "hadeethenc.json"), "w", encoding="utf8") as f:
         json.dump({"source": "HadeethEnc.com", "url": "https://hadeethenc.com",
@@ -417,7 +442,9 @@ def main():
                   ensure_ascii=False, separators=(",", ":"))
 
     print(f"{len(used)} hadiths; per language:",
-          {lang: sum(1 for e in out.values() if lang in e) for lang in LANGS})
+          {lang: sum(1 for e in out.values() if lang in e) for lang in LANGS},
+          "; source lines named in the reader's language:",
+          {lang: sum(1 for e in out.values() if lang in e or lang in e.get("src", {})) for lang in LANGS})
 
 
 if __name__ == "__main__":

@@ -1860,4 +1860,35 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get momentSayDuas => 'دعائیں پڑھیں';
+
+  @override
+  String get textSmaller => 'چھوٹا متن';
+
+  @override
+  String get textLarger => 'بڑا متن';
+
+  @override
+  String get todayDhikr => 'ذکر';
+
+  @override
+  String todayDhikrCount(String count) {
+    return 'آج $count';
+  }
+
+  @override
+  String todayQuranAt(String surah, String ayah) {
+    return '$surah، آیت $ayah';
+  }
+
+  @override
+  String get todayQuranStart => 'پڑھنا شروع کریں';
+
+  @override
+  String get quranSearch => 'سورت تلاش کریں';
+
+  @override
+  String get quranSearchHint => 'نام یا نمبر، جیسے یٰسین یا 36';
+
+  @override
+  String get quranSearchNone => 'اس نام کی کوئی سورت نہیں';
 }

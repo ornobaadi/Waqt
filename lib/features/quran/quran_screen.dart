@@ -52,6 +52,43 @@ String quranFont(Quran q) => q.marksInText ? WaqtFonts.indoPak : WaqtFonts.quran
 /// for ragged reading text it is drawn closer, in proportion to the size.
 double? quranWordSpacing(Quran q, double fontSize) => q.marksInText ? -0.28 * fontSize : null;
 
+/// Surahs matching what was typed: a number ("36"), a name in Tanzil's
+/// spelling or a common one ("yasin" finds Yaa-Siin, "kahf" finds Al-Kahf),
+/// the English name, or the Arabic. Doubled letters, a final h, "al-" and
+/// diacritics are ignored.
+List<Surah> findSurahs(Quran q, String query) {
+  final raw = query.trim();
+  if (raw.isEmpty) return q.surahs;
+  final digits = int.tryParse(
+    raw.split(':').first.replaceAllMapped(RegExp('[٠-٩]'), (m) => '${m[0]!.codeUnitAt(0) - 0x660}'),
+  );
+  if (digits != null) return [if (digits >= 1 && digits <= 114) q.surah(digits)];
+  // "Al-Faatiha" -> "alfatia"; [bare] also drops a leading "al".
+  String latin(String s, {bool bare = false}) {
+    var x = s.toLowerCase().replaceAll(RegExp('[^a-z]'), '').replaceAll('ee', 'i').replaceAll('oo', 'u');
+    x = x.replaceAllMapped(RegExp(r'(.)\1+'), (m) => m[1]!);
+    if (bare && x.startsWith('al') && x.length > 4) x = x.substring(2);
+    if (x.endsWith('h')) x = x.substring(0, x.length - 1);
+    return x;
+  }
+
+  bool latinMatch(String name) {
+    final full = latin(raw), bare = latin(raw, bare: true);
+    return full.length > 1 && (latin(name).contains(full) || latin(name, bare: true).contains(bare));
+  }
+
+  String arabic(String s) =>
+      s.replaceAll(RegExp('[\u064B-\u065F\u0670\u06D6-\u06ED]'), '').replaceAll(RegExp('^ال'), '').replaceAll('ـ', '');
+  final qa = arabic(raw);
+  return [
+    for (final s in q.surahs)
+      if (latinMatch(s.name) ||
+          latinMatch(s.english) ||
+          (qa.isNotEmpty && RegExp('[\u0600-\u06FF]').hasMatch(qa) && arabic(s.arabic).contains(qa)))
+        s,
+  ];
+}
+
 void openReader(BuildContext context, AyahRef at) => context.push('/read/${at.surah}?ayah=${at.ayah}');
 
 /// The Quran tab: where you stopped, what the Sunnah ties to this moment,
@@ -65,6 +102,9 @@ class QuranScreen extends ConsumerStatefulWidget {
 
 class _QuranScreenState extends ConsumerState<QuranScreen> {
   var _tab = 0;
+
+  /// Non-null while the surah search is open.
+  String? _query;
 
   @override
   Widget build(BuildContext context) {
@@ -88,6 +128,11 @@ class _QuranScreenState extends ConsumerState<QuranScreen> {
                   child: Row(
                     children: [
                       Expanded(child: ScreenTitle(l.navQuran)),
+                      IconButton(
+                        tooltip: l.quranSearch,
+                        onPressed: () => setState(() => _query = _query == null ? '' : null),
+                        icon: Icon(_query == null ? Icons.search_rounded : Icons.close_rounded, color: t.ink),
+                      ),
                       Padding(
                         padding: const EdgeInsetsDirectional.only(end: WaqtSpace.x3),
                         child: IconButton(
@@ -99,39 +144,71 @@ class _QuranScreenState extends ConsumerState<QuranScreen> {
                     ],
                   ),
                 ),
-                _pad(_ContinueCard(quran: q, at: progress.last)),
-                _pad(SectionLabel(l.quranForNow)),
-                _pad(
-                  RowGroup(
-                    children: [
-                      for (final p in picks.take(3))
-                        _MomentRow(pick: p, highlight: p.moments.any(now.contains), quran: q),
-                    ],
-                  ),
-                ),
-                _pad(
-                  Padding(
-                    padding: const EdgeInsets.only(top: WaqtSpace.x6, bottom: WaqtSpace.x2),
-                    child: PillSwitch(
-                      labels: [l.quranTabSurah, l.quranTabJuz, l.quranTabSaved],
-                      selected: _tab,
-                      onSelect: (i) => setState(() => _tab = i),
+                if (_query case final query?) ...[
+                  _pad(
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: WaqtSpace.x2),
+                      child: TextField(
+                        autofocus: true,
+                        onChanged: (v) => setState(() => _query = v),
+                        textInputAction: TextInputAction.search,
+                        decoration: InputDecoration(
+                          hintText: l.quranSearchHint,
+                          prefixIcon: const Icon(Icons.search_rounded),
+                          filled: true,
+                          fillColor: t.surface,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(WaqtSpace.minTouch / 2),
+                            borderSide: BorderSide.none,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
-                ),
-                switch (_tab) {
-                  0 => _list(q.surahs.length, (i) => _SurahRow(surah: q.surahs[i])),
-                  1 => _list(30, (i) => _JuzRow(quran: q, n: i + 1)),
-                  _ =>
-                    progress.saved.isEmpty
+                  if (findSurahs(q, query) case final found)
+                    found.isEmpty
                         ? _pad(
                             Padding(
                               padding: const EdgeInsets.symmetric(vertical: WaqtSpace.x6),
-                              child: Text(l.quranSavedEmpty, style: WaqtText.body.copyWith(color: t.inkMuted)),
+                              child: Text(l.quranSearchNone, style: WaqtText.body.copyWith(color: t.inkMuted)),
                             ),
                           )
-                        : _list(progress.saved.length, (i) => _SavedRow(quran: q, at: progress.saved[i])),
-                },
+                        : _list(found.length, (i) => _SurahRow(surah: found[i])),
+                ] else ...[
+                  _pad(_ContinueCard(quran: q, at: progress.last)),
+                  _pad(SectionLabel(l.quranForNow)),
+                  _pad(
+                    RowGroup(
+                      children: [
+                        for (final p in picks.take(3))
+                          _MomentRow(pick: p, highlight: p.moments.any(now.contains), quran: q),
+                      ],
+                    ),
+                  ),
+                  _pad(
+                    Padding(
+                      padding: const EdgeInsets.only(top: WaqtSpace.x6, bottom: WaqtSpace.x2),
+                      child: PillSwitch(
+                        labels: [l.quranTabSurah, l.quranTabJuz, l.quranTabSaved],
+                        selected: _tab,
+                        onSelect: (i) => setState(() => _tab = i),
+                      ),
+                    ),
+                  ),
+                  switch (_tab) {
+                    0 => _list(q.surahs.length, (i) => _SurahRow(surah: q.surahs[i])),
+                    1 => _list(30, (i) => _JuzRow(quran: q, n: i + 1)),
+                    _ =>
+                      progress.saved.isEmpty
+                          ? _pad(
+                              Padding(
+                                padding: const EdgeInsets.symmetric(vertical: WaqtSpace.x6),
+                                child: Text(l.quranSavedEmpty, style: WaqtText.body.copyWith(color: t.inkMuted)),
+                              ),
+                            )
+                          : _list(progress.saved.length, (i) => _SavedRow(quran: q, at: progress.saved[i])),
+                  },
+                ],
                 SliverToBoxAdapter(child: SizedBox(height: WaqtSpace.x12 * 2 + MediaQuery.paddingOf(context).bottom)),
               ],
             ),

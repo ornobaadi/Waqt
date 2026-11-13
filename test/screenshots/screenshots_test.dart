@@ -767,6 +767,37 @@ void main() {
   );
 
   testWidgets(
+    'today ring, Arabic, with reading and dhikr',
+    (t) async => shoot(
+      t,
+      '42b_today_ring_ar',
+      await app(
+        at: DateTime(2026, 11, 6, 16, 20),
+        place: dhaka,
+        locale: const Locale('ar'),
+        stored: {...deedsSeed, 'quran.progress.v1': '{"last":[18,45]}'},
+      ),
+      then: () async => t.tap(find.byTooltip('اليوم')),
+    ),
+  );
+
+  testWidgets(
+    'quran search',
+    (t) async => shoot(
+      t,
+      '70b_quran_search',
+      await app(at: DateTime(2026, 11, 6, 9, 41), place: dhaka),
+      then: () async {
+        await t.tap(find.byTooltip('Quran'));
+        await t.pumpAndSettle();
+        await t.tap(find.byTooltip('Find a surah'));
+        await t.pumpAndSettle();
+        await t.enterText(find.byType(TextField), 'al');
+      },
+    ),
+  );
+
+  testWidgets(
     'progress',
     (t) async => shoot(
       t,

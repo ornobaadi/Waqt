@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -7,6 +8,7 @@ import '../../core/theme/tokens.dart';
 import '../../core/theme/waqt_theme.dart';
 import '../../core/widgets/waqt_widgets.dart';
 import '../../data/sources/duas.dart';
+import '../../data/sources/hadeethenc.dart';
 import '../../data/user/reading_prefs.dart';
 import '../../l10n/app_localizations.dart';
 import '../common/labels.dart';
@@ -373,6 +375,30 @@ class _DuaPagerScreenState extends ConsumerState<DuaPagerScreen> {
 
   void _go(int i) => _pages.animateToPage(i, duration: WaqtMotion.ui, curve: WaqtMotion.ease);
 
+  /// Arabic, transliteration and meaning grow and shrink together.
+  void _resize(double by) {
+    double k(double v) => double.parse((v + by).clamp(ReadingPrefs.min, ReadingPrefs.max).toStringAsFixed(1));
+    final rp = ref.read(readingPrefsProvider);
+    ref
+        .read(readingPrefsProvider.notifier)
+        .set(arabic: k(rp.arabic), transliteration: k(rp.transliteration), meaning: k(rp.meaning));
+  }
+
+  /// The words to share with someone: Arabic, how to say it, the meaning in
+  /// this language (when HadeethEnc has it), and where it comes from.
+  Future<void> _copy(Dua d, String lang, AppLocalizations l) async {
+    final h = ref.read(heBundleProvider).value?[d.he];
+    final text = [
+      d.arabic,
+      d.latin,
+      ?d.meaningIn(lang),
+      if (h != null) heSource(h, lang),
+      'HadeethEnc.com',
+    ].join('\n\n');
+    await Clipboard.setData(ClipboardData(text: text));
+    if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(l.copied)));
+  }
+
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
@@ -381,6 +407,7 @@ class _DuaPagerScreenState extends ConsumerState<DuaPagerScreen> {
     final book = ref.watch(duaBookProvider).value;
     final duas = book?.forTask(widget.task) ?? const <Dua>[];
     final last = _page >= duas.length - 1;
+    final rp = ref.watch(readingPrefsProvider);
     return Scaffold(
       backgroundColor: t.ground,
       appBar: AppBar(
@@ -398,6 +425,25 @@ class _DuaPagerScreenState extends ConsumerState<DuaPagerScreen> {
               ),
           ],
         ),
+        actions: [
+          if (duas.isNotEmpty) ...[
+            IconButton(
+              tooltip: l.textSmaller,
+              icon: const Icon(Icons.text_decrease_rounded),
+              onPressed: rp.arabic <= ReadingPrefs.min ? null : () => _resize(-0.1),
+            ),
+            IconButton(
+              tooltip: l.textLarger,
+              icon: const Icon(Icons.text_increase_rounded),
+              onPressed: rp.arabic >= ReadingPrefs.max ? null : () => _resize(0.1),
+            ),
+            IconButton(
+              tooltip: l.copyText,
+              icon: const Icon(Icons.copy_rounded),
+              onPressed: () => _copy(duas[_page.clamp(0, duas.length - 1)], lang, l),
+            ),
+          ],
+        ],
       ),
       body: duas.isEmpty
           ? const Center(child: CircularProgressIndicator())
@@ -522,6 +568,7 @@ class DuaPage extends ConsumerWidget {
         HeSourceText(
           id: dua.he,
           style: WaqtText.label.copyWith(color: t.ink),
+          maxLines: null,
         ),
         const SizedBox(height: WaqtSpace.x2),
         Align(

@@ -21,15 +21,23 @@ String heSource(HeHadith h, String lang) {
 
 /// The source line of a bundled hadith, looked up by id.
 class HeSourceText extends ConsumerWidget {
-  const HeSourceText({super.key, required this.id, required this.style});
+  const HeSourceText({super.key, required this.id, required this.style, this.maxLines = 1});
   final int id;
   final TextStyle style;
+
+  /// One line in a list row (long book lists end in "…"); null shows it all.
+  final int? maxLines;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final h = ref.watch(heBundleProvider).value?[id];
     if (h == null) return const SizedBox.shrink();
-    return Text(heSource(h, Localizations.localeOf(context).languageCode), style: style);
+    return Text(
+      heSource(h, Localizations.localeOf(context).languageCode),
+      style: style,
+      maxLines: maxLines,
+      overflow: maxLines == null ? null : TextOverflow.ellipsis,
+    );
   }
 }
 
@@ -44,7 +52,12 @@ class ItemSourceText extends StatelessWidget {
   Widget build(BuildContext context) {
     final r = item.referenced;
     if (r == null) return HeSourceText(id: item.he, style: style);
-    return Text(r.referenceIn(Localizations.localeOf(context).languageCode), style: style);
+    return Text(
+      r.referenceIn(Localizations.localeOf(context).languageCode),
+      style: style,
+      maxLines: 1,
+      overflow: TextOverflow.ellipsis,
+    );
   }
 }
 

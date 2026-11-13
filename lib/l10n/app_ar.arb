@@ -495,5 +495,14 @@
   "quranIndoPak": "الهندي الباكستاني",
   "quranIndoPakSource": "النص العربي: DigitalKhatt بالرسم الهندي (مصحف ١٣ سطرًا)، رخصة MIT؛ الخط برخصة OFL. كل آية دون تغيير.",
   "occShaban": "شعبان",
-  "momentSayDuas": "قل الأذكار"
+  "momentSayDuas": "قل الأذكار",
+  "textSmaller": "تصغير الخط",
+  "textLarger": "تكبير الخط",
+  "todayDhikr": "الذكر",
+  "todayDhikrCount": "{count} اليوم",
+  "todayQuranAt": "{surah}، الآية {ayah}",
+  "todayQuranStart": "ابدأ القراءة",
+  "quranSearch": "ابحث عن سورة",
+  "quranSearchHint": "الاسم أو الرقم، مثل يس أو ٣٦",
+  "quranSearchNone": "لا توجد سورة بهذا الاسم"
 }

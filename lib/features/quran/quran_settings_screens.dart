@@ -136,14 +136,28 @@ class QuranSettingsScreen extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Text(l.quranArabicSize, style: WaqtText.bodyStrong.copyWith(color: t.ink)),
-                Slider(
-                  value: p.arabicScale,
-                  min: 0.8,
-                  max: 1.8,
-                  divisions: 10,
-                  label: '${(p.arabicScale * 100).round()}%',
-                  activeColor: t.ink,
-                  onChanged: (v) => set((x) => x.copyWith(arabicScale: v)),
+                // Small A to big A, as on board 09: which way is bigger, at a glance.
+                Row(
+                  children: [
+                    ExcludeSemantics(
+                      child: Text('A', style: WaqtText.label.copyWith(color: t.inkMuted)),
+                    ),
+                    Expanded(
+                      child: Slider(
+                        value: p.arabicScale,
+                        min: 0.8,
+                        max: 1.8,
+                        divisions: 10,
+                        label: '${(p.arabicScale * 100).round()}%',
+                        semanticFormatterCallback: (v) => '${(v * 100).round()}%',
+                        activeColor: t.ink,
+                        onChanged: (v) => set((x) => x.copyWith(arabicScale: v)),
+                      ),
+                    ),
+                    ExcludeSemantics(
+                      child: Text('A', style: WaqtText.titleSmall.copyWith(color: t.ink, fontSize: 24)),
+                    ),
+                  ],
                 ),
               ],
             ),

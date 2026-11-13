@@ -481,5 +481,14 @@
   "quranIndoPak": "انڈو پاک",
   "quranIndoPakSource": "عربی متن: DigitalKhatt انڈو پاک (۱۳ سطری مصحف)، MIT؛ فونٹ OFL۔ ہر آیت بغیر تبدیلی کے۔",
   "occShaban": "شعبان",
-  "momentSayDuas": "دعائیں پڑھیں"
+  "momentSayDuas": "دعائیں پڑھیں",
+  "textSmaller": "چھوٹا متن",
+  "textLarger": "بڑا متن",
+  "todayDhikr": "ذکر",
+  "todayDhikrCount": "آج {count}",
+  "todayQuranAt": "{surah}، آیت {ayah}",
+  "todayQuranStart": "پڑھنا شروع کریں",
+  "quranSearch": "سورت تلاش کریں",
+  "quranSearchHint": "نام یا نمبر، جیسے یٰسین یا 36",
+  "quranSearchNone": "اس نام کی کوئی سورت نہیں"
 }

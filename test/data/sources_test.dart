@@ -70,7 +70,10 @@ void main() {
       expect(h.translation('ar'), isNull);
       final eid = bundle[65481]!; // Eid dates: Arabic only so far
       expect(eid.translation('bn'), isNull);
-      expect(eid.meta('bn'), same(eid.arabic));
+      // The text stays Arabic; only book and grade are named in Bangla, in HadeethEnc's own words.
+      expect(eid.meta('bn')!.text, eid.arabic!.text);
+      expect(eid.meta('bn')!.grade, isNot(eid.arabic!.grade));
+      expect(eid.meta('bn')!.grade, bundle[5503]!.translation('bn')!.grade);
     });
 
     test('no weak hadith', () {

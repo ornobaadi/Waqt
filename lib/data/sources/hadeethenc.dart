@@ -23,9 +23,13 @@ class HeText {
 /// A HadeethEnc hadith in the languages we have it in. Arabic is always
 /// there; a translation is there once HadeethEnc has published it.
 class HeHadith {
-  const HeHadith(this.id, this.byLang);
+  const HeHadith(this.id, this.byLang, [this.sources = const {}]);
   final int id;
   final Map<String, HeText> byLang;
+
+  /// Book and grade in a language HadeethEnc has not translated this hadith
+  /// into yet, in HadeethEnc's own wording for that book and grade.
+  final Map<String, ({String attribution, String grade})> sources;
 
   HeText? get arabic => byLang['ar'];
 
@@ -35,7 +39,19 @@ class HeHadith {
   /// Title, book, grade and explanation in the reader's language, else Arabic.
   HeText? meta(String lang) {
     final t = byLang[lang];
-    return t != null && (t.attribution != null || t.explanation != null) ? t : arabic;
+    if (t != null && (t.attribution != null || t.explanation != null)) return t;
+    if (sources[lang] case final s?) {
+      final a = arabic;
+      return HeText(
+        text: a?.text ?? '',
+        title: a?.title,
+        attribution: s.attribution,
+        grade: s.grade,
+        explanation: a?.explanation,
+        version: a?.version,
+      );
+    }
+    return arabic;
   }
 
   Uri page(String lang) =>
@@ -56,10 +72,18 @@ class HeBundle {
     final j = jsonDecode(json) as Map<String, Object?>;
     return HeBundle('${j['retrieved']}', {
       for (final MapEntry(:key, :value) in (j['items']! as Map<String, Object?>).entries)
-        int.parse(key): HeHadith(int.parse(key), {
-          for (final MapEntry(key: lang, :value) in (value! as Map<String, Object?>).entries)
-            lang: HeText.fromJson(value! as Map<String, Object?>),
-        }),
+        int.parse(key): HeHadith(
+          int.parse(key),
+          {
+            for (final MapEntry(key: lang, :value) in (value! as Map<String, Object?>).entries)
+              if (lang != 'src') lang: HeText.fromJson(value! as Map<String, Object?>),
+          },
+          {
+            for (final MapEntry(key: lang, :value)
+                in (((value as Map<String, Object?>)['src'] as Map<String, Object?>?) ?? const {}).entries)
+              if (value case {'attribution': final String a, 'grade': final String g}) lang: (attribution: a, grade: g),
+          },
+        ),
     });
   }
 }

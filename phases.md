@@ -137,6 +137,15 @@ Margins awaiting scholar review: see `docs/moment-rules.md`.
 - [ ] Scholar check of the madhab rows in `docs/moment-rules.md`.
 - [ ] Hadith sources: research and plan in `docs/hadith-sources.md` (keep HadeethEnc; referenced layer for gaps; ask for translation permissions).
 
+## Phase 18 — Design pass against the canvas
+- [x] Now (board 01): moments happening together share one Right now card with a tab each.
+- [x] Today (board 02): Quran (where you stopped) and Dhikr (today's count) under the ring.
+- [x] Quran (board 03): find a surah by number, common spelling ("yasin", "kahf"), English or Arabic name.
+- [x] Dua page (board 12): larger/smaller text (Arabic, transliteration and meaning together) and copy with the source.
+- [x] Reading settings (board 09): small and large A on the size slider.
+- [x] Source lines: book and grade in the reader's language even where HadeethEnc has not translated the hadith yet (HadeethEnc's own wording for that book and grade); one line in lists.
+- [ ] Not built from the canvas yet: saved duas, share, transliteration toggle (no licensed source), repeat-ayah in the player, "Read al-Kahf" on Friday (no sourced hadith).
+
 ## Later
 iOS · OTA signed content updates · more languages · cloud backup.
 
