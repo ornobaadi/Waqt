@@ -124,6 +124,20 @@ MADHAB = {
     "witrsunnah": ["shafii", "maliki", "hanbali"],
 }
 
+# What tapping an item does, when it is something to read or count rather
+# than a hadith to read about: "quran:S:A" opens the reader there,
+# "counter:ID" opens that dhikr on the misbaha. An item whose hadith is also
+# a dua in duas.json opens that dua's page (found at run time). The hadith
+# stays one tap away behind the info button.
+ACTIONS = {
+    "ayatkursi": "quran:2:255",
+    "tasbih33": "counter:after_salah",
+    "fatima": "counter:after_salah",
+    "swb100": "counter:subhanallah_wabihamdihi",
+    "salawat": "counter:salawat",
+    "quls": "quran:112:1",
+}
+
 # occasion id -> (label key, HadeethEnc id, when)
 DAYS = {
     "eidAlFitr": [("dates", 65481, "morning"), ("zakat", 4520, "morning"), ("goout", 7200, "morning"),
@@ -324,6 +338,8 @@ def main():
             row["when"] = when
         if key in MADHAB:
             row["madhab"] = MADHAB[key]
+        if key in ACTIONS:
+            row["do"] = ACTIONS[key]
         return row
 
     days = {o: [item(k, i, w, o) for k, i, w in items] for o, items in DAYS.items()}

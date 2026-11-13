@@ -235,40 +235,40 @@ class _MomentTabs extends StatelessWidget {
     final l = AppLocalizations.of(context);
     final t = WaqtTokens.of(context);
     final ink = t.heroInk;
-    return Container(
-      constraints: const BoxConstraints(minHeight: WaqtSpace.minTouch),
-      padding: const EdgeInsets.all(WaqtSpace.x1),
-      decoration: BoxDecoration(color: ink.withValues(alpha: 0.09), borderRadius: BorderRadius.circular(16)),
+    // One line of chips that scrolls sideways: names never wrap, and any
+    // number of moments fits without a heavy boxed bar.
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
       child: Row(
         children: [
-          for (final (k, m) in moments.indexed)
-            Expanded(
-              child: Semantics(
-                selected: k == selected,
-                button: true,
-                child: Material(
-                  color: k == selected ? ink : Colors.transparent,
-                  borderRadius: BorderRadius.circular(12),
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(12),
-                    onTap: () => onSelect(k),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: WaqtSpace.x2, vertical: WaqtSpace.x2),
-                      child: Text(
-                        l.moment(m),
-                        textAlign: TextAlign.center,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: WaqtText.caption.copyWith(
-                          color: k == selected ? t.heroSurface : ink.withValues(alpha: 0.8),
-                          fontWeight: FontWeight.w700,
-                        ),
+          for (final (k, m) in moments.indexed) ...[
+            if (k > 0) const SizedBox(width: WaqtSpace.x2),
+            Semantics(
+              selected: k == selected,
+              button: true,
+              child: Material(
+                color: k == selected ? ink : Colors.transparent,
+                shape: StadiumBorder(side: BorderSide(color: k == selected ? ink : ink.withValues(alpha: 0.28))),
+                child: InkWell(
+                  customBorder: const StadiumBorder(),
+                  onTap: () => onSelect(k),
+                  child: Container(
+                    constraints: const BoxConstraints(minHeight: 40),
+                    padding: const EdgeInsets.symmetric(horizontal: WaqtSpace.x4),
+                    alignment: Alignment.center,
+                    child: Text(
+                      l.moment(m),
+                      maxLines: 1,
+                      style: WaqtText.label.copyWith(
+                        color: k == selected ? t.heroSurface : ink.withValues(alpha: 0.85),
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                   ),
                 ),
               ),
             ),
+          ],
         ],
       ),
     );
@@ -318,7 +318,7 @@ class _SourcedRow extends StatelessWidget {
                   ],
                 ),
               ),
-              Icon(Icons.chevron_right_rounded, color: ink.withValues(alpha: 0.4)),
+              ItemTrailing(item: item, color: ink.withValues(alpha: 0.55)),
             ],
           ),
         ),

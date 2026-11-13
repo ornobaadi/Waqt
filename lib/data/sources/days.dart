@@ -15,7 +15,11 @@ import '../user/user_prefs.dart';
 /// One thing the Sunnah teaches for a day, tied to the HadeethEnc hadith
 /// that teaches it. The label is ours, in every app language.
 class DayItem {
-  const DayItem(this.titles, this.he, {this.when, this.key, this.madhabs});
+  const DayItem(this.titles, this.he, {this.when, this.key, this.madhabs, this.action});
+
+  /// What a tap does: "quran:S:A" or "counter:ID"; null opens the dua with
+  /// the same hadith if there is one, else the hadith.
+  final String? action;
   final Map<String, String> titles;
 
   /// HadeethEnc.com id of the hadith; 0 for a [referenced] item.
@@ -76,6 +80,7 @@ class DayGuides {
               when: m['when'] as String?,
               key: m['key'] as String?,
               madhabs: (m['madhab'] as List<Object?>?)?.map((e) => '$e').toSet(),
+              action: m['do'] as String?,
             ),
     ];
     final occ = OccasionId.values.asNameMap(), mom = MomentId.values.asNameMap();

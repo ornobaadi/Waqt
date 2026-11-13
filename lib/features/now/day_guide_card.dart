@@ -176,7 +176,6 @@ class _Row extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final t = WaqtTokens.of(context);
-    final l = AppLocalizations.of(context);
     final ink = t.heroInk;
     final lang = Localizations.localeOf(context).languageCode;
     // A flat row under a hairline: the tick sits on the card's text edge,
@@ -216,7 +215,7 @@ class _Row extends ConsumerWidget {
             ),
             Expanded(
               child: InkWell(
-                onTap: () => openItem(context, ref, item),
+                onTap: () => doItem(context, ref, item),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   child: Row(
@@ -241,13 +240,7 @@ class _Row extends ConsumerWidget {
                           ],
                         ),
                       ),
-                      if (!done)
-                        Icon(
-                          Icons.chevron_right_rounded,
-                          size: 20,
-                          color: ink.withValues(alpha: 0.5),
-                          semanticLabel: l.openSource,
-                        ),
+                      if (!done) ItemTrailing(item: item, color: ink.withValues(alpha: 0.5)),
                     ],
                   ),
                 ),

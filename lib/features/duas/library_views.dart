@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../core/theme/tokens.dart';
 import '../../core/theme/waqt_theme.dart';
 import '../../core/widgets/waqt_widgets.dart';
 import '../../data/sources/days.dart';
+import '../../data/sources/duas.dart';
+import '../counter/counter_screen.dart' show counterProvider;
 import '../../data/sources/hadeethenc.dart';
 import '../../data/sources/he_library.dart';
 import '../../data/user/reading_prefs.dart';
@@ -62,6 +65,49 @@ class ItemSourceText extends StatelessWidget {
 }
 
 /// Opens what a checklist item points to.
+/// Where a tap on [item] goes when it is something to do: a place in the
+/// Quran, a dhikr on the counter, or the words of a dua. Null: only the hadith.
+String? itemRoute(WidgetRef ref, DayItem item) {
+  final a = item.action;
+  if (a != null && a.startsWith('quran:')) {
+    final p = a.split(':');
+    return '/read/${p[1]}?ayah=${p[2]}';
+  }
+  if (a != null && a.startsWith('counter:')) return '/counter';
+  if (item.he == 0) return null;
+  final at = ref.read(duaBookProvider).value?.locate(item.he);
+  return at == null ? null : '/dua/${at.task}/${at.index}';
+}
+
+/// Taps on a sourced item: do it (read, count, say the words); an item with
+/// nothing to do opens its hadith.
+Future<void> doItem(BuildContext context, WidgetRef ref, DayItem item) async {
+  final route = itemRoute(ref, item);
+  if (route == null) return openItem(context, ref, item);
+  if (item.action case final a? when a.startsWith('counter:')) {
+    ref.read(counterProvider.notifier).choose(a.substring('counter:'.length));
+  }
+  await context.push(route);
+}
+
+/// The end of a sourced row: an info button for the hadith when the row
+/// itself does something, else the chevron to the hadith.
+class ItemTrailing extends ConsumerWidget {
+  const ItemTrailing({super.key, required this.item, required this.color});
+  final DayItem item;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    if (itemRoute(ref, item) == null) return Icon(Icons.chevron_right_rounded, color: color);
+    return IconButton(
+      tooltip: AppLocalizations.of(context).openSource,
+      onPressed: () => openItem(context, ref, item),
+      icon: Icon(Icons.info_outline_rounded, color: color),
+    );
+  }
+}
+
 Future<void> openItem(BuildContext context, WidgetRef ref, DayItem item) async {
   final r = item.referenced;
   if (r == null) return openHadith(context, ref, item.he);

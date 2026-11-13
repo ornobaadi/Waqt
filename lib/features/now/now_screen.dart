@@ -262,7 +262,7 @@ class NowScreen extends ConsumerWidget {
                       now: now,
                       // Only sourced, checked items: nothing unreviewed on Home.
                       sourced: (m) => guides?.forMoment(m.id) ?? const [],
-                      onSourced: (i) => openItem(context, ref, i),
+                      onSourced: (i) => doItem(context, ref, i),
                     ),
                 ],
               if (guideOcc != null && guides != null) ...[

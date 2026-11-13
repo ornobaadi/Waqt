@@ -197,7 +197,7 @@ class _DuasScreenState extends ConsumerState<DuasScreen> {
     final occList = [for (final n in occasions.split(',')) ?OccasionId.values.asNameMap()[n]];
     final featured = guides.featured(occList);
     final today = featured == null ? const <DayItem>[] : guides.itemsFor(featured, occList);
-    Widget row(DayItem i) => RowTile(title: i.title(lang), subtitle: null, onTap: () => openItem(context, ref, i));
+    Widget row(DayItem i) => RowTile(title: i.title(lang), subtitle: null, onTap: () => doItem(context, ref, i));
     final sub = WaqtText.caption.copyWith(color: t.inkMuted);
     return [
       if (now.isNotEmpty) ...[

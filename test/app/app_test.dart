@@ -73,7 +73,8 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.text('বিছানা ঝেড়ে নিন, তারপর দোয়া পড়ুন'));
     await tester.pumpAndSettle();
-    expect(find.textContaining('HadeethEnc.com'), findsWidgets);
+    // A row that is a dua opens its words; the hadith is behind the info button.
+    expect(find.byType(DuaPagerScreen), findsOneWidget);
     expect(find.textContaining('বিছানা'), findsWidgets);
   });
 
@@ -175,7 +176,7 @@ void main() {
     await tester.tap(find.text('After Asr'));
     await tester.pumpAndSettle();
     final say = find.text('Say the duas · 4');
-    await tester.scrollUntilVisible(say, 200);
+    await tester.scrollUntilVisible(say, 200, scrollable: find.byType(Scrollable).first);
     await tester.drag(find.byType(Scrollable).first, const Offset(0, -300));
     await tester.pumpAndSettle();
     await tester.tap(say);
@@ -240,6 +241,54 @@ void main() {
     await tester.tap(find.text('Al-Kahf'));
     await tester.pumpAndSettle();
     expect(find.text('The Cave'), findsOneWidget);
+  });
+
+  testWidgets('Home rows do the thing: read Ayat al-Kursi, count the tasbih, say the words; hadith behind info', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(1170, 2532);
+    tester.view.devicePixelRatio = 3;
+    addTearDown(tester.view.reset);
+    await tester.pumpWidget(await app(at: DateTime(2026, 11, 7, 0, 0), place: dhaka));
+    await tester.pumpAndSettle();
+    Future<void> home() async {
+      while (find.byTooltip('Now').evaluate().isEmpty) {
+        await tester.pageBack();
+        await tester.pumpAndSettle();
+      }
+    }
+
+    // The row's own tap (the dock can sit over it at this scroll position).
+    Future<void> tapRow(String title) async {
+      await tester.scrollUntilVisible(find.text(title), 200, scrollable: find.byType(Scrollable).first);
+      tester.widget<InkWell>(find.ancestor(of: find.text(title), matching: find.byType(InkWell)).first).onTap!();
+      await tester.pumpAndSettle();
+    }
+
+    await home();
+    await tapRow('Ayat al-Kursi after every prayer');
+    expect(find.byKey(const ValueKey('ayah-2:255')), findsOneWidget);
+
+    await home();
+    await tapRow('SubhanAllah, Alhamdulillah, Allahu Akbar, 33 each');
+    expect(find.text('After salah'), findsWidgets);
+
+    await home();
+    await tapRow('Seek forgiveness three times');
+    expect(find.text('After the salam'), findsOneWidget);
+
+    // The hadith is still there, behind the info button.
+    await home();
+    await tester.scrollUntilVisible(
+      find.text('Seek forgiveness three times'),
+      200,
+      scrollable: find.byType(Scrollable).first,
+    );
+    await tester.drag(find.byType(Scrollable).first, const Offset(0, -200));
+    await tester.pumpAndSettle();
+    tester.widget<IconButton>(find.widgetWithIcon(IconButton, Icons.info_outline_rounded).first).onPressed!();
+    await tester.pumpAndSettle();
+    expect(find.byType(DraggableScrollableSheet), findsOneWidget);
   });
 
   testWidgets('bedtime checklist ticks and resets with the prayer day', (tester) async {

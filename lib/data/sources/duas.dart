@@ -64,6 +64,13 @@ class DuaBook {
   final List<Dua> items;
 
   DuaTask? task(String id) => tasks.where((t) => t.id == id).firstOrNull;
+
+  /// The dua taken from HadeethEnc hadith [he]: its task and place in it.
+  ({String task, int index})? locate(int he) {
+    final d = items.where((d) => d.he == he).firstOrNull;
+    return d == null ? null : (task: d.task, index: forTask(d.task).indexOf(d));
+  }
+
   List<Dua> forTask(String id) => [
     for (final d in items)
       if (d.task == id) d,
