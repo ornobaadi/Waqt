@@ -38,41 +38,9 @@ enum Madhab {
 
   static Madhab? byName(Object? n) => values.where((m) => m.name == n).firstOrNull;
 
-  /// The school most taught in a country, as a starting point only: the
-  /// person is asked on first launch and can change it in Settings.
-  static Madhab defaultFor(String? countryCode) => switch (countryCode?.toUpperCase()) {
-    'PK' ||
-    'IN' ||
-    'BD' ||
-    'AF' ||
-    'TR' ||
-    'UZ' ||
-    'KZ' ||
-    'TJ' ||
-    'KG' ||
-    'TM' ||
-    'AZ' ||
-    'BA' ||
-    'AL' ||
-    'XK' => hanafi,
-    'MA' ||
-    'DZ' ||
-    'TN' ||
-    'LY' ||
-    'MR' ||
-    'ML' ||
-    'NE' ||
-    'SN' ||
-    'GM' ||
-    'GN' ||
-    'TD' ||
-    'SD' ||
-    'NG' ||
-    'BF' ||
-    'AE' => maliki,
-    'SA' || 'QA' => hanbali,
-    _ => shafii,
-  };
+  /// Hanafi unless the person picks another school in Settings: the most
+  /// followed school, and onboarding stays short.
+  static const fallback = hanafi;
 }
 
 enum HighLatitudeRule { auto, middleOfNight, seventhOfNight, twilightAngle }
@@ -80,7 +48,7 @@ enum HighLatitudeRule { auto, middleOfNight, seventhOfNight, twilightAngle }
 class PrayerSettings {
   const PrayerSettings({
     required this.method,
-    this.madhab = Madhab.shafii,
+    this.madhab = Madhab.fallback,
     this.highLatitude = HighLatitudeRule.auto,
     this.minutes = const {},
   });
@@ -116,7 +84,7 @@ class PrayerSettings {
       'GB' || 'IE' => CalcMethod.moonsighting,
       _ => CalcMethod.mwl,
     };
-    return PrayerSettings(method: method, madhab: Madhab.defaultFor(cc));
+    return PrayerSettings(method: method, madhab: Madhab.fallback);
   }
 
   PrayerSettings copyWith({

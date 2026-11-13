@@ -3243,24 +3243,6 @@ abstract class AppLocalizations {
   /// **'Asr when a shadow equals the object'**
   String get madhabHintOthers;
 
-  /// No description provided for @onbMadhabTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Which madhab do you follow?'**
-  String get onbMadhabTitle;
-
-  /// No description provided for @onbMadhabBody.
-  ///
-  /// In en, this message translates to:
-  /// **'Prayer times and a few rulings follow your school. If you are not sure, choose the one taught where you live.'**
-  String get onbMadhabBody;
-
-  /// No description provided for @onbMadhabRegion.
-  ///
-  /// In en, this message translates to:
-  /// **'Usual where you are'**
-  String get onbMadhabRegion;
-
   /// No description provided for @todayQuranNone.
   ///
   /// In en, this message translates to:
@@ -3284,6 +3266,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Arabic text: DigitalKhatt IndoPak (13-line IndoPak mushaf), MIT; font OFL. Each ayah unchanged.'**
   String get quranIndoPakSource;
+
+  /// No description provided for @occShaban.
+  ///
+  /// In en, this message translates to:
+  /// **'Sha\'ban'**
+  String get occShaban;
+
+  /// No description provided for @momentSayDuas.
+  ///
+  /// In en, this message translates to:
+  /// **'Say the duas'**
+  String get momentSayDuas;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

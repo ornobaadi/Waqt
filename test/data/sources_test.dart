@@ -81,13 +81,51 @@ void main() {
     });
   });
 
+  group('per madhab', () {
+    final json = File('assets/sources/days.json').readAsStringSync();
+    String titles(String madhab, MomentId m) =>
+        DayGuides.parse(json, madhab: madhab).forMoment(m).map((i) => i.title('en')).join(' | ');
+
+    test('Witr: wajib for a Hanafi, a stressed Sunnah for the other schools, same hadith', () {
+      for (final m in [MomentId.lastThird, MomentId.bedtime]) {
+        expect(titles('hanafi', m), contains('it is wajib'));
+        expect(titles('hanafi', m), isNot(contains('stressed Sunnah')));
+        for (final other in ['shafii', 'maliki', 'hanbali']) {
+          expect(titles(other, m), contains('stressed Sunnah'), reason: other);
+          expect(titles(other, m), isNot(contains('wajib')), reason: other);
+        }
+      }
+      final g = DayGuides.parse(json, madhab: 'hanafi');
+      expect(g.forMoment(MomentId.lastThird).where((i) => i.title('en').contains('Witr')).single.he, 11262);
+    });
+
+    test('everything else is the same for all four schools', () {
+      for (final m in MomentId.values) {
+        final counts = {
+          for (final x in ['hanafi', 'shafii', 'maliki', 'hanbali']) titles(x, m).split(' | ').length,
+        };
+        expect(counts, hasLength(1), reason: m.name);
+      }
+    });
+
+    test("new sourced items: Sha'ban, Umrah in Ramadan, the sacrifice, Friday, after salah", () {
+      final g = DayGuides.parse(json, madhab: 'hanafi');
+      expect(g.forOccasion(OccasionId.shaban).map((i) => i.he), [6213, 4508]);
+      expect(g.forOccasion(OccasionId.ramadan).map((i) => i.he), contains(2753));
+      expect(g.forOccasion(OccasionId.eidAlAdha).map((i) => i.he), contains(2971));
+      expect(g.forOccasion(OccasionId.jumuah).map((i) => i.he), containsAll([3107, 4449]));
+      expect(g.forMoment(MomentId.afterSalah).map((i) => i.he), containsAll([10950, 3518]));
+      expect(g.forMoment(MomentId.betweenAdhanIqamah).map((i) => i.he), contains(11251));
+    });
+  });
+
   group('duas by task', () {
     final bundle = HeBundle.parse(File('assets/sources/hadeethenc.json').readAsStringSync());
     final book = DuaBook.parse(File('assets/sources/duas.json').readAsStringSync());
     String flat(String s) => s.replaceAll(RegExp('[‎‏­﻿]'), '').split(RegExp(r'\s+')).join(' ');
 
     test('every task has duas, every label is in every language', () {
-      expect(book.tasks, hasLength(8));
+      expect(book.tasks, hasLength(9));
       for (final t in book.tasks) {
         expect(book.forTask(t.id), isNotEmpty, reason: t.id);
         for (final l in langs) {

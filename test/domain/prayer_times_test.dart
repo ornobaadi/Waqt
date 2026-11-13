@@ -152,12 +152,11 @@ void main() {
       expect(PrayerSettings.defaultsFor('FR').method, CalcMethod.mwl);
       expect(PrayerSettings.defaultsFor(null).method, CalcMethod.mwl);
     });
-    test('Asr school', () {
-      expect(PrayerSettings.defaultsFor('PK').asr, AsrSchool.hanafi);
-      expect(PrayerSettings.defaultsFor('MA').asr, AsrSchool.standard);
-      expect(PrayerSettings.defaultsFor('MA').madhab, Madhab.maliki);
-      expect(PrayerSettings.defaultsFor('SA').madhab, Madhab.hanbali);
-      expect(PrayerSettings.defaultsFor('ID').madhab, Madhab.shafii);
+    test('Hanafi unless changed in Settings', () {
+      for (final cc in ['PK', 'MA', 'SA', 'ID', null]) {
+        expect(PrayerSettings.defaultsFor(cc).madhab, Madhab.hanafi, reason: '$cc');
+      }
+      expect(PrayerSettings.defaultsFor('MA').asr, AsrSchool.hanafi);
     });
     test('older settings: Asr school becomes the madhab; Tehran falls back to MWL', () {
       expect(PrayerSettings.fromJson({'method': 'karachi', 'asr': 'hanafi'})!.madhab, Madhab.hanafi);

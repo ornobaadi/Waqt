@@ -28,9 +28,10 @@ The "prayer day" runs from Fajr to the next Fajr. When several moments overlap, 
 Texts attached to moments come from HadeethEnc.com (Arabic, translation, grade, explanation) and are listed per moment in `lib/data/sources/days.dart` and the content catalogue.
 
 ## Madhab
-Asked on first launch (preselected from the country, never assumed) and changeable in Settings. The four Sunni schools share one creed and the same authentic hadith; the app only lets the school change rulings where they differ:
+Hanafi by default (onboarding stays short); changeable in Settings, and the content follows. The four Sunni schools share one creed and the same authentic hadith; the app only lets the school change rulings where they differ:
 - **Asr:** Hanafi when a shadow is twice the object (plus its noon shadow); Shafi'i, Maliki and Hanbali when it equals the object.
 - **Restricted time at the zenith:** see the table above.
+- **Witr:** shown on the last third of the night and the bedtime checklist as *wajib* to a Hanafi and as a *stressed Sunnah* to the other three (same hadith, HadeethEnc 11262). Items like this carry a `madhab` list in `tool/build_content.py` (`MADHAB`).
 
 Everything else (duas, adhkar, the moments and their texts) is the same for all four schools. **Needs ruling:** confirm the zenith rows, and list any other text in the app a school would read differently. The Tehran (Ja'fari) calculation method was removed: the app is for Sunni Muslims.
 

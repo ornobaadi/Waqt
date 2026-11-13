@@ -184,10 +184,14 @@ class _DuasScreenState extends ConsumerState<DuasScreen> {
     final key = ref.watch(momentSnapshotProvider.select((s) => s?.active.map((m) => m.id.name).join(',') ?? ''));
     final active = [for (final n in key.split(',')) ?MomentId.values.asNameMap()[n]];
     final seen = <String>{};
+    // A few from each moment happening now, so a long list (after salah)
+    // does not push out the next one (bedtime).
     final now = [
       for (final id in active.reversed)
-        for (final i in guides.forMoment(id))
-          if (seen.add(i.id)) i,
+        ...[
+          for (final i in guides.forMoment(id))
+            if (seen.add(i.id)) i,
+        ].take(3),
     ];
     final occasions = ref.watch(occasionsProvider.select((o) => o.list.map((x) => x.name).join(',')));
     final occList = [for (final n in occasions.split(',')) ?OccasionId.values.asNameMap()[n]];
@@ -200,7 +204,7 @@ class _DuasScreenState extends ConsumerState<DuasScreen> {
         _pad(SectionLabel(l.libraryForNow)),
         _pad(
           RowGroup(
-            children: [for (final i in now.take(4)) _Sourced(item: i, style: sub, row: row)],
+            children: [for (final i in now.take(6)) _Sourced(item: i, style: sub, row: row)],
           ),
         ),
       ],

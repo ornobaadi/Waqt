@@ -1852,16 +1852,6 @@ class AppLocalizationsId extends AppLocalizations {
   String get madhabHintOthers => 'Asar saat bayangan sama dengan benda';
 
   @override
-  String get onbMadhabTitle => 'Mazhab apa yang Anda ikuti?';
-
-  @override
-  String get onbMadhabBody =>
-      'Waktu salat dan beberapa hukum mengikuti mazhab Anda. Jika ragu, pilih yang diajarkan di daerah Anda.';
-
-  @override
-  String get onbMadhabRegion => 'Umum di daerah Anda';
-
-  @override
   String get todayQuranNone => 'Belum dibaca hari ini';
 
   @override
@@ -1875,4 +1865,10 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String get quranIndoPakSource =>
       'Teks Arab: DigitalKhatt IndoPak (mushaf IndoPak 13 baris), MIT; font OFL. Setiap ayat tanpa perubahan.';
+
+  @override
+  String get occShaban => 'Syakban';
+
+  @override
+  String get momentSayDuas => 'Baca doanya';
 }

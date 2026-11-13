@@ -1848,16 +1848,6 @@ class AppLocalizationsTr extends AppLocalizations {
   String get madhabHintOthers => 'Gölge cisme eşit olunca ikindi';
 
   @override
-  String get onbMadhabTitle => 'Hangi mezhebi takip ediyorsunuz?';
-
-  @override
-  String get onbMadhabBody =>
-      'Namaz vakitleri ve bazı hükümler mezhebinize göre olur. Emin değilseniz yaşadığınız yerde öğretileni seçin.';
-
-  @override
-  String get onbMadhabRegion => 'Bölgenizde yaygın';
-
-  @override
   String get todayQuranNone => 'Bugün henüz okunmadı';
 
   @override
@@ -1871,4 +1861,10 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get quranIndoPakSource =>
       'Arapça metin: DigitalKhatt IndoPak (13 satırlık IndoPak mushafı), MIT; yazı tipi OFL. Her ayet değiştirilmeden.';
+
+  @override
+  String get occShaban => 'Şaban';
+
+  @override
+  String get momentSayDuas => 'Duaları okuyun';
 }

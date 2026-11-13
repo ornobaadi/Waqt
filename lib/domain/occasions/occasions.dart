@@ -17,9 +17,12 @@ enum OccasionId {
   jumuah,
   mondayFast,
   thursdayFast,
+
+  /// The month of Sha'ban: fasting much of it, and not the day or two before Ramadan.
+  shaban,
 }
 
-const _ramadan = 9, _shawwal = 10, _dhulHijjah = 12, _muharram = 1;
+const _shaban = 8, _ramadan = 9, _shawwal = 10, _dhulHijjah = 12, _muharram = 1;
 
 /// Most specific first; the header shows the first.
 List<OccasionId> occasionsFor(HijriDate h, int weekday) {
@@ -40,6 +43,7 @@ List<OccasionId> occasionsFor(HijriDate h, int weekday) {
   // 13 Dhul Hijjah is a day of Tashreeq, not one of the white days.
   if (d >= 13 && d <= 15 && m != _ramadan && !tashreeq) out.add(OccasionId.ayyamAlBid);
   if (weekday == DateTime.friday) out.add(OccasionId.jumuah);
+  if (m == _shaban) out.add(OccasionId.shaban);
   // Voluntary-fast markers stay off in Ramadan, on Eid and in Tashreeq.
   if (m != _ramadan && !eid && !tashreeq) {
     if (weekday == DateTime.monday) out.add(OccasionId.mondayFast);

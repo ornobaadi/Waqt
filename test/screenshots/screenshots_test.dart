@@ -569,6 +569,9 @@ void main() {
       '60c_hadith_bn',
       await app(at: DateTime(d.year, d.month, d.day, 15, 0), place: dhaka, locale: const Locale('bn')),
       then: () async {
+        await t.scrollUntilVisible(find.text('আজ রোজা রাখবেন না'), 200);
+        await t.drag(find.byType(Scrollable).first, const Offset(0, -200));
+        await t.pumpAndSettle();
         await t.runAsync(() async {
           await t.tap(find.text('আজ রোজা রাখবেন না'));
           await Future<void>.delayed(const Duration(milliseconds: 500));
@@ -814,19 +817,6 @@ void main() {
     ),
   );
 
-  Future<void> toMadhab(WidgetTester t) async {
-    await t.tap(find.text('Begin'));
-    await t.pumpAndSettle();
-    await t.tap(find.text('Continue'));
-    await t.pumpAndSettle();
-    ProviderScope.containerOf(t.element(find.byType(MaterialApp))).read(userPrefsProvider.notifier).setPlace(dhaka);
-  }
-
-  testWidgets(
-    'onboarding madhab',
-    (t) async => shoot(t, '50f_onboarding_madhab', await fresh(), then: () => toMadhab(t)),
-  );
-
   testWidgets(
     'onboarding reminders',
     (t) async => shoot(
@@ -834,10 +824,11 @@ void main() {
       '50d_onboarding_reminders',
       await fresh(),
       then: () async {
-        await toMadhab(t);
+        await t.tap(find.text('Begin'));
         await t.pumpAndSettle();
-        await t.ensureVisible(find.text('Continue'));
         await t.tap(find.text('Continue'));
+        await t.pumpAndSettle();
+        ProviderScope.containerOf(t.element(find.byType(MaterialApp))).read(userPrefsProvider.notifier).setPlace(dhaka);
       },
     ),
   );

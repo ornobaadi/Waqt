@@ -130,8 +130,10 @@ Margins awaiting scholar review: see `docs/moment-rules.md`.
 - [ ] On-device checks: Android 14/15 foreground service, lock screen, Bluetooth buttons, offline playback.
 
 ## Phase 17 — Madhab, Quran on Today
-- [x] Madhab (Hanafi, Shafi'i, Maliki, Hanbali) asked on first launch (country preselects, the person chooses) and in Settings; replaces the Asr setting. Sets the Asr time and the zenith restriction (`MomentConfig.zawalRestricted`). Tehran (Ja'fari) method removed; old settings move to MWL.
+- [x] Madhab (Hanafi, Shafi'i, Maliki, Hanbali): Hanafi by default, changed in Settings (not asked in onboarding); replaces the Asr setting. Witr shown as wajib (Hanafi) or stressed Sunnah (others). Sets the Asr time and the zenith restriction (`MomentConfig.zawalRestricted`). Tehran (Ja'fari) method removed; old settings move to MWL.
 - [x] Quran reading on Today: ayat read in the reader count as the day's `quran` habit; a row under the ring shows it and opens the reader where you stopped.
+- [x] Coverage pass: "Say the duas" on Home's Right now card opens the words for that moment (adhkar, bedtime, after salah, adhan, iftar). New sourced items: Witr, the twelve Sunnah rak'ahs, four before and after Dhuhr, Ayat al-Kursi and "a'inni" after salah, Friday (silence in the khutbah, not fasting Friday alone), Umrah in Ramadan, the sacrifice, a Sha'ban guide (fast much of it; not the day or two before Ramadan). New duas with their words: after the adhan, iftar, seeing the new moon (a ninth task, "Fasting and the new moon").
+- [ ] Not on HadeethEnc, so not shown yet: the dua of Arafah, al-Kahf on Friday, the Eid takbir wording. Need a sourced, reviewed reference each (`referenced.dart`).
 - [ ] Scholar check of the madhab rows in `docs/moment-rules.md`.
 - [ ] Hadith sources: research and plan in `docs/hadith-sources.md` (keep HadeethEnc; referenced layer for gaps; ask for translation permissions).
 

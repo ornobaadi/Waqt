@@ -462,11 +462,10 @@
   "madhabHanbali": "Hanbalite",
   "madhabHintHanafi": "Asr plus tardif : ombre double de l'objet",
   "madhabHintOthers": "Asr quand l'ombre égale l'objet",
-  "onbMadhabTitle": "Quel madhab suivez-vous ?",
-  "onbMadhabBody": "Les horaires de prière et quelques règles suivent votre école. En cas de doute, choisissez celle enseignée là où vous vivez.",
-  "onbMadhabRegion": "Courant dans votre région",
   "todayQuranNone": "Pas encore lu aujourd'hui",
   "todayQuranRead": "{ayat} lus aujourd'hui",
   "quranIndoPak": "IndoPak",
-  "quranIndoPakSource": "Texte arabe : DigitalKhatt IndoPak (mushaf IndoPak de 13 lignes), MIT ; police OFL. Chaque verset inchangé."
+  "quranIndoPakSource": "Texte arabe : DigitalKhatt IndoPak (mushaf IndoPak de 13 lignes), MIT ; police OFL. Chaque verset inchangé.",
+  "occShaban": "Cha'ban",
+  "momentSayDuas": "Dire les invocations"
 }

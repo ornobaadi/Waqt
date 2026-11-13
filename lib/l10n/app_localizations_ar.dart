@@ -1854,16 +1854,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String get madhabHintOthers => 'العصر إذا صار ظل الشيء مثله';
 
   @override
-  String get onbMadhabTitle => 'ما مذهبك؟';
-
-  @override
-  String get onbMadhabBody =>
-      'تتبع أوقات الصلاة وبعض الأحكام مذهبك. إن لم تكن متأكدًا فاختر المذهب الذي يُدرَّس في بلدك.';
-
-  @override
-  String get onbMadhabRegion => 'الشائع في منطقتك';
-
-  @override
   String get todayQuranNone => 'لم تقرأ بعد اليوم';
 
   @override
@@ -1877,4 +1867,10 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get quranIndoPakSource =>
       'النص العربي: DigitalKhatt بالرسم الهندي (مصحف ١٣ سطرًا)، رخصة MIT؛ الخط برخصة OFL. كل آية دون تغيير.';
+
+  @override
+  String get occShaban => 'شعبان';
+
+  @override
+  String get momentSayDuas => 'قل الأذكار';
 }

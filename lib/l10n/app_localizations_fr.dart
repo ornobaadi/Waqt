@@ -1853,16 +1853,6 @@ class AppLocalizationsFr extends AppLocalizations {
   String get madhabHintOthers => 'Asr quand l\'ombre égale l\'objet';
 
   @override
-  String get onbMadhabTitle => 'Quel madhab suivez-vous ?';
-
-  @override
-  String get onbMadhabBody =>
-      'Les horaires de prière et quelques règles suivent votre école. En cas de doute, choisissez celle enseignée là où vous vivez.';
-
-  @override
-  String get onbMadhabRegion => 'Courant dans votre région';
-
-  @override
   String get todayQuranNone => 'Pas encore lu aujourd\'hui';
 
   @override
@@ -1876,4 +1866,10 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get quranIndoPakSource =>
       'Texte arabe : DigitalKhatt IndoPak (mushaf IndoPak de 13 lignes), MIT ; police OFL. Chaque verset inchangé.';
+
+  @override
+  String get occShaban => 'Cha\'ban';
+
+  @override
+  String get momentSayDuas => 'Dire les invocations';
 }

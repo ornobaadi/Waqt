@@ -490,11 +490,10 @@
   "madhabHanbali": "الحنبلي",
   "madhabHintHanafi": "عصر متأخر: ظل الشيء مثلاه",
   "madhabHintOthers": "العصر إذا صار ظل الشيء مثله",
-  "onbMadhabTitle": "ما مذهبك؟",
-  "onbMadhabBody": "تتبع أوقات الصلاة وبعض الأحكام مذهبك. إن لم تكن متأكدًا فاختر المذهب الذي يُدرَّس في بلدك.",
-  "onbMadhabRegion": "الشائع في منطقتك",
   "todayQuranNone": "لم تقرأ بعد اليوم",
   "todayQuranRead": "قرأت اليوم {ayat}",
   "quranIndoPak": "الهندي الباكستاني",
-  "quranIndoPakSource": "النص العربي: DigitalKhatt بالرسم الهندي (مصحف ١٣ سطرًا)، رخصة MIT؛ الخط برخصة OFL. كل آية دون تغيير."
+  "quranIndoPakSource": "النص العربي: DigitalKhatt بالرسم الهندي (مصحف ١٣ سطرًا)، رخصة MIT؛ الخط برخصة OFL. كل آية دون تغيير.",
+  "occShaban": "شعبان",
+  "momentSayDuas": "قل الأذكار"
 }

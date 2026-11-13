@@ -15,7 +15,6 @@ import '../../core/theme/waqt_theme.dart';
 import '../../data/user/notification_prefs.dart';
 import '../../data/user/user_prefs.dart';
 import '../../domain/notifications/reminder_planner.dart';
-import '../../domain/prayer/prayer_settings.dart';
 import '../../l10n/app_localizations.dart';
 import '../../platform/haptics/haptics.dart';
 import '../../platform/location/gps.dart';
@@ -72,12 +71,6 @@ const _looks = [
     dark: false,
   ),
   _Look(
-    [Color(0xFFEFB27A), Color(0xFFF4CDA0), Color(0xFFF7E3C8), _paper],
-    ink: _ink,
-    muted: Color(0xFF4E463C),
-    dark: false,
-  ),
-  _Look(
     [Color(0xFF0B0F2C), Color(0xFF161B4A), Color(0xFF1D2357), Color(0xFF232A63)],
     ink: Color(0xFFFBF3E2),
     muted: Color(0xB3FBF3E2),
@@ -112,7 +105,6 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
       _WelcomePage(onNext: () => _go(1)),
       _LanguagePage(onNext: () => _go(2)),
       _LocationPage(onNext: () => _go(3)),
-      _MadhabPage(onNext: () => _go(4)),
       _RemindersPage(onDone: _finish),
     ];
     return PopScope(
@@ -185,10 +177,10 @@ class _Frame extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Semantics(
-                    label: l.onbStep(step + 1, _looks.length),
+                    label: l.onbStep(step + 1, 4),
                     child: Row(
                       children: [
-                        for (var i = 0; i < _looks.length; i++) ...[
+                        for (var i = 0; i < 4; i++) ...[
                           AnimatedContainer(
                             duration: WaqtMotion.ui,
                             curve: WaqtMotion.ease,
@@ -531,78 +523,6 @@ class _LocationPageState extends ConsumerState<_LocationPage> {
   }
 }
 
-/// The school sets the Asr time and a few rulings. Preselected from the
-/// country, but always asked: the person knows their school, the map does not.
-class _MadhabPage extends ConsumerStatefulWidget {
-  const _MadhabPage({required this.onNext});
-  final VoidCallback onNext;
-
-  @override
-  ConsumerState<_MadhabPage> createState() => _MadhabPageState();
-}
-
-class _MadhabPageState extends ConsumerState<_MadhabPage> {
-  Madhab? _chosen;
-
-  @override
-  Widget build(BuildContext context) {
-    final l = AppLocalizations.of(context);
-    final look = _looks[3];
-    final settings = ref.watch(prayerSettingsProvider);
-    final regional = Madhab.defaultFor(ref.watch(userPrefsProvider.select((p) => p.place?.countryCode)));
-    final chosen = _chosen ?? settings.madhab;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Expanded(
-          child: Center(child: _Shadow(twice: chosen == Madhab.hanafi)),
-        ),
-        Text(l.onbMadhabTitle, style: _headline(look.ink)),
-        const SizedBox(height: WaqtSpace.x2),
-        Text(l.onbMadhabBody, style: _lede(look.muted)),
-        const SizedBox(height: WaqtSpace.x4),
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: WaqtSpace.x3),
-          decoration: BoxDecoration(
-            color: const Color(0xB3FFFBF2),
-            borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: _ink.withValues(alpha: 0.08)),
-          ),
-          child: Column(
-            children: [
-              for (final (i, m) in Madhab.values.indexed)
-                _LanguageRow(
-                  name: l.madhab(m),
-                  font: null,
-                  note: m == regional ? l.onbMadhabRegion : null,
-                  selected: m == chosen,
-                  last: i == Madhab.values.length - 1,
-                  onTap: () {
-                    Haptics.tick();
-                    setState(() => _chosen = m);
-                  },
-                ),
-            ],
-          ),
-        ),
-        const SizedBox(height: WaqtSpace.x2),
-        Text(l.madhabHint(chosen), style: WaqtText.caption.copyWith(color: look.muted)),
-        const SizedBox(height: WaqtSpace.x4),
-        _Button(
-          label: l.onbContinue,
-          fill: _ink,
-          ink: _paper,
-          onTap: () {
-            // Saved even when it matches the default: the person chose it.
-            ref.read(userPrefsProvider.notifier).setPrayer(settings.copyWith(madhab: chosen));
-            widget.onNext();
-          },
-        ),
-      ],
-    );
-  }
-}
-
 class _RemindersPage extends ConsumerWidget {
   const _RemindersPage({required this.onDone});
   final Future<void> Function() onDone;
@@ -610,7 +530,7 @@ class _RemindersPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l = AppLocalizations.of(context);
-    final look = _looks[4];
+    final look = _looks[3];
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -1009,115 +929,6 @@ class _Globe extends StatelessWidget {
       },
     ),
   );
-}
-
-/// A stone pillar in the afternoon sun and its shadow on the ground, marked
-/// at one and two lengths: when Asr begins, by the shadow.
-class _Shadow extends StatelessWidget {
-  const _Shadow({required this.twice});
-  final bool twice;
-
-  @override
-  Widget build(BuildContext context) => SizedBox(
-    width: 280,
-    height: 180,
-    child: TweenAnimationBuilder<double>(
-      tween: Tween(end: twice ? 1 : 0),
-      duration: Runtime.isTest ? Duration.zero : WaqtMotion.palette,
-      curve: WaqtMotion.ease,
-      builder: (context, t, _) => Stack(
-        clipBehavior: Clip.none,
-        children: [
-          // The sun sinks as the shadow lengthens.
-          Positioned(left: 4, top: -14 + 34 * t, child: _glow(110, const Color(0x80FFE3A3))),
-          Positioned(
-            left: 36,
-            top: 18 + 34 * t,
-            child: Container(
-              width: 46,
-              height: 46,
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                gradient: RadialGradient(
-                  center: Alignment(-0.3, -0.4),
-                  colors: [Color(0xFFFFF6DA), Color(0xFFF7C76A), Color(0xFFE39A3C)],
-                  stops: [0, 0.55, 1],
-                ),
-              ),
-            ),
-          ),
-          Positioned.fill(child: CustomPaint(painter: _ShadowPainter(t))),
-          // The pillar, lit on the sun side.
-          Positioned(
-            left: 108,
-            top: 30,
-            child: Container(
-              width: 26,
-              height: 120,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.vertical(top: Radius.circular(13), bottom: Radius.circular(3)),
-                gradient: LinearGradient(
-                  colors: [Color(0xFFF3E1C2), Color(0xFFC9A57A), Color(0xFF8C6A45)],
-                  stops: [0, 0.55, 1],
-                ),
-                boxShadow: [BoxShadow(color: Color(0x408C5F1E), blurRadius: 12, offset: Offset(4, 6))],
-              ),
-            ),
-          ),
-        ],
-      ),
-    ),
-  );
-}
-
-class _ShadowPainter extends CustomPainter {
-  const _ShadowPainter(this.t);
-  final double t;
-
-  static const _base = Offset(121, 150), _unit = 62.0;
-  static const _earth = Color(0xFF4E3A22);
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    canvas.drawLine(
-      Offset(20, _base.dy),
-      Offset(size.width - 8, _base.dy),
-      Paint()
-        ..color = _earth.withValues(alpha: 0.2)
-        ..strokeWidth = 2
-        ..strokeCap = StrokeCap.round,
-    );
-    // One length, out to two for the Hanafi Asr.
-    final len = _unit * (1 + t);
-    final rect = Rect.fromLTWH(_base.dx, _base.dy - 5, len, 10);
-    canvas.drawRRect(
-      RRect.fromRectAndRadius(rect, const Radius.circular(5)),
-      Paint()..shader = const LinearGradient(colors: [Color(0xB33C280A), Color(0x403C280A)]).createShader(rect),
-    );
-    for (final k in [1, 2]) {
-      final x = _base.dx + _unit * k;
-      final c = _earth.withValues(alpha: k == 1 || t > 0.5 ? 0.85 : 0.3);
-      canvas.drawLine(
-        Offset(x, _base.dy + 9),
-        Offset(x, _base.dy + 17),
-        Paint()
-          ..color = c
-          ..strokeWidth = 2
-          ..strokeCap = StrokeCap.round,
-      );
-      final tp = TextPainter(
-        text: TextSpan(
-          text: '$k×',
-          style: WaqtText.caption.copyWith(fontSize: 12, fontWeight: FontWeight.w600, color: c),
-        ),
-        textDirection: TextDirection.ltr,
-      )..layout();
-      tp.paint(canvas, Offset(x - tp.width / 2, _base.dy + 19));
-    }
-  }
-
-  @override
-  bool shouldRepaint(_ShadowPainter old) => old.t != t;
 }
 
 /// Latitude and longitude lines, curved as on a sphere.

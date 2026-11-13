@@ -9,12 +9,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../domain/moments/moment.dart';
 import '../../domain/occasions/occasions.dart';
+import '../../app/app_state.dart' show prayerSettingsProvider;
 import '../user/user_prefs.dart';
 
 /// One thing the Sunnah teaches for a day, tied to the HadeethEnc hadith
 /// that teaches it. The label is ours, in every app language.
 class DayItem {
-  const DayItem(this.titles, this.he, {this.when, this.key});
+  const DayItem(this.titles, this.he, {this.when, this.key, this.madhabs});
   final Map<String, String> titles;
 
   /// HadeethEnc.com id of the hadith; 0 for a [referenced] item.
@@ -24,6 +25,9 @@ class DayItem {
   final String? key;
 
   ReferencedDua? get referenced => key == null ? null : referencedDuas[key];
+
+  /// Schools this item is for, when its ruling differs between them; null for all.
+  final Set<String>? madhabs;
 
   /// When it matters most: 'suhoor', 'morning', 'day', 'iftar' or 'night'.
   final String? when;
@@ -59,17 +63,20 @@ class DayGuides {
   OccasionId? featured(List<OccasionId> occasions) =>
       occasions.where((o) => o != OccasionId.jumuah && forOccasion(o).isNotEmpty).firstOrNull;
 
-  static DayGuides parse(String json) {
+  /// [madhab] keeps only the items for that school (the rest are for everyone).
+  static DayGuides parse(String json, {String? madhab}) {
     final j = jsonDecode(json) as Map<String, Object?>;
     List<DayItem> items(Object? v) => [
       for (final i in v! as List<Object?>)
         if (i case final Map<String, Object?> m)
-          DayItem(
-            {for (final MapEntry(:key, :value) in (m['title']! as Map<String, Object?>).entries) key: '$value'},
-            m['he']! as int,
-            when: m['when'] as String?,
-            key: m['key'] as String?,
-          ),
+          if (madhab == null || m['madhab'] is! List || (m['madhab']! as List).contains(madhab))
+            DayItem(
+              {for (final MapEntry(:key, :value) in (m['title']! as Map<String, Object?>).entries) key: '$value'},
+              m['he']! as int,
+              when: m['when'] as String?,
+              key: m['key'] as String?,
+              madhabs: (m['madhab'] as List<Object?>?)?.map((e) => '$e').toSet(),
+            ),
     ];
     final occ = OccasionId.values.asNameMap(), mom = MomentId.values.asNameMap();
     return DayGuides(
@@ -83,9 +90,13 @@ class DayGuides {
   }
 }
 
-final dayGuidesProvider = FutureProvider<DayGuides>(
-  (ref) async => DayGuides.parse(await rootBundle.loadString('assets/sources/days.json')),
-);
+final dayGuidesJsonProvider = FutureProvider<String>((ref) => rootBundle.loadString('assets/sources/days.json'));
+
+/// The day and moment guides for the person's madhab.
+final dayGuidesProvider = Provider<AsyncValue<DayGuides>>((ref) {
+  final madhab = ref.watch(prayerSettingsProvider.select((s) => s.madhab));
+  return ref.watch(dayGuidesJsonProvider).whenData((json) => DayGuides.parse(json, madhab: madhab.name));
+});
 
 /// Ticks on a day's guide, kept for that civil date only.
 class DayTicks extends Notifier<({String day, Set<String> done})> {

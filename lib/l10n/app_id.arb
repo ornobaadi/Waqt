@@ -462,11 +462,10 @@
   "madhabHanbali": "Hambali",
   "madhabHintHanafi": "Asar lebih akhir: bayangan dua kali benda",
   "madhabHintOthers": "Asar saat bayangan sama dengan benda",
-  "onbMadhabTitle": "Mazhab apa yang Anda ikuti?",
-  "onbMadhabBody": "Waktu salat dan beberapa hukum mengikuti mazhab Anda. Jika ragu, pilih yang diajarkan di daerah Anda.",
-  "onbMadhabRegion": "Umum di daerah Anda",
   "todayQuranNone": "Belum dibaca hari ini",
   "todayQuranRead": "{ayat} dibaca hari ini",
   "quranIndoPak": "IndoPak",
-  "quranIndoPakSource": "Teks Arab: DigitalKhatt IndoPak (mushaf IndoPak 13 baris), MIT; font OFL. Setiap ayat tanpa perubahan."
+  "quranIndoPakSource": "Teks Arab: DigitalKhatt IndoPak (mushaf IndoPak 13 baris), MIT; font OFL. Setiap ayat tanpa perubahan.",
+  "occShaban": "Syakban",
+  "momentSayDuas": "Baca doanya"
 }

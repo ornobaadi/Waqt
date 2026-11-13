@@ -67,6 +67,8 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.text('হাদিস'));
     await tester.pumpAndSettle();
+    await tester.drag(find.byType(Scrollable).first, const Offset(0, -400));
+    await tester.pumpAndSettle();
     await tester.tap(find.text('বিছানা ঝেড়ে নিন, তারপর দোয়া পড়ুন'));
     await tester.pumpAndSettle();
     expect(find.textContaining('HadeethEnc.com'), findsWidgets);
@@ -158,18 +160,35 @@ void main() {
     expect(find.byKey(const ValueKey('ayah-1:2')), findsOneWidget);
   });
 
+  testWidgets('Home: after the prayer, "Say the duas" opens the words, one per page', (tester) async {
+    tester.view.physicalSize = const Size(1170, 2532);
+    tester.view.devicePixelRatio = 3;
+    addTearDown(tester.view.reset);
+    await tester.pumpWidget(await app(at: DateTime(2026, 11, 6, 16, 20), place: dhaka));
+    await tester.pumpAndSettle();
+    final say = find.text('Say the duas · 4');
+    await tester.scrollUntilVisible(say, 200);
+    await tester.drag(find.byType(Scrollable).first, const Offset(0, -300));
+    await tester.pumpAndSettle();
+    await tester.tap(say);
+    await tester.pumpAndSettle();
+    expect(find.text('1 of 4'), findsOneWidget);
+    expect(find.text('After wudu'), findsOneWidget);
+  });
+
   testWidgets('bedtime checklist ticks and resets with the prayer day', (tester) async {
     await tester.pumpWidget(await app(at: DateTime(2026, 11, 6, 22, 45), place: dhaka));
     await tester.pumpAndSettle();
     await tester.scrollUntilVisible(find.text('Before you sleep'), 200);
-    expect(find.text('0 of 4'), findsOneWidget);
-    // Folded: three of four show; the circle ticks, the title opens the hadith.
+    // Four practices and Witr (wajib for a Hanafi, the default).
+    expect(find.text('0 of 5'), findsOneWidget);
+    // Folded: three of five show; the circle ticks, the title opens the hadith.
     final tick = find.byKey(const ValueKey('checklist-tick')).first;
     await tester.ensureVisible(tick);
     await tester.pumpAndSettle();
     await tester.tap(tick);
     await tester.pumpAndSettle();
-    expect(find.text('1 of 4'), findsOneWidget);
+    expect(find.text('1 of 5'), findsOneWidget);
   });
 
   testWidgets('another city shows its own clock and says so', (tester) async {
@@ -202,16 +221,6 @@ void main() {
         .read(userPrefsProvider.notifier)
         .setPlace(dhaka);
     await tester.pumpAndSettle();
-
-    // Madhab: Hanafi is marked as usual in Bangladesh; Shafi'i is chosen and saved.
-    expect(find.text('Hangi mezhebi takip ediyorsunuz?'), findsOneWidget);
-    expect(find.text('Bölgenizde yaygın'), findsOneWidget);
-    await tester.tap(find.text('Şâfiî'));
-    await tester.pumpAndSettle();
-    await tester.ensureVisible(find.text('Devam'));
-    await tester.tap(find.text('Devam'));
-    await tester.pumpAndSettle();
-    expect((await SharedPreferences.getInstance()).getString('prayer.v1'), contains('"madhab":"shafii"'));
 
     await tester.tap(find.text('Sonra'));
     await tester.pumpAndSettle();

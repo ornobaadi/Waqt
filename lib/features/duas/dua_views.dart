@@ -21,6 +21,7 @@ IconData duaTaskIcon(String key) => switch (key) {
   'food' => Icons.restaurant_outlined,
   'travel' => Icons.luggage_outlined,
   'heart' => Icons.healing_outlined,
+  'crescent' => Icons.nightlight_outlined,
   _ => Icons.menu_book_outlined,
 };
 

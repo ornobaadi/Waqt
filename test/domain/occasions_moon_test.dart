@@ -92,4 +92,10 @@ void main() {
       expect(engine.snapshot(at, d, next).hero.id, MomentId.suhoor);
     });
   });
+
+  test("Sha'ban all month, alongside the white days", () {
+    expect(o(8, 1), contains(OccasionId.shaban));
+    expect(o(8, 14), containsAll([OccasionId.ayyamAlBid, OccasionId.shaban]));
+    expect(o(9, 1), isNot(contains(OccasionId.shaban)));
+  });
 }

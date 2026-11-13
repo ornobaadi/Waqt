@@ -8,6 +8,7 @@ import '../../core/theme/waqt_theme.dart';
 import '../../core/utils/digits.dart';
 import '../../data/content/content_repository.dart';
 import '../../data/sources/days.dart';
+import '../../data/sources/duas.dart';
 import '../../domain/moments/moment.dart';
 import '../../l10n/app_localizations.dart';
 import '../common/labels.dart';
@@ -137,6 +138,25 @@ class RightNowCard extends ConsumerWidget {
                     const SizedBox(height: WaqtSpace.x4),
                     for (final item in items.take(3)) _ItemRow(item: item),
                   ],
+                  // The words themselves, one per page: what to say right now.
+                  if (DuaBook.taskFor(moment.id) case final task?)
+                    if (ref.watch(duaBookProvider).value?.forTask(task).length case final n? when n > 0) ...[
+                      const SizedBox(height: WaqtSpace.x3),
+                      FilledButton.icon(
+                        onPressed: () => context.push('/dua/$task/0'),
+                        style: FilledButton.styleFrom(
+                          backgroundColor: t.accent,
+                          foregroundColor: t.heroSurface,
+                          minimumSize: const Size(48, WaqtSpace.minTouch),
+                          shape: const StadiumBorder(),
+                        ),
+                        icon: const Icon(Icons.record_voice_over_outlined, size: 18),
+                        label: Text(
+                          '${l.momentSayDuas} · ${LocaleDigits(Localizations.localeOf(context).toLanguageTag())(n)}',
+                          style: WaqtText.label.copyWith(fontWeight: FontWeight.w700, color: t.heroSurface),
+                        ),
+                      ),
+                    ],
                   if (moment.id == MomentId.afterSalah) ...[
                     const SizedBox(height: WaqtSpace.x3),
                     TextButton.icon(

@@ -1841,16 +1841,6 @@ class AppLocalizationsUr extends AppLocalizations {
   String get madhabHintOthers => 'عصر جب سایہ ایک مثل ہو';
 
   @override
-  String get onbMadhabTitle => 'آپ کس فقہی مسلک پر ہیں؟';
-
-  @override
-  String get onbMadhabBody =>
-      'نماز کے اوقات اور چند مسائل آپ کے مسلک کے مطابق ہوں گے۔ یقین نہ ہو تو وہ چنیں جو آپ کے علاقے میں پڑھایا جاتا ہے۔';
-
-  @override
-  String get onbMadhabRegion => 'آپ کے علاقے میں رائج';
-
-  @override
   String get todayQuranNone => 'آج ابھی نہیں پڑھا';
 
   @override
@@ -1864,4 +1854,10 @@ class AppLocalizationsUr extends AppLocalizations {
   @override
   String get quranIndoPakSource =>
       'عربی متن: DigitalKhatt انڈو پاک (۱۳ سطری مصحف)، MIT؛ فونٹ OFL۔ ہر آیت بغیر تبدیلی کے۔';
+
+  @override
+  String get occShaban => 'شعبان';
+
+  @override
+  String get momentSayDuas => 'دعائیں پڑھیں';
 }

@@ -100,41 +100,64 @@ L = {
     "master": ("The master supplication for forgiveness", "سيد الاستغفار", "سید الاستغفار", "সাইয়্যিদুল ইস্তিগফার", "Sayyidul istighfar", "Seyyidü'l-istiğfar", "La meilleure demande de pardon"),
     "bismillah3": ("Bismillahilladhi la yadurru, three times", "بسم الله الذي لا يضر... ثلاثًا", "بسم اللہ الذی لا یضر... تین بار", "বিসমিল্লাহিল্লাযী লা ইয়াদুররু... তিনবার", "Bismillahilladzi la yadhurru, tiga kali", "Bismillahillezî lâ yedurru, üç kez", "Bismillahi-lladhi la yadourrou, trois fois"),
     "swb100": ("SubhanAllah wa bihamdihi, a hundred times", "سبحان الله وبحمده مئة مرة", "سبحان اللہ وبحمدہ سو بار", "সুবহানাল্লাহি ওয়া বিহামদিহি একশ বার", "Subhanallah wa bihamdihi seratus kali", "Sübhanallahi ve bihamdihi, yüz kez", "SubhanAllah wa bihamdihi, cent fois"),
+    "ayatkursi": ("Ayat al-Kursi after every prayer", "آية الكرسي دبر كل صلاة", "ہر نماز کے بعد آیت الکرسی", "প্রতি নামাজের পর আয়াতুল কুরসি", "Ayat Kursi setiap selesai salat", "Her namazdan sonra Âyetü'l-Kürsî", "Ayat al-Kursi après chaque prière"),
+    "ainni": ("Ask Allah to help you remember, thank and worship Him well", "اللهم أعني على ذكرك وشكرك وحسن عبادتك", "اللہ سے ذکر، شکر اور اچھی عبادت میں مدد مانگیں", "আল্লাহর জিকির, শুকর ও উত্তম ইবাদতে সাহায্য চান", "Mohon pertolongan Allah untuk berzikir, bersyukur dan beribadah dengan baik", "Allah'tan zikir, şükür ve güzel ibadet için yardım isteyin", "Demandez à Allah de vous aider à L'évoquer, Le remercier et bien L'adorer"),
+    "witrwajib": ("Pray Witr before Fajr: it is wajib", "صلِّ الوتر قبل الفجر: هو واجب", "فجر سے پہلے وتر پڑھیں: یہ واجب ہے", "ফজরের আগে বিতর পড়ুন: এটি ওয়াজিব", "Salat Witir sebelum Subuh: hukumnya wajib", "Fecirden önce vitri kılın: vaciptir", "Priez le Witr avant l'aube : il est wajib"),
+    "witrsunnah": ("Pray Witr before Fajr: a stressed Sunnah", "صلِّ الوتر قبل الفجر: سنة مؤكدة", "فجر سے پہلے وتر پڑھیں: سنتِ مؤکدہ", "ফজরের আগে বিতর পড়ুন: সুন্নাতে মুয়াক্কাদা", "Salat Witir sebelum Subuh: sunah muakkadah", "Fecirden önce vitri kılın: müekked sünnet", "Priez le Witr avant l'aube : sunna appuyée"),
+    "rawatib": ("Twelve Sunnah rak'ahs a day: a house in Paradise", "اثنتا عشرة ركعة في اليوم: بيت في الجنة", "دن میں بارہ سنتیں: جنت میں گھر", "দিনে বারো রাকাত সুন্নত: জান্নাতে একটি ঘর", "Dua belas rakaat sunah sehari: rumah di surga", "Günde on iki rekât sünnet: cennette bir ev", "Douze rak'as surérogatoires par jour : une maison au Paradis"),
+    "fajr2": ("The two rak'ahs before Fajr: better than the world", "ركعتا الفجر خير من الدنيا وما فيها", "فجر کی دو سنتیں: دنیا و مافیہا سے بہتر", "ফজরের দুই রাকাত সুন্নত: দুনিয়া ও তার সবকিছুর চেয়ে উত্তম", "Dua rakaat sebelum Subuh: lebih baik dari dunia", "Sabahın iki rekât sünneti: dünyadan daha hayırlı", "Les deux rak'as avant l'aube : meilleures que le monde"),
+    "dhuhr4": ("Four rak'ahs before Dhuhr and four after", "أربع قبل الظهر وأربع بعدها", "ظہر سے پہلے چار اور بعد میں چار", "যোহরের আগে চার ও পরে চার রাকাত", "Empat rakaat sebelum Zuhur dan empat sesudahnya", "Öğleden önce dört, sonra dört rekât", "Quatre rak'as avant Dhuhr et quatre après"),
+    "umrah": ("Umrah in Ramadan equals a Hajj", "عمرة في رمضان تعدل حجة", "رمضان میں عمرہ حج کے برابر ہے", "রমজানে উমরাহ একটি হজের সমান", "Umrah di bulan Ramadan setara haji", "Ramazan'da umre bir hacca denktir", "Une 'umra en Ramadan équivaut à un Hajj"),
+    "sacrificebismillah": ("Say Bismillah, Allahu Akbar as you sacrifice", "قل: بسم الله والله أكبر عند الذبح", "ذبح کرتے وقت بسم اللہ، اللہ اکبر کہیں", "জবাইয়ের সময় বিসমিল্লাহ, আল্লাহু আকবার বলুন", "Ucapkan Bismillah, Allahu Akbar saat menyembelih", "Keserken Bismillah, Allahu Ekber deyin", "Dites Bismillah, Allahu Akbar en sacrifiant"),
+    "shabanfast": ("Fast much of Sha'ban, as the Prophet ﷺ did", "أكثر من الصيام في شعبان كما كان النبي ﷺ يفعل", "شعبان میں کثرت سے روزے رکھیں، جیسے نبی ﷺ رکھتے تھے", "নবী ﷺ-এর মতো শাবানে বেশি বেশি রোজা রাখুন", "Perbanyak puasa di bulan Syakban, seperti Nabi ﷺ", "Peygamber ﷺ gibi Şaban'da çokça oruç tutun", "Jeûnez beaucoup en Cha'ban, comme le faisait le Prophète ﷺ"),
+    "noprecede": ("Do not fast the day or two before Ramadan", "لا تصم يومًا أو يومين قبل رمضان", "رمضان سے ایک دو دن پہلے روزہ نہ رکھیں", "রমজানের এক-দুই দিন আগে রোজা রাখবেন না", "Jangan berpuasa sehari atau dua hari sebelum Ramadan", "Ramazan'dan bir iki gün önce oruç tutmayın", "Ne jeûnez pas un ou deux jours avant le Ramadan"),
+    "fridayfast": ("Do not fast Friday alone", "لا تصم يوم الجمعة وحده", "صرف جمعہ کا روزہ نہ رکھیں", "শুধু জুমার দিন রোজা রাখবেন না", "Jangan berpuasa hanya pada hari Jumat", "Cuma gününü tek başına oruçla geçirmeyin", "Ne jeûnez pas le vendredi seul"),
+    "khutbah": ("Stay silent during the khutbah", "أنصت والإمام يخطب", "خطبے کے دوران خاموش رہیں", "খুতবার সময় চুপ থাকুন", "Diam saat khutbah", "Hutbe sırasında susun", "Restez silencieux pendant le sermon"),
     "noprayer": ("No voluntary prayer at these times", "لا صلاة في هذه الأوقات", "ان اوقات میں نفل نماز نہیں", "এই সময়গুলোতে নফল নামাজ নেই", "Tidak ada salat sunah di waktu ini", "Bu vakitlerde nafile namaz yok", "Pas de prière surérogatoire à ces moments"),
     "afterfajrasr": ("None after Fajr until sunrise, or after Asr until sunset", "لا صلاة بعد الفجر حتى تطلع الشمس ولا بعد العصر حتى تغرب", "فجر کے بعد طلوع تک اور عصر کے بعد غروب تک نہیں", "ফজরের পর সূর্যোদয় পর্যন্ত ও আসরের পর সূর্যাস্ত পর্যন্ত নয়", "Tidak setelah Subuh hingga terbit, dan setelah Asar hingga terbenam", "Sabahtan güneş doğana, ikindiden güneş batana kadar yok", "Rien après Fajr jusqu'au lever, ni après Asr jusqu'au coucher"),
+}
+
+# Labels whose ruling differs by school: shown only to these madhabs
+# (lib/domain/prayer/prayer_settings.dart Madhab names). The hadith is the same.
+MADHAB = {
+    "witrwajib": ["hanafi"],
+    "witrsunnah": ["shafii", "maliki", "hanbali"],
 }
 
 # occasion id -> (label key, HadeethEnc id, when)
 DAYS = {
     "eidAlFitr": [("dates", 65481, "morning"), ("zakat", 4520, "morning"), ("goout", 7200, "morning"),
                   ("way", 65484, "morning"), ("nofast", 4527, None), ("shawwal", 65523, None)],
-    "eidAlAdha": [("eatafter", 65482, "morning"), ("sacrifice", 5401, None), ("goout", 7200, "morning"),
+    "eidAlAdha": [("eatafter", 65482, "morning"), ("sacrifice", 5401, None), ("sacrificebismillah", 2971, None),
+                  ("goout", 7200, "morning"),
                   ("way", 65484, "morning"), ("nofast", 4527, None)],
     "firstTenDhulHijjah": [("bestdays", 6255, None), ("hairnails", 8954, None)],
     "arafah": [("arafahfast", 65874, None), ("arafahfire", 8288, None), ("bestdays", 6255, None)],
     "tashreeq": [("tashreqeat", 65519, None), ("tashreqfast", 65518, None)],
     "tasua": [("ninth", 65522, None), ("muharram", 11261, None)],
     "ashura": [("ashurafast", 10121, None), ("ashurawhy", 66404, None), ("muharram", 11261, None)],
+    "shaban": [("shabanfast", 6213, None), ("noprecede", 4508, None)],
     "ramadan": [("suhoor", 4498, "suhoor"), ("latesuhoor", 4457, "suhoor"), ("faith", 4196, "day"),
                 ("tongue", 66270, "day"), ("hasten", 4438, "iftar"), ("datesiftar", 6185, "iftar"),
                 ("iftardua", 65511, "iftar"), ("feed", 6271, "iftar"), ("night", 65512, "night"),
-                ("quran", 6179, "day")],
+                ("quran", 6179, "day"), ("umrah", 2753, "day")],
     "lastTenNights": [("strive", 4944, "night"), ("odd", 4540, "night"), ("qadrstand", 4202, "night"),
                       ("qadrdua", "qadrDua", "night"), ("itikaf", 4495, "day")],
     "ayyamAlBid": [("bid", 10108, None)],
     "mondayFast": [("presented", 5908, None), ("monthu", 6183, None)],
     "thursdayFast": [("presented", 5908, None), ("monthu", 6183, None)],
-    "jumuah": [("bestday", 3711, None), ("bathe", 5393, None)],
+    "jumuah": [("bestday", 3711, None), ("bathe", 5393, None), ("khutbah", 3107, None), ("fridayfast", 4449, None)],
 }
 
 MOMENTS = {
     "duha": [("duhacharity", 4568), ("duhahot", 11283), ("duhatwo", 4538)],
-    "lastThird": [("descends", 10412)],
+    "lastThird": [("descends", 10412), ("witrwajib", 11262), ("witrsunnah", 11262)],
     "fridayLastHour": [("hour", 65753), ("hourlast", 65755), ("salawat", 65928)],
-    "afterSalah": [("forgive3", 10947), ("tasbih33", 10948)],
-    "betweenAdhanIqamah": [("noturned", 5479), ("repeat", 65087), ("afteradhan", 10635)],
-    "bedtime": [("wudusleep", 65911), ("dustbed", 6034), ("quls", 65060), ("fatima", 6076)],
-    "jumuah": [("bathe", 5393), ("salawat", 65928), ("bestday", 3711)],
+    "afterSalah": [("forgive3", 10947), ("tasbih33", 10948), ("ayatkursi", 10950), ("ainni", 3518)],
+    "betweenAdhanIqamah": [("noturned", 5479), ("repeat", 65087), ("afteradhan", 10635), ("rawatib", 11251)],
+    "bedtime": [("wudusleep", 65911), ("dustbed", 6034), ("quls", 65060), ("fatima", 6076),
+                ("witrwajib", 11262), ("witrsunnah", 11262)],
+    "jumuah": [("bathe", 5393), ("khutbah", 3107), ("salawat", 65928), ("bestday", 3711), ("fridayfast", 4449)],
     "morningAdhkar": [("master", 5503), ("bismillah3", 6093), ("swb100", 5516)],
     "eveningAdhkar": [("master", 5503), ("bismillah3", 6093), ("swb100", 5516)],
     "restrictedSunrise": [("noprayer", 10604), ("afterfajrasr", 3081)],
@@ -299,6 +322,8 @@ def main():
         row = {"he": i, "title": labels(key, L)}
         if when:
             row["when"] = when
+        if key in MADHAB:
+            row["madhab"] = MADHAB[key]
         return row
 
     days = {o: [item(k, i, w, o) for k, i, w in items] for o, items in DAYS.items()}

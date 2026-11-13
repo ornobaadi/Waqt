@@ -92,7 +92,7 @@ Future<Widget> app({
       contentProvider.overrideWith(
         (ref) => ContentBundle.parse(File('assets/content/content.json').readAsStringSync(), includeUnreviewed: true),
       ),
-      dayGuidesProvider.overrideWith((ref) => DayGuides.parse(File('assets/sources/days.json').readAsStringSync())),
+      dayGuidesJsonProvider.overrideWith((ref) => File('assets/sources/days.json').readAsStringSync()),
       heBundleProvider.overrideWith((ref) => HeBundle.parse(File('assets/sources/hadeethenc.json').readAsStringSync())),
       duaBookProvider.overrideWith((ref) => DuaBook.parse(File('assets/sources/duas.json').readAsStringSync())),
       indoPakProvider.overrideWith(

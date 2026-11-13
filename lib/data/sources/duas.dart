@@ -93,8 +93,8 @@ class DuaBook {
   static String? taskFor(MomentId m) => switch (m) {
     MomentId.morningAdhkar || MomentId.eveningAdhkar => 'morning_evening',
     MomentId.bedtime => 'sleep',
-    MomentId.afterSalah => 'salah',
-    MomentId.iftar => 'food',
+    MomentId.afterSalah || MomentId.betweenAdhanIqamah => 'salah',
+    MomentId.iftar => 'fasting',
     _ => null,
   };
 

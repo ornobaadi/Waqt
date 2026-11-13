@@ -27,6 +27,7 @@ TASKS = {
     "home": ("home", "Home and going out", "المنزل والخروج", "گھر اور باہر جانا", "ঘর ও বাইরে যাওয়া", "Rumah dan keluar rumah", "Ev ve dışarı çıkmak", "La maison et les sorties"),
     "food": ("food", "Food and drink", "الطعام والشراب", "کھانا پینا", "খাবার ও পানীয়", "Makan dan minum", "Yemek ve içmek", "Manger et boire"),
     "travel": ("travel", "Travel", "السفر", "سفر", "সফর", "Safar", "Yolculuk", "Le voyage"),
+    "fasting": ("crescent", "Fasting and the new moon", "الصيام والهلال", "روزہ اور نیا چاند", "রোজা ও নতুন চাঁদ", "Puasa dan hilal", "Oruç ve hilal", "Le jeûne et le croissant"),
     "hardship": ("heart", "Hardship and illness", "الكرب والمرض", "مشکل اور بیماری", "বিপদ ও অসুস্থতা", "Kesulitan dan sakit", "Sıkıntı ve hastalık", "Épreuves et maladie"),
 }
 
@@ -34,11 +35,12 @@ TASKS = {
 HINTS = {
     "morning_evening": ("After Fajr, and before Maghrib", "بعد الفجر وقبل المغرب", "فجر کے بعد اور مغرب سے پہلے", "ফজরের পর ও মাগরিবের আগে", "Setelah Subuh dan sebelum Magrib", "Sabahtan sonra, akşamdan önce", "Après Fajr et avant Maghrib"),
     "sleep": ("Lying down, and waking up", "عند النوم والاستيقاظ", "لیٹتے اور جاگتے وقت", "শোয়ার সময় ও জেগে ওঠার পর", "Saat berbaring dan bangun", "Yatarken ve uyanınca", "Au coucher et au réveil"),
-    "salah": ("After wudu and after the salam", "بعد الوضوء وبعد السلام", "وضو اور سلام کے بعد", "অজু ও সালামের পর", "Setelah wudu dan salam", "Abdestten ve selamdan sonra", "Après les ablutions et le salam"),
+    "salah": ("After wudu, the adhan and the salam", "بعد الوضوء والأذان والسلام", "وضو، اذان اور سلام کے بعد", "অজু, আজান ও সালামের পর", "Setelah wudu, azan dan salam", "Abdest, ezan ve selamdan sonra", "Après les ablutions, l'adhan et le salam"),
     "mosque": ("Going in and coming out", "عند الدخول والخروج", "داخل ہوتے اور نکلتے وقت", "প্রবেশ ও বের হওয়ার সময়", "Saat masuk dan keluar", "Girerken ve çıkarken", "En entrant et en sortant"),
     "home": ("Leaving home, the bathroom", "الخروج من البيت والخلاء", "گھر سے نکلنا، بیت الخلاء", "ঘর থেকে বের হওয়া, টয়লেট", "Keluar rumah, kamar mandi", "Evden çıkış, tuvalet", "Sortir de chez soi, les toilettes"),
     "food": ("Bismillah, and after the meal", "التسمية وبعد الطعام", "بسم اللہ اور کھانے کے بعد", "বিসমিল্লাহ ও খাওয়ার পর", "Basmalah dan setelah makan", "Besmele ve yemekten sonra", "Bismillah et après le repas"),
     "travel": ("Setting out, stopping, goodbyes", "الخروج والنزول والتوديع", "روانگی، پڑاؤ، رخصت", "রওনা, যাত্রাবিরতি, বিদায়", "Berangkat, singgah, berpamitan", "Yola çıkış, mola, vedalaşma", "Départ, halte, adieux"),
+    "fasting": ("Iftar, and seeing the new moon", "عند الفطر ورؤية الهلال", "افطار اور نیا چاند دیکھنے پر", "ইফতার ও নতুন চাঁদ দেখলে", "Berbuka, dan melihat hilal", "İftar ve hilali görünce", "La rupture du jeûne et le croissant"),
     "hardship": ("Distress, illness, anger, debt", "الكرب والمرض والغضب والدين", "پریشانی، بیماری، غصہ، قرض", "বিপদ, অসুস্থতা, রাগ, ঋণ", "Kesusahan, sakit, marah, utang", "Sıkıntı, hastalık, öfke, borç", "Détresse, maladie, colère, dettes"),
 }
 
@@ -55,6 +57,9 @@ WHEN = {
     "right_side": ("Lying on your right side", "على الشق الأيمن قبل النوم", "دائیں کروٹ لیٹ کر", "ডান কাতে শুয়ে", "Berbaring di sisi kanan", "Sağ tarafına yatınca", "Couché sur le côté droit"),
     "waking": ("When you wake up", "عند الاستيقاظ", "جاگنے پر", "ঘুম থেকে জেগে", "Saat bangun tidur", "Uyanınca", "Au réveil"),
     "after_wudu": ("After wudu", "بعد الوضوء", "وضو کے بعد", "অজুর পর", "Setelah wudu", "Abdestten sonra", "Après les ablutions"),
+    "after_adhan": ("When the adhan ends", "بعد سماع الأذان", "اذان سننے کے بعد", "আজান শোনার পর", "Setelah mendengar azan", "Ezanı duyunca", "Après avoir entendu l'adhan"),
+    "iftar": ("When you break your fast", "عند الإفطار", "افطار کے وقت", "ইফতারের সময়", "Saat berbuka puasa", "Orucu açınca", "En rompant le jeûne"),
+    "new_moon": ("On seeing the new moon", "عند رؤية الهلال", "نیا چاند دیکھ کر", "নতুন চাঁদ দেখলে", "Saat melihat hilal", "Hilali görünce", "En voyant le croissant de lune"),
     "after_salam": ("After the salam", "بعد السلام من الصلاة", "سلام پھیرنے کے بعد", "সালাম ফেরানোর পর", "Setelah salam", "Selamdan sonra", "Après le salam"),
     "every_prayer": ("After every prayer", "دبر كل صلاة", "ہر نماز کے بعد", "প্রত্যেক নামাজের পর", "Setelah setiap salat", "Her namazdan sonra", "Après chaque prière"),
     "enter_mosque": ("Entering the mosque", "عند دخول المسجد", "مسجد میں داخل ہوتے وقت", "মসজিদে প্রবেশের সময়", "Saat masuk masjid", "Camiye girerken", "En entrant à la mosquée"),
@@ -139,6 +144,13 @@ DUAS = [
      "Ashhadu an la ilaha illallahu wa anna Muhammadan 'abdullahi wa rasuluh",
      {"en": ("I bear witness that there is no god but Allah and that Muhammad is the servant", "Messenger of Allah"),
       "id": ("Aku bersaksi bahwa tidak ada tuhan", "hamba Allah dan rasul-Nya")}),
+    ("after_adhan", "salah", 10635, 1, ("اللهم رب هذه الدعوة التامة", "الذي وعدته"),
+     "Allahumma rabba hadhihid-da'watit-tammah, was-salatil-qa'imah, ati Muhammadanil-wasilata wal-fadilah, wab'athhu maqamam mahmudanil-ladhi wa'adtah",
+     {"en": ("O Allah, Lord of this perfect call", "that You have promised him"),
+      "ur": ("اے اللہ! اس کامل دعوت", "جس کا تو نے وعدہ کیا ہے"),
+      "bn": ("হে আল্লাহ এই পূর্ণাঙ্গ আহবান", "যার প্রতিশ্রুতি তুমি তাঁকে দিয়েছো"),
+      "id": ("Ya Allah! Tuhan pemilik seruan", "yang telah Engkau janjikan kepadanya"),
+      "tr": ("Ey bu mükemmel ezanın", "Makâm-ı Mahmûd'a kavuştur")}),
     ("after_salam", "salah", 10947, 1, ("اللهم انت السلام", "ذا الجلال والاكرام"),
      "Allahumma antas-salam wa minkas-salam, tabarakta ya dhal-jalali wal-ikram",
      {"en": ("O Allah, You are As-Salām", "O Possessor of Glory and Honor"),
@@ -258,4 +270,15 @@ DUAS = [
       "tr": ("Allah'ım! Borcun beni", "Sana sığınırım."),
       "bn": ("হে আল্লাহ, আমি ঋণের বোঝা", "প্রার্থনা করছি।"),
       "ur": ("اے اللہ! میں قرض کے غلبے", "پناہ چاہتا ہوں۔")}),
+    ("iftar", "fasting", 65511, 1, ("ذهب الظما", "ان شاء الله"),
+     "Dhahabaz-zama'u, wabtallatil-'uruqu, wa thabatal-ajru in sha' Allah",
+     {}),
+    # Ends at "Rabbi wa rabbuk Allah": the closing words are only in a mursal chain (HadeethEnc's note).
+    ("new_moon", "fasting", 6177, 1, ("اللهم اهله علينا", "ربي وربك الله"),
+     "Allahumma ahillahu 'alayna bil-amni wal-iman, was-salamati wal-islam, rabbi wa rabbukallah",
+     {"en": ("O Allah, let this new moon", "my Lord is Allah."),
+      "ur": ("اے اللہ! اس چاند کو", "رب اللہ ہی ہے۔"),
+      "id": ("Ya Allah! Perlihatkanlah bulan sabit", "Rabbmu adalah Allah"),
+      "tr": ("Allah'ım! Bu hilâli", "senin rabbin de Allah'tır."),
+      "fr": ("Ô Allah ! Fais qu'il nous apporte", "et ton Seigneur !")}),
 ]

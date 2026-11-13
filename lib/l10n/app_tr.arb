@@ -468,11 +468,10 @@
   "madhabHanbali": "Hanbelî",
   "madhabHintHanafi": "Daha geç ikindi: gölge cismin iki katı",
   "madhabHintOthers": "Gölge cisme eşit olunca ikindi",
-  "onbMadhabTitle": "Hangi mezhebi takip ediyorsunuz?",
-  "onbMadhabBody": "Namaz vakitleri ve bazı hükümler mezhebinize göre olur. Emin değilseniz yaşadığınız yerde öğretileni seçin.",
-  "onbMadhabRegion": "Bölgenizde yaygın",
   "todayQuranNone": "Bugün henüz okunmadı",
   "todayQuranRead": "Bugün {ayat} okundu",
   "quranIndoPak": "Hint-Pakistan",
-  "quranIndoPakSource": "Arapça metin: DigitalKhatt IndoPak (13 satırlık IndoPak mushafı), MIT; yazı tipi OFL. Her ayet değiştirilmeden."
+  "quranIndoPakSource": "Arapça metin: DigitalKhatt IndoPak (13 satırlık IndoPak mushafı), MIT; yazı tipi OFL. Her ayet değiştirilmeden.",
+  "occShaban": "Şaban",
+  "momentSayDuas": "Duaları okuyun"
 }

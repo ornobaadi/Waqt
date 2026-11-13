@@ -145,6 +145,7 @@ extension WaqtLabels on AppLocalizations {
     OccasionId.ramadan => occRamadan(ramadanDay),
     OccasionId.firstTenDhulHijjah => occFirstTen,
     OccasionId.ayyamAlBid => occBid,
+    OccasionId.shaban => occShaban,
     OccasionId.jumuah => momentJumuah,
     OccasionId.mondayFast => occMonday,
     OccasionId.thursdayFast => occThursday,

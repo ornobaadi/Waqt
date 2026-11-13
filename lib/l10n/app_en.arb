@@ -1140,9 +1140,6 @@
   "madhabHanbali": "Hanbali",
   "madhabHintHanafi": "Later Asr: a shadow twice the object",
   "madhabHintOthers": "Asr when a shadow equals the object",
-  "onbMadhabTitle": "Which madhab do you follow?",
-  "onbMadhabBody": "Prayer times and a few rulings follow your school. If you are not sure, choose the one taught where you live.",
-  "onbMadhabRegion": "Usual where you are",
   "todayQuranNone": "Not read yet today",
   "todayQuranRead": "{ayat} read today",
   "@todayQuranRead": {
@@ -1153,5 +1150,7 @@
     }
   },
   "quranIndoPak": "IndoPak",
-  "quranIndoPakSource": "Arabic text: DigitalKhatt IndoPak (13-line IndoPak mushaf), MIT; font OFL. Each ayah unchanged."
+  "quranIndoPakSource": "Arabic text: DigitalKhatt IndoPak (13-line IndoPak mushaf), MIT; font OFL. Each ayah unchanged.",
+  "occShaban": "Sha'ban",
+  "momentSayDuas": "Say the duas"
 }

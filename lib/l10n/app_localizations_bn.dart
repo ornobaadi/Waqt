@@ -1838,16 +1838,6 @@ class AppLocalizationsBn extends AppLocalizations {
   String get madhabHintOthers => 'আসর যখন ছায়া বস্তুর সমান';
 
   @override
-  String get onbMadhabTitle => 'আপনি কোন মাযহাব অনুসরণ করেন?';
-
-  @override
-  String get onbMadhabBody =>
-      'নামাজের সময় ও কয়েকটি বিধান আপনার মাযহাব অনুযায়ী হবে। নিশ্চিত না হলে আপনার এলাকায় যেটি শেখানো হয় সেটি বেছে নিন।';
-
-  @override
-  String get onbMadhabRegion => 'আপনার এলাকায় প্রচলিত';
-
-  @override
   String get todayQuranNone => 'আজ এখনো পড়া হয়নি';
 
   @override
@@ -1861,4 +1851,10 @@ class AppLocalizationsBn extends AppLocalizations {
   @override
   String get quranIndoPakSource =>
       'আরবি পাঠ: DigitalKhatt ইন্দো-পাক (১৩ লাইনের মুসহাফ), MIT; ফন্ট OFL। প্রতিটি আয়াত অপরিবর্তিত।';
+
+  @override
+  String get occShaban => 'শাবান';
+
+  @override
+  String get momentSayDuas => 'দোয়াগুলো পড়ুন';
 }
