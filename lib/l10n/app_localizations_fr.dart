@@ -1607,4 +1607,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get duaDone => 'Terminé';
+
+  @override
+  String get duasSearchHint => 'Qu\'allez-vous faire ?';
 }

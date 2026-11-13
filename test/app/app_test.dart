@@ -110,6 +110,8 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.byTooltip('দোয়া'));
     await tester.pumpAndSettle();
+    await tester.ensureVisible(find.text('সফর'));
+    await tester.pumpAndSettle();
     await tester.tap(find.text('সফর'));
     await tester.pumpAndSettle();
     await tester.ensureVisible(find.text('মুসাফিরকে বিদায় দেওয়ার সময়'));

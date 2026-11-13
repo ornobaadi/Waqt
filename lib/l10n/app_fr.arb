@@ -385,5 +385,6 @@
   "duaPosition": "{index} sur {total}",
   "duaNext": "Suivante",
   "duaPrevious": "Précédente",
-  "duaDone": "Terminé"
+  "duaDone": "Terminé",
+  "duasSearchHint": "Qu'allez-vous faire ?"
 }

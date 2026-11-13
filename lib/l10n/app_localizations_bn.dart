@@ -1594,4 +1594,7 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get duaDone => 'শেষ';
+
+  @override
+  String get duasSearchHint => 'আপনি কী করতে যাচ্ছেন?';
 }

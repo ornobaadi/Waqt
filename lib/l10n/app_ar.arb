@@ -413,5 +413,6 @@
   "duaPosition": "{index} من {total}",
   "duaNext": "التالي",
   "duaPrevious": "السابق",
-  "duaDone": "تم"
+  "duaDone": "تم",
+  "duasSearchHint": "ماذا ستفعل الآن؟"
 }

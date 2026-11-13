@@ -1012,5 +1012,6 @@
   },
   "duaNext": "Next",
   "duaPrevious": "Previous",
-  "duaDone": "Done"
+  "duaDone": "Done",
+  "duasSearchHint": "What are you about to do?"
 }

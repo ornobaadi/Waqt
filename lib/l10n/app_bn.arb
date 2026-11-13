@@ -391,5 +391,6 @@
   "duaPosition": "{total}টির মধ্যে {index}",
   "duaNext": "পরবর্তী",
   "duaPrevious": "আগের",
-  "duaDone": "শেষ"
+  "duaDone": "শেষ",
+  "duasSearchHint": "আপনি কী করতে যাচ্ছেন?"
 }

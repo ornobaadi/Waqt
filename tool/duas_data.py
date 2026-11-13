@@ -30,6 +30,18 @@ TASKS = {
     "hardship": ("heart", "Hardship and illness", "الكرب والمرض", "مشکل اور بیماری", "বিপদ ও অসুস্থতা", "Kesulitan dan sakit", "Sıkıntı ve hastalık", "Épreuves et maladie"),
 }
 
+# A one-line hint under each task: what is in it. key -> (en, ar, ur, bn, id, tr, fr).
+HINTS = {
+    "morning_evening": ("After Fajr, and before Maghrib", "بعد الفجر وقبل المغرب", "فجر کے بعد اور مغرب سے پہلے", "ফজরের পর ও মাগরিবের আগে", "Setelah Subuh dan sebelum Magrib", "Sabahtan sonra, akşamdan önce", "Après Fajr et avant Maghrib"),
+    "sleep": ("Lying down, and waking up", "عند النوم والاستيقاظ", "لیٹتے اور جاگتے وقت", "শোয়ার সময় ও জেগে ওঠার পর", "Saat berbaring dan bangun", "Yatarken ve uyanınca", "Au coucher et au réveil"),
+    "salah": ("After wudu and after the salam", "بعد الوضوء وبعد السلام", "وضو اور سلام کے بعد", "অজু ও সালামের পর", "Setelah wudu dan salam", "Abdestten ve selamdan sonra", "Après les ablutions et le salam"),
+    "mosque": ("Going in and coming out", "عند الدخول والخروج", "داخل ہوتے اور نکلتے وقت", "প্রবেশ ও বের হওয়ার সময়", "Saat masuk dan keluar", "Girerken ve çıkarken", "En entrant et en sortant"),
+    "home": ("Leaving home, the bathroom", "الخروج من البيت والخلاء", "گھر سے نکلنا، بیت الخلاء", "ঘর থেকে বের হওয়া, টয়লেট", "Keluar rumah, kamar mandi", "Evden çıkış, tuvalet", "Sortir de chez soi, les toilettes"),
+    "food": ("Bismillah, and after the meal", "التسمية وبعد الطعام", "بسم اللہ اور کھانے کے بعد", "বিসমিল্লাহ ও খাওয়ার পর", "Basmalah dan setelah makan", "Besmele ve yemekten sonra", "Bismillah et après le repas"),
+    "travel": ("Setting out, stopping, goodbyes", "الخروج والنزول والتوديع", "روانگی، پڑاؤ، رخصت", "রওনা, যাত্রাবিরতি, বিদায়", "Berangkat, singgah, berpamitan", "Yola çıkış, mola, vedalaşma", "Départ, halte, adieux"),
+    "hardship": ("Distress, illness, anger, debt", "الكرب والمرض والغضب والدين", "پریشانی، بیماری، غصہ، قرض", "বিপদ, অসুস্থতা, রাগ, ঋণ", "Kesusahan, sakit, marah, utang", "Sıkıntı, hastalık, öfke, borç", "Détresse, maladie, colère, dettes"),
+}
+
 # When to say it: key -> (en, ar, ur, bn, id, tr, fr).
 WHEN = {
     "morning": ("In the morning", "عند الصباح", "صبح کے وقت", "সকালে", "Di pagi hari", "Sabah olunca", "Le matin"),

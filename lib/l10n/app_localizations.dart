@@ -2786,6 +2786,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Done'**
   String get duaDone;
+
+  /// No description provided for @duasSearchHint.
+  ///
+  /// In en, this message translates to:
+  /// **'What are you about to do?'**
+  String get duasSearchHint;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

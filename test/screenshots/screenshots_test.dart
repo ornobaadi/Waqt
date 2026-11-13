@@ -196,6 +196,16 @@ void main() {
   );
 
   testWidgets(
+    'duas at bedtime',
+    (t) async => shoot(
+      t,
+      '16h_duas_bedtime',
+      await app(at: DateTime(2026, 11, 6, 22, 45), place: dhaka),
+      then: () async => t.tap(find.byTooltip('Duas')),
+    ),
+  );
+
+  testWidgets(
     'dua task',
     (t) async => shoot(
       t,

@@ -385,5 +385,6 @@
   "duaPosition": "{index} dari {total}",
   "duaNext": "Berikutnya",
   "duaPrevious": "Sebelumnya",
-  "duaDone": "Selesai"
+  "duaDone": "Selesai",
+  "duasSearchHint": "Apa yang akan Anda lakukan?"
 }

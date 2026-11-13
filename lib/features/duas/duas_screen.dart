@@ -96,7 +96,7 @@ class _DuasScreenState extends ConsumerState<DuasScreen> {
             ),
           ),
           if (_tab == 0)
-            ...sayDuasSlivers(context, ref)
+            const SliverToBoxAdapter(child: SayDuas())
           else ...[
             _pad(
               Padding(

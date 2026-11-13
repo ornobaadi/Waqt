@@ -1606,4 +1606,7 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get duaDone => 'Selesai';
+
+  @override
+  String get duasSearchHint => 'Apa yang akan Anda lakukan?';
 }

@@ -329,7 +329,8 @@ def main():
     import duas_data as D
     if set(D.LANGS) != set(LANGS):
         raise SystemExit("duas_data.LANGS differs from LANGS")
-    tasks = [{"id": k, "icon": v[0], "title": dict(zip(D.LANGS, v[1:]))} for k, v in D.TASKS.items()]
+    tasks = [{"id": k, "icon": v[0], "title": dict(zip(D.LANGS, v[1:])), "hint": dict(zip(D.LANGS, D.HINTS[k]))}
+             for k, v in D.TASKS.items()]
     items, seen = [], set()
     for when, task, i, times, arabic, latin, meaning in D.DUAS:
         where = f"dua {when}"

@@ -7,14 +7,18 @@ import '../../domain/moments/moment.dart';
 
 /// A situation to find the words for: waking, travel, the mosque.
 class DuaTask {
-  const DuaTask(this.id, this.icon, this.titles);
+  const DuaTask(this.id, this.icon, this.titles, [this.hints = const {}]);
   final String id;
 
   /// A short icon key: sun, moon, drop, mosque, home, food, travel, heart.
   final String icon;
   final Map<String, String> titles;
 
+  /// One line on what is inside: "Lying down, and waking up".
+  final Map<String, String> hints;
+
   String title(String lang) => titles[lang] ?? titles['en'] ?? id;
+  String hint(String lang) => hints[lang] ?? hints['en'] ?? '';
 }
 
 /// The words to say for one moment, cut out of a HadeethEnc hadith by
@@ -65,6 +69,26 @@ class DuaBook {
       if (d.task == id) d,
   ];
 
+  /// Duas whose "when", task or transliteration matches every word of [q].
+  List<Dua> search(String q, String lang) {
+    final words = q.toLowerCase().split(RegExp(r'\s+')).where((w) => w.isNotEmpty).toList();
+    if (words.isEmpty) return const [];
+    return [
+      for (final d in items)
+        if (words.every(
+          (w) => [
+            d.whenIn(lang),
+            d.when['en'] ?? '',
+            task(d.task)?.title(lang) ?? '',
+            task(d.task)?.hint(lang) ?? '',
+            d.latin,
+            d.meaningIn(lang) ?? '',
+          ].any((s) => s.toLowerCase().contains(w)),
+        ))
+          d,
+    ];
+  }
+
   /// The task that fits a moment of the day, if any.
   static String? taskFor(MomentId m) => switch (m) {
     MomentId.morningAdhkar || MomentId.eveningAdhkar => 'morning_evening',
@@ -82,7 +106,8 @@ class DuaBook {
     return DuaBook(
       [
         for (final t in j['tasks']! as List<Object?>)
-          if (t case final Map<String, Object?> m) DuaTask('${m['id']}', '${m['icon']}', strings(m['title'])),
+          if (t case final Map<String, Object?> m)
+            DuaTask('${m['id']}', '${m['icon']}', strings(m['title']), strings(m['hint'])),
       ],
       [
         for (final i in j['items']! as List<Object?>)

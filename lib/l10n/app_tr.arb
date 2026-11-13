@@ -391,5 +391,6 @@
   "duaPosition": "{total} içinden {index}",
   "duaNext": "Sonraki",
   "duaPrevious": "Önceki",
-  "duaDone": "Bitti"
+  "duaDone": "Bitti",
+  "duasSearchHint": "Ne yapmak üzeresiniz?"
 }

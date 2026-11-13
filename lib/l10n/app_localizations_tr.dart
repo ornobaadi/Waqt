@@ -1604,4 +1604,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get duaDone => 'Bitti';
+
+  @override
+  String get duasSearchHint => 'Ne yapmak üzeresiniz?';
 }

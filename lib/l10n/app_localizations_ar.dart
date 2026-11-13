@@ -1603,4 +1603,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get duaDone => 'تم';
+
+  @override
+  String get duasSearchHint => 'ماذا ستفعل الآن؟';
 }

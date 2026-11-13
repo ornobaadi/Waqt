@@ -399,5 +399,6 @@
   "duaPosition": "{total} میں سے {index}",
   "duaNext": "اگلی",
   "duaPrevious": "پچھلی",
-  "duaDone": "مکمل"
+  "duaDone": "مکمل",
+  "duasSearchHint": "آپ کیا کرنے والے ہیں؟"
 }

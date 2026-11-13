@@ -1596,4 +1596,7 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get duaDone => 'مکمل';
+
+  @override
+  String get duasSearchHint => 'آپ کیا کرنے والے ہیں؟';
 }

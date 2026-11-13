@@ -24,59 +24,127 @@ IconData duaTaskIcon(String key) => switch (key) {
   _ => Icons.menu_book_outlined,
 };
 
-/// "Duas to say": the task that fits this moment, then every task.
-List<Widget> sayDuasSlivers(BuildContext context, WidgetRef ref) {
-  final l = AppLocalizations.of(context);
-  final lang = Localizations.localeOf(context).languageCode;
-  final book = ref.watch(duaBookProvider).value;
-  if (book == null) return const [];
-  // A string, not the list: the snapshot changes every second.
-  final key = ref.watch(
-    momentSnapshotProvider.select((s) {
-      for (final m in (s?.active ?? const []).reversed) {
-        final task = DuaBook.taskFor(m.id);
-        if (task != null) return '$task|${l.moment(m)}';
-      }
-      return '';
-    }),
-  );
-  final now = key.isEmpty ? null : key.split('|');
-  final nowTask = now == null ? null : book.task(now[0]);
-  return [
-    if (nowTask != null)
-      _pad(
-        Padding(
-          padding: const EdgeInsets.only(top: WaqtSpace.x2),
-          child: _NowCard(task: nowTask, moment: now![1], count: book.forTask(nowTask.id).length),
-        ),
-      ),
-    _pad(SectionLabel(l.duasByTask)),
-    _pad(
-      RowGroup(
-        children: [
-          for (final t in book.tasks)
-            _TaskRow(
-              icon: duaTaskIcon(t.icon),
-              title: t.title(lang),
-              count: l.duasCount(book.forTask(t.id).length),
-              onTap: () => context.push('/duas/task/${t.id}'),
-            ),
-        ],
-      ),
-    ),
-  ];
+/// "Duas to say": a search, the task that fits this moment, then every task
+/// as a tile with a hint of what is inside.
+class SayDuas extends ConsumerStatefulWidget {
+  const SayDuas({super.key});
+
+  @override
+  ConsumerState<SayDuas> createState() => _SayDuasState();
 }
 
-Widget _pad(Widget child) => SliverPadding(
-  padding: const EdgeInsets.symmetric(horizontal: WaqtSpace.screen),
-  sliver: SliverToBoxAdapter(child: child),
-);
+class _SayDuasState extends ConsumerState<SayDuas> {
+  final _search = TextEditingController();
+  String _q = '';
 
+  @override
+  void dispose() {
+    _search.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+    final t = WaqtTokens.of(context);
+    final lang = Localizations.localeOf(context).languageCode;
+    final book = ref.watch(duaBookProvider).value;
+    if (book == null) return const SizedBox.shrink();
+    // A string, not the list: the snapshot changes every second.
+    final key = ref.watch(
+      momentSnapshotProvider.select((s) {
+        for (final m in (s?.active ?? const []).reversed) {
+          final task = DuaBook.taskFor(m.id);
+          if (task != null) return '$task|${l.moment(m)}';
+        }
+        return '';
+      }),
+    );
+    final now = key.isEmpty ? null : key.split('|');
+    final nowTask = now == null ? null : book.task(now[0]);
+    final q = _q.trim();
+    final found = book.search(q, lang);
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: WaqtSpace.screen),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          const SizedBox(height: WaqtSpace.x3),
+          TextField(
+            controller: _search,
+            onChanged: (v) => setState(() => _q = v),
+            textInputAction: TextInputAction.search,
+            style: WaqtText.body.copyWith(color: t.ink),
+            cursorColor: t.ink,
+            decoration: InputDecoration(
+              hintText: l.duasSearchHint,
+              hintStyle: WaqtText.body.copyWith(color: t.inkMuted),
+              filled: true,
+              fillColor: t.surface,
+              contentPadding: const EdgeInsets.symmetric(horizontal: WaqtSpace.x4, vertical: WaqtSpace.x3),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(WaqtSpace.minTouch / 2),
+                borderSide: BorderSide.none,
+              ),
+              prefixIcon: Icon(Icons.search_rounded, size: 20, color: t.inkMuted),
+              suffixIcon: q.isEmpty
+                  ? null
+                  : IconButton(
+                      tooltip: MaterialLocalizations.of(context).deleteButtonTooltip,
+                      onPressed: () => setState(() {
+                        _search.clear();
+                        _q = '';
+                      }),
+                      icon: Icon(Icons.close_rounded, size: 20, color: t.inkMuted),
+                    ),
+            ),
+          ),
+          if (q.isNotEmpty) ...[
+            const SizedBox(height: WaqtSpace.x4),
+            if (found.isEmpty)
+              Text(l.libraryNoMatch(q), style: WaqtText.body.copyWith(color: t.inkMuted))
+            else
+              RowGroup(
+                children: [
+                  for (final d in found)
+                    _DuaRow(dua: d, onTap: () => context.push('/dua/${d.task}/${book.forTask(d.task).indexOf(d)}')),
+                ],
+              ),
+          ] else ...[
+            if (nowTask != null) ...[const SizedBox(height: WaqtSpace.x4), _NowCard(task: nowTask, moment: now![1])],
+            SectionLabel(l.duasByTask),
+            for (var i = 0; i < book.tasks.length; i += 2)
+              Padding(
+                padding: const EdgeInsets.only(bottom: WaqtSpace.x3),
+                child: IntrinsicHeight(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Expanded(
+                        child: _TaskTile(task: book.tasks[i], count: book.forTask(book.tasks[i].id).length),
+                      ),
+                      const SizedBox(width: WaqtSpace.x3),
+                      Expanded(
+                        child: i + 1 < book.tasks.length
+                            ? _TaskTile(task: book.tasks[i + 1], count: book.forTask(book.tasks[i + 1].id).length)
+                            : const SizedBox.shrink(),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+          ],
+        ],
+      ),
+    );
+  }
+}
+
+/// The dark card for the moment you are in, as on Home.
 class _NowCard extends StatelessWidget {
-  const _NowCard({required this.task, required this.moment, required this.count});
+  const _NowCard({required this.task, required this.moment});
   final DuaTask task;
   final String moment;
-  final int count;
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +152,7 @@ class _NowCard extends StatelessWidget {
     final t = WaqtTokens.of(context);
     final lang = Localizations.localeOf(context).languageCode;
     return Material(
-      color: t.heroSurface,
+      color: t.ink,
       borderRadius: BorderRadius.circular(WaqtRadii.card),
       child: InkWell(
         borderRadius: BorderRadius.circular(WaqtRadii.card),
@@ -99,18 +167,18 @@ class _NowCard extends StatelessWidget {
                   children: [
                     Text(
                       '${l.duasRightNow} · $moment'.toUpperCase(),
-                      style: WaqtText.overline.copyWith(color: t.heroInk.withValues(alpha: 0.75)),
+                      style: WaqtText.overline.copyWith(color: t.ground.withValues(alpha: 0.72)),
                     ),
-                    const SizedBox(height: WaqtSpace.x1),
-                    Text(task.title(lang), style: WaqtText.titleSmall.copyWith(color: t.heroInk)),
                     const SizedBox(height: 2),
-                    Text(l.duasCount(count), style: WaqtText.label.copyWith(color: t.heroInk.withValues(alpha: 0.75))),
+                    Text(task.title(lang), style: WaqtText.titleSmall.copyWith(color: t.ground)),
+                    const SizedBox(height: 2),
+                    Text(task.hint(lang), style: WaqtText.label.copyWith(color: t.ground.withValues(alpha: 0.72))),
                   ],
                 ),
               ),
               Icon(
                 Icons.chevron_right_rounded,
-                color: t.heroInk.withValues(alpha: 0.75),
+                color: t.ground.withValues(alpha: 0.72),
                 textDirection: Directionality.of(context),
               ),
             ],
@@ -121,39 +189,54 @@ class _NowCard extends StatelessWidget {
   }
 }
 
-class _TaskRow extends StatelessWidget {
-  const _TaskRow({required this.icon, required this.title, required this.count, required this.onTap});
-  final IconData icon;
-  final String title;
-  final String count;
-  final VoidCallback onTap;
+/// A task in the grid: its icon and count, its name, and a hint of what
+/// is inside.
+class _TaskTile extends StatelessWidget {
+  const _TaskTile({required this.task, required this.count});
+  final DuaTask task;
+  final int count;
 
   @override
   Widget build(BuildContext context) {
     final t = WaqtTokens.of(context);
-    return Material(
-      type: MaterialType.transparency,
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(WaqtRadii.row),
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(minHeight: 56),
+    final l = AppLocalizations.of(context);
+    final lang = Localizations.localeOf(context).languageCode;
+    return Semantics(
+      button: true,
+      label: '${task.title(lang)}, ${l.duasCount(count)}',
+      excludeSemantics: true,
+      child: Material(
+        color: t.surface,
+        borderRadius: BorderRadius.circular(WaqtRadii.strip),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(WaqtRadii.strip),
+          onTap: () => context.push('/duas/task/${task.id}'),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: WaqtSpace.x3, vertical: WaqtSpace.x3),
-            child: Row(
+            padding: const EdgeInsets.fromLTRB(WaqtSpace.x4, WaqtSpace.x4, WaqtSpace.x3, WaqtSpace.x4),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(icon, size: 22, color: t.ink),
-                const SizedBox(width: WaqtSpace.x3),
-                Expanded(
-                  child: Text(title, style: WaqtText.bodyStrong.copyWith(color: t.ink)),
+                Row(
+                  children: [
+                    Icon(duaTaskIcon(task.icon), size: 24, color: t.ink),
+                    const Spacer(),
+                    Text(
+                      '$count',
+                      style: WaqtText.label.copyWith(
+                        color: t.inkMuted,
+                        fontFeatures: const [FontFeature.tabularFigures()],
+                      ),
+                    ),
+                  ],
                 ),
-                Text(count, style: WaqtText.label.copyWith(color: t.inkMuted)),
-                const SizedBox(width: WaqtSpace.x2),
-                Icon(
-                  Icons.chevron_right_rounded,
-                  size: 20,
-                  color: t.inkMuted,
-                  textDirection: Directionality.of(context),
+                const SizedBox(height: WaqtSpace.x6),
+                Text(task.title(lang), style: WaqtText.bodyStrong.copyWith(color: t.ink, height: 1.25)),
+                const SizedBox(height: 2),
+                Text(
+                  task.hint(lang),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: WaqtText.caption.copyWith(color: t.inkMuted),
                 ),
               ],
             ),
