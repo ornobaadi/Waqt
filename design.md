@@ -16,7 +16,7 @@ Canvases: v1 https://claude.ai/artifact/39nPfwUPu7zBapMi2eZdGK · **v2 (current)
 3. Prayer strip: 6 equal cells; past dimmed, current inverted
 4. **Right Now card** (dark, elevated): label + "ends at…", title, one-line why, 2–3 action rows with reference chips
 5. Contextual module: checklist (Jumu'ah/bedtime) or "coming up" tiles
-6. Bottom nav: Now · Today · Duas · Settings
+6. Bottom nav: Now · Today · Quran · Duas · Settings (floating dock; the Quran reader and the dua pager open above it with their own bottom bars). Quran text in Amiri Quran (`WaqtFonts.quran`).
 
 Other screens: Today timeline (v2), Dua detail sheet (v1 canvas, board 4), Bedtime checklist (v1, board 3).
 

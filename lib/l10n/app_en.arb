@@ -1013,5 +1013,130 @@
   "duaNext": "Next",
   "duaPrevious": "Previous",
   "duaDone": "Done",
-  "duasSearchHint": "What are you about to do?"
+  "duasSearchHint": "What are you about to do?",
+  "navQuran": "Quran",
+  "quranContinue": "Continue reading",
+  "quranStart": "Start reading",
+  "quranResume": "Resume",
+  "quranOpen": "Open",
+  "quranAyahOf": "Ayah {ayah} of {total}",
+  "@quranAyahOf": {
+    "placeholders": {
+      "ayah": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "quranJuz": "Juz {n}",
+  "@quranJuz": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "quranAyat": "{count, plural, =1{1 ayah} other{{count} ayat}}",
+  "@quranAyat": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "quranMakki": "Makki",
+  "quranMadani": "Madani",
+  "quranForNow": "For this moment",
+  "quranTabSurah": "Surah",
+  "quranTabJuz": "Juz",
+  "quranTabSaved": "Saved",
+  "quranSavedEmpty": "Tap an ayah in the reader to save it here.",
+  "quranStoppedHere": "You stopped here",
+  "quranTranslationOn": "Translation on",
+  "quranTranslationOff": "Translation off",
+  "quranTranslationBody": "{translator}, from QuranEnc.com, shown unchanged. Download it once to read offline.",
+  "@quranTranslationBody": {
+    "placeholders": {
+      "translator": {
+        "type": "String"
+      }
+    }
+  },
+  "quranTranslationDownload": "Download translation",
+  "quranTextSource": "Arabic text: Tanzil Project (tanzil.net), Uthmani script, unchanged.",
+  "quranTranslationSource": "Translation: {name}, QuranEnc.com, version {version}, unchanged.",
+  "@quranTranslationSource": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "quranSave": "Save ayah",
+  "quranUnsave": "Remove from saved",
+  "quranPlayFrom": "Recite from here",
+  "quranNotes": "Translator's notes",
+  "quranRecitingNow": "Reciting now",
+  "quranReciter": "Reciter",
+  "quranStreaming": "Streaming",
+  "quranOnPhone": "On this phone",
+  "quranListen": "Listen",
+  "quranPlay": "Play",
+  "quranPause": "Pause",
+  "quranNextAyah": "Next ayah",
+  "quranPrevAyah": "Previous ayah",
+  "quranStop": "Stop",
+  "quranSpeed": "Speed",
+  "quranWifiOnly": "You're on mobile data. Allow it in reading settings, or download this surah on Wi-Fi.",
+  "quranPlayFailed": "Couldn't play the recitation. Check your connection.",
+  "quranChooseReciter": "Choose a reciter",
+  "quranReciterIntro": "Hafs from 'Asim, murattal, ayah by ayah. Tap play to hear a sample before you choose.",
+  "quranAudioSource": "Recitations from EveryAyah.com, streamed or kept on this phone.",
+  "quranDownloads": "Audio downloads",
+  "quranDownloadsHint": "Keep surahs on this phone, one by one",
+  "quranDownloadAll": "Download all 114 surahs",
+  "quranDownloadsNote": "A surah you have not downloaded still plays: it streams while you are online. Downloads use Wi-Fi unless you allow mobile data. Each reciter keeps a separate set.",
+  "quranDownloaded": "Downloaded",
+  "quranStreamsOnline": "Streams online",
+  "quranWaitingWifi": "Waiting for Wi-Fi",
+  "quranStored": "{count} of 114 surahs · {size}",
+  "@quranStored": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "size": {
+        "type": "String"
+      }
+    }
+  },
+  "quranRemove": "Remove",
+  "quranDownload": "Download",
+  "quranSettings": "Reading settings",
+  "quranReading": "Reading",
+  "quranListening": "Listening",
+  "quranScript": "Arabic script",
+  "quranUthmani": "Uthmani",
+  "quranArabicSize": "Arabic size",
+  "quranShowTranslation": "Translation",
+  "quranFollow": "Follow the recitation",
+  "quranFollowHint": "Scrolls to the ayah being recited",
+  "quranKeepAwake": "Keep the screen on",
+  "quranKeepAwakeHint": "While the reader is open",
+  "quranMobileData": "Use mobile data",
+  "quranMobileDataHint": "Off: streams and downloads on Wi-Fi only",
+  "quranBaqarahEnd": "Last two ayat of al-Baqarah",
+  "quranQuls": "Al-Ikhlas, al-Falaq, an-Nas",
+  "quranMulk": "Surah al-Mulk",
+  "quranKahf10": "First ten ayat of al-Kahf",
+  "quranWhenNight": "At night",
+  "quranWhenMorningEvening": "Morning and evening, 3 times",
+  "quranWhenSleep": "Before sleep",
+  "quranWhenDajjal": "Protection from the Dajjal",
+  "quranWhy": "Why this"
 }

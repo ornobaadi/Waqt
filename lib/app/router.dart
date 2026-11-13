@@ -11,6 +11,9 @@ import '../features/duas/dua_views.dart';
 import '../features/duas/duas_screen.dart';
 import '../features/duas/library_views.dart';
 import '../features/now/now_screen.dart';
+import '../features/quran/quran_screen.dart';
+import '../features/quran/quran_settings_screens.dart';
+import '../features/quran/reader_screen.dart';
 import '../features/onboarding/onboarding_screen.dart';
 import '../data/user/user_prefs.dart';
 import '../features/progress/progress_screen.dart';
@@ -40,6 +43,17 @@ final routerProvider = Provider<GoRouter>((ref) {
         builder: (_, s) => CalendarScreen(focus: DateTime.tryParse(s.uri.queryParameters['day'] ?? '')),
       ),
       GoRoute(path: '/qibla', builder: (_, _) => const QiblaScreen()),
+      // Above the dock: the reader has its own toolbar and player.
+      GoRoute(
+        path: '/read/:surah',
+        builder: (_, s) => ReaderScreen(
+          surah: (int.tryParse(s.pathParameters['surah']!) ?? 1).clamp(1, 114),
+          ayah: int.tryParse(s.uri.queryParameters['ayah'] ?? '') ?? 1,
+        ),
+      ),
+      GoRoute(path: '/quran/settings', builder: (_, _) => const QuranSettingsScreen()),
+      GoRoute(path: '/quran/reciters', builder: (_, _) => const RecitersScreen()),
+      GoRoute(path: '/quran/downloads', builder: (_, _) => const RecitationDownloadsScreen()),
       // Above the dock: the pager has its own Previous / Next bar.
       GoRoute(
         path: '/dua/:task/:index',
@@ -60,6 +74,9 @@ final routerProvider = Provider<GoRouter>((ref) {
                 routes: [GoRoute(path: 'progress', builder: (_, _) => const ProgressScreen())],
               ),
             ],
+          ),
+          StatefulShellBranch(
+            routes: [GoRoute(path: '/quran', builder: (_, _) => const QuranScreen())],
           ),
           StatefulShellBranch(
             routes: [
@@ -140,7 +157,12 @@ class _Shell extends StatelessWidget {
                 selectedIcon: Icons.view_timeline_rounded,
                 label: l.navToday,
               ),
-              DockItem(icon: Icons.menu_book_outlined, selectedIcon: Icons.menu_book_rounded, label: l.navDuas),
+              DockItem(icon: Icons.auto_stories_outlined, selectedIcon: Icons.auto_stories_rounded, label: l.navQuran),
+              DockItem(
+                icon: Icons.volunteer_activism_outlined,
+                selectedIcon: Icons.volunteer_activism,
+                label: l.navDuas,
+              ),
               DockItem(icon: Icons.tune_outlined, selectedIcon: Icons.tune_rounded, label: l.navSettings),
             ],
           ),

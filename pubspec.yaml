@@ -30,6 +30,11 @@ dependencies:
   sqflite: ^2.4.5
   path_provider: ^2.1.6
   archive: ^4.0.7
+  just_audio: ^0.10.6
+  audio_service: ^0.18.19
+  scrollable_positioned_list: ^0.3.8
+  wakelock_plus: ^1.8.0
+  connectivity_plus: ^7.3.1
 
 dev_dependencies:
   flutter_test:
@@ -51,6 +56,7 @@ flutter:
     - assets/data/
     - assets/content/
     - assets/sources/
+    - assets/quran/
     - assets/ornob-aadi-signature/ornob-aadi-signature-bold-dark.png
   fonts:
     - family: BricolageGrotesque
@@ -68,4 +74,7 @@ flutter:
     - family: NotoSansBengali
       fonts:
         - asset: assets/fonts/NotoSansBengali.ttf
+    - family: AmiriQuran
+      fonts:
+        - asset: assets/fonts/AmiriQuran.ttf
 

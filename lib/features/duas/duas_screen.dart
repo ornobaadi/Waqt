@@ -89,7 +89,7 @@ class _DuasScreenState extends ConsumerState<DuasScreen> {
             ),
           ),
           _pad(
-            _Segments(
+            PillSwitch(
               labels: [l.duasTabSay, l.duasTabHadith],
               selected: _tab,
               onSelect: (i) => setState(() => _tab = i),
@@ -284,54 +284,6 @@ class _Sourced extends StatelessWidget {
       ),
     ],
   );
-}
-
-/// Two-way switch: a pill track, the chosen side filled with ink.
-class _Segments extends StatelessWidget {
-  const _Segments({required this.labels, required this.selected, required this.onSelect});
-  final List<String> labels;
-  final int selected;
-  final ValueChanged<int> onSelect;
-
-  @override
-  Widget build(BuildContext context) {
-    final t = WaqtTokens.of(context);
-    return Container(
-      height: WaqtSpace.minTouch,
-      padding: const EdgeInsets.all(WaqtSpace.x1),
-      decoration: BoxDecoration(color: t.surface, borderRadius: BorderRadius.circular(WaqtSpace.minTouch / 2)),
-      child: Row(
-        children: [
-          for (final (i, label) in labels.indexed)
-            Expanded(
-              child: Semantics(
-                selected: i == selected,
-                button: true,
-                child: Material(
-                  color: i == selected ? t.ink : Colors.transparent,
-                  shape: const StadiumBorder(),
-                  child: InkWell(
-                    customBorder: const StadiumBorder(),
-                    onTap: () => onSelect(i),
-                    child: Center(
-                      child: Text(
-                        label,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: WaqtText.label.copyWith(
-                          color: i == selected ? t.ground : t.ink,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-        ],
-      ),
-    );
-  }
 }
 
 class _Note extends StatelessWidget {

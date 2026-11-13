@@ -292,3 +292,51 @@ class RowTile extends StatelessWidget {
     );
   }
 }
+
+/// A few-way switch: a pill track, the chosen side filled with ink.
+class PillSwitch extends StatelessWidget {
+  const PillSwitch({super.key, required this.labels, required this.selected, required this.onSelect});
+  final List<String> labels;
+  final int selected;
+  final ValueChanged<int> onSelect;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = WaqtTokens.of(context);
+    return Container(
+      height: WaqtSpace.minTouch,
+      padding: const EdgeInsets.all(WaqtSpace.x1),
+      decoration: BoxDecoration(color: t.surface, borderRadius: BorderRadius.circular(WaqtSpace.minTouch / 2)),
+      child: Row(
+        children: [
+          for (final (i, label) in labels.indexed)
+            Expanded(
+              child: Semantics(
+                selected: i == selected,
+                button: true,
+                child: Material(
+                  color: i == selected ? t.ink : Colors.transparent,
+                  shape: const StadiumBorder(),
+                  child: InkWell(
+                    customBorder: const StadiumBorder(),
+                    onTap: () => onSelect(i),
+                    child: Center(
+                      child: Text(
+                        label,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: WaqtText.label.copyWith(
+                          color: i == selected ? t.ground : t.ink,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+}

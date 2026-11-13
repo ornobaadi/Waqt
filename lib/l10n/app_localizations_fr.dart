@@ -1610,4 +1610,242 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get duasSearchHint => 'Qu\'allez-vous faire ?';
+
+  @override
+  String get navQuran => 'Coran';
+
+  @override
+  String get quranContinue => 'Reprendre la lecture';
+
+  @override
+  String get quranStart => 'Commencer la lecture';
+
+  @override
+  String get quranResume => 'Reprendre';
+
+  @override
+  String get quranOpen => 'Ouvrir';
+
+  @override
+  String quranAyahOf(int ayah, int total) {
+    return 'Verset $ayah sur $total';
+  }
+
+  @override
+  String quranJuz(int n) {
+    return 'Juz $n';
+  }
+
+  @override
+  String quranAyat(int count) {
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$count versets', one: '1 verset');
+    return '$_temp0';
+  }
+
+  @override
+  String get quranMakki => 'Mecquoise';
+
+  @override
+  String get quranMadani => 'Médinoise';
+
+  @override
+  String get quranForNow => 'Pour ce moment';
+
+  @override
+  String get quranTabSurah => 'Sourates';
+
+  @override
+  String get quranTabJuz => 'Juz';
+
+  @override
+  String get quranTabSaved => 'Enregistrés';
+
+  @override
+  String get quranSavedEmpty => 'Touchez un verset dans la lecture pour l\'enregistrer ici.';
+
+  @override
+  String get quranStoppedHere => 'Vous vous êtes arrêté ici';
+
+  @override
+  String get quranTranslationOn => 'Traduction affichée';
+
+  @override
+  String get quranTranslationOff => 'Traduction masquée';
+
+  @override
+  String quranTranslationBody(String translator) {
+    return '$translator, de QuranEnc.com, sans modification. Téléchargez-la une fois pour la lire hors ligne.';
+  }
+
+  @override
+  String get quranTranslationDownload => 'Télécharger la traduction';
+
+  @override
+  String get quranTextSource => 'Texte arabe : projet Tanzil (tanzil.net), graphie uthmanie, sans modification.';
+
+  @override
+  String quranTranslationSource(String name, String version) {
+    return 'Traduction : $name, QuranEnc.com, version $version, sans modification.';
+  }
+
+  @override
+  String get quranSave => 'Enregistrer le verset';
+
+  @override
+  String get quranUnsave => 'Retirer des enregistrés';
+
+  @override
+  String get quranPlayFrom => 'Écouter à partir d\'ici';
+
+  @override
+  String get quranNotes => 'Notes du traducteur';
+
+  @override
+  String get quranRecitingNow => 'Récitation en cours';
+
+  @override
+  String get quranReciter => 'Récitateur';
+
+  @override
+  String get quranStreaming => 'En ligne';
+
+  @override
+  String get quranOnPhone => 'Sur ce téléphone';
+
+  @override
+  String get quranListen => 'Écouter';
+
+  @override
+  String get quranPlay => 'Lire';
+
+  @override
+  String get quranPause => 'Pause';
+
+  @override
+  String get quranNextAyah => 'Verset suivant';
+
+  @override
+  String get quranPrevAyah => 'Verset précédent';
+
+  @override
+  String get quranStop => 'Arrêter';
+
+  @override
+  String get quranSpeed => 'Vitesse';
+
+  @override
+  String get quranWifiOnly =>
+      'Vous êtes sur les données mobiles. Autorisez-les dans les réglages de lecture, ou téléchargez cette sourate en Wi-Fi.';
+
+  @override
+  String get quranPlayFailed => 'Impossible de lire la récitation. Vérifiez votre connexion.';
+
+  @override
+  String get quranChooseReciter => 'Choisir un récitateur';
+
+  @override
+  String get quranReciterIntro =>
+      'Hafs selon \'Asim, murattal, verset par verset. Écoutez un extrait avant de choisir.';
+
+  @override
+  String get quranAudioSource => 'Récitations d\'EveryAyah.com, en ligne ou gardées sur ce téléphone.';
+
+  @override
+  String get quranDownloads => 'Téléchargements audio';
+
+  @override
+  String get quranDownloadsHint => 'Gardez les sourates sur ce téléphone, une à une';
+
+  @override
+  String get quranDownloadAll => 'Télécharger les 114 sourates';
+
+  @override
+  String get quranDownloadsNote =>
+      'Une sourate non téléchargée se lit quand même en ligne. Les téléchargements passent par le Wi-Fi sauf si vous autorisez les données mobiles. Chaque récitateur a son propre ensemble.';
+
+  @override
+  String get quranDownloaded => 'Téléchargée';
+
+  @override
+  String get quranStreamsOnline => 'En ligne';
+
+  @override
+  String get quranWaitingWifi => 'En attente du Wi-Fi';
+
+  @override
+  String quranStored(int count, String size) {
+    return '$count sourates sur 114 · $size';
+  }
+
+  @override
+  String get quranRemove => 'Supprimer';
+
+  @override
+  String get quranDownload => 'Télécharger';
+
+  @override
+  String get quranSettings => 'Réglages de lecture';
+
+  @override
+  String get quranReading => 'Lecture';
+
+  @override
+  String get quranListening => 'Écoute';
+
+  @override
+  String get quranScript => 'Graphie';
+
+  @override
+  String get quranUthmani => 'Uthmani';
+
+  @override
+  String get quranArabicSize => 'Taille de l\'arabe';
+
+  @override
+  String get quranShowTranslation => 'Traduction';
+
+  @override
+  String get quranFollow => 'Suivre la récitation';
+
+  @override
+  String get quranFollowHint => 'Fait défiler jusqu\'au verset récité';
+
+  @override
+  String get quranKeepAwake => 'Garder l\'écran allumé';
+
+  @override
+  String get quranKeepAwakeHint => 'Tant que la lecture est ouverte';
+
+  @override
+  String get quranMobileData => 'Utiliser les données mobiles';
+
+  @override
+  String get quranMobileDataHint => 'Désactivé : écoute et téléchargements en Wi-Fi uniquement';
+
+  @override
+  String get quranBaqarahEnd => 'Les deux derniers versets d\'al-Baqara';
+
+  @override
+  String get quranQuls => 'Al-Ikhlas, al-Falaq, an-Nas';
+
+  @override
+  String get quranMulk => 'Sourate al-Mulk';
+
+  @override
+  String get quranKahf10 => 'Les dix premiers versets d\'al-Kahf';
+
+  @override
+  String get quranWhenNight => 'La nuit';
+
+  @override
+  String get quranWhenMorningEvening => 'Matin et soir, 3 fois';
+
+  @override
+  String get quranWhenSleep => 'Avant de dormir';
+
+  @override
+  String get quranWhenDajjal => 'Protection contre le Dajjal';
+
+  @override
+  String get quranWhy => 'Pourquoi';
 }

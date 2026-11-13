@@ -25,7 +25,10 @@ The Qibla finder reads the phone's compass and motion sensors on the phone, only
 Hijri months begin when the crescent is sighted, so Waqt downloads the announced start dates of the months around today from api.aladhan.com, for the authority you choose in Settings (Saudi High Judiciary Council or Diyanet). The request contains only a Hijri month, a year and the authority's name: no location, no identifier, nothing about you. Choose **Local moon sighting** and Waqt makes no network request at all.
 
 ## Hadith library (downloaded once, if you ask)
-The hadith library is not inside the app. When you first search the hadith or open one, Waqt offers to download it (about 13 MB) from github.com/ornobaadi/waqt-data. It is a plain file download: nothing about you is sent. After that it stays on your phone and works offline.
+The hadith library is not inside the app. When you first search the hadith, Waqt offers to download it in your language (a few MB) from hadeethenc.com. It is a plain file download: nothing about you is sent. After that it stays on your phone and works offline.
+
+## Quran translation and recitation (if you ask)
+The Arabic text of the Qur'an is inside the app. The translation for your language is downloaded once, when you ask, from quranenc.com; Waqt also asks quranenc.com for that translation's version number. Recitations are played from everyayah.com, either streamed while you listen or downloaded surah by surah when you choose. These are plain file requests: they contain the file's name and nothing about you. Waqt remembers where you stopped reading and the ayat you saved on your phone only. Unless you allow mobile data in the reading settings, streaming and downloads wait for Wi-Fi, which is why Waqt checks whether the phone is on Wi-Fi or mobile data.
 
 ## Notifications and alarms
 Reminders are scheduled on the phone with Android's alarm system. Nothing about them leaves the device.

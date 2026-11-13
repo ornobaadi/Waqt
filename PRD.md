@@ -60,7 +60,7 @@ Situational (library, not time-based): travel, rain, entering home/masjid, eatin
 - An LLM may help *find candidate sources*; it may never be the final source of any text shown to users.
 
 ## 8. Non-goals (v1)
-Qibla AR, Qur'an reader, social features, fatwa Q&A, ads, accounts/cloud sync.
+Qibla AR, social features, fatwa Q&A, ads, accounts/cloud sync. (The Qur'an reader and recitation were added in phases 15–16: Tanzil text, QuranEnc translations, EveryAyah audio.)
 
 ## 9. Success metrics
 - D7 retention ≥ 35%; DAU/MAU ≥ 40%

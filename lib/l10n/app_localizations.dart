@@ -2792,6 +2792,450 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'What are you about to do?'**
   String get duasSearchHint;
+
+  /// No description provided for @navQuran.
+  ///
+  /// In en, this message translates to:
+  /// **'Quran'**
+  String get navQuran;
+
+  /// No description provided for @quranContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue reading'**
+  String get quranContinue;
+
+  /// No description provided for @quranStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Start reading'**
+  String get quranStart;
+
+  /// No description provided for @quranResume.
+  ///
+  /// In en, this message translates to:
+  /// **'Resume'**
+  String get quranResume;
+
+  /// No description provided for @quranOpen.
+  ///
+  /// In en, this message translates to:
+  /// **'Open'**
+  String get quranOpen;
+
+  /// No description provided for @quranAyahOf.
+  ///
+  /// In en, this message translates to:
+  /// **'Ayah {ayah} of {total}'**
+  String quranAyahOf(int ayah, int total);
+
+  /// No description provided for @quranJuz.
+  ///
+  /// In en, this message translates to:
+  /// **'Juz {n}'**
+  String quranJuz(int n);
+
+  /// No description provided for @quranAyat.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 ayah} other{{count} ayat}}'**
+  String quranAyat(int count);
+
+  /// No description provided for @quranMakki.
+  ///
+  /// In en, this message translates to:
+  /// **'Makki'**
+  String get quranMakki;
+
+  /// No description provided for @quranMadani.
+  ///
+  /// In en, this message translates to:
+  /// **'Madani'**
+  String get quranMadani;
+
+  /// No description provided for @quranForNow.
+  ///
+  /// In en, this message translates to:
+  /// **'For this moment'**
+  String get quranForNow;
+
+  /// No description provided for @quranTabSurah.
+  ///
+  /// In en, this message translates to:
+  /// **'Surah'**
+  String get quranTabSurah;
+
+  /// No description provided for @quranTabJuz.
+  ///
+  /// In en, this message translates to:
+  /// **'Juz'**
+  String get quranTabJuz;
+
+  /// No description provided for @quranTabSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved'**
+  String get quranTabSaved;
+
+  /// No description provided for @quranSavedEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap an ayah in the reader to save it here.'**
+  String get quranSavedEmpty;
+
+  /// No description provided for @quranStoppedHere.
+  ///
+  /// In en, this message translates to:
+  /// **'You stopped here'**
+  String get quranStoppedHere;
+
+  /// No description provided for @quranTranslationOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Translation on'**
+  String get quranTranslationOn;
+
+  /// No description provided for @quranTranslationOff.
+  ///
+  /// In en, this message translates to:
+  /// **'Translation off'**
+  String get quranTranslationOff;
+
+  /// No description provided for @quranTranslationBody.
+  ///
+  /// In en, this message translates to:
+  /// **'{translator}, from QuranEnc.com, shown unchanged. Download it once to read offline.'**
+  String quranTranslationBody(String translator);
+
+  /// No description provided for @quranTranslationDownload.
+  ///
+  /// In en, this message translates to:
+  /// **'Download translation'**
+  String get quranTranslationDownload;
+
+  /// No description provided for @quranTextSource.
+  ///
+  /// In en, this message translates to:
+  /// **'Arabic text: Tanzil Project (tanzil.net), Uthmani script, unchanged.'**
+  String get quranTextSource;
+
+  /// No description provided for @quranTranslationSource.
+  ///
+  /// In en, this message translates to:
+  /// **'Translation: {name}, QuranEnc.com, version {version}, unchanged.'**
+  String quranTranslationSource(String name, String version);
+
+  /// No description provided for @quranSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save ayah'**
+  String get quranSave;
+
+  /// No description provided for @quranUnsave.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove from saved'**
+  String get quranUnsave;
+
+  /// No description provided for @quranPlayFrom.
+  ///
+  /// In en, this message translates to:
+  /// **'Recite from here'**
+  String get quranPlayFrom;
+
+  /// No description provided for @quranNotes.
+  ///
+  /// In en, this message translates to:
+  /// **'Translator\'s notes'**
+  String get quranNotes;
+
+  /// No description provided for @quranRecitingNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Reciting now'**
+  String get quranRecitingNow;
+
+  /// No description provided for @quranReciter.
+  ///
+  /// In en, this message translates to:
+  /// **'Reciter'**
+  String get quranReciter;
+
+  /// No description provided for @quranStreaming.
+  ///
+  /// In en, this message translates to:
+  /// **'Streaming'**
+  String get quranStreaming;
+
+  /// No description provided for @quranOnPhone.
+  ///
+  /// In en, this message translates to:
+  /// **'On this phone'**
+  String get quranOnPhone;
+
+  /// No description provided for @quranListen.
+  ///
+  /// In en, this message translates to:
+  /// **'Listen'**
+  String get quranListen;
+
+  /// No description provided for @quranPlay.
+  ///
+  /// In en, this message translates to:
+  /// **'Play'**
+  String get quranPlay;
+
+  /// No description provided for @quranPause.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause'**
+  String get quranPause;
+
+  /// No description provided for @quranNextAyah.
+  ///
+  /// In en, this message translates to:
+  /// **'Next ayah'**
+  String get quranNextAyah;
+
+  /// No description provided for @quranPrevAyah.
+  ///
+  /// In en, this message translates to:
+  /// **'Previous ayah'**
+  String get quranPrevAyah;
+
+  /// No description provided for @quranStop.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop'**
+  String get quranStop;
+
+  /// No description provided for @quranSpeed.
+  ///
+  /// In en, this message translates to:
+  /// **'Speed'**
+  String get quranSpeed;
+
+  /// No description provided for @quranWifiOnly.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re on mobile data. Allow it in reading settings, or download this surah on Wi-Fi.'**
+  String get quranWifiOnly;
+
+  /// No description provided for @quranPlayFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t play the recitation. Check your connection.'**
+  String get quranPlayFailed;
+
+  /// No description provided for @quranChooseReciter.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a reciter'**
+  String get quranChooseReciter;
+
+  /// No description provided for @quranReciterIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'Hafs from \'Asim, murattal, ayah by ayah. Tap play to hear a sample before you choose.'**
+  String get quranReciterIntro;
+
+  /// No description provided for @quranAudioSource.
+  ///
+  /// In en, this message translates to:
+  /// **'Recitations from EveryAyah.com, streamed or kept on this phone.'**
+  String get quranAudioSource;
+
+  /// No description provided for @quranDownloads.
+  ///
+  /// In en, this message translates to:
+  /// **'Audio downloads'**
+  String get quranDownloads;
+
+  /// No description provided for @quranDownloadsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep surahs on this phone, one by one'**
+  String get quranDownloadsHint;
+
+  /// No description provided for @quranDownloadAll.
+  ///
+  /// In en, this message translates to:
+  /// **'Download all 114 surahs'**
+  String get quranDownloadAll;
+
+  /// No description provided for @quranDownloadsNote.
+  ///
+  /// In en, this message translates to:
+  /// **'A surah you have not downloaded still plays: it streams while you are online. Downloads use Wi-Fi unless you allow mobile data. Each reciter keeps a separate set.'**
+  String get quranDownloadsNote;
+
+  /// No description provided for @quranDownloaded.
+  ///
+  /// In en, this message translates to:
+  /// **'Downloaded'**
+  String get quranDownloaded;
+
+  /// No description provided for @quranStreamsOnline.
+  ///
+  /// In en, this message translates to:
+  /// **'Streams online'**
+  String get quranStreamsOnline;
+
+  /// No description provided for @quranWaitingWifi.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting for Wi-Fi'**
+  String get quranWaitingWifi;
+
+  /// No description provided for @quranStored.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} of 114 surahs · {size}'**
+  String quranStored(int count, String size);
+
+  /// No description provided for @quranRemove.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove'**
+  String get quranRemove;
+
+  /// No description provided for @quranDownload.
+  ///
+  /// In en, this message translates to:
+  /// **'Download'**
+  String get quranDownload;
+
+  /// No description provided for @quranSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Reading settings'**
+  String get quranSettings;
+
+  /// No description provided for @quranReading.
+  ///
+  /// In en, this message translates to:
+  /// **'Reading'**
+  String get quranReading;
+
+  /// No description provided for @quranListening.
+  ///
+  /// In en, this message translates to:
+  /// **'Listening'**
+  String get quranListening;
+
+  /// No description provided for @quranScript.
+  ///
+  /// In en, this message translates to:
+  /// **'Arabic script'**
+  String get quranScript;
+
+  /// No description provided for @quranUthmani.
+  ///
+  /// In en, this message translates to:
+  /// **'Uthmani'**
+  String get quranUthmani;
+
+  /// No description provided for @quranArabicSize.
+  ///
+  /// In en, this message translates to:
+  /// **'Arabic size'**
+  String get quranArabicSize;
+
+  /// No description provided for @quranShowTranslation.
+  ///
+  /// In en, this message translates to:
+  /// **'Translation'**
+  String get quranShowTranslation;
+
+  /// No description provided for @quranFollow.
+  ///
+  /// In en, this message translates to:
+  /// **'Follow the recitation'**
+  String get quranFollow;
+
+  /// No description provided for @quranFollowHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Scrolls to the ayah being recited'**
+  String get quranFollowHint;
+
+  /// No description provided for @quranKeepAwake.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep the screen on'**
+  String get quranKeepAwake;
+
+  /// No description provided for @quranKeepAwakeHint.
+  ///
+  /// In en, this message translates to:
+  /// **'While the reader is open'**
+  String get quranKeepAwakeHint;
+
+  /// No description provided for @quranMobileData.
+  ///
+  /// In en, this message translates to:
+  /// **'Use mobile data'**
+  String get quranMobileData;
+
+  /// No description provided for @quranMobileDataHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Off: streams and downloads on Wi-Fi only'**
+  String get quranMobileDataHint;
+
+  /// No description provided for @quranBaqarahEnd.
+  ///
+  /// In en, this message translates to:
+  /// **'Last two ayat of al-Baqarah'**
+  String get quranBaqarahEnd;
+
+  /// No description provided for @quranQuls.
+  ///
+  /// In en, this message translates to:
+  /// **'Al-Ikhlas, al-Falaq, an-Nas'**
+  String get quranQuls;
+
+  /// No description provided for @quranMulk.
+  ///
+  /// In en, this message translates to:
+  /// **'Surah al-Mulk'**
+  String get quranMulk;
+
+  /// No description provided for @quranKahf10.
+  ///
+  /// In en, this message translates to:
+  /// **'First ten ayat of al-Kahf'**
+  String get quranKahf10;
+
+  /// No description provided for @quranWhenNight.
+  ///
+  /// In en, this message translates to:
+  /// **'At night'**
+  String get quranWhenNight;
+
+  /// No description provided for @quranWhenMorningEvening.
+  ///
+  /// In en, this message translates to:
+  /// **'Morning and evening, 3 times'**
+  String get quranWhenMorningEvening;
+
+  /// No description provided for @quranWhenSleep.
+  ///
+  /// In en, this message translates to:
+  /// **'Before sleep'**
+  String get quranWhenSleep;
+
+  /// No description provided for @quranWhenDajjal.
+  ///
+  /// In en, this message translates to:
+  /// **'Protection from the Dajjal'**
+  String get quranWhenDajjal;
+
+  /// No description provided for @quranWhy.
+  ///
+  /// In en, this message translates to:
+  /// **'Why this'**
+  String get quranWhy;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:waqt/data/user/user_prefs.dart';
 
 import 'package:waqt/features/duas/dua_views.dart';
+import 'package:waqt/features/quran/quran_screen.dart';
 
 import '../helpers/harness.dart';
 
@@ -119,6 +120,34 @@ void main() {
     await tester.tap(find.text('মুসাফিরকে বিদায় দেওয়ার সময়'));
     await tester.pumpAndSettle();
     await scrollPage(tester, find.textContaining('আল্লাহকে সঁপে দিলাম'));
+  });
+
+  testWidgets('Quran: open a surah, save an ayah, find it under Saved', (tester) async {
+    tester.view.physicalSize = const Size(1170, 2532);
+    tester.view.devicePixelRatio = 3;
+    addTearDown(tester.view.reset);
+    await tester.pumpWidget(await app(at: DateTime(2026, 11, 6, 9, 41), place: dhaka));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byTooltip('Quran'));
+    await tester.pumpAndSettle();
+    expect(find.text('START READING'), findsOneWidget);
+    await tester.tap(find.text('Open'));
+    await tester.pumpAndSettle();
+    expect(find.text('The Opening'), findsOneWidget);
+    expect(find.text('Translation'), findsOneWidget); // offered, not yet on the phone
+    await tester.tap(find.byTooltip('Next ayah'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const ValueKey('ayah-1:2')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Save ayah'));
+    await tester.pumpAndSettle();
+    await tester.pageBack();
+    await tester.pumpAndSettle();
+    await tester.drag(find.byType(QuranScreen), const Offset(0, -300));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Saved'));
+    await tester.pumpAndSettle();
+    expect(find.text('Al-Faatiha 1:2'), findsOneWidget);
   });
 
   testWidgets('bedtime checklist ticks and resets with the prayer day', (tester) async {

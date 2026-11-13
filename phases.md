@@ -112,11 +112,22 @@ Margins awaiting scholar review: see `docs/moment-rules.md`.
 - [ ] Review: transliterations (ours) and the choice of excerpts, by a qualified reviewer.
 - [ ] Meanings still missing: ur/bn/id/tr/fr for some items (HadeethEnc quotes only the Arabic there); 65913, 65997, 65919 are Arabic-only on HadeethEnc.
 
-## Phase 15 — Quran reader (planned)
-Tanzil Uthmani text bundled verbatim; QuranEnc translations per language on demand; Amiri Quran font; fifth dock tab.
+## Phase 15 — Quran reader
+- [x] Tanzil Uthmani text bundled verbatim with its notice, and Tanzil metadata (surahs, juz, 604 pages) — `python tool/build_quran.py`. Amiri Quran font (OFL).
+- [x] Quran tab (fifth dock tab): continue reading, "For this moment" (each tied to a bundled HadeethEnc hadith: al-Baqarah 285–286 at night, the three Quls, al-Mulk, al-Kahf 1–10), Surah / Juz / Saved.
+- [x] Reader: each surah's basmala as Tanzil writes it, ayah marks, "You stopped here", tap an ayah to save, copy or recite from it; translation beneath.
+- [x] Translations from QuranEnc.com, one per language (en Saheeh International, ur Junagarhi, bn Zakaria, id Kemenag, tr Rowwad, fr Rachid Maach), downloaded once, shown unchanged with version; translator's notes on tap.
+- [x] Reading settings: Arabic size, translation, follow the recitation, keep the screen on.
+- [ ] IndoPak script (needs a licensed IndoPak text and font).
+- [ ] Al-Kahf on Friday: no HadeethEnc hadith yet; add when a sourced one is reviewed.
+- [ ] Log Quran reading as a habit on Today (`DeedsNotifier.setHabit`).
 
-## Phase 16 — Recitation (planned)
-EveryAyah per-ayah audio, streamed or downloaded per surah; just_audio + audio_service. Written permission from EveryAyah before release.
+## Phase 16 — Recitation
+- [x] Five reciters (Alafasy, Husary, Abdul Basit, Ghamdi, Muaiqly) from EveryAyah.com, ayah by ayah: the recited ayah is highlighted and followed.
+- [x] just_audio + audio_service: plays with the screen off, lock-screen and headset controls; speed 0.75–1.5×.
+- [x] Per-surah downloads per reciter (resumable), Wi-Fi only unless mobile data is allowed; streaming otherwise.
+- [ ] Written permission from EveryAyah before the store release (or move to a source that grants it).
+- [ ] On-device checks: Android 14/15 foreground service, lock screen, Bluetooth buttons, offline playback.
 
 ## Later
 iOS · OTA signed content updates · more languages · cloud backup.

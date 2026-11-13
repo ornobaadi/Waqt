@@ -1609,4 +1609,242 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get duasSearchHint => 'Apa yang akan Anda lakukan?';
+
+  @override
+  String get navQuran => 'Al-Qur\'an';
+
+  @override
+  String get quranContinue => 'Lanjutkan membaca';
+
+  @override
+  String get quranStart => 'Mulai membaca';
+
+  @override
+  String get quranResume => 'Lanjutkan';
+
+  @override
+  String get quranOpen => 'Buka';
+
+  @override
+  String quranAyahOf(int ayah, int total) {
+    return 'Ayat $ayah dari $total';
+  }
+
+  @override
+  String quranJuz(int n) {
+    return 'Juz $n';
+  }
+
+  @override
+  String quranAyat(int count) {
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$count ayat');
+    return '$_temp0';
+  }
+
+  @override
+  String get quranMakki => 'Makkiyah';
+
+  @override
+  String get quranMadani => 'Madaniyah';
+
+  @override
+  String get quranForNow => 'Untuk saat ini';
+
+  @override
+  String get quranTabSurah => 'Surah';
+
+  @override
+  String get quranTabJuz => 'Juz';
+
+  @override
+  String get quranTabSaved => 'Disimpan';
+
+  @override
+  String get quranSavedEmpty => 'Ketuk sebuah ayat di pembaca untuk menyimpannya di sini.';
+
+  @override
+  String get quranStoppedHere => 'Terakhir dibaca';
+
+  @override
+  String get quranTranslationOn => 'Terjemahan aktif';
+
+  @override
+  String get quranTranslationOff => 'Terjemahan mati';
+
+  @override
+  String quranTranslationBody(String translator) {
+    return '$translator, dari QuranEnc.com, tanpa perubahan. Unduh sekali untuk dibaca secara offline.';
+  }
+
+  @override
+  String get quranTranslationDownload => 'Unduh terjemahan';
+
+  @override
+  String get quranTextSource => 'Teks Arab: Tanzil Project (tanzil.net), rasm Utsmani, tanpa perubahan.';
+
+  @override
+  String quranTranslationSource(String name, String version) {
+    return 'Terjemahan: $name, QuranEnc.com, versi $version, tanpa perubahan.';
+  }
+
+  @override
+  String get quranSave => 'Simpan ayat';
+
+  @override
+  String get quranUnsave => 'Hapus dari simpanan';
+
+  @override
+  String get quranPlayFrom => 'Dengarkan dari sini';
+
+  @override
+  String get quranNotes => 'Catatan penerjemah';
+
+  @override
+  String get quranRecitingNow => 'Sedang dibacakan';
+
+  @override
+  String get quranReciter => 'Qari';
+
+  @override
+  String get quranStreaming => 'Streaming';
+
+  @override
+  String get quranOnPhone => 'Di ponsel ini';
+
+  @override
+  String get quranListen => 'Dengarkan';
+
+  @override
+  String get quranPlay => 'Putar';
+
+  @override
+  String get quranPause => 'Jeda';
+
+  @override
+  String get quranNextAyah => 'Ayat berikutnya';
+
+  @override
+  String get quranPrevAyah => 'Ayat sebelumnya';
+
+  @override
+  String get quranStop => 'Hentikan';
+
+  @override
+  String get quranSpeed => 'Kecepatan';
+
+  @override
+  String get quranWifiOnly =>
+      'Anda memakai data seluler. Izinkan di pengaturan membaca, atau unduh surah ini lewat Wi-Fi.';
+
+  @override
+  String get quranPlayFailed => 'Tilawah tidak dapat diputar. Periksa koneksi.';
+
+  @override
+  String get quranChooseReciter => 'Pilih qari';
+
+  @override
+  String get quranReciterIntro =>
+      'Riwayat Hafs dari \'Ashim, murattal, ayat demi ayat. Dengarkan contohnya sebelum memilih.';
+
+  @override
+  String get quranAudioSource => 'Tilawah dari EveryAyah.com, diputar online atau disimpan di ponsel ini.';
+
+  @override
+  String get quranDownloads => 'Unduhan audio';
+
+  @override
+  String get quranDownloadsHint => 'Simpan surah di ponsel ini, satu per satu';
+
+  @override
+  String get quranDownloadAll => 'Unduh semua 114 surah';
+
+  @override
+  String get quranDownloadsNote =>
+      'Surah yang belum diunduh tetap diputar selama Anda online. Unduhan memakai Wi-Fi kecuali Anda mengizinkan data seluler. Tiap qari punya set sendiri.';
+
+  @override
+  String get quranDownloaded => 'Terunduh';
+
+  @override
+  String get quranStreamsOnline => 'Diputar online';
+
+  @override
+  String get quranWaitingWifi => 'Menunggu Wi-Fi';
+
+  @override
+  String quranStored(int count, String size) {
+    return '$count dari 114 surah · $size';
+  }
+
+  @override
+  String get quranRemove => 'Hapus';
+
+  @override
+  String get quranDownload => 'Unduh';
+
+  @override
+  String get quranSettings => 'Pengaturan membaca';
+
+  @override
+  String get quranReading => 'Membaca';
+
+  @override
+  String get quranListening => 'Mendengarkan';
+
+  @override
+  String get quranScript => 'Rasm';
+
+  @override
+  String get quranUthmani => 'Utsmani';
+
+  @override
+  String get quranArabicSize => 'Ukuran teks Arab';
+
+  @override
+  String get quranShowTranslation => 'Terjemahan';
+
+  @override
+  String get quranFollow => 'Ikuti tilawah';
+
+  @override
+  String get quranFollowHint => 'Menggulir ke ayat yang dibacakan';
+
+  @override
+  String get quranKeepAwake => 'Layar tetap menyala';
+
+  @override
+  String get quranKeepAwakeHint => 'Selama pembaca terbuka';
+
+  @override
+  String get quranMobileData => 'Pakai data seluler';
+
+  @override
+  String get quranMobileDataHint => 'Mati: streaming dan unduhan hanya lewat Wi-Fi';
+
+  @override
+  String get quranBaqarahEnd => 'Dua ayat terakhir al-Baqarah';
+
+  @override
+  String get quranQuls => 'Al-Ikhlas, al-Falaq, an-Nas';
+
+  @override
+  String get quranMulk => 'Surah al-Mulk';
+
+  @override
+  String get quranKahf10 => 'Sepuluh ayat pertama al-Kahf';
+
+  @override
+  String get quranWhenNight => 'Di malam hari';
+
+  @override
+  String get quranWhenMorningEvening => 'Pagi dan petang, 3 kali';
+
+  @override
+  String get quranWhenSleep => 'Sebelum tidur';
+
+  @override
+  String get quranWhenDajjal => 'Perlindungan dari Dajjal';
+
+  @override
+  String get quranWhy => 'Mengapa';
 }

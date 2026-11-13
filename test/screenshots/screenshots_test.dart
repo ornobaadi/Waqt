@@ -248,6 +248,90 @@ void main() {
   );
 
   testWidgets(
+    'quran tab',
+    (t) async => shoot(
+      t,
+      '70_quran',
+      await app(at: DateTime(2026, 11, 6, 21, 30), place: dhaka, stored: {'quran.progress.v1': '{"last":[18,45]}'}),
+      then: () async => t.tap(find.byTooltip('Quran')),
+    ),
+  );
+
+  testWidgets(
+    'quran reader',
+    (t) async => shoot(
+      t,
+      '71_quran_reader',
+      await app(at: DateTime(2026, 11, 6, 9, 41), place: dhaka, stored: {'quran.progress.v1': '{"last":[1,2]}'}),
+      then: () async {
+        await t.tap(find.byTooltip('Quran'));
+        await t.pumpAndSettle();
+        await t.tap(find.text('Resume'));
+      },
+    ),
+  );
+
+  testWidgets(
+    'quran reader, Arabic',
+    (t) async => shoot(
+      t,
+      '71b_quran_reader_ar',
+      await app(at: DateTime(2026, 11, 6, 9, 41), place: dhaka, locale: const Locale('ar')),
+      then: () async {
+        await t.tap(find.byTooltip('القرآن'));
+        await t.pumpAndSettle();
+        await t.tap(find.text('افتح'));
+      },
+    ),
+  );
+
+  testWidgets(
+    'quran settings',
+    (t) async => shoot(
+      t,
+      '72_quran_settings',
+      await app(at: DateTime(2026, 11, 6, 9, 41), place: dhaka),
+      then: () async {
+        await t.tap(find.byTooltip('Quran'));
+        await t.pumpAndSettle();
+        await t.tap(find.byTooltip('Reading settings'));
+      },
+    ),
+  );
+
+  testWidgets(
+    'quran reciters',
+    (t) async => shoot(
+      t,
+      '73_quran_reciters',
+      await app(at: DateTime(2026, 11, 6, 9, 41), place: dhaka),
+      then: () async {
+        await t.tap(find.byTooltip('Quran'));
+        await t.pumpAndSettle();
+        await t.tap(find.byTooltip('Reading settings'));
+        await t.pumpAndSettle();
+        await t.tap(find.text('Reciter'));
+      },
+    ),
+  );
+
+  testWidgets(
+    'quran downloads',
+    (t) async => shoot(
+      t,
+      '74_quran_downloads',
+      await app(at: DateTime(2026, 11, 6, 9, 41), place: dhaka),
+      then: () async {
+        await t.tap(find.byTooltip('Quran'));
+        await t.pumpAndSettle();
+        await t.tap(find.byTooltip('Reading settings'));
+        await t.pumpAndSettle();
+        await t.tap(find.text('Audio downloads'));
+      },
+    ),
+  );
+
+  testWidgets(
     'reading size',
     (t) async => shoot(
       t,

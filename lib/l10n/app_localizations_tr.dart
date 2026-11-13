@@ -1607,4 +1607,240 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get duasSearchHint => 'Ne yapmak üzeresiniz?';
+
+  @override
+  String get navQuran => 'Kur\'an';
+
+  @override
+  String get quranContinue => 'Okumaya devam et';
+
+  @override
+  String get quranStart => 'Okumaya başla';
+
+  @override
+  String get quranResume => 'Devam';
+
+  @override
+  String get quranOpen => 'Aç';
+
+  @override
+  String quranAyahOf(int ayah, int total) {
+    return '$total ayetten $ayah.';
+  }
+
+  @override
+  String quranJuz(int n) {
+    return '$n. cüz';
+  }
+
+  @override
+  String quranAyat(int count) {
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$count ayet');
+    return '$_temp0';
+  }
+
+  @override
+  String get quranMakki => 'Mekkî';
+
+  @override
+  String get quranMadani => 'Medenî';
+
+  @override
+  String get quranForNow => 'Bu an için';
+
+  @override
+  String get quranTabSurah => 'Sure';
+
+  @override
+  String get quranTabJuz => 'Cüz';
+
+  @override
+  String get quranTabSaved => 'Kaydedilen';
+
+  @override
+  String get quranSavedEmpty => 'Buraya kaydetmek için okuyucuda bir ayete dokunun.';
+
+  @override
+  String get quranStoppedHere => 'Burada kaldınız';
+
+  @override
+  String get quranTranslationOn => 'Meal açık';
+
+  @override
+  String get quranTranslationOff => 'Meal kapalı';
+
+  @override
+  String quranTranslationBody(String translator) {
+    return '$translator, QuranEnc.com\'dan, değiştirilmeden. Çevrimdışı okumak için bir kez indirin.';
+  }
+
+  @override
+  String get quranTranslationDownload => 'Meali indir';
+
+  @override
+  String get quranTextSource => 'Arapça metin: Tanzil Projesi (tanzil.net), Osmanî hat, değiştirilmeden.';
+
+  @override
+  String quranTranslationSource(String name, String version) {
+    return 'Meal: $name, QuranEnc.com, sürüm $version, değiştirilmeden.';
+  }
+
+  @override
+  String get quranSave => 'Ayeti kaydet';
+
+  @override
+  String get quranUnsave => 'Kaydedilenlerden çıkar';
+
+  @override
+  String get quranPlayFrom => 'Buradan dinle';
+
+  @override
+  String get quranNotes => 'Mütercim notları';
+
+  @override
+  String get quranRecitingNow => 'Şimdi okunuyor';
+
+  @override
+  String get quranReciter => 'Kâri';
+
+  @override
+  String get quranStreaming => 'Akış';
+
+  @override
+  String get quranOnPhone => 'Bu telefonda';
+
+  @override
+  String get quranListen => 'Dinle';
+
+  @override
+  String get quranPlay => 'Oynat';
+
+  @override
+  String get quranPause => 'Duraklat';
+
+  @override
+  String get quranNextAyah => 'Sonraki ayet';
+
+  @override
+  String get quranPrevAyah => 'Önceki ayet';
+
+  @override
+  String get quranStop => 'Durdur';
+
+  @override
+  String get quranSpeed => 'Hız';
+
+  @override
+  String get quranWifiOnly => 'Mobil verideysiniz. Okuma ayarlarından izin verin ya da bu sureyi Wi-Fi\'da indirin.';
+
+  @override
+  String get quranPlayFailed => 'Tilavet oynatılamadı. Bağlantınızı kontrol edin.';
+
+  @override
+  String get quranChooseReciter => 'Kâri seçin';
+
+  @override
+  String get quranReciterIntro => 'Hafs an Âsım, murattal, ayet ayet. Seçmeden önce örneği dinleyin.';
+
+  @override
+  String get quranAudioSource => 'Tilavetler EveryAyah.com\'dan, çevrimiçi ya da bu telefonda.';
+
+  @override
+  String get quranDownloads => 'Ses indirmeleri';
+
+  @override
+  String get quranDownloadsHint => 'Sureleri tek tek bu telefonda tutun';
+
+  @override
+  String get quranDownloadAll => '114 surenin hepsini indir';
+
+  @override
+  String get quranDownloadsNote =>
+      'İndirmediğiniz bir sure de çevrimiçiyken çalar. İndirmeler, mobil veriye izin vermedikçe Wi-Fi ile yapılır. Her kârinin ayrı seti vardır.';
+
+  @override
+  String get quranDownloaded => 'İndirildi';
+
+  @override
+  String get quranStreamsOnline => 'Çevrimiçi çalar';
+
+  @override
+  String get quranWaitingWifi => 'Wi-Fi bekleniyor';
+
+  @override
+  String quranStored(int count, String size) {
+    return '114 sureden $count · $size';
+  }
+
+  @override
+  String get quranRemove => 'Kaldır';
+
+  @override
+  String get quranDownload => 'İndir';
+
+  @override
+  String get quranSettings => 'Okuma ayarları';
+
+  @override
+  String get quranReading => 'Okuma';
+
+  @override
+  String get quranListening => 'Dinleme';
+
+  @override
+  String get quranScript => 'Hat';
+
+  @override
+  String get quranUthmani => 'Osmanî';
+
+  @override
+  String get quranArabicSize => 'Arapça boyutu';
+
+  @override
+  String get quranShowTranslation => 'Meal';
+
+  @override
+  String get quranFollow => 'Tilaveti takip et';
+
+  @override
+  String get quranFollowHint => 'Okunan ayete kaydırır';
+
+  @override
+  String get quranKeepAwake => 'Ekranı açık tut';
+
+  @override
+  String get quranKeepAwakeHint => 'Okuyucu açıkken';
+
+  @override
+  String get quranMobileData => 'Mobil veri kullan';
+
+  @override
+  String get quranMobileDataHint => 'Kapalı: yalnızca Wi-Fi\'da dinler ve indirir';
+
+  @override
+  String get quranBaqarahEnd => 'Bakara suresinin son iki ayeti';
+
+  @override
+  String get quranQuls => 'İhlâs, Felak, Nâs';
+
+  @override
+  String get quranMulk => 'Mülk suresi';
+
+  @override
+  String get quranKahf10 => 'Kehf suresinin ilk on ayeti';
+
+  @override
+  String get quranWhenNight => 'Gece';
+
+  @override
+  String get quranWhenMorningEvening => 'Sabah ve akşam, 3 kez';
+
+  @override
+  String get quranWhenSleep => 'Uyumadan önce';
+
+  @override
+  String get quranWhenDajjal => 'Deccal\'den korunma';
+
+  @override
+  String get quranWhy => 'Neden';
 }

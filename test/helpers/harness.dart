@@ -8,6 +8,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:waqt/platform/sensors/heading.dart';
 import 'package:waqt/data/sources/days.dart';
 import 'package:waqt/data/sources/duas.dart';
+import 'package:waqt/data/quran/quran.dart';
+import 'package:waqt/data/quran/quran_translation.dart';
 import 'package:waqt/data/sources/hadeethenc.dart';
 import 'package:waqt/app/app.dart';
 import 'package:waqt/app/app_state.dart';
@@ -93,10 +95,23 @@ Future<Widget> app({
       dayGuidesProvider.overrideWith((ref) => DayGuides.parse(File('assets/sources/days.json').readAsStringSync())),
       heBundleProvider.overrideWith((ref) => HeBundle.parse(File('assets/sources/hadeethenc.json').readAsStringSync())),
       duaBookProvider.overrideWith((ref) => DuaBook.parse(File('assets/sources/duas.json').readAsStringSync())),
+      quranProvider.overrideWith(
+        (ref) => Quran.parse(
+          File('assets/quran/quran-uthmani.txt').readAsStringSync(),
+          File('assets/quran/meta.json').readAsStringSync(),
+        ),
+      ),
+      quranTranslationInstallProvider.overrideWith(_NoTranslation.new),
       if (at != null) nowProvider.overrideWith((ref) => Stream.value(at)),
       if (heading != null) headingProvider.overrideWith((ref) => Stream.value(heading)),
       if (locale != null) localeOverrideProvider.overrideWith(() => _Locale(locale)),
     ],
     child: const WaqtApp(),
   );
+}
+
+/// Tests have no files to download into: the translation is simply not there.
+class _NoTranslation extends QuranTranslationInstall {
+  @override
+  ({QuranTranslationStatus status, double progress}) build() => (status: QuranTranslationStatus.missing, progress: 0);
 }
