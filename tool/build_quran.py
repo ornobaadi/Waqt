@@ -20,6 +20,8 @@ import io
 import json
 import os
 import re
+import sys
+import unicodedata
 import tempfile
 import urllib.request
 import xml.etree.ElementTree as ET
@@ -88,6 +90,9 @@ def main():
     }
     if len(meta["juz"]) != 30 or len(meta["pages"]) != 604:
         raise SystemExit("juz or page metadata does not add up")
+    meta["names"] = surah_names(suras)
+    meta["notice"] += (" Surah names and meanings in Urdu, Bangla, Indonesian, Turkish and French: Quran.com API;"
+                       " Bangla spellings of the names: Waqt (tool/surah_names_bn.py).")
     with open(os.path.join(out, "meta.json"), "w", encoding="utf-8") as f:
         json.dump(meta, f, ensure_ascii=False, separators=(",", ":"))
 
@@ -100,6 +105,50 @@ def main():
 
     indopak(out, suras, lines)
     print(f"{len(lines)} ayat, {len(suras)} surahs, {len(meta['pages'])} pages")
+
+
+def surah_names(suras):
+    """Per language, [name, meaning] for each surah, as readers of that
+    language know them. en: the common Latin spelling and Tanzil's meaning;
+    ar: the Arabic; ur: the Arabic name (read as is in Urdu); bn: Bangla
+    script; id, fr: the common Latin spelling; tr: the Turkish spelling."""
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    from surah_names_bn import BN_NAMES
+
+    def chapters(lang):
+        raw = open(fetch(f"https://api.quran.com/api/v4/chapters?language={lang}", f"chapters-{lang}.json"),
+                   encoding="utf-8").read()
+        cs = json.loads(raw)["chapters"]
+        if len(cs) != 114:
+            raise SystemExit(f"Quran.com chapters ({lang}): {len(cs)}")
+        return cs
+
+    def meaning(c, lang):
+        t = c["translated_name"]
+        return t["name"] if t["language_name"] != "english" or lang == "en" else ""
+
+    out = {}
+    en = chapters("en")
+    out["en"] = [[c["name_simple"], s["en"]] for c, s in zip(en, suras)]
+    out["ar"] = [[s["ar"], ""] for s in suras]
+    ur = chapters("ur")
+    out["ur"] = [[s["ar"], meaning(c, "ur")] for c, s in zip(ur, suras)]
+    bn = chapters("bn")
+    out["bn"] = [[name, meaning(c, "bn")] for name, c in zip(BN_NAMES, bn)]
+    for lang in ("id", "fr"):
+        cs = chapters(lang)
+        out[lang] = [[c["name_simple"], meaning(c, lang)] for c in cs]
+    out["tr"] = [[c["translated_name"]["name"], ""] for c in chapters("tr")]
+    # A "meaning" that only repeats the name (Ya-Sin, "Yaseen") says nothing.
+    def plain(x):
+        x = "".join(c for c in unicodedata.normalize("NFKD", x.lower()) if not unicodedata.category(c).startswith("M"))
+        x = re.sub(r"[\W_]", "", x.replace("ی", "ي").replace("ee", "i"))
+        return re.sub(r"(.)+", r"", x)
+    for rows in out.values():
+        for r in rows:
+            if r[1] and plain(r[1]) == plain(r[0]):
+                r[1] = ""
+    return out
 
 
 def indopak(out, suras, uthmani):

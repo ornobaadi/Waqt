@@ -1,6 +1,7 @@
 import 'dart:ui' show Locale;
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/misc.dart' show ProviderListenable;
 
 import '../core/clock/clock.dart';
 import '../data/hijri/calendar_sync.dart';
@@ -163,15 +164,19 @@ final hijriDateProvider = Provider<HijriDate>((ref) {
 });
 
 /// Fix → nearest named city → saved. Returns the error, or null on success.
-Future<GpsError?> locateWithGps(WidgetRef ref) async {
+Future<GpsError?> locateWithGps(WidgetRef ref, {void Function()? onPermitted}) =>
+    locateWith(ref.read, onPermitted: onPermitted);
+
+/// Same, with any provider reader: onboarding keeps locating after its page
+/// is gone, so it passes the app's container rather than the page's ref.
+Future<GpsError?> locateWith(T Function<T>(ProviderListenable<T>) read, {void Function()? onPermitted}) async {
   try {
-    final fix = await currentFix();
-    final repo = await ref.read(placeRepositoryProvider.future);
+    final fix = await currentFix(onPermitted: onPermitted);
+    final repo = await read(placeRepositoryProvider.future);
     // The nearest city names the place; the times use the phone's own
     // position, so two towns in one district get their own minutes.
     final city = repo.nearest(fix.lat, fix.lng);
-    ref
-        .read(userPrefsProvider.notifier)
+    read(userPrefsProvider.notifier)
         .setPlace(city.copyWith(latitude: fix.lat, longitude: fix.lng, source: PlaceSource.gps));
     return null;
   } on GpsException catch (e) {

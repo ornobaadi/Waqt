@@ -5,7 +5,9 @@ import 'package:waqt/data/quran/quran.dart';
 import 'package:waqt/data/quran/quran_prefs.dart';
 import 'package:waqt/data/quran/quran_translation.dart';
 import 'package:waqt/data/quran/recitation.dart';
+import 'package:flutter/material.dart';
 import 'package:waqt/features/quran/quran_screen.dart' show findSurahs;
+import 'package:waqt/features/quran/reader_screen.dart' show translationSpans;
 
 void main() {
   final raw = File('assets/quran/quran-uthmani.txt').readAsStringSync();
@@ -120,5 +122,30 @@ void main() {
     expect(f('al'), containsAll([1, 2, 18, 67]));
     expect(f('al-kahf'), [18]);
     expect(f(''), hasLength(114));
+  });
+
+  test('surah names in each language', () {
+    expect(q.surah(2).nameIn('bn'), 'আল-বাকারা');
+    expect(q.surah(2).nameIn('tr'), 'Bakara');
+    expect(q.surah(2).nameIn('ar'), 'البقرة');
+    expect(q.surah(1).nameIn('en'), 'Al-Fatihah');
+    expect(q.surah(1).meaningIn('fr'), "L'ouverture");
+    expect(q.surah(36).meaningIn('bn'), isEmpty); // the meaning would only repeat the name
+    for (final lang in ['en', 'ar', 'ur', 'bn', 'id', 'tr', 'fr']) {
+      expect(q.surahs.every((s) => s.nameIn(lang).isNotEmpty), isTrue, reason: lang);
+    }
+    expect(findSurahs(q, 'বাকারা').map((s) => s.n), [2]);
+    expect(findSurahs(q, 'Bakara').map((s) => s.n), contains(2));
+  });
+
+  test('translations read through: their own number off, footnote marks small', () {
+    String plain(String t) => translationSpans(t, Colors.grey).whereType<TextSpan>().map((s) => s.text).join();
+    int marks(String t) => translationSpans(t, Colors.grey).whereType<WidgetSpan>().length;
+    expect(plain('(1) In the name of Allāh,[2] the Entirely Merciful'), 'In the name of Allāh, the Entirely Merciful');
+    expect(marks('(1) In the name of Allāh,[2] the Entirely Merciful'), 1);
+    expect(plain('সকল ‘হাম্দ’ [১] আল্লাহ্র [২] , যিনি'), 'সকল ‘হাম্দ’ আল্লাহ্র, যিনি');
+    expect(marks('সকল ‘হাম্দ’ [১] আল্লাহ্র [২] , যিনি'), 2);
+    // Words in brackets that are part of the translation stay.
+    expect(plain('[All] praise is [due] to Allah'), '[All] praise is [due] to Allah');
   });
 }

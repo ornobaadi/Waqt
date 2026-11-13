@@ -36,12 +36,9 @@ class RightNowCard extends ConsumerWidget {
     this.items = const [],
     this.sourced = const [],
     this.onSourced,
-    this.tabs,
   });
   final Moment moment;
 
-  /// When several moments are happening at once: one tab each, on top.
-  final Widget? tabs;
   final DateTime now;
 
   /// Items tied to a hadith in the bundled collections, shown before any
@@ -75,7 +72,6 @@ class RightNowCard extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (tabs case final tabs?) ...[tabs, const SizedBox(height: WaqtSpace.x4)],
             // The header folds the card away, or opens it again.
             Semantics(
               button: true,
@@ -105,11 +101,8 @@ class RightNowCard extends ConsumerWidget {
                       ],
                     ),
                     const SizedBox(height: WaqtSpace.x3),
-                    // With tabs, the selected tab already names the moment (board 01).
-                    if (tabs == null) ...[
-                      Text(l.moment(moment), style: WaqtText.title.copyWith(color: ink, fontSize: 24)),
-                      const SizedBox(height: WaqtSpace.x3),
-                    ],
+                    Text(l.moment(moment), style: WaqtText.title.copyWith(color: ink, fontSize: 24)),
+                    const SizedBox(height: WaqtSpace.x3),
                     // How much of the window has passed, right under its name.
                     LinearProgressIndicator(
                       value: progress,
@@ -186,96 +179,6 @@ class RightNowCard extends ConsumerWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-/// Several moments at once (the last hour of Friday inside "After Asr"):
-/// one card with a tab for each, newest first, instead of a stack of cards.
-class RightNowTabs extends StatefulWidget {
-  const RightNowTabs({super.key, required this.moments, required this.now, required this.sourced, this.onSourced});
-  final List<Moment> moments;
-  final DateTime now;
-  final List<DayItem> Function(Moment) sourced;
-  final void Function(DayItem)? onSourced;
-
-  @override
-  State<RightNowTabs> createState() => _RightNowTabsState();
-}
-
-class _RightNowTabsState extends State<RightNowTabs> {
-  MomentId? _picked;
-
-  @override
-  Widget build(BuildContext context) {
-    final ms = widget.moments;
-    final i = ms.indexWhere((m) => m.id == _picked).clamp(0, ms.length - 1);
-    final m = ms[i];
-    return RightNowCard(
-      moment: m,
-      now: widget.now,
-      sourced: widget.sourced(m),
-      onSourced: widget.onSourced,
-      tabs: ms.length < 2
-          ? null
-          : _MomentTabs(moments: ms, selected: i, onSelect: (k) => setState(() => _picked = ms[k].id)),
-    );
-  }
-}
-
-class _MomentTabs extends StatelessWidget {
-  const _MomentTabs({required this.moments, required this.selected, required this.onSelect});
-  final List<Moment> moments;
-  final int selected;
-  final ValueChanged<int> onSelect;
-
-  @override
-  Widget build(BuildContext context) {
-    final l = AppLocalizations.of(context);
-    final t = WaqtTokens.of(context);
-    final ink = t.heroInk;
-    return Container(
-      constraints: const BoxConstraints(minHeight: WaqtSpace.minTouch),
-      padding: const EdgeInsets.all(WaqtSpace.x1),
-      decoration: BoxDecoration(color: ink.withValues(alpha: 0.09), borderRadius: BorderRadius.circular(16)),
-      child: Row(
-        children: [
-          for (final (k, m) in moments.indexed)
-            // Room in proportion to the name, so every tab keeps the same text size.
-            Expanded(
-              flex: l.moment(m).length.clamp(6, 40) + 4,
-              child: Semantics(
-                selected: k == selected,
-                button: true,
-                child: Material(
-                  color: k == selected ? ink : Colors.transparent,
-                  borderRadius: BorderRadius.circular(12),
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(12),
-                    onTap: () => onSelect(k),
-                    child: Container(
-                      constraints: const BoxConstraints(minHeight: 36),
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.symmetric(horizontal: WaqtSpace.x2),
-                      // One line always: a long name shrinks a little rather than wrapping.
-                      child: FittedBox(
-                        fit: BoxFit.scaleDown,
-                        child: Text(
-                          l.moment(m),
-                          maxLines: 1,
-                          style: WaqtText.caption.copyWith(
-                            color: k == selected ? t.heroSurface : ink.withValues(alpha: 0.8),
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-        ],
       ),
     );
   }

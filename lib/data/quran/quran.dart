@@ -13,7 +13,17 @@ class Surah {
     required this.name,
     required this.english,
     required this.makki,
+    this.names = const {},
   });
+
+  /// Per language: (name, meaning). Missing: the Latin name and English meaning.
+  final Map<String, (String, String)> names;
+
+  /// "আল-বাকারা", "Bakara", "Al-Baqarah": the name as readers of [lang] know it.
+  String nameIn(String lang) => names[lang]?.$1 ?? names['en']?.$1 ?? name;
+
+  /// What the name means in [lang]; empty where the name says it all (Arabic, Turkish).
+  String meaningIn(String lang) => names[lang]?.$2 ?? english;
 
   final int n;
   final int ayahs;
@@ -119,11 +129,17 @@ class Quran {
       for (final r in v! as List<Object?>)
         if (r case [final int s, final int a]) (surah: s, ayah: a),
     ];
+    final names = (m['names'] as Map<String, Object?>?) ?? const {};
+    (String, String)? named(String lang, int i) => switch ((names[lang] as List<Object?>?)?[i]) {
+      [final String n, final String meaning] => (n, meaning),
+      _ => null,
+    };
     return Quran(
       [
-        for (final s in m['suras']! as List<Object?>)
+        for (final (i, s) in (m['suras']! as List<Object?>).indexed)
           if (s case final Map<String, Object?> j)
             Surah(
+              names: {for (final lang in names.keys) lang: ?named(lang, i)},
               n: j['n']! as int,
               ayahs: j['ayas']! as int,
               start: j['start']! as int,

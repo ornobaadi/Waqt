@@ -490,8 +490,19 @@ class _LocationPageState extends ConsumerState<_LocationPage> {
       _busy = true;
       _error = null;
     });
-    final err = await locateWithGps(ref);
-    if (!mounted) return;
+    // Once location is allowed, move on: the phone keeps finding itself in
+    // the background, and the place arrives on its own (or Now asks later).
+    final container = ProviderScope.containerOf(context, listen: false);
+    var movedOn = false;
+    final err = await locateWith(
+      container.read,
+      onPermitted: () {
+        if (!mounted) return;
+        movedOn = true;
+        widget.onNext();
+      },
+    );
+    if (!mounted || movedOn) return;
     setState(() {
       _busy = false;
       _error = err;

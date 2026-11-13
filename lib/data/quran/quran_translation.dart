@@ -27,7 +27,7 @@ class QuranTranslationInfo {
 
 /// One translation per app language. Arabic readers read the Arabic.
 const quranTranslations = <String, QuranTranslationInfo>{
-  'en': QuranTranslationInfo('english_saheeh', 'Saheeh International'),
+  'en': QuranTranslationInfo('english_rwwad', 'Rowwad Translation Center'),
   'ur': QuranTranslationInfo('urdu_junagarhi', 'محمد جوناگڑھی'),
   'bn': QuranTranslationInfo('bengali_zakaria', 'আবু বকর মুহাম্মাদ যাকারিয়া'),
   'id': QuranTranslationInfo('indonesian_affairs', 'Kementerian Agama RI'),

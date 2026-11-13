@@ -138,7 +138,7 @@ void main() {
     expect(find.text('START READING'), findsOneWidget);
     await tester.tap(find.text('Open'));
     await tester.pumpAndSettle();
-    expect(find.text('The Opening'), findsOneWidget);
+    expect(find.textContaining('The Opening'), findsOneWidget);
     expect(find.text('Translation'), findsOneWidget); // offered, not yet on the phone
     await tester.tap(find.byTooltip('Next ayah'));
     await tester.pumpAndSettle();
@@ -152,13 +152,13 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.text('Saved'));
     await tester.pumpAndSettle();
-    expect(find.text('Al-Faatiha 1:2'), findsOneWidget);
+    expect(find.text('Al-Fatihah 1:2'), findsOneWidget);
 
     // Reading shows on Today, and its row opens the reader where you stopped.
     await tester.tap(find.byTooltip('Today'));
     await tester.pumpAndSettle();
     expect(find.textContaining(RegExp(r'^Quran · \d+ (ayah|ayat) read today$')), findsOneWidget);
-    expect(find.text('Al-Faatiha, ayah 2'), findsOneWidget);
+    expect(find.text('Al-Fatihah, ayah 2'), findsOneWidget);
     await tester.tap(find.textContaining('read today'));
     await tester.pumpAndSettle();
     expect(find.byKey(const ValueKey('ayah-1:2')), findsOneWidget);
@@ -170,11 +170,8 @@ void main() {
     addTearDown(tester.view.reset);
     await tester.pumpWidget(await app(at: DateTime(2026, 11, 6, 16, 20), place: dhaka));
     await tester.pumpAndSettle();
-    // Two moments at once share one card: a tab each, the newest (Friday's last hour) first.
+    // Moments at once are separate cards, newest (Friday's last hour) first.
     expect(find.text('Last hour of Friday'), findsWidgets);
-    await tester.ensureVisible(find.text('After Asr'));
-    await tester.tap(find.text('After Asr'));
-    await tester.pumpAndSettle();
     final say = find.text('Say the duas · 4');
     await tester.scrollUntilVisible(say, 200, scrollable: find.byType(Scrollable).first);
     await tester.drag(find.byType(Scrollable).first, const Offset(0, -300));
@@ -231,8 +228,8 @@ void main() {
     await tester.pumpAndSettle();
     await tester.enterText(find.byType(TextField), 'yasin');
     await tester.pumpAndSettle();
-    expect(find.text('Yaseen'), findsWidgets);
-    expect(find.text('Al-Faatiha'), findsNothing);
+    expect(find.text('Ya-Sin'), findsWidgets);
+    expect(find.text('Al-Fatihah'), findsNothing);
     await tester.enterText(find.byType(TextField), 'nothing like this');
     await tester.pumpAndSettle();
     expect(find.text('No surah by that name'), findsOneWidget);
@@ -240,7 +237,7 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.text('Al-Kahf'));
     await tester.pumpAndSettle();
-    expect(find.text('The Cave'), findsOneWidget);
+    expect(find.textContaining('The Cave'), findsOneWidget);
   });
 
   testWidgets('Home rows do the thing: read Ayat al-Kursi, count the tasbih, say the words; hadith behind info', (

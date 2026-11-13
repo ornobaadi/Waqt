@@ -126,7 +126,7 @@ extension on _TodayScreenState {
     if (last == null || q == null) return null;
     final s = q.surah(last.surah);
     final tag = Localizations.localeOf(context).toLanguageTag();
-    final name = Localizations.localeOf(context).languageCode == 'ar' ? s.arabic : s.name;
+    final name = s.nameIn(Localizations.localeOf(context).languageCode);
     return AppLocalizations.of(context).todayQuranAt(name, LocaleDigits(tag)(last.ayah));
   }
 

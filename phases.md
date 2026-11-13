@@ -145,9 +145,17 @@ Margins awaiting scholar review: see `docs/moment-rules.md`.
 - [x] Reading settings (board 09): small and large A on the size slider.
 - [x] Source lines: book and grade in the reader's language even where HadeethEnc has not translated the hadith yet (HadeethEnc's own wording for that book and grade); one line in lists.
 - [x] Right now rows do the thing: Ayat al-Kursi opens the reader at 2:255, the 33-each and Fatimah tasbih open the after-salah counter, salawat and SubhanAllah wa bihamdihi open their dhikr, a row that is a dua opens its words. The hadith moved behind an info button (`ACTIONS` in build_content.py, `doItem` in library_views.dart).
-- [x] Several moments at once: one tab bar, each tab on one line and sized to its name.
+- [x] Several moments at once: separate cards again (tabs did not fit long names).
 - [x] Onboarding greets with "Assalaamu Alaikum," (Instrument Serif italic, OFL; Arabic/Urdu/Bangla in their own fonts).
 - [ ] Not built from the canvas yet: saved duas, share, transliteration toggle (no licensed source), repeat-ayah in the player, "Read al-Kahf" on Friday (no sourced hadith).
+
+## Phase 19 — Reading the Quran
+- [x] Surah names in each language (Bangla spellings ours, `tool/surah_names_bn.py`; Urdu/Bangla/Indonesian/Turkish/French names and meanings from Quran.com's chapter list, built into meta.json; no runtime call).
+- [x] Uthmani and IndoPak: more line height, IndoPak words apart, more room per ayah.
+- [x] Translations read through: the translator's own "(1)" left off, footnote marks as small raised numbers. English is now Rowwad (QuranEnc), plainer than Saheeh; Bangla stays Zakaria (QuranEnc's only Bangla translation; "Mokhtasar" is a tafsir).
+- [x] Player and reader bar on the page's own surface (no inverted panel); compact player.
+- [x] Onboarding location: a recent fix is used at once, a fresh one waits 8 s at most, and onboarding moves on as soon as location is allowed.
+- [ ] On a device: check IndoPak and Amiri line spacing at the largest size, and the player in the night palette.
 
 ## Later
 iOS · OTA signed content updates · more languages · cloud backup.

@@ -48,9 +48,12 @@ final quranForMoment = [
 /// The font for the Arabic text of [q]'s script (surah names stay in Amiri Quran).
 String quranFont(Quran q) => q.marksInText ? WaqtFonts.indoPak : WaqtFonts.quran;
 
-/// The IndoPak font's space is wide (it is made for justified mushaf lines);
-/// for ragged reading text it is drawn closer, in proportion to the size.
-double? quranWordSpacing(Quran q, double fontSize) => q.marksInText ? -0.28 * fontSize : null;
+/// Line height for the script: IndoPak's marks sit high and low, so its
+/// lines need more air than the Uthmani to never touch.
+double quranLineHeight(Quran q) => q.marksInText ? 2.35 : 2.05;
+
+/// Words a little apart in IndoPak, whose glyphs are set tight.
+double? quranWordSpacing(Quran q, double fontSize) => q.marksInText ? 0.12 * fontSize : null;
 
 /// Surahs matching what was typed: a number ("36"), a name in Tanzil's
 /// spelling or a common one ("yasin" finds Yaa-Siin, "kahf" finds Al-Kahf),
@@ -84,10 +87,17 @@ List<Surah> findSurahs(Quran q, String query) {
     for (final s in q.surahs)
       if (latinMatch(s.name) ||
           latinMatch(s.english) ||
+          s.names.values.any(
+            (n) => latinMatch(n.$1) || n.$1.contains(raw) || n.$2.toLowerCase().contains(raw.toLowerCase()),
+          ) ||
           (qa.isNotEmpty && RegExp('[\u0600-\u06FF]').hasMatch(qa) && arabic(s.arabic).contains(qa)))
         s,
   ];
 }
+
+/// A surah's name and meaning in the app's language.
+String surahName(BuildContext context, Surah s) => s.nameIn(Localizations.localeOf(context).languageCode);
+String surahMeaning(BuildContext context, Surah s) => s.meaningIn(Localizations.localeOf(context).languageCode);
 
 void openReader(BuildContext context, AyahRef at) => context.push('/read/${at.surah}?ayah=${at.ayah}');
 
@@ -266,7 +276,7 @@ class _ContinueCard extends StatelessWidget {
                           style: WaqtText.overline.copyWith(color: soft),
                         ),
                         const SizedBox(height: 2),
-                        Text(s.name, style: WaqtText.title.copyWith(color: t.ground)),
+                        Text(surahName(context, s), style: WaqtText.title.copyWith(color: t.ground)),
                       ],
                     ),
                   ),
@@ -442,9 +452,13 @@ class _SurahRow extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(surah.name, style: WaqtText.bodyStrong.copyWith(color: t.ink)),
+                    Text(surahName(context, surah), style: WaqtText.bodyStrong.copyWith(color: t.ink)),
                     Text(
-                      '${surah.english} · ${l.quranAyat(surah.ayahs)} · ${surah.makki ? l.quranMakki : l.quranMadani}',
+                      [
+                        surahMeaning(context, surah),
+                        l.quranAyat(surah.ayahs),
+                        surah.makki ? l.quranMakki : l.quranMadani,
+                      ].where((x) => x.isNotEmpty).join(' · '),
                       style: WaqtText.caption.copyWith(color: t.inkMuted),
                     ),
                   ],
@@ -489,7 +503,10 @@ class _JuzRow extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(l.quranJuz(n), style: WaqtText.bodyStrong.copyWith(color: t.ink)),
-                    Text('${s.name} ${at.surah}:${at.ayah}', style: WaqtText.caption.copyWith(color: t.inkMuted)),
+                    Text(
+                      '${surahName(context, s)} ${at.surah}:${at.ayah}',
+                      style: WaqtText.caption.copyWith(color: t.inkMuted),
+                    ),
                   ],
                 ),
               ),
@@ -522,7 +539,7 @@ class _SavedRow extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text('${s.name} ${at.surah}:${at.ayah}', style: WaqtText.bodyStrong.copyWith(color: t.ink)),
+            Text('${surahName(context, s)} ${at.surah}:${at.ayah}', style: WaqtText.bodyStrong.copyWith(color: t.ink)),
             const SizedBox(height: WaqtSpace.x1),
             Text(
               quran.display(at.surah, at.ayah),

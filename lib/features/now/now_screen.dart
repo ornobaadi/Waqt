@@ -257,11 +257,11 @@ class NowScreen extends ConsumerWidget {
                       day: '${group.first.id.name}-${prayerDayKey(moments.timeline.first.window.start)}',
                     )
                   else
-                    RightNowTabs(
-                      moments: group,
+                    RightNowCard(
+                      moment: group.first,
                       now: now,
                       // Only sourced, checked items: nothing unreviewed on Home.
-                      sourced: (m) => guides?.forMoment(m.id) ?? const [],
+                      sourced: guides?.forMoment(group.first.id) ?? const [],
                       onSourced: (i) => doItem(context, ref, i),
                     ),
                 ],
@@ -574,17 +574,9 @@ class _SetupCard extends StatelessWidget {
 
 /// Checklist moments keep a card each; every other moment happening now
 /// shares one card with a tab each.
-List<List<Moment>> _groups(List<Moment> stack) {
-  final tabs = [
-    for (final m in stack)
-      if (!checklistMoments.contains(m.id)) m,
-  ];
-  var placed = false;
-  return [
-    for (final m in stack)
-      if (checklistMoments.contains(m.id)) [m] else if (!placed && (placed = true)) tabs,
-  ];
-}
+List<List<Moment>> _groups(List<Moment> stack) => [
+  for (final m in stack) [m],
+];
 
 /// The moments to show now, newest first, one card each: only those with
 /// something to say (a sourced item or a restriction), at most three, and

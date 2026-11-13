@@ -20,7 +20,7 @@ import '../../data/user/deeds_store.dart';
 import '../../domain/deeds/deeds.dart';
 import '../../l10n/app_localizations.dart';
 import '../../platform/quran_audio.dart';
-import 'quran_screen.dart' show quranFont, quranWordSpacing;
+import 'quran_screen.dart' show quranFont, quranLineHeight, quranWordSpacing, surahName;
 
 /// One surah: its heading and basmala, then each ayah with its translation
 /// beneath. Remembers where you are; recites on request.
@@ -130,7 +130,7 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen> {
         surfaceTintColor: Colors.transparent,
         foregroundColor: t.ink,
         centerTitle: true,
-        title: Text('${s.n} · ${lang == 'ar' ? s.arabic : s.name}', style: WaqtText.bodyStrong.copyWith(color: t.ink)),
+        title: Text('${s.n} · ${s.nameIn(lang)}', style: WaqtText.bodyStrong.copyWith(color: t.ink)),
         actions: [
           IconButton(
             tooltip: l.quranSettings,
@@ -233,14 +233,18 @@ class _Heading extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    arabicUi ? surah.arabic : surah.english,
+                    arabicUi ? surah.arabic : surahName(context, surah),
                     style: arabicUi
                         ? TextStyle(fontFamily: WaqtFonts.quran, fontSize: 30, height: 1.3, color: t.ink)
                         : WaqtText.title.copyWith(color: t.ink),
                   ),
                   Text(
-                    '${l.quranAyat(surah.ayahs)} · ${surah.makki ? l.quranMakki : l.quranMadani} · '
-                    '${l.quranJuz(quran.juzOf(surah.n, 1))}',
+                    [
+                      if (!arabicUi) surah.meaningIn(Localizations.localeOf(context).languageCode),
+                      l.quranAyat(surah.ayahs),
+                      surah.makki ? l.quranMakki : l.quranMadani,
+                      l.quranJuz(quran.juzOf(surah.n, 1)),
+                    ].where((x) => x.isNotEmpty).join(' · '),
                     style: WaqtText.label.copyWith(color: t.inkMuted),
                   ),
                 ],
@@ -270,7 +274,7 @@ class _Heading extends ConsumerWidget {
               fontFamily: quranFont(quran),
               fontSize: 26,
               wordSpacing: quranWordSpacing(quran, 26),
-              height: 1.9,
+              height: quranLineHeight(quran),
               color: t.ink,
             ),
           ),
@@ -340,6 +344,38 @@ class TranslationDownloadCard extends ConsumerWidget {
   }
 }
 
+/// A translation as the translator wrote it, made easy to read: their own
+/// ayah number at the start is left off (the reader shows it), and the
+/// footnote marks ([2], [১]) become small raised numbers, so a sentence reads
+/// through. The notes themselves open from the ayah's sheet.
+List<InlineSpan> translationSpans(String text, Color muted) {
+  const digits = '0-9\u09E6-\u09EF\u0660-\u0669\u06F0-\u06F9';
+  var s = text.replaceFirst(RegExp('^\\s*[(（][$digits]+[)）]\\s*'), '');
+  // "[২] ," -> "[২]," : the space belonged before the mark, not the comma.
+  s = s.replaceAllMapped(RegExp('(\\[[$digits]+\\])\\s+([,،;.।؛])'), (m) => '${m[1]}${m[2]}');
+  final mark = RegExp('\\s?\\[([$digits]+)\\]');
+  final out = <InlineSpan>[];
+  var at = 0;
+  for (final m in mark.allMatches(s)) {
+    if (m.start > at) out.add(TextSpan(text: s.substring(at, m.start)));
+    out.add(
+      WidgetSpan(
+        alignment: PlaceholderAlignment.top,
+        child: Padding(
+          padding: const EdgeInsets.only(left: 1, right: 2),
+          child: Text(
+            m[1]!,
+            style: TextStyle(fontSize: 10, height: 1, color: muted, fontWeight: FontWeight.w600),
+          ),
+        ),
+      ),
+    );
+    at = m.end;
+  }
+  if (at < s.length) out.add(TextSpan(text: s.substring(at)));
+  return out;
+}
+
 class _Ayah extends ConsumerWidget {
   const _Ayah({
     required this.quran,
@@ -401,15 +437,23 @@ class _Ayah extends ConsumerWidget {
             fontFamily: quranFont(quran),
             fontSize: 27 * scale,
             wordSpacing: quranWordSpacing(quran, 27 * scale),
-            height: 1.95,
+            height: quranLineHeight(quran),
             color: t.ink,
           ),
         ),
         if (translation case final tr? when tr.text.isNotEmpty) ...[
-          const SizedBox(height: WaqtSpace.x1),
-          Text(
-            '${at.ayah} · ${tr.text}',
-            style: WaqtText.body.copyWith(color: t.ink.withValues(alpha: 0.82), height: 1.5),
+          const SizedBox(height: WaqtSpace.x3),
+          Text.rich(
+            TextSpan(
+              children: [
+                TextSpan(
+                  text: '${at.ayah}  ',
+                  style: WaqtText.caption.copyWith(color: t.inkMuted, fontWeight: FontWeight.w700),
+                ),
+                ...translationSpans(tr.text, t.inkMuted),
+              ],
+            ),
+            style: WaqtText.body.copyWith(color: t.ink.withValues(alpha: 0.86), height: 1.6),
           ),
         ],
       ],
@@ -423,7 +467,7 @@ class _Ayah extends ConsumerWidget {
         child: marked
             ? Container(
                 margin: const EdgeInsets.symmetric(vertical: WaqtSpace.x2),
-                padding: const EdgeInsets.fromLTRB(WaqtSpace.x3, WaqtSpace.x2, WaqtSpace.x3, WaqtSpace.x3),
+                padding: const EdgeInsets.fromLTRB(WaqtSpace.x4, WaqtSpace.x3, WaqtSpace.x4, WaqtSpace.x4),
                 decoration: BoxDecoration(
                   color: reciting ? t.accent.withValues(alpha: 0.45) : t.surface,
                   borderRadius: BorderRadius.circular(WaqtRadii.strip),
@@ -435,7 +479,7 @@ class _Ayah extends ConsumerWidget {
                   border: Border(bottom: BorderSide(color: t.hairline)),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: WaqtSpace.x3),
+                  padding: const EdgeInsets.symmetric(vertical: WaqtSpace.x5),
                   child: body,
                 ),
               ),
@@ -458,7 +502,10 @@ class _Ayah extends ConsumerWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text('${s.name} ${at.surah}:${at.ayah}', style: WaqtText.titleSmall.copyWith(color: t.ink)),
+              Text(
+                '${surahName(context, s)} ${at.surah}:${at.ayah}',
+                style: WaqtText.titleSmall.copyWith(color: t.ink),
+              ),
               const SizedBox(height: WaqtSpace.x3),
               _action(
                 ctx,
@@ -477,7 +524,7 @@ class _Ayah extends ConsumerWidget {
                     text: [
                       quran.ayah(at.surah, at.ayah),
                       if (translation?.text case final tr? when tr.isNotEmpty) tr,
-                      '${s.name} ${at.surah}:${at.ayah}',
+                      '${surahName(context, s)} ${at.surah}:${at.ayah}',
                     ].join('\n\n'),
                   ),
                 );
@@ -541,7 +588,7 @@ class _Sources extends ConsumerWidget {
                 minimumSize: const Size.fromHeight(WaqtSpace.minTouch),
                 shape: const StadiumBorder(),
               ),
-              child: Text('${n.n} · ${n.name}  →'),
+              child: Text('${n.n} · ${surahName(context, n)}  →'),
             ),
           const SizedBox(height: WaqtSpace.x4),
           Text(
@@ -584,19 +631,15 @@ class _Toolbar extends ConsumerWidget {
       child: Container(
         height: 60,
         padding: const EdgeInsets.all(6),
-        decoration: BoxDecoration(
-          color: t.ink,
-          borderRadius: BorderRadius.circular(30),
-          boxShadow: [BoxShadow(color: t.ink.withValues(alpha: 0.25), blurRadius: 30, offset: const Offset(0, 10))],
-        ),
+        decoration: _calm(t, 30),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             IconButton(
               tooltip: l.quranPrevAyah,
               onPressed: ayah > 1 ? onPrev : null,
-              color: t.ground,
-              disabledColor: t.ground.withValues(alpha: 0.3),
+              color: t.ink,
+              disabledColor: t.ink.withValues(alpha: 0.25),
               icon: Icon(Icons.chevron_left_rounded, textDirection: Directionality.of(context)),
             ),
             Flexible(
@@ -608,7 +651,7 @@ class _Toolbar extends ConsumerWidget {
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.center,
                   style: WaqtText.label.copyWith(
-                    color: t.ground,
+                    color: t.ink,
                     fontWeight: FontWeight.w600,
                     fontFeatures: const [FontFeature.tabularFigures()],
                   ),
@@ -618,8 +661,8 @@ class _Toolbar extends ConsumerWidget {
             IconButton(
               tooltip: l.quranNextAyah,
               onPressed: ayah < total ? onNext : null,
-              color: t.ground,
-              disabledColor: t.ground.withValues(alpha: 0.3),
+              color: t.ink,
+              disabledColor: t.ink.withValues(alpha: 0.25),
               icon: Icon(Icons.chevron_right_rounded, textDirection: Directionality.of(context)),
             ),
             if (showTranslation)
@@ -627,8 +670,8 @@ class _Toolbar extends ConsumerWidget {
                 tooltip: on ? l.quranTranslationOn : l.quranTranslationOff,
                 isSelected: on,
                 onPressed: () => ref.read(quranPrefsProvider.notifier).update((p) => p.copyWith(translation: !on)),
-                color: t.ground.withValues(alpha: 0.5),
-                selectedIcon: Icon(Icons.translate_rounded, color: t.ground),
+                color: t.ink.withValues(alpha: 0.4),
+                selectedIcon: Icon(Icons.translate_rounded, color: t.ink),
                 icon: const Icon(Icons.translate_rounded),
               ),
             Padding(
@@ -636,8 +679,9 @@ class _Toolbar extends ConsumerWidget {
               child: FilledButton.icon(
                 onPressed: onListen,
                 style: FilledButton.styleFrom(
-                  backgroundColor: t.ground,
+                  backgroundColor: t.accent.withValues(alpha: 0.32),
                   foregroundColor: t.ink,
+                  elevation: 0,
                   minimumSize: const Size(0, 48),
                   padding: const EdgeInsets.symmetric(horizontal: WaqtSpace.x4),
                   shape: const StadiumBorder(),
@@ -653,8 +697,9 @@ class _Toolbar extends ConsumerWidget {
   }
 }
 
-/// Board 06's player: reciter, streaming or on the phone, progress through
-/// the ayah, and the controls.
+/// Board 06's player, compact and calm: the page's own surface, a thin
+/// progress line on top, play beside the reciter and the ayah, and the few
+/// controls on one row.
 class _PlayerPanel extends ConsumerWidget {
   const _PlayerPanel({required this.quran, required this.surah});
   final Quran quran;
@@ -671,150 +716,129 @@ class _PlayerPanel extends ConsumerWidget {
     final prefs = ref.watch(quranPrefsProvider);
     final reciter = reciterById(prefs.reciter);
     final local = ref.watch(recitationDownloadsProvider.select((d) => d.done.contains(surah.n)));
-    final soft = t.ground.withValues(alpha: 0.72);
     final speed = prefs.speed;
     String fmt(Duration d) => '${d.inMinutes}:${'${d.inSeconds % 60}'.padLeft(2, '0')}';
+    final caption = WaqtText.caption.copyWith(color: t.inkMuted, fontFeatures: const [FontFeature.tabularFigures()]);
     return Container(
-      padding: const EdgeInsets.fromLTRB(WaqtSpace.x4, WaqtSpace.x3, WaqtSpace.x4, WaqtSpace.x2),
-      decoration: BoxDecoration(
-        color: t.ink,
-        borderRadius: BorderRadius.circular(28),
-        boxShadow: [BoxShadow(color: t.ink.withValues(alpha: 0.25), blurRadius: 30, offset: const Offset(0, 10))],
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Row(
+      clipBehavior: Clip.antiAlias,
+      decoration: _calm(t, 24),
+      child: StreamBuilder<Duration>(
+        stream: player.position,
+        builder: (context, snap) {
+          final pos = snap.data ?? Duration.zero;
+          final len = player.duration ?? Duration.zero;
+          final v = len.inMilliseconds == 0 ? 0.0 : (pos.inMilliseconds / len.inMilliseconds).clamp(0.0, 1.0);
+          final a = rec.ayah ?? 0;
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Expanded(
-                child: InkWell(
-                  onTap: () => context.push('/quran/reciters'),
-                  child: ConstrainedBox(
-                    constraints: const BoxConstraints(minHeight: 44),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(l.quranReciter, style: WaqtText.caption.copyWith(color: soft)),
-                        Row(
-                          children: [
-                            Flexible(
-                              child: Text(
+              LinearProgressIndicator(
+                value: rec.loading ? null : v,
+                minHeight: 3,
+                color: t.accent,
+                backgroundColor: t.hairline,
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(WaqtSpace.x2, WaqtSpace.x2, WaqtSpace.x1, WaqtSpace.x2),
+                child: Row(
+                  children: [
+                    IconButton.filled(
+                      tooltip: rec.playing ? l.quranPause : l.quranPlay,
+                      onPressed: player.toggle,
+                      style: IconButton.styleFrom(
+                        backgroundColor: t.ink,
+                        foregroundColor: t.ground,
+                        minimumSize: const Size(48, 48),
+                      ),
+                      icon: Icon(rec.playing ? Icons.pause_rounded : Icons.play_arrow_rounded, size: 28),
+                    ),
+                    const SizedBox(width: WaqtSpace.x2),
+                    Expanded(
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(WaqtRadii.row),
+                        onTap: () => context.push('/quran/reciters'),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 4),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
                                 reciter.name,
+                                maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
-                                style: WaqtText.bodyStrong.copyWith(color: t.ground),
+                                style: WaqtText.bodyStrong.copyWith(color: t.ink),
                               ),
-                            ),
-                            Icon(Icons.expand_more_rounded, size: 18, color: soft),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              OutlinedButton.icon(
-                onPressed: () => context.push('/quran/downloads'),
-                style: OutlinedButton.styleFrom(
-                  foregroundColor: t.ground,
-                  side: BorderSide(color: t.ground.withValues(alpha: 0.3)),
-                  minimumSize: const Size(0, 36),
-                  padding: const EdgeInsets.symmetric(horizontal: WaqtSpace.x3),
-                  shape: const StadiumBorder(),
-                ),
-                icon: Icon(local ? Icons.download_done_rounded : Icons.wifi_rounded, size: 16),
-                label: Text(local ? l.quranOnPhone : l.quranStreaming, style: WaqtText.label),
-              ),
-            ],
-          ),
-          const SizedBox(height: WaqtSpace.x2),
-          StreamBuilder<Duration>(
-            stream: player.position,
-            builder: (context, snap) {
-              final pos = snap.data ?? Duration.zero;
-              final len = player.duration ?? Duration.zero;
-              final v = len.inMilliseconds == 0 ? 0.0 : (pos.inMilliseconds / len.inMilliseconds).clamp(0.0, 1.0);
-              final a = rec.ayah ?? 0;
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(2),
-                    child: LinearProgressIndicator(
-                      value: rec.loading ? null : v,
-                      minHeight: 4,
-                      color: t.accent,
-                      backgroundColor: t.ground.withValues(alpha: 0.16),
-                    ),
-                  ),
-                  const SizedBox(height: 5),
-                  Row(
-                    children: [
-                      Text(
-                        a == 0 ? surah.name : l.quranAyahOf(a, surah.ayahs),
-                        style: WaqtText.caption.copyWith(color: soft),
-                      ),
-                      const Spacer(),
-                      Text(
-                        '${fmt(pos)} / ${fmt(len)}',
-                        style: WaqtText.caption.copyWith(
-                          color: soft,
-                          fontFeatures: const [FontFeature.tabularFigures()],
+                              Text(
+                                '${a == 0 ? surahName(context, surah) : l.quranAyahOf(a, surah.ayahs)} · ${fmt(pos)} / ${fmt(len)}',
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: caption,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ],
-                  ),
-                ],
-              );
-            },
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              TextButton(
-                onPressed: () => player.setSpeed(_speeds[(_speeds.indexOf(speed) + 1) % _speeds.length]),
-                style: TextButton.styleFrom(foregroundColor: t.ground, minimumSize: const Size(48, 48)),
-                child: Semantics(
-                  label: l.quranSpeed,
-                  child: Text(
-                    '${speed == speed.roundToDouble() ? speed.toInt() : speed}×',
-                    style: WaqtText.label.copyWith(color: t.ground, fontWeight: FontWeight.w700),
-                  ),
+                    ),
+                    IconButton(
+                      tooltip: l.quranPrevAyah,
+                      onPressed: player.previous,
+                      color: t.ink,
+                      icon: const Icon(Icons.skip_previous_rounded),
+                    ),
+                    IconButton(
+                      tooltip: l.quranNextAyah,
+                      onPressed: player.next,
+                      color: t.ink,
+                      icon: const Icon(Icons.skip_next_rounded),
+                    ),
+                  ],
                 ),
               ),
-              IconButton(
-                tooltip: l.quranPrevAyah,
-                onPressed: player.previous,
-                color: t.ground,
-                icon: const Icon(Icons.skip_previous_rounded),
-              ),
-              IconButton.filled(
-                tooltip: rec.playing ? l.quranPause : l.quranPlay,
-                onPressed: player.toggle,
-                style: IconButton.styleFrom(
-                  backgroundColor: t.ground,
-                  foregroundColor: t.ink,
-                  minimumSize: const Size(56, 56),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(WaqtSpace.x2, 0, WaqtSpace.x2, WaqtSpace.x1),
+                child: Row(
+                  children: [
+                    TextButton(
+                      onPressed: () => player.setSpeed(_speeds[(_speeds.indexOf(speed) + 1) % _speeds.length]),
+                      style: TextButton.styleFrom(foregroundColor: t.ink, minimumSize: const Size(48, 40)),
+                      child: Semantics(
+                        label: l.quranSpeed,
+                        child: Text(
+                          '${speed == speed.roundToDouble() ? speed.toInt() : speed}×',
+                          style: WaqtText.label.copyWith(color: t.ink, fontWeight: FontWeight.w700),
+                        ),
+                      ),
+                    ),
+                    TextButton.icon(
+                      onPressed: () => context.push('/quran/downloads'),
+                      style: TextButton.styleFrom(foregroundColor: t.inkMuted, minimumSize: const Size(0, 40)),
+                      icon: Icon(local ? Icons.download_done_rounded : Icons.wifi_rounded, size: 16),
+                      label: Text(local ? l.quranOnPhone : l.quranStreaming, style: WaqtText.label),
+                    ),
+                    const Spacer(),
+                    IconButton(
+                      tooltip: l.quranStop,
+                      onPressed: player.stop,
+                      color: t.inkMuted,
+                      icon: const Icon(Icons.close_rounded),
+                    ),
+                  ],
                 ),
-                icon: Icon(rec.playing ? Icons.pause_rounded : Icons.play_arrow_rounded, size: 30),
-              ),
-              IconButton(
-                tooltip: l.quranNextAyah,
-                onPressed: player.next,
-                color: t.ground,
-                icon: const Icon(Icons.skip_next_rounded),
-              ),
-              IconButton(
-                tooltip: l.quranStop,
-                onPressed: player.stop,
-                color: t.ground,
-                icon: const Icon(Icons.stop_rounded),
               ),
             ],
-          ),
-        ],
+          );
+        },
       ),
     );
   }
 }
+
+/// The reader's floating bars: the page's own raised surface with a hairline
+/// and a soft shadow, so they sit on the page without pulling the eye.
+BoxDecoration _calm(WaqtTokens t, double radius) => BoxDecoration(
+  color: Color.alphaBlend(t.surface, t.ground),
+  borderRadius: BorderRadius.circular(radius),
+  border: Border.all(color: t.hairline),
+  boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.10), blurRadius: 24, offset: const Offset(0, 8))],
+);

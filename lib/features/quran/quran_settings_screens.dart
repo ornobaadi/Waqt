@@ -15,7 +15,7 @@ import '../../data/quran/recitation.dart';
 import '../../data/quran/recitation_downloads.dart';
 import '../../data/sources/he_library.dart' show contentLangProvider;
 import '../../l10n/app_localizations.dart';
-import 'quran_screen.dart' show NumberBadge, quranFont;
+import 'quran_screen.dart' show NumberBadge, quranFont, surahName;
 
 Scaffold _page(BuildContext context, String title, List<Widget> children) {
   final t = WaqtTokens.of(context);
@@ -470,7 +470,7 @@ class _DownloadRow extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(surah.name, style: WaqtText.bodyStrong.copyWith(color: t.ink)),
+                Text(surahName(context, surah), style: WaqtText.bodyStrong.copyWith(color: t.ink)),
                 Text(status, style: WaqtText.caption.copyWith(color: t.inkMuted)),
                 if (progress != null) ...[
                   const SizedBox(height: 4),

@@ -11,15 +11,28 @@ class GpsException implements Exception {
 
 /// One coarse fix. City-level accuracy is all prayer times need, and it is
 /// kinder to privacy and battery. The fix never leaves the device.
-Future<({double lat, double lng})> currentFix() async {
+///
+/// [onPermitted] runs once location is allowed, before the fix arrives, so
+/// a screen can move on while the phone finds itself.
+Future<({double lat, double lng})> currentFix({void Function()? onPermitted}) async {
   if (!await Geolocator.isLocationServiceEnabled()) throw const GpsException(GpsError.serviceOff);
   var perm = await Geolocator.checkPermission();
   if (perm == LocationPermission.denied) perm = await Geolocator.requestPermission();
   if (perm == LocationPermission.denied) throw const GpsException(GpsError.denied);
   if (perm == LocationPermission.deniedForever) throw const GpsException(GpsError.deniedForever);
+  onPermitted?.call();
+  // A recent fix the phone already has is instant and city-accurate.
+  try {
+    final last = await Geolocator.getLastKnownPosition();
+    if (last != null && DateTime.now().difference(last.timestamp) < const Duration(hours: 1)) {
+      return (lat: last.latitude, lng: last.longitude);
+    }
+  } on Exception {
+    // Fall through to a fresh fix.
+  }
   try {
     final p = await Geolocator.getCurrentPosition(
-      locationSettings: const LocationSettings(accuracy: LocationAccuracy.low, timeLimit: Duration(seconds: 20)),
+      locationSettings: const LocationSettings(accuracy: LocationAccuracy.low, timeLimit: Duration(seconds: 8)),
     );
     return (lat: p.latitude, lng: p.longitude);
   } on TimeoutException {
