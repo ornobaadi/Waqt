@@ -33,7 +33,7 @@ void main() {
   test('London Fajr reads in BST, not the phone\'s zone', () {
     const s = PrayerSettings(
       method: CalcMethod.mwl,
-      asr: AsrSchool.standard,
+      madhab: Madhab.shafii,
       highLatitude: HighLatitudeRule.seventhOfNight,
     );
     final t = service.forDay(london, DateTime(2026, 6, 21), s);

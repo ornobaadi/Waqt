@@ -148,6 +148,14 @@ void main() {
     await tester.tap(find.text('Saved'));
     await tester.pumpAndSettle();
     expect(find.text('Al-Faatiha 1:2'), findsOneWidget);
+
+    // Reading shows on Today, and its row opens the reader where you stopped.
+    await tester.tap(find.byTooltip('Today'));
+    await tester.pumpAndSettle();
+    expect(find.textContaining(RegExp(r'^\d+ (ayah|ayat) read today$')), findsOneWidget);
+    await tester.tap(find.textContaining('read today'));
+    await tester.pumpAndSettle();
+    expect(find.byKey(const ValueKey('ayah-1:2')), findsOneWidget);
   });
 
   testWidgets('bedtime checklist ticks and resets with the prayer day', (tester) async {
@@ -194,6 +202,17 @@ void main() {
         .read(userPrefsProvider.notifier)
         .setPlace(dhaka);
     await tester.pumpAndSettle();
+
+    // Madhab: Hanafi is marked as usual in Bangladesh; Shafi'i is chosen and saved.
+    expect(find.text('Hangi mezhebi takip ediyorsunuz?'), findsOneWidget);
+    expect(find.text('Bölgenizde yaygın'), findsOneWidget);
+    await tester.tap(find.text('Şâfiî'));
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.text('Devam'));
+    await tester.tap(find.text('Devam'));
+    await tester.pumpAndSettle();
+    expect((await SharedPreferences.getInstance()).getString('prayer.v1'), contains('"madhab":"shafii"'));
+
     await tester.tap(find.text('Sonra'));
     await tester.pumpAndSettle();
     expect(find.text('Dhaka'), findsOneWidget);

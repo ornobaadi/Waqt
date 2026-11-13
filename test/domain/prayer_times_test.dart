@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:waqt/domain/location/place.dart';
+import 'package:waqt/domain/moments/moment_config.dart';
 import 'package:waqt/domain/prayer/prayer_settings.dart';
 import 'package:waqt/domain/prayer/prayer_times_service.dart';
 
@@ -15,36 +16,32 @@ Place at(String name, double lat, double lng, [String cc = 'XX']) =>
 final references = <(Place, PrayerSettings, List<String>)>[
   (
     at('Dhaka', 23.8103, 90.4125),
-    const PrayerSettings(method: CalcMethod.karachi, asr: AsrSchool.hanafi),
+    const PrayerSettings(method: CalcMethod.karachi, madhab: Madhab.hanafi),
     ['21:44', '23:12', '06:00', '10:41', '12:48', '14:16'],
   ),
   (
     at('Makkah', 21.4225, 39.8262),
-    const PrayerSettings(method: CalcMethod.ummAlQura, asr: AsrSchool.standard),
+    const PrayerSettings(method: CalcMethod.ummAlQura, madhab: Madhab.shafii),
     ['01:11', '02:39', '09:22', '12:42', '16:06', '17:36'],
   ),
   (
     at('Cairo', 30.0444, 31.2357),
-    const PrayerSettings(method: CalcMethod.egypt, asr: AsrSchool.standard),
+    const PrayerSettings(method: CalcMethod.egypt, madhab: Madhab.shafii),
     ['01:08', '02:54', '09:57', '13:32', '16:59', '18:33'],
   ),
   (
     at('Jakarta', -6.2088, 106.8456),
-    const PrayerSettings(method: CalcMethod.singapore, asr: AsrSchool.standard),
+    const PrayerSettings(method: CalcMethod.singapore, madhab: Madhab.shafii),
     ['21:38', '23:01', '04:54', '08:16', '10:47', '12:02'],
   ),
   (
     at('New York', 40.7128, -74.0060),
-    const PrayerSettings(method: CalcMethod.isna, asr: AsrSchool.standard),
+    const PrayerSettings(method: CalcMethod.isna, madhab: Madhab.shafii),
     ['07:45', '09:25', '16:58', '20:58', '00:31', '02:11'],
   ),
   (
     at('London', 51.5074, -0.1278),
-    const PrayerSettings(
-      method: CalcMethod.mwl,
-      asr: AsrSchool.standard,
-      highLatitude: HighLatitudeRule.seventhOfNight,
-    ),
+    const PrayerSettings(method: CalcMethod.mwl, madhab: Madhab.shafii, highLatitude: HighLatitudeRule.seventhOfNight),
     ['02:40', '03:43', '12:02', '16:25', '20:22', '21:25'],
   ),
 ];
@@ -158,11 +155,32 @@ void main() {
     test('Asr school', () {
       expect(PrayerSettings.defaultsFor('PK').asr, AsrSchool.hanafi);
       expect(PrayerSettings.defaultsFor('MA').asr, AsrSchool.standard);
+      expect(PrayerSettings.defaultsFor('MA').madhab, Madhab.maliki);
+      expect(PrayerSettings.defaultsFor('SA').madhab, Madhab.hanbali);
+      expect(PrayerSettings.defaultsFor('ID').madhab, Madhab.shafii);
+    });
+    test('older settings: Asr school becomes the madhab; Tehran falls back to MWL', () {
+      expect(PrayerSettings.fromJson({'method': 'karachi', 'asr': 'hanafi'})!.madhab, Madhab.hanafi);
+      expect(PrayerSettings.fromJson({'method': 'mwl', 'asr': 'standard'})!.madhab, Madhab.shafii);
+      expect(PrayerSettings.fromJson({'method': 'tehran'})!.method, CalcMethod.mwl);
+      expect(CalcMethod.byName('tehran'), isNull);
+    });
+    test('zenith restriction by school', () {
+      final friday = DateTime(2026, 11, 13), monday = DateTime(2026, 11, 16);
+      for (final (m, fri, mon) in [
+        (Madhab.hanafi, true, true),
+        (Madhab.hanbali, true, true),
+        (Madhab.shafii, false, true),
+        (Madhab.maliki, false, false),
+      ]) {
+        final c = MomentConfig(madhab: m);
+        expect((c.zawalRestricted(friday), c.zawalRestricted(monday)), (fri, mon), reason: m.name);
+      }
     });
     test('json round-trip', () {
       const s = PrayerSettings(
         method: CalcMethod.egypt,
-        asr: AsrSchool.hanafi,
+        madhab: Madhab.hanafi,
         highLatitude: HighLatitudeRule.twilightAngle,
       );
       expect(PrayerSettings.fromJson(s.toJson()), s);

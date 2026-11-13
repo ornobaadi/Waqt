@@ -8,6 +8,9 @@ import 'user_prefs.dart';
 
 /// Every day's deeds, on this phone only. One JSON blob per month
 /// (`deeds.v1.yyyy-mm`), so a year of history is twelve small keys.
+/// Habit id for Quran reading; the amount is ayat read that day.
+const quranHabit = 'quran';
+
 class DeedsNotifier extends Notifier<Map<String, DayLog>> {
   static const _prefix = 'deeds.v1.';
 

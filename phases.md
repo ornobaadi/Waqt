@@ -129,6 +129,11 @@ Margins awaiting scholar review: see `docs/moment-rules.md`.
 - [ ] Written permission from EveryAyah before the store release (or move to a source that grants it).
 - [ ] On-device checks: Android 14/15 foreground service, lock screen, Bluetooth buttons, offline playback.
 
+## Phase 17 — Madhab, Quran on Today
+- [x] Madhab (Hanafi, Shafi'i, Maliki, Hanbali) asked on first launch (country preselects, the person chooses) and in Settings; replaces the Asr setting. Sets the Asr time and the zenith restriction (`MomentConfig.zawalRestricted`). Tehran (Ja'fari) method removed; old settings move to MWL.
+- [x] Quran reading on Today: ayat read in the reader count as the day's `quran` habit; a row under the ring shows it and opens the reader where you stopped.
+- [ ] Scholar check of the madhab rows in `docs/moment-rules.md`.
+
 ## Later
 iOS · OTA signed content updates · more languages · cloud backup.
 

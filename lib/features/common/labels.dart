@@ -33,11 +33,17 @@ extension WaqtLabels on AppLocalizations {
     CalcMethod.kuwait => methodKuwait,
     CalcMethod.singapore => methodSingapore,
     CalcMethod.turkey => methodTurkey,
-    CalcMethod.tehran => methodTehran,
     CalcMethod.moonsighting => methodMoonsighting,
   };
 
-  String asr(AsrSchool a) => a == AsrSchool.hanafi ? asrHanafi : asrStandard;
+  String madhab(Madhab m) => switch (m) {
+    Madhab.hanafi => madhabHanafi,
+    Madhab.shafii => madhabShafii,
+    Madhab.maliki => madhabMaliki,
+    Madhab.hanbali => madhabHanbali,
+  };
+
+  String madhabHint(Madhab m) => m == Madhab.hanafi ? madhabHintHanafi : madhabHintOthers;
 
   String highLat(HighLatitudeRule r) => switch (r) {
     HighLatitudeRule.auto => highLatAuto,

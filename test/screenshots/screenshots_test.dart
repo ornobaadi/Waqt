@@ -796,6 +796,19 @@ void main() {
     ),
   );
 
+  Future<void> toMadhab(WidgetTester t) async {
+    await t.tap(find.text('Begin'));
+    await t.pumpAndSettle();
+    await t.tap(find.text('Continue'));
+    await t.pumpAndSettle();
+    ProviderScope.containerOf(t.element(find.byType(MaterialApp))).read(userPrefsProvider.notifier).setPlace(dhaka);
+  }
+
+  testWidgets(
+    'onboarding madhab',
+    (t) async => shoot(t, '50f_onboarding_madhab', await fresh(), then: () => toMadhab(t)),
+  );
+
   testWidgets(
     'onboarding reminders',
     (t) async => shoot(
@@ -803,11 +816,10 @@ void main() {
       '50d_onboarding_reminders',
       await fresh(),
       then: () async {
-        await t.tap(find.text('Begin'));
+        await toMadhab(t);
         await t.pumpAndSettle();
+        await t.ensureVisible(find.text('Continue'));
         await t.tap(find.text('Continue'));
-        await t.pumpAndSettle();
-        ProviderScope.containerOf(t.element(find.byType(MaterialApp))).read(userPrefsProvider.notifier).setPlace(dhaka);
       },
     ),
   );

@@ -220,21 +220,6 @@ class AppLocalizationsBn extends AppLocalizations {
   String get settingsRegionalDefault => 'আপনার অঞ্চলের ডিফল্ট';
 
   @override
-  String get settingsAsr => 'আসরের সময়';
-
-  @override
-  String get asrStandard => 'জুমহুর';
-
-  @override
-  String get asrStandardHint => 'শাফেয়ি, মালিকি, হাম্বলি: ছায়া বস্তুর সমান';
-
-  @override
-  String get asrHanafi => 'হানাফি';
-
-  @override
-  String get asrHanafiHint => 'ছায়া বস্তুর দ্বিগুণ';
-
-  @override
   String get settingsHighLat => 'উচ্চ অক্ষাংশের নিয়ম';
 
   @override
@@ -309,9 +294,6 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get methodTurkey => 'দিয়ানেত, তুরস্ক';
-
-  @override
-  String get methodTehran => 'ভূপদার্থবিদ্যা ইনস্টিটিউট, তেহরান';
 
   @override
   String get methodMoonsighting => 'চাঁদ দেখা কমিটি';
@@ -1833,4 +1815,43 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get quranWhy => 'কেন';
+
+  @override
+  String get settingsMadhab => 'মাযহাব';
+
+  @override
+  String get madhabHanafi => 'হানাফি';
+
+  @override
+  String get madhabShafii => 'শাফেয়ি';
+
+  @override
+  String get madhabMaliki => 'মালেকি';
+
+  @override
+  String get madhabHanbali => 'হাম্বলি';
+
+  @override
+  String get madhabHintHanafi => 'আসর পরে: ছায়া বস্তুর দ্বিগুণ';
+
+  @override
+  String get madhabHintOthers => 'আসর যখন ছায়া বস্তুর সমান';
+
+  @override
+  String get onbMadhabTitle => 'আপনি কোন মাযহাব অনুসরণ করেন?';
+
+  @override
+  String get onbMadhabBody =>
+      'নামাজের সময় ও কয়েকটি বিধান আপনার মাযহাব অনুযায়ী হবে। নিশ্চিত না হলে আপনার এলাকায় যেটি শেখানো হয় সেটি বেছে নিন।';
+
+  @override
+  String get onbMadhabRegion => 'আপনার এলাকায় প্রচলিত';
+
+  @override
+  String get todayQuranNone => 'আজ এখনো পড়া হয়নি';
+
+  @override
+  String todayQuranRead(String ayat) {
+    return 'আজ $ayat পড়া হয়েছে';
+  }
 }

@@ -507,36 +507,6 @@ abstract class AppLocalizations {
   /// **'Default for your region'**
   String get settingsRegionalDefault;
 
-  /// No description provided for @settingsAsr.
-  ///
-  /// In en, this message translates to:
-  /// **'Asr time'**
-  String get settingsAsr;
-
-  /// No description provided for @asrStandard.
-  ///
-  /// In en, this message translates to:
-  /// **'Standard'**
-  String get asrStandard;
-
-  /// No description provided for @asrStandardHint.
-  ///
-  /// In en, this message translates to:
-  /// **'Shafi\'i, Maliki, Hanbali: shadow equals object length'**
-  String get asrStandardHint;
-
-  /// No description provided for @asrHanafi.
-  ///
-  /// In en, this message translates to:
-  /// **'Hanafi'**
-  String get asrHanafi;
-
-  /// No description provided for @asrHanafiHint.
-  ///
-  /// In en, this message translates to:
-  /// **'Shadow twice the object length'**
-  String get asrHanafiHint;
-
   /// No description provided for @settingsHighLat.
   ///
   /// In en, this message translates to:
@@ -680,12 +650,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Diyanet, Türkiye'**
   String get methodTurkey;
-
-  /// No description provided for @methodTehran.
-  ///
-  /// In en, this message translates to:
-  /// **'Institute of Geophysics, Tehran'**
-  String get methodTehran;
 
   /// No description provided for @methodMoonsighting.
   ///
@@ -3236,6 +3200,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Why this'**
   String get quranWhy;
+
+  /// No description provided for @settingsMadhab.
+  ///
+  /// In en, this message translates to:
+  /// **'Madhab'**
+  String get settingsMadhab;
+
+  /// No description provided for @madhabHanafi.
+  ///
+  /// In en, this message translates to:
+  /// **'Hanafi'**
+  String get madhabHanafi;
+
+  /// No description provided for @madhabShafii.
+  ///
+  /// In en, this message translates to:
+  /// **'Shafi\'i'**
+  String get madhabShafii;
+
+  /// No description provided for @madhabMaliki.
+  ///
+  /// In en, this message translates to:
+  /// **'Maliki'**
+  String get madhabMaliki;
+
+  /// No description provided for @madhabHanbali.
+  ///
+  /// In en, this message translates to:
+  /// **'Hanbali'**
+  String get madhabHanbali;
+
+  /// No description provided for @madhabHintHanafi.
+  ///
+  /// In en, this message translates to:
+  /// **'Later Asr: a shadow twice the object'**
+  String get madhabHintHanafi;
+
+  /// No description provided for @madhabHintOthers.
+  ///
+  /// In en, this message translates to:
+  /// **'Asr when a shadow equals the object'**
+  String get madhabHintOthers;
+
+  /// No description provided for @onbMadhabTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Which madhab do you follow?'**
+  String get onbMadhabTitle;
+
+  /// No description provided for @onbMadhabBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Prayer times and a few rulings follow your school. If you are not sure, choose the one taught where you live.'**
+  String get onbMadhabBody;
+
+  /// No description provided for @onbMadhabRegion.
+  ///
+  /// In en, this message translates to:
+  /// **'Usual where you are'**
+  String get onbMadhabRegion;
+
+  /// No description provided for @todayQuranNone.
+  ///
+  /// In en, this message translates to:
+  /// **'Not read yet today'**
+  String get todayQuranNone;
+
+  /// No description provided for @todayQuranRead.
+  ///
+  /// In en, this message translates to:
+  /// **'{ayat} read today'**
+  String todayQuranRead(String ayat);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
+import '../../app/app_state.dart';
 import '../../core/theme/tokens.dart';
 import '../../core/theme/waqt_theme.dart';
 import '../../data/quran/quran.dart';
@@ -15,6 +16,8 @@ import '../../data/quran/quran_translation.dart';
 import '../../data/quran/recitation.dart';
 import '../../data/quran/recitation_downloads.dart';
 import '../../data/sources/he_library.dart' show contentLangProvider;
+import '../../data/user/deeds_store.dart';
+import '../../domain/deeds/deeds.dart';
 import '../../l10n/app_localizations.dart';
 import '../../platform/quran_audio.dart';
 
@@ -68,6 +71,17 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen> {
     if (first == _visible) return;
     setState(() => _visible = first);
     ref.read(quranProgressProvider.notifier).read((surah: _surah, ayah: first));
+    _logRead(first);
+  }
+
+  /// Ayat read today, on Today's Quran row. Each ayah counts once per visit.
+  final _counted = <String>{};
+  void _logRead(int ayah) {
+    if (!_counted.add('$_surah:$ayah')) return;
+    final start = ref.read(momentSnapshotProvider)?.timeline.first.window.start ?? DateTime.now();
+    final day = DeedStats.dayKey(start);
+    final deeds = ref.read(deedsProvider.notifier);
+    deeds.setHabit(day, quranHabit, (deeds.day(day).habits[quranHabit] ?? 0) + 1);
   }
 
   void _jump(int ayah, {bool animate = true}) {

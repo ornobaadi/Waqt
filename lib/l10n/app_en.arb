@@ -97,11 +97,6 @@
   "settingsPrayerTimes": "Prayer times",
   "settingsMethod": "Calculation method",
   "settingsRegionalDefault": "Default for your region",
-  "settingsAsr": "Asr time",
-  "asrStandard": "Standard",
-  "asrStandardHint": "Shafi'i, Maliki, Hanbali: shadow equals object length",
-  "asrHanafi": "Hanafi",
-  "asrHanafiHint": "Shadow twice the object length",
   "settingsHighLat": "High-latitude rule",
   "highLatAuto": "Automatic",
   "highLatAutoHint": "Seventh of the night above 48°, middle of the night below",
@@ -140,7 +135,6 @@
   "methodKuwait": "Kuwait",
   "methodSingapore": "Singapore, Malaysia, Indonesia",
   "methodTurkey": "Diyanet, Türkiye",
-  "methodTehran": "Institute of Geophysics, Tehran",
   "methodMoonsighting": "Moonsighting Committee",
   "timesEstimated": "Estimated. The sun doesn't rise or set normally here today, so times follow latitude 65°.",
   "momentLastThird": "Last third of the night",
@@ -1138,5 +1132,24 @@
   "quranWhenMorningEvening": "Morning and evening, 3 times",
   "quranWhenSleep": "Before sleep",
   "quranWhenDajjal": "Protection from the Dajjal",
-  "quranWhy": "Why this"
+  "quranWhy": "Why this",
+  "settingsMadhab": "Madhab",
+  "madhabHanafi": "Hanafi",
+  "madhabShafii": "Shafi'i",
+  "madhabMaliki": "Maliki",
+  "madhabHanbali": "Hanbali",
+  "madhabHintHanafi": "Later Asr: a shadow twice the object",
+  "madhabHintOthers": "Asr when a shadow equals the object",
+  "onbMadhabTitle": "Which madhab do you follow?",
+  "onbMadhabBody": "Prayer times and a few rulings follow your school. If you are not sure, choose the one taught where you live.",
+  "onbMadhabRegion": "Usual where you are",
+  "todayQuranNone": "Not read yet today",
+  "todayQuranRead": "{ayat} read today",
+  "@todayQuranRead": {
+    "placeholders": {
+      "ayat": {
+        "type": "String"
+      }
+    }
+  }
 }

@@ -220,21 +220,6 @@ class AppLocalizationsId extends AppLocalizations {
   String get settingsRegionalDefault => 'Bawaan untuk wilayah Anda';
 
   @override
-  String get settingsAsr => 'Waktu Asar';
-
-  @override
-  String get asrStandard => 'Jumhur';
-
-  @override
-  String get asrStandardHint => 'Syafi\'i, Maliki, Hanbali: bayangan sama dengan benda';
-
-  @override
-  String get asrHanafi => 'Hanafi';
-
-  @override
-  String get asrHanafiHint => 'Bayangan dua kali panjang benda';
-
-  @override
   String get settingsHighLat => 'Aturan lintang tinggi';
 
   @override
@@ -309,9 +294,6 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get methodTurkey => 'Diyanet, Turki';
-
-  @override
-  String get methodTehran => 'Institut Geofisika, Teheran';
 
   @override
   String get methodMoonsighting => 'Moonsighting Committee';
@@ -1847,4 +1829,43 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get quranWhy => 'Mengapa';
+
+  @override
+  String get settingsMadhab => 'Mazhab';
+
+  @override
+  String get madhabHanafi => 'Hanafi';
+
+  @override
+  String get madhabShafii => 'Syafi\'i';
+
+  @override
+  String get madhabMaliki => 'Maliki';
+
+  @override
+  String get madhabHanbali => 'Hambali';
+
+  @override
+  String get madhabHintHanafi => 'Asar lebih akhir: bayangan dua kali benda';
+
+  @override
+  String get madhabHintOthers => 'Asar saat bayangan sama dengan benda';
+
+  @override
+  String get onbMadhabTitle => 'Mazhab apa yang Anda ikuti?';
+
+  @override
+  String get onbMadhabBody =>
+      'Waktu salat dan beberapa hukum mengikuti mazhab Anda. Jika ragu, pilih yang diajarkan di daerah Anda.';
+
+  @override
+  String get onbMadhabRegion => 'Umum di daerah Anda';
+
+  @override
+  String get todayQuranNone => 'Belum dibaca hari ini';
+
+  @override
+  String todayQuranRead(String ayat) {
+    return '$ayat dibaca hari ini';
+  }
 }

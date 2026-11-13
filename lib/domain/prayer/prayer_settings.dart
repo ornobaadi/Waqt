@@ -13,7 +13,6 @@ enum CalcMethod {
   kuwait(adhan.CalculationMethod.kuwait, 'Fajr 18° · Isha 17.5°'),
   singapore(adhan.CalculationMethod.singapore, 'Fajr 20° · Isha 18°'),
   turkey(adhan.CalculationMethod.turkey, 'Fajr 18° · Isha 17°'),
-  tehran(adhan.CalculationMethod.tehran, 'Fajr 17.7° · Isha 14°'),
   moonsighting(adhan.CalculationMethod.moon_sighting_committee, 'Fajr 18° · Isha 18°, seasonal');
 
   const CalcMethod(this.adhanMethod, this.angles);
@@ -25,18 +24,70 @@ enum CalcMethod {
 
 enum AsrSchool { standard, hanafi }
 
+/// The four Sunni schools of fiqh. They share one creed and accept the same
+/// authentic hadith; they differ on some rulings. In this app the school
+/// sets the Asr time (Hanafi: shadow twice the object) and which restricted
+/// prayer times are shown (see `MomentConfig.madhab`, docs/moment-rules.md).
+enum Madhab {
+  hanafi,
+  shafii,
+  maliki,
+  hanbali;
+
+  AsrSchool get asr => this == hanafi ? AsrSchool.hanafi : AsrSchool.standard;
+
+  static Madhab? byName(Object? n) => values.where((m) => m.name == n).firstOrNull;
+
+  /// The school most taught in a country, as a starting point only: the
+  /// person is asked on first launch and can change it in Settings.
+  static Madhab defaultFor(String? countryCode) => switch (countryCode?.toUpperCase()) {
+    'PK' ||
+    'IN' ||
+    'BD' ||
+    'AF' ||
+    'TR' ||
+    'UZ' ||
+    'KZ' ||
+    'TJ' ||
+    'KG' ||
+    'TM' ||
+    'AZ' ||
+    'BA' ||
+    'AL' ||
+    'XK' => hanafi,
+    'MA' ||
+    'DZ' ||
+    'TN' ||
+    'LY' ||
+    'MR' ||
+    'ML' ||
+    'NE' ||
+    'SN' ||
+    'GM' ||
+    'GN' ||
+    'TD' ||
+    'SD' ||
+    'NG' ||
+    'BF' ||
+    'AE' => maliki,
+    'SA' || 'QA' => hanbali,
+    _ => shafii,
+  };
+}
+
 enum HighLatitudeRule { auto, middleOfNight, seventhOfNight, twilightAngle }
 
 class PrayerSettings {
   const PrayerSettings({
     required this.method,
-    required this.asr,
+    this.madhab = Madhab.shafii,
     this.highLatitude = HighLatitudeRule.auto,
     this.minutes = const {},
   });
 
   final CalcMethod method;
-  final AsrSchool asr;
+  final Madhab madhab;
+  AsrSchool get asr => madhab.asr;
   final HighLatitudeRule highLatitude;
 
   /// Minutes added to each time ('fajr', 'sunrise', 'dhuhr', 'asr',
@@ -60,24 +111,22 @@ class PrayerSettings {
       'EG' || 'SD' || 'LY' || 'SY' || 'LB' || 'IQ' || 'JO' || 'PS' => CalcMethod.egypt,
       'MY' || 'SG' || 'ID' || 'BN' => CalcMethod.singapore,
       'TR' || 'AZ' => CalcMethod.turkey,
-      'IR' => CalcMethod.tehran,
       'PK' || 'IN' || 'BD' || 'AF' || 'NP' || 'LK' => CalcMethod.karachi,
       'US' || 'CA' => CalcMethod.isna,
       'GB' || 'IE' => CalcMethod.moonsighting,
       _ => CalcMethod.mwl,
     };
-    const hanafi = {'PK', 'IN', 'BD', 'AF', 'TR', 'UZ', 'KZ', 'TJ', 'KG', 'TM', 'AZ'};
-    return PrayerSettings(method: method, asr: hanafi.contains(cc) ? AsrSchool.hanafi : AsrSchool.standard);
+    return PrayerSettings(method: method, madhab: Madhab.defaultFor(cc));
   }
 
   PrayerSettings copyWith({
     CalcMethod? method,
-    AsrSchool? asr,
+    Madhab? madhab,
     HighLatitudeRule? highLatitude,
     Map<String, int>? minutes,
   }) => PrayerSettings(
     method: method ?? this.method,
-    asr: asr ?? this.asr,
+    madhab: madhab ?? this.madhab,
     highLatitude: highLatitude ?? this.highLatitude,
     minutes: minutes ?? this.minutes,
   );
@@ -106,6 +155,7 @@ class PrayerSettings {
 
   Map<String, Object?> toJson() => {
     'method': method.name,
+    'madhab': madhab.name,
     'asr': asr.name,
     'highLat': highLatitude.name,
     if (minutes.isNotEmpty) 'minutes': minutes,
@@ -113,11 +163,13 @@ class PrayerSettings {
 
   static PrayerSettings? fromJson(Object? j) {
     if (j is! Map) return null;
-    final m = CalcMethod.byName(j['method']);
+    // The Tehran (Ja'fari) method was removed: such settings fall back to the Muslim World League.
+    final m = CalcMethod.byName(j['method']) ?? (j['method'] == 'tehran' ? CalcMethod.mwl : null);
     if (m == null) return null;
     return PrayerSettings(
       method: m,
-      asr: j['asr'] == 'hanafi' ? AsrSchool.hanafi : AsrSchool.standard,
+      // Before the madhab was asked, only the Asr school was stored.
+      madhab: Madhab.byName(j['madhab']) ?? (j['asr'] == 'hanafi' ? Madhab.hanafi : Madhab.shafii),
       highLatitude: HighLatitudeRule.values.where((r) => r.name == j['highLat']).firstOrNull ?? HighLatitudeRule.auto,
       minutes: {
         if (j['minutes'] case final Map<Object?, Object?> m)
@@ -132,11 +184,11 @@ class PrayerSettings {
   bool operator ==(Object other) =>
       other is PrayerSettings &&
       other.method == method &&
-      other.asr == asr &&
+      other.madhab == madhab &&
       other.highLatitude == highLatitude &&
       adjustable.every((k) => (other.minutes[k] ?? 0) == (minutes[k] ?? 0));
 
   @override
   int get hashCode =>
-      Object.hash(method, asr, highLatitude, Object.hashAll([for (final k in adjustable) minutes[k] ?? 0]));
+      Object.hash(method, madhab, highLatitude, Object.hashAll([for (final k in adjustable) minutes[k] ?? 0]));
 }

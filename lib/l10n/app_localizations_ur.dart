@@ -220,21 +220,6 @@ class AppLocalizationsUr extends AppLocalizations {
   String get settingsRegionalDefault => 'آپ کے علاقے کا معیاری';
 
   @override
-  String get settingsAsr => 'عصر کا وقت';
-
-  @override
-  String get asrStandard => 'جمہور';
-
-  @override
-  String get asrStandardHint => 'شافعی، مالکی، حنبلی: سایہ ایک مثل';
-
-  @override
-  String get asrHanafi => 'حنفی';
-
-  @override
-  String get asrHanafiHint => 'سایہ دو مثل';
-
-  @override
   String get settingsHighLat => 'بلند عرض بلد کا قاعدہ';
 
   @override
@@ -309,9 +294,6 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get methodTurkey => 'دیانت، ترکی';
-
-  @override
-  String get methodTehran => 'انسٹی ٹیوٹ آف جیو فزکس، تہران';
 
   @override
   String get methodMoonsighting => 'رؤیتِ ہلال کمیٹی';
@@ -1836,4 +1818,43 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get quranWhy => 'کیوں';
+
+  @override
+  String get settingsMadhab => 'فقہی مسلک';
+
+  @override
+  String get madhabHanafi => 'حنفی';
+
+  @override
+  String get madhabShafii => 'شافعی';
+
+  @override
+  String get madhabMaliki => 'مالکی';
+
+  @override
+  String get madhabHanbali => 'حنبلی';
+
+  @override
+  String get madhabHintHanafi => 'عصر بعد میں: سایہ دو مثل';
+
+  @override
+  String get madhabHintOthers => 'عصر جب سایہ ایک مثل ہو';
+
+  @override
+  String get onbMadhabTitle => 'آپ کس فقہی مسلک پر ہیں؟';
+
+  @override
+  String get onbMadhabBody =>
+      'نماز کے اوقات اور چند مسائل آپ کے مسلک کے مطابق ہوں گے۔ یقین نہ ہو تو وہ چنیں جو آپ کے علاقے میں پڑھایا جاتا ہے۔';
+
+  @override
+  String get onbMadhabRegion => 'آپ کے علاقے میں رائج';
+
+  @override
+  String get todayQuranNone => 'آج ابھی نہیں پڑھا';
+
+  @override
+  String todayQuranRead(String ayat) {
+    return 'آج $ayat پڑھیں';
+  }
 }

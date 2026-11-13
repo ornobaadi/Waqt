@@ -1,3 +1,4 @@
+import '../prayer/prayer_settings.dart';
 import '../prayer/prayer_times_service.dart';
 
 /// Every margin here is a fiqh decision, not an engineering one. Defaults are
@@ -22,6 +23,7 @@ class MomentConfig {
     this.fridayLastHour = const Duration(hours: 1),
     this.suhoorLength = const Duration(minutes: 45),
     this.iftarLength = const Duration(minutes: 20),
+    this.madhab,
   });
 
   /// Sunrise → sunrise + this: the sun is rising.
@@ -54,4 +56,15 @@ class MomentConfig {
 
   /// Iftar window from Maghrib on fasting days.
   final Duration iftarLength;
+
+  /// The person's school. `null` shows every restricted time.
+  /// Maliki: the zenith is not a restricted time. Shafi'i: not on Friday.
+  /// Hanafi and Hanbali: restricted every day.
+  final Madhab? madhab;
+
+  bool zawalRestricted(DateTime day) => switch (madhab) {
+    Madhab.maliki => false,
+    Madhab.shafii => day.weekday != DateTime.friday,
+    _ => true,
+  };
 }

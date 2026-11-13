@@ -220,21 +220,6 @@ class AppLocalizationsTr extends AppLocalizations {
   String get settingsRegionalDefault => 'Bölgeniz için varsayılan';
 
   @override
-  String get settingsAsr => 'İkindi vakti';
-
-  @override
-  String get asrStandard => 'Cumhur';
-
-  @override
-  String get asrStandardHint => 'Şâfiî, Mâlikî, Hanbelî: gölge cismin boyu kadar';
-
-  @override
-  String get asrHanafi => 'Hanefî';
-
-  @override
-  String get asrHanafiHint => 'Gölge cismin iki katı';
-
-  @override
   String get settingsHighLat => 'Yüksek enlem kuralı';
 
   @override
@@ -309,9 +294,6 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get methodTurkey => 'Diyanet İşleri Başkanlığı';
-
-  @override
-  String get methodTehran => 'Jeofizik Enstitüsü, Tahran';
 
   @override
   String get methodMoonsighting => 'Moonsighting Committee';
@@ -1843,4 +1825,43 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get quranWhy => 'Neden';
+
+  @override
+  String get settingsMadhab => 'Mezhep';
+
+  @override
+  String get madhabHanafi => 'Hanefî';
+
+  @override
+  String get madhabShafii => 'Şâfiî';
+
+  @override
+  String get madhabMaliki => 'Mâlikî';
+
+  @override
+  String get madhabHanbali => 'Hanbelî';
+
+  @override
+  String get madhabHintHanafi => 'Daha geç ikindi: gölge cismin iki katı';
+
+  @override
+  String get madhabHintOthers => 'Gölge cisme eşit olunca ikindi';
+
+  @override
+  String get onbMadhabTitle => 'Hangi mezhebi takip ediyorsunuz?';
+
+  @override
+  String get onbMadhabBody =>
+      'Namaz vakitleri ve bazı hükümler mezhebinize göre olur. Emin değilseniz yaşadığınız yerde öğretileni seçin.';
+
+  @override
+  String get onbMadhabRegion => 'Bölgenizde yaygın';
+
+  @override
+  String get todayQuranNone => 'Bugün henüz okunmadı';
+
+  @override
+  String todayQuranRead(String ayat) {
+    return 'Bugün $ayat okundu';
+  }
 }

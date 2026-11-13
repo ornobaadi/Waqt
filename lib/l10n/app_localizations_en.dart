@@ -220,21 +220,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsRegionalDefault => 'Default for your region';
 
   @override
-  String get settingsAsr => 'Asr time';
-
-  @override
-  String get asrStandard => 'Standard';
-
-  @override
-  String get asrStandardHint => 'Shafi\'i, Maliki, Hanbali: shadow equals object length';
-
-  @override
-  String get asrHanafi => 'Hanafi';
-
-  @override
-  String get asrHanafiHint => 'Shadow twice the object length';
-
-  @override
   String get settingsHighLat => 'High-latitude rule';
 
   @override
@@ -309,9 +294,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get methodTurkey => 'Diyanet, Türkiye';
-
-  @override
-  String get methodTehran => 'Institute of Geophysics, Tehran';
 
   @override
   String get methodMoonsighting => 'Moonsighting Committee';
@@ -1844,4 +1826,43 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get quranWhy => 'Why this';
+
+  @override
+  String get settingsMadhab => 'Madhab';
+
+  @override
+  String get madhabHanafi => 'Hanafi';
+
+  @override
+  String get madhabShafii => 'Shafi\'i';
+
+  @override
+  String get madhabMaliki => 'Maliki';
+
+  @override
+  String get madhabHanbali => 'Hanbali';
+
+  @override
+  String get madhabHintHanafi => 'Later Asr: a shadow twice the object';
+
+  @override
+  String get madhabHintOthers => 'Asr when a shadow equals the object';
+
+  @override
+  String get onbMadhabTitle => 'Which madhab do you follow?';
+
+  @override
+  String get onbMadhabBody =>
+      'Prayer times and a few rulings follow your school. If you are not sure, choose the one taught where you live.';
+
+  @override
+  String get onbMadhabRegion => 'Usual where you are';
+
+  @override
+  String get todayQuranNone => 'Not read yet today';
+
+  @override
+  String todayQuranRead(String ayat) {
+    return '$ayat read today';
+  }
 }

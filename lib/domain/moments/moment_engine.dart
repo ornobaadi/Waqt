@@ -142,12 +142,14 @@ class RestrictedTimesRule extends MomentRule {
       70,
       TimeWindow(t[Waqt.sunrise], t[Waqt.sunrise].add(c.restrictedAfterSunrise)),
     );
-    yield Moment(
-      MomentId.restrictedZawal,
-      MomentKind.restricted,
-      70,
-      TimeWindow(t[Waqt.dhuhr].subtract(c.restrictedBeforeDhuhr), t[Waqt.dhuhr]),
-    );
+    if (c.zawalRestricted(t.date)) {
+      yield Moment(
+        MomentId.restrictedZawal,
+        MomentKind.restricted,
+        70,
+        TimeWindow(t[Waqt.dhuhr].subtract(c.restrictedBeforeDhuhr), t[Waqt.dhuhr]),
+      );
+    }
     yield Moment(
       MomentId.restrictedSunset,
       MomentKind.restricted,

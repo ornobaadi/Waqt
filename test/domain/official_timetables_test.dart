@@ -49,7 +49,7 @@ void main() {
         );
         final settings = PrayerSettings(
           method: CalcMethod.values.byName(col('method')),
-          asr: col('asr') == 'hanafi' ? AsrSchool.hanafi : AsrSchool.standard,
+          madhab: col('asr') == 'hanafi' ? Madhab.hanafi : Madhab.shafii,
         );
         final date = DateTime.parse(col('date'));
         final ours = const PrayerTimesService().forDay(place, date, settings);

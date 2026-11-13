@@ -70,9 +70,12 @@ class _RingPainter extends CustomPainter {
 
 /// Today's ring with its count, at the top of the Today tab.
 class DayRingCard extends ConsumerWidget {
-  const DayRingCard({super.key, required this.dayKey, this.onTap});
+  const DayRingCard({super.key, required this.dayKey, this.onTap, this.onQuran});
   final String dayKey;
   final VoidCallback? onTap;
+
+  /// When set, a Quran row sits under the ring: ayat read today, tap to read on.
+  final VoidCallback? onQuran;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -82,11 +85,48 @@ class DayRingCard extends ConsumerWidget {
     final log = ref.watch(deedsProvider.select((d) => d[dayKey] ?? DayLog.empty));
     final streak = ref.watch(deedStatsProvider).streak(DateTime.parse(dayKey));
 
+    final ayat = log.habits[quranHabit] ?? 0;
     return Material(
       color: t.surface,
       borderRadius: BorderRadius.circular(WaqtRadii.strip),
       clipBehavior: Clip.antiAlias,
-      child: InkWell(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          _ring(context, l, t, n, log, streak),
+          if (onQuran != null)
+            InkWell(
+              onTap: onQuran,
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border(top: BorderSide(color: t.hairline)),
+                ),
+                padding: const EdgeInsets.symmetric(horizontal: WaqtSpace.x4, vertical: WaqtSpace.x3),
+                child: Row(
+                  children: [
+                    Icon(Icons.auto_stories_outlined, size: 20, color: ayat > 0 ? t.accent : t.inkMuted),
+                    const SizedBox(width: WaqtSpace.x3),
+                    Text(l.navQuran, style: WaqtText.bodyStrong.copyWith(color: t.ink)),
+                    const SizedBox(width: WaqtSpace.x2),
+                    Expanded(
+                      child: Text(
+                        ayat > 0 ? l.todayQuranRead(l.quranAyat(ayat)) : l.todayQuranNone,
+                        textAlign: TextAlign.end,
+                        style: WaqtText.label.copyWith(color: t.inkMuted),
+                      ),
+                    ),
+                    Icon(Icons.chevron_right_rounded, color: t.inkMuted),
+                  ],
+                ),
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+
+  Widget _ring(BuildContext context, AppLocalizations l, WaqtTokens t, LocaleDigits n, DayLog log, int streak) =>
+      InkWell(
         onTap: onTap,
         child: Padding(
           padding: const EdgeInsets.all(WaqtSpace.x4),
@@ -117,7 +157,5 @@ class DayRingCard extends ConsumerWidget {
             ],
           ),
         ),
-      ),
-    );
-  }
+      );
 }

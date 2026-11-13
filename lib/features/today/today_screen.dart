@@ -11,7 +11,9 @@ import '../../core/theme/tokens.dart';
 import '../../core/theme/waqt_theme.dart';
 import '../../core/widgets/waqt_widgets.dart';
 import '../../domain/moments/moment.dart';
+import '../../data/quran/quran_prefs.dart';
 import '../../l10n/app_localizations.dart';
+import '../quran/quran_screen.dart' show openReader;
 import '../common/labels.dart';
 import '../now/moment_cards.dart' show clockFormat;
 
@@ -83,6 +85,10 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
                 DayRingCard(
                   dayKey: DeedStats.dayKey(snap.timeline.first.window.start),
                   onTap: () => context.push('/today/progress'),
+                  onQuran: () {
+                    final last = ref.read(quranProgressProvider).last;
+                    last == null ? context.go('/quran') : openReader(context, last);
+                  },
                 ),
               ],
             ),

@@ -217,21 +217,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String get settingsRegionalDefault => 'الافتراضي لمنطقتك';
 
   @override
-  String get settingsAsr => 'وقت العصر';
-
-  @override
-  String get asrStandard => 'الجمهور';
-
-  @override
-  String get asrStandardHint => 'الشافعي والمالكي والحنبلي: ظل الشيء مثله';
-
-  @override
-  String get asrHanafi => 'الحنفي';
-
-  @override
-  String get asrHanafiHint => 'ظل الشيء مثلاه';
-
-  @override
   String get settingsHighLat => 'قاعدة خطوط العرض العليا';
 
   @override
@@ -306,9 +291,6 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get methodTurkey => 'رئاسة الشؤون الدينية، تركيا';
-
-  @override
-  String get methodTehran => 'معهد الجيوفيزياء، طهران';
 
   @override
   String get methodMoonsighting => 'لجنة رؤية الهلال';
@@ -1849,4 +1831,43 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get quranWhy => 'لماذا';
+
+  @override
+  String get settingsMadhab => 'المذهب';
+
+  @override
+  String get madhabHanafi => 'الحنفي';
+
+  @override
+  String get madhabShafii => 'الشافعي';
+
+  @override
+  String get madhabMaliki => 'المالكي';
+
+  @override
+  String get madhabHanbali => 'الحنبلي';
+
+  @override
+  String get madhabHintHanafi => 'عصر متأخر: ظل الشيء مثلاه';
+
+  @override
+  String get madhabHintOthers => 'العصر إذا صار ظل الشيء مثله';
+
+  @override
+  String get onbMadhabTitle => 'ما مذهبك؟';
+
+  @override
+  String get onbMadhabBody =>
+      'تتبع أوقات الصلاة وبعض الأحكام مذهبك. إن لم تكن متأكدًا فاختر المذهب الذي يُدرَّس في بلدك.';
+
+  @override
+  String get onbMadhabRegion => 'الشائع في منطقتك';
+
+  @override
+  String get todayQuranNone => 'لم تقرأ بعد اليوم';
+
+  @override
+  String todayQuranRead(String ayat) {
+    return 'قرأت اليوم $ayat';
+  }
 }

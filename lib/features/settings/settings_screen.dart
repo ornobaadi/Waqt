@@ -114,19 +114,17 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                       },
                     ),
                     RowTile(
-                      title: l.settingsAsr,
-                      value: l.asr(settings.asr),
+                      title: l.settingsMadhab,
+                      subtitle: l.madhabHint(settings.madhab),
+                      value: l.madhab(settings.madhab),
                       onTap: () async {
-                        final a = await showOptionSheet(
+                        final m = await showOptionSheet(
                           context,
-                          title: l.settingsAsr,
-                          selected: settings.asr,
-                          options: [
-                            SheetOption(AsrSchool.standard, l.asrStandard, hint: l.asrStandardHint),
-                            SheetOption(AsrSchool.hanafi, l.asrHanafi, hint: l.asrHanafiHint),
-                          ],
+                          title: l.settingsMadhab,
+                          selected: settings.madhab,
+                          options: [for (final m in Madhab.values) SheetOption(m, l.madhab(m), hint: l.madhabHint(m))],
                         );
-                        if (a != null) update(settings.copyWith(asr: a));
+                        if (m != null) update(settings.copyWith(madhab: m));
                       },
                     ),
                     RowTile(

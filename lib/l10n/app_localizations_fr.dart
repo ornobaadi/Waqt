@@ -221,21 +221,6 @@ class AppLocalizationsFr extends AppLocalizations {
   String get settingsRegionalDefault => 'Par défaut pour votre région';
 
   @override
-  String get settingsAsr => 'Heure de l\'Asr';
-
-  @override
-  String get asrStandard => 'Majorité';
-
-  @override
-  String get asrStandardHint => 'Chafiite, malikite, hanbalite : ombre égale à l\'objet';
-
-  @override
-  String get asrHanafi => 'Hanafite';
-
-  @override
-  String get asrHanafiHint => 'Ombre égale au double de l\'objet';
-
-  @override
   String get settingsHighLat => 'Règle des hautes latitudes';
 
   @override
@@ -310,9 +295,6 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get methodTurkey => 'Diyanet, Turquie';
-
-  @override
-  String get methodTehran => 'Institut de géophysique, Téhéran';
 
   @override
   String get methodMoonsighting => 'Moonsighting Committee';
@@ -1848,4 +1830,43 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get quranWhy => 'Pourquoi';
+
+  @override
+  String get settingsMadhab => 'Madhab';
+
+  @override
+  String get madhabHanafi => 'Hanafite';
+
+  @override
+  String get madhabShafii => 'Chaféite';
+
+  @override
+  String get madhabMaliki => 'Malikite';
+
+  @override
+  String get madhabHanbali => 'Hanbalite';
+
+  @override
+  String get madhabHintHanafi => 'Asr plus tardif : ombre double de l\'objet';
+
+  @override
+  String get madhabHintOthers => 'Asr quand l\'ombre égale l\'objet';
+
+  @override
+  String get onbMadhabTitle => 'Quel madhab suivez-vous ?';
+
+  @override
+  String get onbMadhabBody =>
+      'Les horaires de prière et quelques règles suivent votre école. En cas de doute, choisissez celle enseignée là où vous vivez.';
+
+  @override
+  String get onbMadhabRegion => 'Courant dans votre région';
+
+  @override
+  String get todayQuranNone => 'Pas encore lu aujourd\'hui';
+
+  @override
+  String todayQuranRead(String ayat) {
+    return '$ayat lus aujourd\'hui';
+  }
 }

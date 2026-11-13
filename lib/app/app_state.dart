@@ -14,6 +14,7 @@ import '../domain/hijri/hijri_service.dart';
 import '../domain/location/place.dart';
 import '../domain/time/place_zone.dart';
 import '../domain/moments/moment.dart';
+import '../domain/moments/moment_config.dart';
 import '../domain/moments/moment_engine.dart';
 import '../domain/notifications/reminder_planner.dart';
 import '../data/user/notification_prefs.dart';
@@ -60,7 +61,9 @@ MomentPalette paletteFor(MomentId? hero, MomentId? waqt) {
   };
 }
 
-final momentEngineProvider = Provider((ref) => const MomentEngine());
+final momentEngineProvider = Provider(
+  (ref) => MomentEngine(config: MomentConfig(madhab: ref.watch(prayerSettingsProvider.select((s) => s.madhab)))),
+);
 
 /// `null` until a location is set.
 final momentSnapshotProvider = Provider<MomentSnapshot?>((ref) {

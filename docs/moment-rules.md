@@ -17,7 +17,7 @@ The "prayer day" runs from Fajr to the next Fajr. When several moments overlap, 
 | Between adhan and iqamah | Adhan → adhan + delay | Fajr 20, Dhuhr 15, Asr 15, Maghrib 5, Isha 15 min | 80 | Local mosque practice; to be user-adjustable |
 | After the prayer | Iqamah + 10 min (salah) → end of that waqt (Fajr → sunrise, Isha → Fajr) | 10 min | 75 | Whether post-salah adhkar should be shown for the whole waqt |
 | Sun rising (restricted) | Sunrise → + 15 min | 15 min | 70 | Margin (10–20 min commonly cited) |
-| Sun at zenith (restricted) | Dhuhr − 10 min → Dhuhr | 10 min | 70 | Margin (5–10 min commonly cited) |
+| Sun at zenith (restricted) | Dhuhr − 10 min → Dhuhr | 10 min | 70 | Margin (5–10 min commonly cited). By madhab: Hanafi and Hanbali every day; Shafi'i not on Friday; Maliki not shown (Malik did not count the zenith as a restricted time) |
 | Sun setting (restricted) | Maghrib − 15 min → Maghrib | 15 min | 70 | Whether to flag only the final yellowing, or all of after-Asr |
 | Bedtime | max(Isha, usual bedtime 21:00) → + 3 h, clipped to Fajr | 21:00 / 3 h | 65 | None (user preference) |
 | Morning adhkar | Fajr → Sunrise | — | 60 | End time: sunrise vs. Duha vs. Dhuhr |
@@ -26,6 +26,13 @@ The "prayer day" runs from Fajr to the next Fajr. When several moments overlap, 
 | Waqt (Fajr…Isha, "Morning") | Prayer time → next prayer time | — | 10 | — |
 
 Texts attached to moments come from HadeethEnc.com (Arabic, translation, grade, explanation) and are listed per moment in `lib/data/sources/days.dart` and the content catalogue.
+
+## Madhab
+Asked on first launch (preselected from the country, never assumed) and changeable in Settings. The four Sunni schools share one creed and the same authentic hadith; the app only lets the school change rulings where they differ:
+- **Asr:** Hanafi when a shadow is twice the object (plus its noon shadow); Shafi'i, Maliki and Hanbali when it equals the object.
+- **Restricted time at the zenith:** see the table above.
+
+Everything else (duas, adhkar, the moments and their texts) is the same for all four schools. **Needs ruling:** confirm the zenith rows, and list any other text in the app a school would read differently. The Tehran (Ja'fari) calculation method was removed: the app is for Sunni Muslims.
 
 ## Day-level occasions (header pill)
 Ramadan *n*, last ten nights, Eid al-Fitr (1 Shawwal), Eid al-Adha (10 Dhul Hijjah), Arafah (9 Dhul Hijjah), first ten of Dhul Hijjah (1–9), Tashreeq (11–13 Dhul Hijjah), Ashura (10 Muharram), Tasu'a (9 Muharram), Ayyam al-Bid (13–15, excluding Ramadan and 13 Dhul Hijjah), Jumu'ah, Monday/Thursday fast (not in Ramadan, on Eid or in Tashreeq).
