@@ -1854,4 +1854,11 @@ class AppLocalizationsBn extends AppLocalizations {
   String todayQuranRead(String ayat) {
     return 'আজ $ayat পড়া হয়েছে';
   }
+
+  @override
+  String get quranIndoPak => 'ইন্দো-পাক';
+
+  @override
+  String get quranIndoPakSource =>
+      'আরবি পাঠ: DigitalKhatt ইন্দো-পাক (১৩ লাইনের মুসহাফ), MIT; ফন্ট OFL। প্রতিটি আয়াত অপরিবর্তিত।';
 }

@@ -1864,4 +1864,11 @@ class AppLocalizationsTr extends AppLocalizations {
   String todayQuranRead(String ayat) {
     return 'Bugün $ayat okundu';
   }
+
+  @override
+  String get quranIndoPak => 'Hint-Pakistan';
+
+  @override
+  String get quranIndoPakSource =>
+      'Arapça metin: DigitalKhatt IndoPak (13 satırlık IndoPak mushafı), MIT; yazı tipi OFL. Her ayet değiştirilmeden.';
 }

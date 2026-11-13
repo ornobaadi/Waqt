@@ -480,5 +480,7 @@
   "onbMadhabBody": "نماز کے اوقات اور چند مسائل آپ کے مسلک کے مطابق ہوں گے۔ یقین نہ ہو تو وہ چنیں جو آپ کے علاقے میں پڑھایا جاتا ہے۔",
   "onbMadhabRegion": "آپ کے علاقے میں رائج",
   "todayQuranNone": "آج ابھی نہیں پڑھا",
-  "todayQuranRead": "آج {ayat} پڑھیں"
+  "todayQuranRead": "آج {ayat} پڑھیں",
+  "quranIndoPak": "انڈو پاک",
+  "quranIndoPakSource": "عربی متن: DigitalKhatt انڈو پاک (۱۳ سطری مصحف)، MIT؛ فونٹ OFL۔ ہر آیت بغیر تبدیلی کے۔"
 }

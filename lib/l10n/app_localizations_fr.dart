@@ -1869,4 +1869,11 @@ class AppLocalizationsFr extends AppLocalizations {
   String todayQuranRead(String ayat) {
     return '$ayat lus aujourd\'hui';
   }
+
+  @override
+  String get quranIndoPak => 'IndoPak';
+
+  @override
+  String get quranIndoPakSource =>
+      'Texte arabe : DigitalKhatt IndoPak (mushaf IndoPak de 13 lignes), MIT ; police OFL. Chaque verset inchangé.';
 }

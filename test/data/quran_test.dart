@@ -37,6 +37,26 @@ void main() {
     }
   });
 
+  test('IndoPak: every ayah, its own marks, al-Fatihah numbered as Hafs, the basmala as a heading', () {
+    final ip = q.inIndoPak(IndoPakText.parse(File('assets/quran/quran-indopak.json').readAsStringSync()));
+    expect(ip.indoPak!.ayat.map((s) => s.length).toList(), [for (final s in q.surahs) s.ayahs]);
+    expect(ip.marksInText, isTrue);
+    // Al-Fatihah: ayah 1 is the basmala, al-hamdu is 2, and 7 ends at ad-dallin.
+    expect(ip.display(1, 1), startsWith('بِسْمِ'));
+    expect(ip.display(1, 2), startsWith('اَلْحَمْدُ'));
+    expect(ip.display(1, 7), endsWith('۝٧ࣖ'));
+    expect(ip.basmalaOf(1), isNull);
+    expect(ip.basmalaOf(9), isNull);
+    expect(ip.basmalaOf(2), ip.indoPak!.heading);
+    expect(ip.indoPak!.basmala, endsWith('۝'));
+    expect(ip.display(1, 1), ip.indoPak!.heading);
+    expect(ip.display(2, 1), isNot(contains('بِسْمِ')));
+    expect(ip.display(2, 286), contains('۝٢٨٦'));
+    // Numbering, juz and pages are shared with the Uthmani text.
+    expect(ip.juzOf(2, 142), 2);
+    expect(q.marked(2, 2), endsWith('۝٢'));
+  });
+
   test('juz and pages', () {
     expect(q.juzOf(1, 1), 1);
     expect(q.juzOf(2, 141), 1);
@@ -65,11 +85,18 @@ void main() {
   });
 
   test('reading settings survive a round trip', () {
-    const p = QuranPrefs(arabicScale: 1.4, translation: false, reciter: 'ghamdi', mobileData: true, speed: 1.25);
+    const p = QuranPrefs(
+      arabicScale: 1.4,
+      translation: false,
+      reciter: 'ghamdi',
+      mobileData: true,
+      speed: 1.25,
+      indoPak: true,
+    );
     final back = QuranPrefs.fromJson(p.toJson());
     expect(
-      (back.arabicScale, back.translation, back.reciter, back.mobileData, back.speed),
-      (1.4, false, 'ghamdi', true, 1.25),
+      (back.arabicScale, back.translation, back.reciter, back.mobileData, back.speed, back.indoPak),
+      (1.4, false, 'ghamdi', true, 1.25, true),
     );
   });
 }

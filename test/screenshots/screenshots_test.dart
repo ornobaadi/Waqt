@@ -272,6 +272,24 @@ void main() {
   );
 
   testWidgets(
+    'quran reader, IndoPak',
+    (t) async => shoot(
+      t,
+      '71c_quran_reader_indopak',
+      await app(
+        at: DateTime(2026, 11, 6, 9, 41),
+        place: dhaka,
+        stored: {'quran.progress.v1': '{"last":[2,1]}', 'quran.prefs.v1': '{"script":"indopak"}'},
+      ),
+      then: () async {
+        await t.tap(find.byTooltip('Quran'));
+        await t.pumpAndSettle();
+        await t.tap(find.text('Resume'));
+      },
+    ),
+  );
+
+  testWidgets(
     'quran reader, Arabic',
     (t) async => shoot(
       t,

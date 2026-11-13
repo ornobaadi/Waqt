@@ -1857,4 +1857,11 @@ class AppLocalizationsUr extends AppLocalizations {
   String todayQuranRead(String ayat) {
     return 'آج $ayat پڑھیں';
   }
+
+  @override
+  String get quranIndoPak => 'انڈو پاک';
+
+  @override
+  String get quranIndoPakSource =>
+      'عربی متن: DigitalKhatt انڈو پاک (۱۳ سطری مصحف)، MIT؛ فونٹ OFL۔ ہر آیت بغیر تبدیلی کے۔';
 }

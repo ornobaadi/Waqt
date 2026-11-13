@@ -15,7 +15,11 @@ class QuranPrefs {
     this.reciter = 'alafasy',
     this.mobileData = false,
     this.speed = 1,
+    this.indoPak = false,
   });
+
+  /// Read in the IndoPak script instead of the Uthmani.
+  final bool indoPak;
 
   /// Arabic size, 0.8–1.8 of the default.
   final double arabicScale;
@@ -42,6 +46,7 @@ class QuranPrefs {
     String? reciter,
     bool? mobileData,
     double? speed,
+    bool? indoPak,
   }) => QuranPrefs(
     arabicScale: arabicScale ?? this.arabicScale,
     translation: translation ?? this.translation,
@@ -50,6 +55,7 @@ class QuranPrefs {
     reciter: reciter ?? this.reciter,
     mobileData: mobileData ?? this.mobileData,
     speed: speed ?? this.speed,
+    indoPak: indoPak ?? this.indoPak,
   );
 
   Map<String, Object> toJson() => {
@@ -60,6 +66,7 @@ class QuranPrefs {
     'reciter': reciter,
     'mobile': mobileData,
     'speed': speed,
+    'script': indoPak ? 'indopak' : 'uthmani',
   };
 
   static QuranPrefs fromJson(Map<String, Object?> j) => QuranPrefs(
@@ -70,6 +77,7 @@ class QuranPrefs {
     reciter: j['reciter'] as String? ?? 'alafasy',
     mobileData: j['mobile'] as bool? ?? false,
     speed: (j['speed'] as num?)?.toDouble() ?? 1,
+    indoPak: j['script'] == 'indopak',
   );
 }
 
@@ -94,6 +102,14 @@ class QuranPrefsNotifier extends Notifier<QuranPrefs> {
 }
 
 final quranPrefsProvider = NotifierProvider<QuranPrefsNotifier, QuranPrefs>(QuranPrefsNotifier.new);
+
+/// The Quran in the script the reader chose (Uthmani until IndoPak has loaded).
+final quranTextProvider = Provider<Quran?>((ref) {
+  final q = ref.watch(quranProvider).value;
+  if (q == null || !ref.watch(quranPrefsProvider.select((p) => p.indoPak))) return q;
+  final ip = ref.watch(indoPakProvider).value;
+  return ip == null ? q : q.inIndoPak(ip);
+});
 
 /// Where you stopped reading, and the ayat you saved.
 class QuranProgress {

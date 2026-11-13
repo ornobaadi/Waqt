@@ -20,6 +20,7 @@ import '../../data/user/deeds_store.dart';
 import '../../domain/deeds/deeds.dart';
 import '../../l10n/app_localizations.dart';
 import '../../platform/quran_audio.dart';
+import 'quran_screen.dart' show quranFont, quranWordSpacing;
 
 /// One surah: its heading and basmala, then each ayah with its translation
 /// beneath. Remembers where you are; recites on request.
@@ -96,7 +97,7 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen> {
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
     final t = WaqtTokens.of(context);
-    final q = ref.watch(quranProvider).value;
+    final q = ref.watch(quranTextProvider);
     final prefs = ref.watch(quranPrefsProvider);
     final rec = ref.watch(recitationProvider);
     final lang = ref.watch(contentLangProvider);
@@ -265,7 +266,13 @@ class _Heading extends ConsumerWidget {
             basmala,
             textAlign: TextAlign.center,
             textDirection: TextDirection.rtl,
-            style: TextStyle(fontFamily: WaqtFonts.quran, fontSize: 26, height: 1.9, color: t.ink),
+            style: TextStyle(
+              fontFamily: quranFont(quran),
+              fontSize: 26,
+              wordSpacing: quranWordSpacing(quran, 26),
+              height: 1.9,
+              color: t.ink,
+            ),
           ),
           const SizedBox(height: WaqtSpace.x2),
           Divider(height: 1, color: t.hairline),
@@ -381,15 +388,22 @@ class _Ayah extends ConsumerWidget {
           TextSpan(
             children: [
               TextSpan(text: quran.display(at.surah, at.ayah)),
-              TextSpan(
-                text: ' ۝${arabicDigits(at.ayah)}',
-                style: TextStyle(color: t.inkMuted),
-              ),
+              if (!quran.marksInText)
+                TextSpan(
+                  text: ' ۝${arabicDigits(at.ayah)}',
+                  style: TextStyle(color: t.inkMuted),
+                ),
             ],
           ),
           textDirection: TextDirection.rtl,
           textAlign: TextAlign.right,
-          style: TextStyle(fontFamily: WaqtFonts.quran, fontSize: 27 * scale, height: 1.95, color: t.ink),
+          style: TextStyle(
+            fontFamily: quranFont(quran),
+            fontSize: 27 * scale,
+            wordSpacing: quranWordSpacing(quran, 27 * scale),
+            height: 1.95,
+            color: t.ink,
+          ),
         ),
         if (translation case final tr? when tr.text.isNotEmpty) ...[
           const SizedBox(height: WaqtSpace.x1),
@@ -530,7 +544,10 @@ class _Sources extends ConsumerWidget {
               child: Text('${n.n} · ${n.name}  →'),
             ),
           const SizedBox(height: WaqtSpace.x4),
-          Text(l.quranTextSource, style: style),
+          Text(
+            ref.watch(quranTextProvider)?.marksInText ?? false ? l.quranIndoPakSource : l.quranTextSource,
+            style: style,
+          ),
           if (tr != null) Text(l.quranTranslationSource(tr.info.translator, tr.version ?? '–'), style: style),
         ],
       ),

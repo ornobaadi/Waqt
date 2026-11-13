@@ -3272,6 +3272,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{ayat} read today'**
   String todayQuranRead(String ayat);
+
+  /// No description provided for @quranIndoPak.
+  ///
+  /// In en, this message translates to:
+  /// **'IndoPak'**
+  String get quranIndoPak;
+
+  /// No description provided for @quranIndoPakSource.
+  ///
+  /// In en, this message translates to:
+  /// **'Arabic text: DigitalKhatt IndoPak (13-line IndoPak mushaf), MIT; font OFL. Each ayah unchanged.'**
+  String get quranIndoPakSource;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

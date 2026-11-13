@@ -15,7 +15,7 @@ import '../../data/quran/recitation.dart';
 import '../../data/quran/recitation_downloads.dart';
 import '../../data/sources/he_library.dart' show contentLangProvider;
 import '../../l10n/app_localizations.dart';
-import 'quran_screen.dart' show NumberBadge;
+import 'quran_screen.dart' show NumberBadge, quranFont;
 
 Scaffold _page(BuildContext context, String title, List<Widget> children) {
   final t = WaqtTokens.of(context);
@@ -86,7 +86,7 @@ class QuranSettingsScreen extends ConsumerWidget {
     final t = WaqtTokens.of(context);
     final p = ref.watch(quranPrefsProvider);
     final set = ref.read(quranPrefsProvider.notifier).update;
-    final q = ref.watch(quranProvider).value;
+    final q = ref.watch(quranTextProvider);
     final lang = ref.watch(contentLangProvider);
     final info = quranTranslations[lang];
     final install = ref.watch(quranTranslationInstallProvider);
@@ -98,10 +98,15 @@ class QuranSettingsScreen extends ConsumerWidget {
         padding: const EdgeInsets.all(WaqtSpace.x4),
         decoration: BoxDecoration(color: t.surface, borderRadius: BorderRadius.circular(WaqtRadii.card)),
         child: Text(
-          q == null ? '' : '${q.ayah(1, 1)} ۝${arabicDigits(1)}',
+          q == null ? '' : q.marked(1, 1),
           textAlign: TextAlign.center,
           textDirection: TextDirection.rtl,
-          style: TextStyle(fontFamily: WaqtFonts.quran, fontSize: 27 * p.arabicScale, height: 1.9, color: t.ink),
+          style: TextStyle(
+            fontFamily: q == null ? WaqtFonts.quran : quranFont(q),
+            fontSize: 27 * p.arabicScale,
+            height: 1.9,
+            color: t.ink,
+          ),
         ),
       ),
       SectionLabel(l.quranReading),
@@ -114,11 +119,13 @@ class QuranSettingsScreen extends ConsumerWidget {
                 Expanded(
                   child: Text(l.quranScript, style: WaqtText.bodyStrong.copyWith(color: t.ink)),
                 ),
-                Chip(
-                  label: Text('${l.quranUthmani} · Tanzil', style: WaqtText.label.copyWith(color: t.ground)),
-                  backgroundColor: t.ink,
-                  side: BorderSide.none,
-                  shape: const StadiumBorder(),
+                SizedBox(
+                  width: 220,
+                  child: PillSwitch(
+                    labels: [l.quranUthmani, l.quranIndoPak],
+                    selected: p.indoPak ? 1 : 0,
+                    onSelect: (i) => set((x) => x.copyWith(indoPak: i == 1)),
+                  ),
                 ),
               ],
             ),
@@ -191,6 +198,7 @@ class QuranSettingsScreen extends ConsumerWidget {
       ),
       const SizedBox(height: WaqtSpace.x5),
       Text(l.quranTextSource, style: WaqtText.caption.copyWith(color: t.inkMuted)),
+      Text(l.quranIndoPakSource, style: WaqtText.caption.copyWith(color: t.inkMuted)),
       Text(l.quranAudioSource, style: WaqtText.caption.copyWith(color: t.inkMuted)),
     ]);
   }

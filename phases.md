@@ -118,7 +118,7 @@ Margins awaiting scholar review: see `docs/moment-rules.md`.
 - [x] Reader: each surah's basmala as Tanzil writes it, ayah marks, "You stopped here", tap an ayah to save, copy or recite from it; translation beneath.
 - [x] Translations from QuranEnc.com, one per language (en Saheeh International, ur Junagarhi, bn Zakaria, id Kemenag, tr Rowwad, fr Rachid Maach), downloaded once, shown unchanged with version; translator's notes on tap.
 - [x] Reading settings: Arabic size, translation, follow the recitation, keep the screen on.
-- [ ] IndoPak script (needs a licensed IndoPak text and font).
+- [x] IndoPak script: DigitalKhatt IndoPak text (MIT, pinned commit) cut into ayat at its own marks, checked against Tanzil (every ayah within one word); DigitalKhatt IndoPak font (OFL). Al-Fatihah numbered as Hafs (basmala = 1). Choice in reading settings.
 - [ ] Al-Kahf on Friday: no HadeethEnc hadith yet; add when a sourced one is reviewed.
 - [ ] Log Quran reading as a habit on Today (`DeedsNotifier.setHabit`).
 
@@ -126,13 +126,14 @@ Margins awaiting scholar review: see `docs/moment-rules.md`.
 - [x] Five reciters (Alafasy, Husary, Abdul Basit, Ghamdi, Muaiqly) from EveryAyah.com, ayah by ayah: the recited ayah is highlighted and followed.
 - [x] just_audio + audio_service: plays with the screen off, lock-screen and headset controls; speed 0.75–1.5×.
 - [x] Per-surah downloads per reciter (resumable), Wi-Fi only unless mobile data is allowed; streaming otherwise.
-- [ ] Written permission from EveryAyah before the store release (or move to a source that grants it).
+- [ ] Written permission from EveryAyah before the store release (or move to a source that grants it). Email drafted: `docs/permissions/everyayah-request.md`.
 - [ ] On-device checks: Android 14/15 foreground service, lock screen, Bluetooth buttons, offline playback.
 
 ## Phase 17 — Madhab, Quran on Today
 - [x] Madhab (Hanafi, Shafi'i, Maliki, Hanbali) asked on first launch (country preselects, the person chooses) and in Settings; replaces the Asr setting. Sets the Asr time and the zenith restriction (`MomentConfig.zawalRestricted`). Tehran (Ja'fari) method removed; old settings move to MWL.
 - [x] Quran reading on Today: ayat read in the reader count as the day's `quran` habit; a row under the ring shows it and opens the reader where you stopped.
 - [ ] Scholar check of the madhab rows in `docs/moment-rules.md`.
+- [ ] Hadith sources: research and plan in `docs/hadith-sources.md` (keep HadeethEnc; referenced layer for gaps; ask for translation permissions).
 
 ## Later
 iOS · OTA signed content updates · more languages · cloud backup.

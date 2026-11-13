@@ -77,4 +77,7 @@ flutter:
     - family: AmiriQuran
       fonts:
         - asset: assets/fonts/AmiriQuran.ttf
+    - family: IndoPak
+      fonts:
+        - asset: assets/fonts/IndoPak.otf
 

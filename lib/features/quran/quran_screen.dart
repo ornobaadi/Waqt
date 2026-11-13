@@ -45,6 +45,13 @@ final quranForMoment = [
   QuranForMoment((l) => l.quranKahf10, (l) => l.quranWhenDajjal, (surah: 18, ayah: 1), 6265, {MomentId.jumuah}),
 ];
 
+/// The font for the Arabic text of [q]'s script (surah names stay in Amiri Quran).
+String quranFont(Quran q) => q.marksInText ? WaqtFonts.indoPak : WaqtFonts.quran;
+
+/// The IndoPak font's space is wide (it is made for justified mushaf lines);
+/// for ragged reading text it is drawn closer, in proportion to the size.
+double? quranWordSpacing(Quran q, double fontSize) => q.marksInText ? -0.28 * fontSize : null;
+
 void openReader(BuildContext context, AyahRef at) => context.push('/read/${at.surah}?ayah=${at.ayah}');
 
 /// The Quran tab: where you stopped, what the Sunnah ties to this moment,
@@ -63,7 +70,7 @@ class _QuranScreenState extends ConsumerState<QuranScreen> {
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
     final t = WaqtTokens.of(context);
-    final q = ref.watch(quranProvider).value;
+    final q = ref.watch(quranTextProvider);
     final progress = ref.watch(quranProgressProvider);
     // Names, not the list: the snapshot changes every second.
     final active = ref.watch(momentSnapshotProvider.select((s) => s?.active.map((m) => m.id.name).join(',') ?? ''));
@@ -445,7 +452,7 @@ class _SavedRow extends StatelessWidget {
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               textDirection: TextDirection.rtl,
-              style: TextStyle(fontFamily: WaqtFonts.quran, fontSize: 20, height: 1.8, color: t.inkMuted),
+              style: TextStyle(fontFamily: quranFont(quran), fontSize: 20, height: 1.8, color: t.inkMuted),
             ),
           ],
         ),

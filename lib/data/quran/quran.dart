@@ -38,10 +38,24 @@ typedef AyahRef = ({int surah, int ayah});
 /// The Quran as Tanzil publishes it (Uthmani, verbatim), with surah, juz and
 /// page metadata. Built by tool/build_quran.py.
 class Quran {
-  Quran(this.surahs, this._ayahs, this.juz, this.pages);
+  Quran(this.surahs, this._ayahs, this.juz, this.pages, [this.indoPak]);
 
   final List<Surah> surahs;
   final List<String> _ayahs;
+
+  /// When set, the reader shows this IndoPak text instead of the Uthmani one.
+  /// Numbering, juz, pages, translation and recitation stay the same.
+  final IndoPakText? indoPak;
+
+  /// The same Quran shown in the IndoPak script.
+  Quran inIndoPak(IndoPakText ip) => Quran(surahs, _ayahs, juz, pages, ip);
+
+  /// IndoPak text carries its own ayah marks; the Uthmani gets one drawn.
+  bool get marksInText => indoPak != null;
+
+  /// The ayah with its end mark, as the reader draws it.
+  String marked(int surah, int ayah) =>
+      marksInText ? display(surah, ayah) : '${display(surah, ayah)} \u06DD${arabicDigits(ayah)}';
 
   /// Where each juz (30) and each Madinah mushaf page (604) begins.
   final List<AyahRef> juz;
@@ -57,6 +71,7 @@ class Quran {
   /// first ayah; in at-Tin and al-Qadr with a shadda on the ba), or null.
   String? basmalaOf(int surah) {
     if (!hasBasmalaHeading(surah)) return null;
+    if (indoPak case final ip?) return ip.heading;
     return ayah(surah, 1).split(' ').take(4).join(' ');
   }
 
@@ -64,6 +79,7 @@ class Quran {
   /// once above, so it is not repeated in ayah 1. Al-Fatihah keeps it as its
   /// first ayah; at-Tawbah has none.
   String display(int surah, int ayah) {
+    if (indoPak case final ip?) return surah == 1 && ayah == 1 ? ip.heading : ip.ayat[surah - 1][ayah - 1];
     final t = this.ayah(surah, ayah);
     if (ayah != 1 || !hasBasmalaHeading(surah)) return t;
     return t.split(' ').skip(4).join(' ');
@@ -123,6 +139,29 @@ class Quran {
     );
   }
 }
+
+/// DigitalKhatt's IndoPak text (MIT), one string per ayah with its own mark
+/// and pause signs, numbered as Hafs. Built by tool/build_quran.py.
+class IndoPakText {
+  const IndoPakText(this.basmala, this.ayat);
+  final String basmala;
+  final List<List<String>> ayat;
+
+  /// The basmala as shown: the mushaf closes it with a bare ۝ (no number),
+  /// which the font has no glyph for, so the reader leaves that mark off.
+  String get heading => basmala.replaceFirst(RegExp(r'\s*۝$'), '');
+
+  static IndoPakText parse(String json) {
+    final j = jsonDecode(json) as Map<String, Object?>;
+    return IndoPakText('${j['basmala']}', [
+      for (final s in j['ayat']! as List<Object?>) [for (final a in s! as List<Object?>) '$a'],
+    ]);
+  }
+}
+
+final indoPakProvider = FutureProvider<IndoPakText>(
+  (ref) async => IndoPakText.parse(await rootBundle.loadString('assets/quran/quran-indopak.json')),
+);
 
 final quranProvider = FutureProvider<Quran>((ref) async {
   final text = await rootBundle.loadString('assets/quran/quran-uthmani.txt');

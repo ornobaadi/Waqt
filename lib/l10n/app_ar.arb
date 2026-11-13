@@ -494,5 +494,7 @@
   "onbMadhabBody": "تتبع أوقات الصلاة وبعض الأحكام مذهبك. إن لم تكن متأكدًا فاختر المذهب الذي يُدرَّس في بلدك.",
   "onbMadhabRegion": "الشائع في منطقتك",
   "todayQuranNone": "لم تقرأ بعد اليوم",
-  "todayQuranRead": "قرأت اليوم {ayat}"
+  "todayQuranRead": "قرأت اليوم {ayat}",
+  "quranIndoPak": "الهندي الباكستاني",
+  "quranIndoPakSource": "النص العربي: DigitalKhatt بالرسم الهندي (مصحف ١٣ سطرًا)، رخصة MIT؛ الخط برخصة OFL. كل آية دون تغيير."
 }

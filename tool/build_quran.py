@@ -9,6 +9,8 @@ Writes
                                   juz and page starts, from Tanzil's
                                   quran-data.xml (CC BY), notice included.
   assets/fonts/AmiriQuran.ttf     Amiri Quran 1.003 (SIL OFL 1.1), with OFL.txt.
+  assets/quran/quran-indopak.json DigitalKhatt IndoPak text (MIT), cut into ayat.
+  assets/fonts/IndoPak.otf        DigitalKhatt IndoPak font (SIL OFL 1.1).
 
 Translations are not bundled: the app downloads QuranEnc.com's file for the
 reader's language on request, shown unchanged with its version.
@@ -17,6 +19,7 @@ reader's language on request, shown unchanged with its version.
 import io
 import json
 import os
+import re
 import tempfile
 import urllib.request
 import xml.etree.ElementTree as ET
@@ -27,6 +30,14 @@ CACHE = os.path.join(tempfile.gettempdir(), "waqt-quran-src")
 TEXT = "https://tanzil.net/pub/download/index.php?quranType=uthmani&outType=txt-2&agree=true"
 META = "https://tanzil.net/res/text/metadata/quran-data.xml"
 AMIRI = "https://github.com/aliftype/amiri/releases/download/1.003/Amiri-1.003.zip"
+DK_COMMIT = "78372d7a1e211bbab677cc0304384f278f508657"
+INDOPAK_TEXT = (
+    f"https://raw.githubusercontent.com/DigitalKhatt/digitalkhatt-js/{DK_COMMIT}"
+    "/apps/site-angular/src/app/services/quran_text_indopak_15.ts"
+)
+INDOPAK_TEXT_LICENSE = f"https://raw.githubusercontent.com/DigitalKhatt/digitalkhatt-js/{DK_COMMIT}/LICENSE"
+INDOPAK_FONT = "https://github.com/DigitalKhatt/indopakfont/releases/download/v1.0.0-beta.1/indopak.otf"
+INDOPAK_FONT_LICENSE = "https://raw.githubusercontent.com/DigitalKhatt/indopakfont/master/LICENSE"
 
 
 def fetch(url, name):
@@ -87,7 +98,80 @@ def main():
         with open(os.path.join(fonts, "AmiriQuran-OFL.txt"), "wb") as f:
             f.write(z.read("Amiri-1.003/OFL.txt"))
 
+    indopak(out, suras, lines)
     print(f"{len(lines)} ayat, {len(suras)} surahs, {len(meta['pages'])} pages")
+
+
+def indopak(out, suras, uthmani):
+    """IndoPak script: DigitalKhatt's 15-line IndoPak text (MIT), cut into ayat
+    at its own ayah marks, each ayah kept verbatim with its mark and pause
+    signs; DigitalKhatt IndoPak font (OFL 1.1)."""
+    src = open(fetch(INDOPAK_TEXT, "indopak-%s.ts" % DK_COMMIT[:8]), encoding="utf-8").read()
+    body = src[src.index("["): src.rindex("]") + 1]
+    pages = json.loads(re.sub(r",\s*\]", "]", body).replace("'", '"'))
+    digits = "٠١٢٣٤٥٦٧٨٩"
+    # An ayah ends at ۝ + its number, plus the pause signs written after it.
+    end = re.compile("۝([" + digits + "]+)\\S*")
+    heading, basmala = "سُورَةُ", None
+    surahs, buf = [], ""
+    for line in (l for p in pages for l in p):
+        if line.startswith(heading):
+            if surahs and buf.strip():
+                raise SystemExit(f"text left over in surah {len(surahs)}: {buf!r}")
+            surahs.append([])
+            buf = ""
+            continue
+        if not surahs[-1] and not buf and line.endswith("۝") and "۝" not in line[:-1]:
+            if basmala not in (None, line):
+                raise SystemExit("two different basmala headings")
+            basmala = line
+            continue
+        buf += (" " if buf else "") + line
+        while m := end.search(buf):
+            n = int("".join(str(digits.index(c)) for c in m.group(1)))
+            surahs[-1].append((n, buf[: m.end()].strip()))
+            buf = buf[m.end():].lstrip()
+    if len(surahs) != 114 or basmala is None:
+        raise SystemExit("IndoPak text: expected 114 surahs and a basmala heading")
+    # Al-Fatihah: this mushaf numbers from al-hamdu and marks "an'amta 'alayhim"
+    # (a different count) without ۝; the app follows Hafs, where the basmala is
+    # ayah 1. So ayah 1 is the basmala as printed, and the rest move up by one.
+    fatiha = surahs[0]
+    if [n for n, _ in fatiha] != [1, 2, 3, 4, 5, 7] or "‮" not in fatiha[-1][1]:
+        raise SystemExit("IndoPak al-Fatihah is not laid out as expected")
+    surahs[0] = [(1, basmala)] + [(i + 2, t) for i, (_, t) in enumerate(fatiha)]
+    for s, meta in zip(surahs, suras):
+        if [n for n, _ in s] != list(range(1, meta["ayas"] + 1)):
+            raise SystemExit(f"IndoPak surah {meta['n']}: ayah numbers do not match Tanzil")
+    data = {
+        "notice": "IndoPak Quran text from DigitalKhatt (github.com/DigitalKhatt/digitalkhatt-js, "
+        f"commit {DK_COMMIT[:12]}, MIT licence), based on the Quraan Al Majeed 13-line IndoPak mushaf, "
+        "each ayah verbatim. Al-Fatihah numbered as in Hafs (basmala = 1). Font: DigitalKhatt IndoPak (OFL 1.1).",
+        "basmala": basmala,
+        "ayat": [[t for _, t in s] for s in surahs],
+    }
+    with open(os.path.join(out, "quran-indopak.json"), "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, separators=(",", ":"))
+    fonts = os.path.join(ROOT, "assets", "fonts")
+    with open(os.path.join(fonts, "IndoPak.otf"), "wb") as f:
+        f.write(open(fetch(INDOPAK_FONT, "indopak.otf"), "rb").read())
+    with open(os.path.join(fonts, "IndoPak-OFL.txt"), "wb") as f:
+        f.write(open(fetch(INDOPAK_FONT_LICENSE, "indopak-LICENSE.txt"), "rb").read())
+    with open(os.path.join(out, "quran-indopak-LICENSE.txt"), "wb") as f:
+        f.write(open(fetch(INDOPAK_TEXT_LICENSE, "digitalkhatt-js-LICENSE.txt"), "rb").read())
+    # Same words as Tanzil, other spelling: word counts should nearly always agree.
+    words = lambda t: len([w for w in t.split() if any("ء" <= c <= "ي" for c in w)])
+    off = []
+    for (sura, aya, text), (_, ip) in zip(
+        (l.split("|", 2) for l in uthmani), (x for s in surahs for x in s)
+    ):
+        # Tanzil writes the basmala inside ayah 1 (not for al-Fatihah, where it is the ayah, or at-Tawbah).
+        n = words(text) - (4 if aya == "1" and sura not in ("1", "9") else 0)
+        if abs(words(ip) - n) > 1:
+            off.append(f"{sura}:{aya}")
+    if off:
+        raise SystemExit(f"IndoPak ayat differ from Tanzil by more than one word: {off[:10]}")
+    print("IndoPak: 6236 ayat, every one within a word of Tanzil")
 
 
 if __name__ == "__main__":

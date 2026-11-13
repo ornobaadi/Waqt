@@ -57,6 +57,9 @@ abstract final class WaqtFonts {
 
   /// Quran text: Amiri Quran (OFL), drawn for the Uthmani script and ayah marks.
   static const String quran = 'AmiriQuran';
+
+  /// DigitalKhatt IndoPak (OFL), for the IndoPak script.
+  static const String indoPak = 'IndoPak';
   static const String urdu = 'NotoNastaliqUrdu';
   static const String bengali = 'NotoSansBengali';
 

@@ -472,5 +472,7 @@
   "onbMadhabBody": "নামাজের সময় ও কয়েকটি বিধান আপনার মাযহাব অনুযায়ী হবে। নিশ্চিত না হলে আপনার এলাকায় যেটি শেখানো হয় সেটি বেছে নিন।",
   "onbMadhabRegion": "আপনার এলাকায় প্রচলিত",
   "todayQuranNone": "আজ এখনো পড়া হয়নি",
-  "todayQuranRead": "আজ {ayat} পড়া হয়েছে"
+  "todayQuranRead": "আজ {ayat} পড়া হয়েছে",
+  "quranIndoPak": "ইন্দো-পাক",
+  "quranIndoPakSource": "আরবি পাঠ: DigitalKhatt ইন্দো-পাক (১৩ লাইনের মুসহাফ), MIT; ফন্ট OFL। প্রতিটি আয়াত অপরিবর্তিত।"
 }

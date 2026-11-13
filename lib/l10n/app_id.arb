@@ -466,5 +466,7 @@
   "onbMadhabBody": "Waktu salat dan beberapa hukum mengikuti mazhab Anda. Jika ragu, pilih yang diajarkan di daerah Anda.",
   "onbMadhabRegion": "Umum di daerah Anda",
   "todayQuranNone": "Belum dibaca hari ini",
-  "todayQuranRead": "{ayat} dibaca hari ini"
+  "todayQuranRead": "{ayat} dibaca hari ini",
+  "quranIndoPak": "IndoPak",
+  "quranIndoPakSource": "Teks Arab: DigitalKhatt IndoPak (mushaf IndoPak 13 baris), MIT; font OFL. Setiap ayat tanpa perubahan."
 }

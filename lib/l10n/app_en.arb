@@ -1151,5 +1151,7 @@
         "type": "String"
       }
     }
-  }
+  },
+  "quranIndoPak": "IndoPak",
+  "quranIndoPakSource": "Arabic text: DigitalKhatt IndoPak (13-line IndoPak mushaf), MIT; font OFL. Each ayah unchanged."
 }
