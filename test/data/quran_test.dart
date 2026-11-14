@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
@@ -147,5 +148,21 @@ void main() {
     expect(marks('সকল ‘হাম্দ’ [১] আল্লাহ্র [২] , যিনি'), 2);
     // Words in brackets that are part of the translation stay.
     expect(plain('[All] praise is [due] to Allah'), '[All] praise is [due] to Allah');
+  });
+
+  test('transliteration: every ayah, plain to read, credited', () {
+    final raw = File('assets/quran/quran-translit.txt').readAsStringSync();
+    final tl = Transliteration.parse(raw);
+    for (final s in q.surahs) {
+      for (var a = 1; a <= s.ayahs; a++) {
+        expect(tl.of(s.n, a), isNotEmpty, reason: '${s.n}:$a');
+      }
+    }
+    expect(tl.of(1, 1), 'Bismi Allahi arrahmani arraheem');
+    expect(tl.of(112, 1), 'Qul huwa Allahu ahad');
+    expect(raw, contains('Tanzil.net'));
+    final ayat = const LineSplitter().convert(raw).where((l) => l.isNotEmpty && !l.startsWith('#')).join(' ');
+    expect(ayat, isNot(matches(RegExp('<[a-zA-Z/]'))));
+    expect(ayat, isNot(contains('AA')));
   });
 }

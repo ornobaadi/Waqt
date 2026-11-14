@@ -32,6 +32,7 @@ CACHE = os.path.join(tempfile.gettempdir(), "waqt-quran-src")
 TEXT = "https://tanzil.net/pub/download/index.php?quranType=uthmani&outType=txt-2&agree=true"
 META = "https://tanzil.net/res/text/metadata/quran-data.xml"
 AMIRI = "https://github.com/aliftype/amiri/releases/download/1.003/Amiri-1.003.zip"
+TRANSLIT = "https://tanzil.net/trans/?transID=en.transliteration&type=txt-2"
 DK_COMMIT = "78372d7a1e211bbab677cc0304384f278f508657"
 INDOPAK_TEXT = (
     f"https://raw.githubusercontent.com/DigitalKhatt/digitalkhatt-js/{DK_COMMIT}"
@@ -104,7 +105,37 @@ def main():
             f.write(z.read("Amiri-1.003/OFL.txt"))
 
     indopak(out, suras, lines)
+    transliteration(out)
     print(f"{len(lines)} ayat, {len(suras)} surahs, {len(meta['pages'])} pages")
+
+
+def transliteration(out):
+    """Tanzil's English transliteration (non-commercial use, credited), made
+    plain to read: letters Tanzil marks as not pronounced (assimilated, or a
+    vowel dropped at a stop) are left out, the other markup goes, and its
+    "AA" for the letter 'ayn becomes ‘."""
+    raw = open(fetch(TRANSLIT, "en.transliteration.txt"), encoding="utf-8").read()
+    rows = [l.split("|", 2) for l in raw.splitlines() if l and not l.startswith("#")]
+    if len(rows) != 6236:
+        raise SystemExit(f"transliteration: expected 6236 ayat, got {len(rows)}")
+
+    def clean(t):
+        t = re.sub(r"<b>.*?</b>", "", t, flags=re.I)
+        t = re.sub(r"<[^>]+>", "", t)
+        t = t.replace("AA", "‘")
+        return " ".join(t.split())
+
+    notice = [l for l in raw.splitlines() if l.startswith("#")]
+    nl = chr(10)
+    lines = [
+        "# English transliteration from Tanzil.net (en.transliteration), for non-commercial use.",
+        "# Markup removed: letters marked as not pronounced are left out; AA (the letter 'ayn) is ‘.",
+        *(f"{sura}|{aya}|{clean(text)}" for sura, aya, text in rows),
+        *notice,
+    ]
+    with open(os.path.join(out, "quran-translit.txt"), "w", encoding="utf-8", newline=nl) as f:
+        f.write(nl.join(lines) + nl)
+    print("Transliteration: 6236 ayat")
 
 
 def surah_names(suras):

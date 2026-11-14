@@ -482,5 +482,13 @@
   "todayMark": "Tandai",
   "todayOnTime": "Tepat waktu",
   "todayJamaah": "Berjamaah",
-  "todayQada": "Qada"
+  "todayQada": "Qada",
+  "quranTranslit": "Transliterasi",
+  "quranTranslitHint": "Bunyi Arab dalam huruf Latin",
+  "quranHowToSay": "Cara membaca",
+  "quranTranslatorNotes": "Catatan penerjemah",
+  "quranPlayHere": "Putar dari sini",
+  "quranSaveShort": "Simpan",
+  "quranSavedShort": "Tersimpan",
+  "quranTranslitSource": "Transliterasi: Tanzil.net, untuk penggunaan non-komersial."
 }

@@ -175,6 +175,25 @@ class IndoPakText {
   }
 }
 
+/// Tanzil's English transliteration, one line per ayah ("1|2|Alhamdu ...").
+/// Built by tool/build_quran.py.
+class Transliteration {
+  const Transliteration(this._byAyah);
+  final Map<(int, int), String> _byAyah;
+
+  String? of(int surah, int ayah) => _byAyah[(surah, ayah)];
+
+  static Transliteration parse(String text) => Transliteration({
+    for (final line in const LineSplitter().convert(text))
+      if (line.isNotEmpty && !line.startsWith('#'))
+        if (line.split('|') case [final s, final a, ...final rest]) (int.parse(s), int.parse(a)): rest.join('|'),
+  });
+}
+
+final transliterationProvider = FutureProvider<Transliteration>(
+  (ref) async => Transliteration.parse(await rootBundle.loadString('assets/quran/quran-translit.txt')),
+);
+
 final indoPakProvider = FutureProvider<IndoPakText>(
   (ref) async => IndoPakText.parse(await rootBundle.loadString('assets/quran/quran-indopak.json')),
 );

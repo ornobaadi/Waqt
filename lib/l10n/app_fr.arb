@@ -482,5 +482,13 @@
   "todayMark": "Marquer",
   "todayOnTime": "À l'heure",
   "todayJamaah": "En groupe",
-  "todayQada": "Rattrapée"
+  "todayQada": "Rattrapée",
+  "quranTranslit": "Translittération",
+  "quranTranslitHint": "Les sons arabes en lettres latines",
+  "quranHowToSay": "Comment le dire",
+  "quranTranslatorNotes": "Notes du traducteur",
+  "quranPlayHere": "Écouter d'ici",
+  "quranSaveShort": "Enregistrer",
+  "quranSavedShort": "Enregistré",
+  "quranTranslitSource": "Translittération : Tanzil.net, usage non commercial."
 }

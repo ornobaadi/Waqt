@@ -1920,4 +1920,28 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get todayQada => 'Qada';
+
+  @override
+  String get quranTranslit => 'Transliterasi';
+
+  @override
+  String get quranTranslitHint => 'Bunyi Arab dalam huruf Latin';
+
+  @override
+  String get quranHowToSay => 'Cara membaca';
+
+  @override
+  String get quranTranslatorNotes => 'Catatan penerjemah';
+
+  @override
+  String get quranPlayHere => 'Putar dari sini';
+
+  @override
+  String get quranSaveShort => 'Simpan';
+
+  @override
+  String get quranSavedShort => 'Tersimpan';
+
+  @override
+  String get quranTranslitSource => 'Transliterasi: Tanzil.net, untuk penggunaan non-komersial.';
 }

@@ -110,6 +110,9 @@ Future<Widget> app({
       dayGuidesJsonProvider.overrideWith((ref) => File('assets/sources/days.json').readAsStringSync()),
       heBundleProvider.overrideWith((ref) => HeBundle.parse(File('assets/sources/hadeethenc.json').readAsStringSync())),
       duaBookProvider.overrideWith((ref) => DuaBook.parse(File('assets/sources/duas.json').readAsStringSync())),
+      transliterationProvider.overrideWith(
+        (ref) => Transliteration.parse(File('assets/quran/quran-translit.txt').readAsStringSync()),
+      ),
       indoPakProvider.overrideWith(
         (ref) => IndoPakText.parse(File('assets/quran/quran-indopak.json').readAsStringSync()),
       ),

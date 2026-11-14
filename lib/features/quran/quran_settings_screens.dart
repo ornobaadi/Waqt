@@ -172,6 +172,12 @@ class QuranSettingsScreen extends ConsumerWidget {
               onChanged: (v) => set((x) => x.copyWith(translation: v)),
             ),
           _SwitchRow(
+            title: l.quranTranslit,
+            hint: l.quranTranslitHint,
+            value: p.transliteration,
+            onChanged: (v) => set((x) => x.copyWith(transliteration: v)),
+          ),
+          _SwitchRow(
             title: l.quranFollow,
             hint: l.quranFollowHint,
             value: p.follow,
@@ -213,6 +219,7 @@ class QuranSettingsScreen extends ConsumerWidget {
       const SizedBox(height: WaqtSpace.x5),
       Text(l.quranTextSource, style: WaqtText.caption.copyWith(color: t.inkMuted)),
       Text(l.quranIndoPakSource, style: WaqtText.caption.copyWith(color: t.inkMuted)),
+      Text(l.quranTranslitSource, style: WaqtText.caption.copyWith(color: t.inkMuted)),
       Text(l.quranAudioSource, style: WaqtText.caption.copyWith(color: t.inkMuted)),
     ]);
   }

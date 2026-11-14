@@ -1184,5 +1184,13 @@
   "todayMark": "Mark",
   "todayOnTime": "On time",
   "todayJamaah": "Jama'ah",
-  "todayQada": "Made up"
+  "todayQada": "Made up",
+  "quranTranslit": "Transliteration",
+  "quranTranslitHint": "Arabic sounds in English letters",
+  "quranHowToSay": "How to say it",
+  "quranTranslatorNotes": "Translator's notes",
+  "quranPlayHere": "Play from here",
+  "quranSaveShort": "Save",
+  "quranSavedShort": "Saved",
+  "quranTranslitSource": "Transliteration: Tanzil.net, for non-commercial use."
 }

@@ -1916,4 +1916,28 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get todayQada => 'Kaza';
+
+  @override
+  String get quranTranslit => 'Okunuş';
+
+  @override
+  String get quranTranslitHint => 'Arapça sesler Latin harfleriyle';
+
+  @override
+  String get quranHowToSay => 'Nasıl okunur';
+
+  @override
+  String get quranTranslatorNotes => 'Mütercim notları';
+
+  @override
+  String get quranPlayHere => 'Buradan dinle';
+
+  @override
+  String get quranSaveShort => 'Kaydet';
+
+  @override
+  String get quranSavedShort => 'Kaydedildi';
+
+  @override
+  String get quranTranslitSource => 'Okunuş: Tanzil.net, ticari olmayan kullanım için.';
 }

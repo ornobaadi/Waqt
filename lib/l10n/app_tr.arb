@@ -488,5 +488,13 @@
   "todayMark": "İşaretle",
   "todayOnTime": "Vaktinde",
   "todayJamaah": "Cemaatle",
-  "todayQada": "Kaza"
+  "todayQada": "Kaza",
+  "quranTranslit": "Okunuş",
+  "quranTranslitHint": "Arapça sesler Latin harfleriyle",
+  "quranHowToSay": "Nasıl okunur",
+  "quranTranslatorNotes": "Mütercim notları",
+  "quranPlayHere": "Buradan dinle",
+  "quranSaveShort": "Kaydet",
+  "quranSavedShort": "Kaydedildi",
+  "quranTranslitSource": "Okunuş: Tanzil.net, ticari olmayan kullanım için."
 }

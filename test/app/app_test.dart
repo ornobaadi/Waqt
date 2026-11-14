@@ -143,9 +143,11 @@ void main() {
     expect(find.text('Translation'), findsOneWidget); // offered, not yet on the phone
     await tester.tap(find.byTooltip('Next ayah'));
     await tester.pumpAndSettle();
-    await tester.tap(find.byKey(const ValueKey('ayah-1:2')));
-    await tester.pumpAndSettle();
-    await tester.tap(find.text('Save ayah'));
+    // Each ayah: the Arabic, how to say it, and its own buttons.
+    final ayah = find.byKey(const ValueKey('ayah-1:2'));
+    expect(find.descendant(of: ayah, matching: find.text('Alhamdu lillahi rabbi al‘alameen')), findsOneWidget);
+    expect(find.descendant(of: ayah, matching: find.byTooltip('Play from here')), findsOneWidget);
+    await tester.tap(find.descendant(of: ayah, matching: find.byTooltip('Save ayah')));
     await tester.pumpAndSettle();
     await tester.pageBack();
     await tester.pumpAndSettle();

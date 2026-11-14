@@ -16,7 +16,11 @@ class QuranPrefs {
     this.mobileData = false,
     this.speed = 1,
     this.indoPak = false,
+    this.transliteration = true,
   });
+
+  /// Show how to say each ayah in Latin letters.
+  final bool transliteration;
 
   /// Read in the IndoPak script instead of the Uthmani.
   final bool indoPak;
@@ -47,6 +51,7 @@ class QuranPrefs {
     bool? mobileData,
     double? speed,
     bool? indoPak,
+    bool? transliteration,
   }) => QuranPrefs(
     arabicScale: arabicScale ?? this.arabicScale,
     translation: translation ?? this.translation,
@@ -56,6 +61,7 @@ class QuranPrefs {
     mobileData: mobileData ?? this.mobileData,
     speed: speed ?? this.speed,
     indoPak: indoPak ?? this.indoPak,
+    transliteration: transliteration ?? this.transliteration,
   );
 
   Map<String, Object> toJson() => {
@@ -67,6 +73,7 @@ class QuranPrefs {
     'mobile': mobileData,
     'speed': speed,
     'script': indoPak ? 'indopak' : 'uthmani',
+    'translit': transliteration,
   };
 
   static QuranPrefs fromJson(Map<String, Object?> j) => QuranPrefs(
@@ -78,6 +85,7 @@ class QuranPrefs {
     mobileData: j['mobile'] as bool? ?? false,
     speed: (j['speed'] as num?)?.toDouble() ?? 1,
     indoPak: j['script'] == 'indopak',
+    transliteration: j['translit'] as bool? ?? true,
   );
 }
 

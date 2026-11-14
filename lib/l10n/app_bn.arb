@@ -488,5 +488,13 @@
   "todayMark": "চিহ্ন দিন",
   "todayOnTime": "সময়মতো",
   "todayJamaah": "জামাতে",
-  "todayQada": "কাজা"
+  "todayQada": "কাজা",
+  "quranTranslit": "উচ্চারণ",
+  "quranTranslitHint": "আরবি শব্দ ইংরেজি অক্ষরে",
+  "quranHowToSay": "কীভাবে পড়বেন",
+  "quranTranslatorNotes": "অনুবাদকের টীকা",
+  "quranPlayHere": "এখান থেকে শুনুন",
+  "quranSaveShort": "সংরক্ষণ",
+  "quranSavedShort": "সংরক্ষিত",
+  "quranTranslitSource": "উচ্চারণ: Tanzil.net, অবাণিজ্যিক ব্যবহারের জন্য।"
 }

@@ -1917,4 +1917,28 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get todayQada => 'Made up';
+
+  @override
+  String get quranTranslit => 'Transliteration';
+
+  @override
+  String get quranTranslitHint => 'Arabic sounds in English letters';
+
+  @override
+  String get quranHowToSay => 'How to say it';
+
+  @override
+  String get quranTranslatorNotes => 'Translator\'s notes';
+
+  @override
+  String get quranPlayHere => 'Play from here';
+
+  @override
+  String get quranSaveShort => 'Save';
+
+  @override
+  String get quranSavedShort => 'Saved';
+
+  @override
+  String get quranTranslitSource => 'Transliteration: Tanzil.net, for non-commercial use.';
 }

@@ -1906,4 +1906,28 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get todayQada => 'কাজা';
+
+  @override
+  String get quranTranslit => 'উচ্চারণ';
+
+  @override
+  String get quranTranslitHint => 'আরবি শব্দ ইংরেজি অক্ষরে';
+
+  @override
+  String get quranHowToSay => 'কীভাবে পড়বেন';
+
+  @override
+  String get quranTranslatorNotes => 'অনুবাদকের টীকা';
+
+  @override
+  String get quranPlayHere => 'এখান থেকে শুনুন';
+
+  @override
+  String get quranSaveShort => 'সংরক্ষণ';
+
+  @override
+  String get quranSavedShort => 'সংরক্ষিত';
+
+  @override
+  String get quranTranslitSource => 'উচ্চারণ: Tanzil.net, অবাণিজ্যিক ব্যবহারের জন্য।';
 }

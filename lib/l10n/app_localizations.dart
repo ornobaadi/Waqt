@@ -3368,6 +3368,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Made up'**
   String get todayQada;
+
+  /// No description provided for @quranTranslit.
+  ///
+  /// In en, this message translates to:
+  /// **'Transliteration'**
+  String get quranTranslit;
+
+  /// No description provided for @quranTranslitHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Arabic sounds in English letters'**
+  String get quranTranslitHint;
+
+  /// No description provided for @quranHowToSay.
+  ///
+  /// In en, this message translates to:
+  /// **'How to say it'**
+  String get quranHowToSay;
+
+  /// No description provided for @quranTranslatorNotes.
+  ///
+  /// In en, this message translates to:
+  /// **'Translator\'s notes'**
+  String get quranTranslatorNotes;
+
+  /// No description provided for @quranPlayHere.
+  ///
+  /// In en, this message translates to:
+  /// **'Play from here'**
+  String get quranPlayHere;
+
+  /// No description provided for @quranSaveShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get quranSaveShort;
+
+  /// No description provided for @quranSavedShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved'**
+  String get quranSavedShort;
+
+  /// No description provided for @quranTranslitSource.
+  ///
+  /// In en, this message translates to:
+  /// **'Transliteration: Tanzil.net, for non-commercial use.'**
+  String get quranTranslitSource;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

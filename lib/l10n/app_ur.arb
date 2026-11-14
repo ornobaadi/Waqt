@@ -496,5 +496,13 @@
   "todayMark": "درج کریں",
   "todayOnTime": "وقت پر",
   "todayJamaah": "باجماعت",
-  "todayQada": "قضا"
+  "todayQada": "قضا",
+  "quranTranslit": "رومن تلفظ",
+  "quranTranslitHint": "عربی آوازیں انگریزی حروف میں",
+  "quranHowToSay": "کیسے پڑھیں",
+  "quranTranslatorNotes": "مترجم کے حواشی",
+  "quranPlayHere": "یہاں سے سنیں",
+  "quranSaveShort": "محفوظ کریں",
+  "quranSavedShort": "محفوظ",
+  "quranTranslitSource": "رومن تلفظ: Tanzil.net، غیر تجارتی استعمال کے لیے۔"
 }

@@ -158,6 +158,7 @@ Margins awaiting scholar review: see `docs/moment-rules.md`.
 - [x] Bangla UI font: Anek Bangla (OFL), replacing Noto Sans Bengali (a clear ১ at every weight).
 - [x] Player: one 64 dp row (play, ayah and reciter, previous/next, a menu for speed, downloads and stop). Leaving the reader, a mini bar above the dock keeps it (pause, open, ×); stopping from the notification clears it. Notification icon is the flat status-bar mark.
 - [x] Today: each prayer that has begun carries a Mark pill, or how it was kept (same choices as Now's strip).
+- [x] Reader revamp: each ayah a card with its number, play-from-here, save, translator's notes and more; the Arabic large; English transliteration for every language (Tanzil.net `en.transliteration`, non-commercial, credited; markup cleaned by tool/build_quran.py); the meaning beneath. Transliteration on/off in reading settings. Long-press an ayah for copy and the rest.
 - [ ] On a device: check IndoPak and Amiri line spacing at the largest size, and the player in the night palette.
 
 ## Later

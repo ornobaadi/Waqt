@@ -1922,4 +1922,28 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get todayQada => 'قضاء';
+
+  @override
+  String get quranTranslit => 'النطق بالحروف اللاتينية';
+
+  @override
+  String get quranTranslitHint => 'أصوات العربية بحروف إنجليزية';
+
+  @override
+  String get quranHowToSay => 'كيف تُنطق';
+
+  @override
+  String get quranTranslatorNotes => 'حواشي المترجم';
+
+  @override
+  String get quranPlayHere => 'شغّل من هنا';
+
+  @override
+  String get quranSaveShort => 'احفظ';
+
+  @override
+  String get quranSavedShort => 'محفوظة';
+
+  @override
+  String get quranTranslitSource => 'النطق بالحروف اللاتينية: Tanzil.net، للاستخدام غير التجاري.';
 }
