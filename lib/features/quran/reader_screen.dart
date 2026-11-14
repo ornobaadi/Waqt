@@ -127,6 +127,8 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen> {
 
     return Scaffold(
       backgroundColor: t.ground,
+      // The ayat run on under the player, so it floats as it does elsewhere.
+      extendBody: true,
       appBar: AppBar(
         backgroundColor: t.ground,
         surfaceTintColor: Colors.transparent,
