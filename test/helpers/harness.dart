@@ -9,6 +9,7 @@ import 'package:waqt/platform/sensors/heading.dart';
 import 'package:waqt/data/sources/days.dart';
 import 'package:waqt/data/sources/duas.dart';
 import 'package:waqt/data/quran/quran.dart';
+import 'package:waqt/platform/quran_audio.dart';
 import 'package:waqt/data/quran/quran_translation.dart';
 import 'package:waqt/data/sources/hadeethenc.dart';
 import 'package:waqt/app/app.dart';
@@ -52,7 +53,7 @@ Future<void> loadAppFonts() async {
   await load('Inter', 'assets/fonts/Inter.ttf');
   await load('NotoNaskhArabic', 'assets/fonts/NotoNaskhArabic.ttf');
   await load('NotoNastaliqUrdu', 'assets/fonts/NotoNastaliqUrdu.ttf');
-  await load('NotoSansBengali', 'assets/fonts/NotoSansBengali.ttf');
+  await load('AnekBangla', 'assets/fonts/AnekBangla.ttf');
   await load('InstrumentSerif', 'assets/fonts/InstrumentSerif-Italic.ttf');
   await load('AmiriQuran', 'assets/fonts/AmiriQuran.ttf');
   await load('IndoPak', 'assets/fonts/IndoPak.otf');
@@ -60,6 +61,16 @@ Future<void> loadAppFonts() async {
   final root =
       Platform.environment['FLUTTER_ROOT'] ?? File(Platform.resolvedExecutable).parent.parent.parent.parent.parent.path;
   await load('MaterialIcons', '$root/bin/cache/artifacts/material_fonts/MaterialIcons-Regular.otf');
+}
+
+/// A recitation already under way, without a player behind it.
+class _Reciting extends RecitationNotifier {
+  _Reciting(this.at);
+  final Recitation at;
+  @override
+  Recitation build() => at;
+  @override
+  Future<void> stop() async => state = const Recitation();
 }
 
 class _Locale extends LocaleOverride {
@@ -78,6 +89,7 @@ Future<Widget> app({
   bool onboarding = false,
   Heading? heading,
   Map<String, Object> stored = const {},
+  Recitation? reciting,
 }) async {
   SharedPreferences.setMockInitialValues({
     if (place != null) 'place.v1': jsonEncode(place.toJson()),
@@ -108,6 +120,7 @@ Future<Widget> app({
         ),
       ),
       quranTranslationInstallProvider.overrideWith(_NoTranslation.new),
+      if (reciting != null) recitationProvider.overrideWith(() => _Reciting(reciting)),
       if (at != null) nowProvider.overrideWith((ref) => Stream.value(at)),
       if (heading != null) headingProvider.overrideWith((ref) => Stream.value(heading)),
       if (locale != null) localeOverrideProvider.overrideWith(() => _Locale(locale)),

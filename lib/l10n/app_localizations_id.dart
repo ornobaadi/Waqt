@@ -1373,7 +1373,7 @@ class AppLocalizationsId extends AppLocalizations {
   }
 
   @override
-  String get deedRingHint => 'Centang salat di Sekarang setelah Anda menunaikannya. Hanya Anda yang melihatnya.';
+  String get deedRingHint => 'Tandai tiap salat setelah Anda menunaikannya. Hanya Anda yang melihatnya.';
 
   @override
   String deedStreak(String days) {
@@ -1905,4 +1905,19 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get onbGreeting => 'Assalamu\'alaikum,';
+
+  @override
+  String get quranMore => 'Lainnya';
+
+  @override
+  String get todayMark => 'Tandai';
+
+  @override
+  String get todayOnTime => 'Tepat waktu';
+
+  @override
+  String get todayJamaah => 'Berjamaah';
+
+  @override
+  String get todayQada => 'Qada';
 }

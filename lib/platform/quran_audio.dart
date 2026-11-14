@@ -76,7 +76,9 @@ Future<_RecitationHandler> _start() => _handler ??= AudioService.init(
   config: const AudioServiceConfig(
     androidNotificationChannelId: 'com.ornobaadi.waqt.recitation',
     androidNotificationChannelName: 'Quran recitation',
-    androidNotificationIcon: 'mipmap/ic_launcher',
+    // A flat white mark: the launcher icon shows as a grey square in the status bar.
+    androidNotificationIcon: 'drawable/ic_notification',
+    androidNotificationOngoing: false,
     // Keep the service in the foreground while paused, so it is not killed
     // and cannot be refused a restart (Android 12+).
     androidStopForegroundOnPause: false,
@@ -174,6 +176,15 @@ class RecitationNotifier extends Notifier<Recitation> {
       h.player.currentIndexStream.listen((i) {
         if (i == null || i >= _ayahs.length || state.surah == null) return;
         state = Recitation(surah: state.surah, ayah: _ayahs[i], playing: h.player.playing);
+      }),
+    );
+    // Stopped from the notification, the lock screen or a headset: the app
+    // lets go too, so no bar is left showing a recitation that has ended.
+    _subs.add(
+      h.playbackState.listen((p) {
+        if (p.processingState == AudioProcessingState.idle && !p.playing && state.active && !state.loading) {
+          state = const Recitation();
+        }
       }),
     );
     _subs.add(

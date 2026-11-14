@@ -326,7 +326,7 @@
   "deedQada": "Kaza edildi",
   "deedNotPrayed": "İşaretlenmedi",
   "deedPrayedCount": "5 vakitten {done}",
-  "deedRingHint": "Kıldıktan sonra Şimdi ekranında namazı işaretleyin. Bunu yalnızca siz görürsünüz.",
+  "deedRingHint": "Her namazı kıldıktan sonra işaretleyin. Bunu yalnızca siz görürsünüz.",
   "deedStreak": "Üst üste {days} gün beş vakit",
   "progressTitle": "İlerlemeniz",
   "progressThisWeek": "Bu hafta",
@@ -483,5 +483,10 @@
   "quranSearch": "Sure bul",
   "quranSearchHint": "Ad veya numara, örneğin Yasin ya da 36",
   "quranSearchNone": "Bu adla bir sure yok",
-  "onbGreeting": "Esselâmü aleyküm,"
+  "onbGreeting": "Esselâmü aleyküm,",
+  "quranMore": "Daha fazla",
+  "todayMark": "İşaretle",
+  "todayOnTime": "Vaktinde",
+  "todayJamaah": "Cemaatle",
+  "todayQada": "Kaza"
 }

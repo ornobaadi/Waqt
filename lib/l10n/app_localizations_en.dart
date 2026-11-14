@@ -1376,7 +1376,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get deedRingHint => 'Tick a prayer on Now once you have prayed it. Only you see this.';
+  String get deedRingHint => 'Mark each prayer once you\'ve prayed it. Only you see this.';
 
   @override
   String deedStreak(String days) {
@@ -1902,4 +1902,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get onbGreeting => 'Assalaamu Alaikum,';
+
+  @override
+  String get quranMore => 'More';
+
+  @override
+  String get todayMark => 'Mark';
+
+  @override
+  String get todayOnTime => 'On time';
+
+  @override
+  String get todayJamaah => 'Jama\'ah';
+
+  @override
+  String get todayQada => 'Made up';
 }

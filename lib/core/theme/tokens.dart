@@ -64,7 +64,7 @@ abstract final class WaqtFonts {
   /// Instrument Serif italic (OFL): the welcome greeting only.
   static const String greeting = 'InstrumentSerif';
   static const String urdu = 'NotoNastaliqUrdu';
-  static const String bengali = 'NotoSansBengali';
+  static const String bengali = 'AnekBangla';
 
   /// Script fallback for UI text, chosen per locale (see [forLocale]).
   /// Urdu must reach Nastaliq before Naskh, since both cover Arabic script.

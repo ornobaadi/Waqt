@@ -320,7 +320,7 @@
   "deedQada": "Diqadha",
   "deedNotPrayed": "Belum ditandai",
   "deedPrayedCount": "{done} dari 5 salat",
-  "deedRingHint": "Centang salat di Sekarang setelah Anda menunaikannya. Hanya Anda yang melihatnya.",
+  "deedRingHint": "Tandai tiap salat setelah Anda menunaikannya. Hanya Anda yang melihatnya.",
   "deedStreak": "{days} hari berturut-turut lima waktu",
   "progressTitle": "Perkembangan Anda",
   "progressThisWeek": "Minggu ini",
@@ -477,5 +477,10 @@
   "quranSearch": "Cari surah",
   "quranSearchHint": "Nama atau nomor, misalnya Yasin atau 36",
   "quranSearchNone": "Tidak ada surah dengan nama itu",
-  "onbGreeting": "Assalamu'alaikum,"
+  "onbGreeting": "Assalamu'alaikum,",
+  "quranMore": "Lainnya",
+  "todayMark": "Tandai",
+  "todayOnTime": "Tepat waktu",
+  "todayJamaah": "Berjamaah",
+  "todayQada": "Qada"
 }

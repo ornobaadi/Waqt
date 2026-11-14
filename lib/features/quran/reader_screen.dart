@@ -13,13 +13,12 @@ import '../../core/theme/waqt_theme.dart';
 import '../../data/quran/quran.dart';
 import '../../data/quran/quran_prefs.dart';
 import '../../data/quran/quran_translation.dart';
-import '../../data/quran/recitation.dart';
-import '../../data/quran/recitation_downloads.dart';
 import '../../data/sources/he_library.dart' show contentLangProvider;
 import '../../data/user/deeds_store.dart';
 import '../../domain/deeds/deeds.dart';
 import '../../l10n/app_localizations.dart';
 import '../../platform/quran_audio.dart';
+import 'recitation_bar.dart';
 import 'quran_screen.dart' show quranFont, quranLineHeight, quranWordSpacing, surahName;
 
 /// One surah: its heading and basmala, then each ayah with its translation
@@ -180,7 +179,7 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen> {
           child: AnimatedSwitcher(
             duration: WaqtMotion.ui,
             child: playingHere
-                ? _PlayerPanel(quran: q, surah: s)
+                ? const RecitationBar()
                 : _Toolbar(
                     ayah: _visible,
                     total: s.ayahs,
@@ -697,148 +696,4 @@ class _Toolbar extends ConsumerWidget {
   }
 }
 
-/// Board 06's player, compact and calm: the page's own surface, a thin
-/// progress line on top, play beside the reciter and the ayah, and the few
-/// controls on one row.
-class _PlayerPanel extends ConsumerWidget {
-  const _PlayerPanel({required this.quran, required this.surah});
-  final Quran quran;
-  final Surah surah;
-
-  static const _speeds = [0.75, 1.0, 1.25, 1.5];
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final l = AppLocalizations.of(context);
-    final t = WaqtTokens.of(context);
-    final rec = ref.watch(recitationProvider);
-    final player = ref.read(recitationProvider.notifier);
-    final prefs = ref.watch(quranPrefsProvider);
-    final reciter = reciterById(prefs.reciter);
-    final local = ref.watch(recitationDownloadsProvider.select((d) => d.done.contains(surah.n)));
-    final speed = prefs.speed;
-    String fmt(Duration d) => '${d.inMinutes}:${'${d.inSeconds % 60}'.padLeft(2, '0')}';
-    final caption = WaqtText.caption.copyWith(color: t.inkMuted, fontFeatures: const [FontFeature.tabularFigures()]);
-    return Container(
-      clipBehavior: Clip.antiAlias,
-      decoration: _calm(t, 24),
-      child: StreamBuilder<Duration>(
-        stream: player.position,
-        builder: (context, snap) {
-          final pos = snap.data ?? Duration.zero;
-          final len = player.duration ?? Duration.zero;
-          final v = len.inMilliseconds == 0 ? 0.0 : (pos.inMilliseconds / len.inMilliseconds).clamp(0.0, 1.0);
-          final a = rec.ayah ?? 0;
-          return Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              LinearProgressIndicator(
-                value: rec.loading ? null : v,
-                minHeight: 3,
-                color: t.accent,
-                backgroundColor: t.hairline,
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(WaqtSpace.x2, WaqtSpace.x2, WaqtSpace.x1, WaqtSpace.x2),
-                child: Row(
-                  children: [
-                    IconButton.filled(
-                      tooltip: rec.playing ? l.quranPause : l.quranPlay,
-                      onPressed: player.toggle,
-                      style: IconButton.styleFrom(
-                        backgroundColor: t.ink,
-                        foregroundColor: t.ground,
-                        minimumSize: const Size(48, 48),
-                      ),
-                      icon: Icon(rec.playing ? Icons.pause_rounded : Icons.play_arrow_rounded, size: 28),
-                    ),
-                    const SizedBox(width: WaqtSpace.x2),
-                    Expanded(
-                      child: InkWell(
-                        borderRadius: BorderRadius.circular(WaqtRadii.row),
-                        onTap: () => context.push('/quran/reciters'),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 4),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                reciter.name,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: WaqtText.bodyStrong.copyWith(color: t.ink),
-                              ),
-                              Text(
-                                '${a == 0 ? surahName(context, surah) : l.quranAyahOf(a, surah.ayahs)} · ${fmt(pos)} / ${fmt(len)}',
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: caption,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    IconButton(
-                      tooltip: l.quranPrevAyah,
-                      onPressed: player.previous,
-                      color: t.ink,
-                      icon: const Icon(Icons.skip_previous_rounded),
-                    ),
-                    IconButton(
-                      tooltip: l.quranNextAyah,
-                      onPressed: player.next,
-                      color: t.ink,
-                      icon: const Icon(Icons.skip_next_rounded),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(WaqtSpace.x2, 0, WaqtSpace.x2, WaqtSpace.x1),
-                child: Row(
-                  children: [
-                    TextButton(
-                      onPressed: () => player.setSpeed(_speeds[(_speeds.indexOf(speed) + 1) % _speeds.length]),
-                      style: TextButton.styleFrom(foregroundColor: t.ink, minimumSize: const Size(48, 40)),
-                      child: Semantics(
-                        label: l.quranSpeed,
-                        child: Text(
-                          '${speed == speed.roundToDouble() ? speed.toInt() : speed}×',
-                          style: WaqtText.label.copyWith(color: t.ink, fontWeight: FontWeight.w700),
-                        ),
-                      ),
-                    ),
-                    TextButton.icon(
-                      onPressed: () => context.push('/quran/downloads'),
-                      style: TextButton.styleFrom(foregroundColor: t.inkMuted, minimumSize: const Size(0, 40)),
-                      icon: Icon(local ? Icons.download_done_rounded : Icons.wifi_rounded, size: 16),
-                      label: Text(local ? l.quranOnPhone : l.quranStreaming, style: WaqtText.label),
-                    ),
-                    const Spacer(),
-                    IconButton(
-                      tooltip: l.quranStop,
-                      onPressed: player.stop,
-                      color: t.inkMuted,
-                      icon: const Icon(Icons.close_rounded),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          );
-        },
-      ),
-    );
-  }
-}
-
-/// The reader's floating bars: the page's own raised surface with a hairline
-/// and a soft shadow, so they sit on the page without pulling the eye.
-BoxDecoration _calm(WaqtTokens t, double radius) => BoxDecoration(
-  color: Color.alphaBlend(t.surface, t.ground),
-  borderRadius: BorderRadius.circular(radius),
-  border: Border.all(color: t.hairline),
-  boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.10), blurRadius: 24, offset: const Offset(0, 8))],
-);
+BoxDecoration _calm(WaqtTokens t, double radius) => recitationSurface(t, radius);

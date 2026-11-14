@@ -5,6 +5,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:waqt/platform/quran_audio.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:waqt/data/user/user_prefs.dart';
@@ -286,6 +287,40 @@ void main() {
         await t.pumpAndSettle();
         await t.tap(find.text('Resume'));
       },
+    ),
+  );
+
+  testWidgets(
+    'quran reader, reciting',
+    (t) async => shoot(
+      t,
+      '71d_quran_reciting',
+      await app(
+        at: DateTime(2026, 11, 6, 9, 41),
+        place: dhaka,
+        stored: {'quran.progress.v1': '{"last":[1,2]}'},
+        reciting: const Recitation(surah: 1, ayah: 3, playing: true),
+      ),
+      then: () async {
+        await t.tap(find.byTooltip('Quran'));
+        await t.pumpAndSettle();
+        await t.tap(find.text('Resume'));
+      },
+    ),
+  );
+
+  testWidgets(
+    'recitation bar on Today, marks on prayers',
+    (t) async => shoot(
+      t,
+      '42c_today_marks_reciting',
+      await app(
+        at: DateTime(2026, 11, 6, 16, 20),
+        place: dhaka,
+        stored: {'deeds.v1.2026-11': '{"2026-11-06":{"s":{"fajr":"jamaah","dhuhr":"onTime"}}}'},
+        reciting: const Recitation(surah: 18, ayah: 10, playing: true),
+      ),
+      then: () async => t.tap(find.byTooltip('Today')),
     ),
   );
 

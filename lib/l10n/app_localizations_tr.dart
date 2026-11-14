@@ -1372,7 +1372,7 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String get deedRingHint => 'Kıldıktan sonra Şimdi ekranında namazı işaretleyin. Bunu yalnızca siz görürsünüz.';
+  String get deedRingHint => 'Her namazı kıldıktan sonra işaretleyin. Bunu yalnızca siz görürsünüz.';
 
   @override
   String deedStreak(String days) {
@@ -1901,4 +1901,19 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get onbGreeting => 'Esselâmü aleyküm,';
+
+  @override
+  String get quranMore => 'Daha fazla';
+
+  @override
+  String get todayMark => 'İşaretle';
+
+  @override
+  String get todayOnTime => 'Vaktinde';
+
+  @override
+  String get todayJamaah => 'Cemaatle';
+
+  @override
+  String get todayQada => 'Kaza';
 }

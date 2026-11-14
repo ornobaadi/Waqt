@@ -840,7 +840,7 @@
       }
     }
   },
-  "deedRingHint": "Tick a prayer on Now once you have prayed it. Only you see this.",
+  "deedRingHint": "Mark each prayer once you've prayed it. Only you see this.",
   "deedStreak": "{days} days in a row with all five",
   "@deedStreak": {
     "placeholders": {
@@ -1179,5 +1179,10 @@
   "quranSearch": "Find a surah",
   "quranSearchHint": "Name or number, like Yasin or 36",
   "quranSearchNone": "No surah by that name",
-  "onbGreeting": "Assalaamu Alaikum,"
+  "onbGreeting": "Assalaamu Alaikum,",
+  "quranMore": "More",
+  "todayMark": "Mark",
+  "todayOnTime": "On time",
+  "todayJamaah": "Jama'ah",
+  "todayQada": "Made up"
 }

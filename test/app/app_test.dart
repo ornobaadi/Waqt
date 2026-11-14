@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/services.dart';
 import 'package:waqt/data/user/reading_prefs.dart';
+import 'package:waqt/platform/quran_audio.dart';
 import 'package:waqt/data/user/user_prefs.dart';
 
 import 'package:waqt/features/duas/dua_views.dart';
@@ -286,6 +287,47 @@ void main() {
     tester.widget<IconButton>(find.widgetWithIcon(IconButton, Icons.info_outline_rounded).first).onPressed!();
     await tester.pumpAndSettle();
     expect(find.byType(DraggableScrollableSheet), findsOneWidget);
+  });
+
+  testWidgets('Today: mark a prayer from its row; sunrise has no mark', (tester) async {
+    tester.view.physicalSize = const Size(1170, 2532);
+    tester.view.devicePixelRatio = 3;
+    addTearDown(tester.view.reset);
+    await tester.pumpWidget(await app(at: DateTime(2026, 11, 6, 16, 20), place: dhaka));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byTooltip('Today'));
+    await tester.pumpAndSettle();
+    // Fajr, Dhuhr and Asr have begun (unmarked); Maghrib and Isha have not.
+    expect(find.text('Mark'), findsNWidgets(3));
+    final asr = find.text('Mark').at(2);
+    await tester.ensureVisible(asr);
+    await tester.pumpAndSettle();
+    await tester.tap(asr);
+    await tester.pumpAndSettle();
+    expect(find.text('Made up later'), findsNothing); // Asr's time is still running
+    await tester.tap(find.text('In congregation'));
+    await tester.pumpAndSettle();
+    expect(find.text("Jama'ah"), findsOneWidget);
+    expect(find.text('Mark'), findsNWidgets(2));
+  });
+
+  testWidgets('a recitation keeps a small bar above the dock on every tab; × stops it', (tester) async {
+    await tester.pumpWidget(
+      await app(
+        at: DateTime(2026, 11, 6, 9, 41),
+        place: dhaka,
+        reciting: const Recitation(surah: 18, ayah: 10, playing: true),
+      ),
+    );
+    await tester.pumpAndSettle();
+    expect(find.text('Al-Kahf · Ayah 10 of 110'), findsOneWidget);
+    await tester.tap(find.byTooltip('Today'));
+    await tester.pumpAndSettle();
+    expect(find.text('Al-Kahf · Ayah 10 of 110'), findsOneWidget);
+    expect(find.byTooltip('Pause'), findsOneWidget);
+    await tester.tap(find.byTooltip('Stop'));
+    await tester.pumpAndSettle();
+    expect(find.text('Al-Kahf · Ayah 10 of 110'), findsNothing);
   });
 
   testWidgets('bedtime checklist ticks and resets with the prayer day', (tester) async {

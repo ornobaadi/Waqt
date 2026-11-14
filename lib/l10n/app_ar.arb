@@ -348,7 +348,7 @@
   "deedQada": "قضاء",
   "deedNotPrayed": "لم تُسجَّل",
   "deedPrayedCount": "{done} من ٥ صلوات",
-  "deedRingHint": "علّم الصلاة في صفحة «الآن» بعد أن تصليها. لا يراها أحد غيرك.",
+  "deedRingHint": "سجّل كل صلاة بعد أن تصلّيها. لا يراها غيرك.",
   "deedStreak": "{days} أيام متتالية بالصلوات الخمس",
   "progressTitle": "تقدّمك",
   "progressThisWeek": "هذا الأسبوع",
@@ -505,5 +505,10 @@
   "quranSearch": "ابحث عن سورة",
   "quranSearchHint": "الاسم أو الرقم، مثل يس أو ٣٦",
   "quranSearchNone": "لا توجد سورة بهذا الاسم",
-  "onbGreeting": "السلام عليكم،"
+  "onbGreeting": "السلام عليكم،",
+  "quranMore": "المزيد",
+  "todayMark": "سجّل",
+  "todayOnTime": "في وقتها",
+  "todayJamaah": "جماعة",
+  "todayQada": "قضاء"
 }

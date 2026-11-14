@@ -5,6 +5,8 @@ import 'package:go_router/go_router.dart';
 
 import '../core/theme/waqt_theme.dart';
 import 'dock.dart';
+import '../core/theme/tokens.dart' show WaqtSpace;
+import '../features/quran/recitation_bar.dart';
 import '../features/calendar/calendar_screen.dart';
 import '../features/counter/counter_screen.dart';
 import '../features/duas/dua_views.dart';
@@ -147,23 +149,38 @@ class _Shell extends StatelessWidget {
           // around it, and scrolling lists get its height as bottom padding.
           extendBody: true,
           body: shell,
-          bottomNavigationBar: WaqtDock(
-            selected: shell.currentIndex,
-            onSelect: (i) => shell.goBranch(i, initialLocation: i == shell.currentIndex),
-            items: [
-              DockItem(icon: Icons.wb_twilight_outlined, selectedIcon: Icons.wb_twilight_rounded, label: l.navNow),
-              DockItem(
-                icon: Icons.view_timeline_outlined,
-                selectedIcon: Icons.view_timeline_rounded,
-                label: l.navToday,
+          // A recitation keeps going when you leave the reader: a small bar
+          // above the dock shows it, pauses it, opens it, or closes it.
+          bottomNavigationBar: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Padding(
+                padding: EdgeInsets.fromLTRB(WaqtSpace.x3, 0, WaqtSpace.x3, WaqtSpace.x2),
+                child: RecitationBar(mini: true),
               ),
-              DockItem(icon: Icons.auto_stories_outlined, selectedIcon: Icons.auto_stories_rounded, label: l.navQuran),
-              DockItem(
-                icon: Icons.volunteer_activism_outlined,
-                selectedIcon: Icons.volunteer_activism,
-                label: l.navDuas,
+              WaqtDock(
+                selected: shell.currentIndex,
+                onSelect: (i) => shell.goBranch(i, initialLocation: i == shell.currentIndex),
+                items: [
+                  DockItem(icon: Icons.wb_twilight_outlined, selectedIcon: Icons.wb_twilight_rounded, label: l.navNow),
+                  DockItem(
+                    icon: Icons.view_timeline_outlined,
+                    selectedIcon: Icons.view_timeline_rounded,
+                    label: l.navToday,
+                  ),
+                  DockItem(
+                    icon: Icons.auto_stories_outlined,
+                    selectedIcon: Icons.auto_stories_rounded,
+                    label: l.navQuran,
+                  ),
+                  DockItem(
+                    icon: Icons.volunteer_activism_outlined,
+                    selectedIcon: Icons.volunteer_activism,
+                    label: l.navDuas,
+                  ),
+                  DockItem(icon: Icons.tune_outlined, selectedIcon: Icons.tune_rounded, label: l.navSettings),
+                ],
               ),
-              DockItem(icon: Icons.tune_outlined, selectedIcon: Icons.tune_rounded, label: l.navSettings),
             ],
           ),
         ),

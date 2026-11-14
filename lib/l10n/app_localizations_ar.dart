@@ -1363,7 +1363,7 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
-  String get deedRingHint => 'علّم الصلاة في صفحة «الآن» بعد أن تصليها. لا يراها أحد غيرك.';
+  String get deedRingHint => 'سجّل كل صلاة بعد أن تصلّيها. لا يراها غيرك.';
 
   @override
   String deedStreak(String days) {
@@ -1907,4 +1907,19 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get onbGreeting => 'السلام عليكم،';
+
+  @override
+  String get quranMore => 'المزيد';
+
+  @override
+  String get todayMark => 'سجّل';
+
+  @override
+  String get todayOnTime => 'في وقتها';
+
+  @override
+  String get todayJamaah => 'جماعة';
+
+  @override
+  String get todayQada => 'قضاء';
 }

@@ -16,7 +16,11 @@ import '../../core/utils/digits.dart';
 import '../../data/quran/quran.dart';
 import '../../data/quran/quran_prefs.dart';
 import '../counter/counter_screen.dart' show counterProvider;
+import '../../data/user/deeds_store.dart';
+import '../../domain/prayer/prayer_times_service.dart';
 import '../../l10n/app_localizations.dart';
+import '../../platform/haptics/haptics.dart';
+import '../now/prayer_tick.dart';
 import '../quran/quran_screen.dart' show openReader;
 import '../common/labels.dart';
 import '../now/moment_cards.dart' show clockFormat;
@@ -70,7 +74,15 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
         rows.add(_NowMarker(key: _nowKey, now: now));
         nowPlaced = true;
       }
-      rows.add(_Row(moment: m, active: snap.active.contains(m), past: !m.window.end.isAfter(now)));
+      rows.add(
+        _Row(
+          moment: m,
+          active: snap.active.contains(m),
+          past: !m.window.end.isAfter(now),
+          now: now,
+          dayKey: DeedStats.dayKey(snap.timeline.first.window.start),
+        ),
+      );
     }
     if (!nowPlaced) rows.add(_NowMarker(key: _nowKey, now: now));
 
@@ -192,10 +204,12 @@ class _Rail extends StatelessWidget {
 }
 
 class _Row extends StatelessWidget {
-  const _Row({required this.moment, required this.active, required this.past});
+  const _Row({required this.moment, required this.active, required this.past, required this.now, required this.dayKey});
   final Moment moment;
   final bool active;
   final bool past;
+  final DateTime now;
+  final String dayKey;
 
   @override
   Widget build(BuildContext context) {
@@ -217,7 +231,8 @@ class _Row extends StatelessWidget {
       excludeSemantics: true,
       child: AnimatedOpacity(
         duration: WaqtMotion.ui,
-        opacity: past ? 0.42 : 1,
+        // A past prayer stays readable: its mark is what you come back for.
+        opacity: past && !prayer ? 0.42 : 1,
         child: IntrinsicHeight(
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -248,22 +263,101 @@ class _Row extends StatelessWidget {
                     color: active ? t.surface : Colors.transparent,
                     borderRadius: BorderRadius.circular(WaqtRadii.row),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  child: Row(
                     children: [
-                      title,
-                      const SizedBox(height: 2),
-                      Text(
-                        restricted
-                            ? '${fmt.format(w.start)} – ${fmt.format(w.end)}  ·  ${l.kindRestricted}'
-                            : '${fmt.format(w.start)} – ${fmt.format(w.end)}',
-                        style: WaqtText.caption.copyWith(color: t.inkMuted),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            title,
+                            const SizedBox(height: 2),
+                            Text(
+                              restricted
+                                  ? '${fmt.format(w.start)} – ${fmt.format(w.end)}  ·  ${l.kindRestricted}'
+                                  : '${fmt.format(w.start)} – ${fmt.format(w.end)}',
+                              style: WaqtText.caption.copyWith(color: t.inkMuted),
+                              maxLines: prayer ? 1 : null,
+                              softWrap: !prayer,
+                              overflow: prayer ? TextOverflow.fade : null,
+                            ),
+                          ],
+                        ),
                       ),
+                      if (prayer && !w.start.isAfter(now) && fivePrayers.any((p) => p.name == moment.id.name)) ...[
+                        const SizedBox(width: WaqtSpace.x2),
+                        _MarkChip(
+                          prayer: Waqt.values.byName(moment.id.name),
+                          dayKey: dayKey,
+                          ended: !w.end.isAfter(now),
+                        ),
+                      ],
                     ],
                   ),
                 ),
               ),
             ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Board 02: a prayer that has begun carries how it was kept, or a small
+/// button to mark it. The same choices as a long press on Now's strip.
+class _MarkChip extends ConsumerWidget {
+  const _MarkChip({required this.prayer, required this.dayKey, required this.ended});
+  final Waqt prayer;
+  final String dayKey;
+  final bool ended;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l = AppLocalizations.of(context);
+    final t = WaqtTokens.of(context);
+    final m = ref.watch(deedsProvider.select((d) => d[dayKey]?.salah[prayer]));
+    final label = switch (m) {
+      null => l.todayMark,
+      SalahMark.onTime => l.todayOnTime,
+      SalahMark.jamaah => l.todayJamaah,
+      SalahMark.qada => l.todayQada,
+    };
+    // Board 02: a solid pill. Not yet marked: dark with a check to invite
+    // the tap. Marked: that mark's colour, its sign and its name.
+    final bg = m == null ? t.ink : MarkColors.of(t, m);
+    final fg = m == null ? t.ground : MarkColors.on(t, m);
+    return Semantics(
+      button: true,
+      label: '${l.waqt(prayer)}: ${markLabel(l, m)}',
+      excludeSemantics: true,
+      child: Material(
+        color: bg,
+        shape: const StadiumBorder(),
+        child: InkWell(
+          customBorder: const StadiumBorder(),
+          onTap: () async {
+            Haptics.tick();
+            final picked = await showSalahSheet(context, prayer, m, late: ended);
+            if (picked != null) ref.read(deedsProvider.notifier).markSalah(dayKey, prayer, picked.$1);
+          },
+          child: Container(
+            constraints: const BoxConstraints(minHeight: 36, minWidth: 48),
+            padding: const EdgeInsetsDirectional.fromSTEB(10, 0, 14, 0),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                if (m == null)
+                  Icon(Icons.check_rounded, size: 16, color: fg)
+                else
+                  MarkSign(mark: m, size: 13, color: fg),
+                const SizedBox(width: 6),
+                Text(
+                  label,
+                  maxLines: 1,
+                  style: WaqtText.label.copyWith(color: fg, fontWeight: FontWeight.w700),
+                ),
+              ],
+            ),
           ),
         ),
       ),

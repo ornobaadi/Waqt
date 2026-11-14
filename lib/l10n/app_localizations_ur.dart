@@ -1370,7 +1370,7 @@ class AppLocalizationsUr extends AppLocalizations {
   }
 
   @override
-  String get deedRingHint => 'نماز پڑھ کر \"ابھی\" پر اس پر نشان لگائیں۔ یہ صرف آپ دیکھتے ہیں۔';
+  String get deedRingHint => 'ہر نماز پڑھنے کے بعد اسے درج کریں۔ یہ صرف آپ دیکھتے ہیں۔';
 
   @override
   String deedStreak(String days) {
@@ -1894,4 +1894,19 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get onbGreeting => 'السلام علیکم،';
+
+  @override
+  String get quranMore => 'مزید';
+
+  @override
+  String get todayMark => 'درج کریں';
+
+  @override
+  String get todayOnTime => 'وقت پر';
+
+  @override
+  String get todayJamaah => 'باجماعت';
+
+  @override
+  String get todayQada => 'قضا';
 }

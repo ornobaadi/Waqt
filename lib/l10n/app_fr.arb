@@ -320,7 +320,7 @@
   "deedQada": "Rattrapée plus tard",
   "deedNotPrayed": "Non cochée",
   "deedPrayedCount": "{done} sur 5 prières",
-  "deedRingHint": "Cochez une prière sur Maintenant une fois accomplie. Vous seul le voyez.",
+  "deedRingHint": "Marquez chaque prière une fois faite. Vous seul le voyez.",
   "deedStreak": "{days} jours de suite avec les cinq",
   "progressTitle": "Vos progrès",
   "progressThisWeek": "Cette semaine",
@@ -477,5 +477,10 @@
   "quranSearch": "Trouver une sourate",
   "quranSearchHint": "Nom ou numéro, par exemple Yasin ou 36",
   "quranSearchNone": "Aucune sourate de ce nom",
-  "onbGreeting": "Assalamou alaykoum,"
+  "onbGreeting": "Assalamou alaykoum,",
+  "quranMore": "Plus",
+  "todayMark": "Marquer",
+  "todayOnTime": "À l'heure",
+  "todayJamaah": "En groupe",
+  "todayQada": "Rattrapée"
 }

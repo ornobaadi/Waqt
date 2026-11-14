@@ -71,9 +71,9 @@ flutter:
     - family: NotoNastaliqUrdu
       fonts:
         - asset: assets/fonts/NotoNastaliqUrdu.ttf
-    - family: NotoSansBengali
+    - family: AnekBangla
       fonts:
-        - asset: assets/fonts/NotoSansBengali.ttf
+        - asset: assets/fonts/AnekBangla.ttf
     - family: AmiriQuran
       fonts:
         - asset: assets/fonts/AmiriQuran.ttf

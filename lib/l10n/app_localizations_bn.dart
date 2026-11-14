@@ -1366,7 +1366,7 @@ class AppLocalizationsBn extends AppLocalizations {
   }
 
   @override
-  String get deedRingHint => 'নামাজ পড়ার পর \"এখন\" পাতায় টিক দিন। শুধু আপনিই দেখবেন।';
+  String get deedRingHint => 'প্রতিটি নামাজ পড়ার পর চিহ্ন দিন। শুধু আপনিই এটি দেখবেন।';
 
   @override
   String deedStreak(String days) {
@@ -1891,4 +1891,19 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get onbGreeting => 'আসসালামু আলাইকুম,';
+
+  @override
+  String get quranMore => 'আরও';
+
+  @override
+  String get todayMark => 'চিহ্ন দিন';
+
+  @override
+  String get todayOnTime => 'সময়মতো';
+
+  @override
+  String get todayJamaah => 'জামাতে';
+
+  @override
+  String get todayQada => 'কাজা';
 }

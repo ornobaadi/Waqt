@@ -2394,7 +2394,7 @@ abstract class AppLocalizations {
   /// No description provided for @deedRingHint.
   ///
   /// In en, this message translates to:
-  /// **'Tick a prayer on Now once you have prayed it. Only you see this.'**
+  /// **'Mark each prayer once you\'ve prayed it. Only you see this.'**
   String get deedRingHint;
 
   /// No description provided for @deedStreak.
@@ -3338,6 +3338,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Assalaamu Alaikum,'**
   String get onbGreeting;
+
+  /// No description provided for @quranMore.
+  ///
+  /// In en, this message translates to:
+  /// **'More'**
+  String get quranMore;
+
+  /// No description provided for @todayMark.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark'**
+  String get todayMark;
+
+  /// No description provided for @todayOnTime.
+  ///
+  /// In en, this message translates to:
+  /// **'On time'**
+  String get todayOnTime;
+
+  /// No description provided for @todayJamaah.
+  ///
+  /// In en, this message translates to:
+  /// **'Jama\'ah'**
+  String get todayJamaah;
+
+  /// No description provided for @todayQada.
+  ///
+  /// In en, this message translates to:
+  /// **'Made up'**
+  String get todayQada;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -334,7 +334,7 @@
   "deedQada": "قضا ادا کی",
   "deedNotPrayed": "نشان نہیں لگا",
   "deedPrayedCount": "٥ میں سے {done} نمازیں",
-  "deedRingHint": "نماز پڑھ کر \"ابھی\" پر اس پر نشان لگائیں۔ یہ صرف آپ دیکھتے ہیں۔",
+  "deedRingHint": "ہر نماز پڑھنے کے بعد اسے درج کریں۔ یہ صرف آپ دیکھتے ہیں۔",
   "deedStreak": "مسلسل {days} دن پانچوں نمازیں",
   "progressTitle": "آپ کی پیش رفت",
   "progressThisWeek": "یہ ہفتہ",
@@ -491,5 +491,10 @@
   "quranSearch": "سورت تلاش کریں",
   "quranSearchHint": "نام یا نمبر، جیسے یٰسین یا 36",
   "quranSearchNone": "اس نام کی کوئی سورت نہیں",
-  "onbGreeting": "السلام علیکم،"
+  "onbGreeting": "السلام علیکم،",
+  "quranMore": "مزید",
+  "todayMark": "درج کریں",
+  "todayOnTime": "وقت پر",
+  "todayJamaah": "باجماعت",
+  "todayQada": "قضا"
 }

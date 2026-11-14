@@ -155,6 +155,9 @@ Margins awaiting scholar review: see `docs/moment-rules.md`.
 - [x] Translations read through: the translator's own "(1)" left off, footnote marks as small raised numbers. English is now Rowwad (QuranEnc), plainer than Saheeh; Bangla stays Zakaria (QuranEnc's only Bangla translation; "Mokhtasar" is a tafsir).
 - [x] Player and reader bar on the page's own surface (no inverted panel); compact player.
 - [x] Onboarding location: a recent fix is used at once, a fresh one waits 8 s at most, and onboarding moves on as soon as location is allowed.
+- [x] Bangla UI font: Anek Bangla (OFL), replacing Noto Sans Bengali (a clear ১ at every weight).
+- [x] Player: one 64 dp row (play, ayah and reciter, previous/next, a menu for speed, downloads and stop). Leaving the reader, a mini bar above the dock keeps it (pause, open, ×); stopping from the notification clears it. Notification icon is the flat status-bar mark.
+- [x] Today: each prayer that has begun carries a Mark pill, or how it was kept (same choices as Now's strip).
 - [ ] On a device: check IndoPak and Amiri line spacing at the largest size, and the player in the night palette.
 
 ## Later

@@ -326,7 +326,7 @@
   "deedQada": "কাজা আদায়",
   "deedNotPrayed": "চিহ্নিত নয়",
   "deedPrayedCount": "৫ ওয়াক্তের {done}টি পড়েছি",
-  "deedRingHint": "নামাজ পড়ার পর \"এখন\" পাতায় টিক দিন। শুধু আপনিই দেখবেন।",
+  "deedRingHint": "প্রতিটি নামাজ পড়ার পর চিহ্ন দিন। শুধু আপনিই এটি দেখবেন।",
   "deedStreak": "টানা {days} দিন পাঁচ ওয়াক্ত",
   "progressTitle": "আপনার অগ্রগতি",
   "progressThisWeek": "এই সপ্তাহ",
@@ -483,5 +483,10 @@
   "quranSearch": "সূরা খুঁজুন",
   "quranSearchHint": "নাম বা নম্বর, যেমন ইয়াসিন বা ৩৬",
   "quranSearchNone": "এই নামে কোনো সূরা নেই",
-  "onbGreeting": "আসসালামু আলাইকুম,"
+  "onbGreeting": "আসসালামু আলাইকুম,",
+  "quranMore": "আরও",
+  "todayMark": "চিহ্ন দিন",
+  "todayOnTime": "সময়মতো",
+  "todayJamaah": "জামাতে",
+  "todayQada": "কাজা"
 }
