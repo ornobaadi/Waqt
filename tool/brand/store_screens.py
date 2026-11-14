@@ -180,17 +180,24 @@ def frame(title: str, sub: str, pal, layout: str, screens, floats=()) -> str:
 def feature_graphic() -> str:
     top, bottom, ink, soft = NIGHT
     icon = (STORE / 'play-icon-512.png').as_uri()
-    phones = (phone('06_now_night', 250, 590, 70, 'rotateY(22deg) rotateZ(-6deg) translateZ(-80px)', 1, .5)
-              + phone('40_now_salah_ticks', 270, 760, 36, 'rotateY(-18deg) rotateZ(4deg)', 2, .55))
+    # The Quran reader in front, Now behind it, and the player lifted off the reader.
+    phones = (phone('40_now_salah_ticks', 250, 570, 70, 'rotateY(22deg) rotateZ(-6deg) translateZ(-80px)', 1, .5)
+              + phone('71d_quran_reciting', 270, 750, 36, 'rotateY(-18deg) rotateZ(4deg)', 2, .55)
+              + crop('71d_quran_reciting', (30, 1820, 895, 1970), 300, 640, 372,
+                     'rotateY(-12deg) rotateZ(3deg) translateZ(120px)', 26))
     return f'''{fonts()}<div class="r"><div style="position:relative;width:1024px;height:500px;overflow:hidden;
   background:radial-gradient(520px 420px at 78% 40%,rgba(255,236,190,.18),transparent 70%),linear-gradient(150deg,{top},{bottom});
   font-family:Inter">
-<img src="{icon}" style="position:absolute;left:72px;top:96px;width:96px;height:96px;border-radius:24px;
+<svg style="position:absolute;left:520px;top:60px;opacity:.75;width:22px;height:22px" viewBox="0 0 24 24">
+  <path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" fill="#FFE0A0"/></svg>
+<svg style="position:absolute;left:980px;top:300px;opacity:.6;width:18px;height:18px" viewBox="0 0 24 24">
+  <path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" fill="#FFE0A0"/></svg>
+<img src="{icon}" style="position:absolute;left:72px;top:80px;width:96px;height:96px;border-radius:24px;
   box-shadow:0 12px 30px rgba(0,0,0,.4)">
-<div style="position:absolute;left:66px;top:200px;color:{ink};font-family:Disp;font-weight:800;font-size:116px;
+<div style="position:absolute;left:66px;top:186px;color:{ink};font-family:Disp;font-weight:800;font-size:116px;
   letter-spacing:-4px;line-height:1;font-variation-settings:'opsz' 96">Waqt</div>
-<div style="position:absolute;left:72px;top:330px;width:440px;color:{soft};font-size:30px;font-weight:500;line-height:1.3">
-  The right dua for every moment of your day</div>
+<div style="position:absolute;left:72px;top:316px;width:440px;color:{soft};font-size:30px;font-weight:500;line-height:1.3">
+  Quran, duas and prayer times for every moment of your day</div>
 <div style="position:absolute;inset:0;perspective:1800px">{phones}</div>
 </div></div>'''
 
