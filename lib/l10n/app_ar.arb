@@ -519,8 +519,6 @@
   "quranSavedShort": "محفوظة",
   "quranTranslitSource": "النطق بالحروف اللاتينية: Tanzil.net، للاستخدام غير التجاري.",
   "quranWellKnown": "سور وآيات مشهورة",
-  "quranShowAll": "عرض الكل",
-  "quranShowLess": "عرض أقل",
   "quranKursi": "آية الكرسي",
   "quranWhyKursi": "أعظم آية في كتاب الله",
   "quranFatihah": "سورة الفاتحة",
@@ -535,5 +533,7 @@
   "undo": "تراجع",
   "quranStopRecitation": "إيقاف التلاوة",
   "quranAudio": "الصوت",
-  "quranPlayback": "خيارات التشغيل"
+  "quranPlayback": "خيارات التشغيل",
+  "quranWellKnownHint": "أين هي، ولماذا تُقرأ",
+  "quranRightNowPassage": "الآن: {name}"
 }

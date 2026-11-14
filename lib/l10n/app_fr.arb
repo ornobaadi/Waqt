@@ -491,8 +491,6 @@
   "quranSavedShort": "Enregistré",
   "quranTranslitSource": "Translittération : Tanzil.net, usage non commercial.",
   "quranWellKnown": "Passages bien connus",
-  "quranShowAll": "Tout afficher",
-  "quranShowLess": "Afficher moins",
   "quranKursi": "Ayat al-Kursi",
   "quranWhyKursi": "Le plus grand verset du Coran",
   "quranFatihah": "Sourate al-Fatiha",
@@ -507,5 +505,7 @@
   "undo": "Annuler",
   "quranStopRecitation": "Arrêter la récitation",
   "quranAudio": "Audio",
-  "quranPlayback": "Options de lecture"
+  "quranPlayback": "Options de lecture",
+  "quranWellKnownHint": "Où ils se trouvent, et pourquoi on les lit",
+  "quranRightNowPassage": "En ce moment : {name}"
 }

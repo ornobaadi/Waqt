@@ -505,8 +505,6 @@
   "quranSavedShort": "محفوظ",
   "quranTranslitSource": "رومن تلفظ: Tanzil.net، غیر تجارتی استعمال کے لیے۔",
   "quranWellKnown": "مشہور سورتیں اور آیات",
-  "quranShowAll": "سب دیکھیں",
-  "quranShowLess": "کم دیکھیں",
   "quranKursi": "آیت الکرسی",
   "quranWhyKursi": "قرآن کی سب سے عظیم آیت",
   "quranFatihah": "سورۃ الفاتحہ",
@@ -521,5 +519,7 @@
   "undo": "واپس لیں",
   "quranStopRecitation": "تلاوت بند کریں",
   "quranAudio": "آڈیو",
-  "quranPlayback": "پلے بیک کے اختیارات"
+  "quranPlayback": "پلے بیک کے اختیارات",
+  "quranWellKnownHint": "یہ کہاں ہیں، اور کیوں پڑھی جاتی ہیں",
+  "quranRightNowPassage": "ابھی: {name}"
 }

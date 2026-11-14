@@ -136,10 +136,6 @@ class QuranScreen extends ConsumerStatefulWidget {
 class _QuranScreenState extends ConsumerState<QuranScreen> {
   var _tab = 0;
 
-  /// Well-known passages: the first few, or all of them.
-  static const _shownPassages = 5;
-  var _allPassages = false;
-
   /// Non-null while the surah search is open.
   String? _query;
 
@@ -216,24 +212,10 @@ class _QuranScreenState extends ConsumerState<QuranScreen> {
                         : _list(found.length, (i) => _SurahRow(surah: found[i])),
                 ] else ...[
                   _pad(_ContinueCard(quran: q, at: progress.last)),
-                  _pad(SectionLabel(l.quranWellKnown)),
                   _pad(
-                    RowGroup(
-                      children: [
-                        for (final p in _allPassages ? picks : picks.take(_shownPassages))
-                          _PassageRow(pick: p, highlight: p.moments.any(now.contains), quran: q),
-                      ],
-                    ),
-                  ),
-                  _pad(
-                    Align(
-                      alignment: AlignmentDirectional.centerStart,
-                      child: TextButton.icon(
-                        onPressed: () => setState(() => _allPassages = !_allPassages),
-                        style: TextButton.styleFrom(foregroundColor: t.ink),
-                        icon: Icon(_allPassages ? Icons.expand_less_rounded : Icons.expand_more_rounded),
-                        label: Text(_allPassages ? l.quranShowLess : l.quranShowAll),
-                      ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: WaqtSpace.x4),
+                      child: _PassagesRow(picks: picks, now: now, quran: q),
                     ),
                   ),
                   _pad(
@@ -376,8 +358,105 @@ class _ContinueCard extends StatelessWidget {
   }
 }
 
+/// One quiet row above the surahs: the well-known passages, and the one for
+/// this moment when there is one. The list opens in a sheet.
+class _PassagesRow extends StatelessWidget {
+  const _PassagesRow({required this.picks, required this.now, required this.quran});
+  final List<QuranPassage> picks;
+  final Set<MomentId> now;
+  final Quran quran;
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+    final t = WaqtTokens.of(context);
+    final fits = picks.where((p) => p.moments.any(now.contains)).firstOrNull;
+    return Material(
+      color: t.surface,
+      borderRadius: BorderRadius.circular(WaqtRadii.strip),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(WaqtRadii.strip),
+        onTap: () => _open(context),
+        child: Padding(
+          padding: const EdgeInsetsDirectional.fromSTEB(WaqtSpace.x4, WaqtSpace.x3, WaqtSpace.x3, WaqtSpace.x3),
+          child: Row(
+            children: [
+              Container(
+                width: 36,
+                height: 36,
+                decoration: BoxDecoration(color: t.ground, shape: BoxShape.circle),
+                child: Icon(Icons.star_outline_rounded, size: 20, color: t.ink),
+              ),
+              const SizedBox(width: WaqtSpace.x3),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(l.quranWellKnown, style: WaqtText.bodyStrong.copyWith(color: t.ink)),
+                    Text(
+                      fits == null ? l.quranWellKnownHint : l.quranRightNowPassage(fits.title(l)),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: WaqtText.caption.copyWith(color: t.inkMuted),
+                    ),
+                  ],
+                ),
+              ),
+              Icon(Icons.chevron_right_rounded, color: t.inkMuted, textDirection: Directionality.of(context)),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Future<void> _open(BuildContext context) {
+    final t = WaqtTokens.of(context);
+    return showModalBottomSheet<void>(
+      context: context,
+      // Over the dock, not under it.
+      useRootNavigator: true,
+      showDragHandle: true,
+      isScrollControlled: true,
+      backgroundColor: t.ground,
+      builder: (ctx) {
+        final l = AppLocalizations.of(ctx);
+        return DraggableScrollableSheet(
+          expand: false,
+          initialChildSize: 0.7,
+          maxChildSize: 0.92,
+          builder: (ctx, scroll) => ListView(
+            controller: scroll,
+            padding: const EdgeInsets.fromLTRB(WaqtSpace.screen, 0, WaqtSpace.screen, WaqtSpace.x8),
+            children: [
+              Text(l.quranWellKnown, style: WaqtText.titleSmall.copyWith(color: t.ink)),
+              Text(l.quranWellKnownHint, style: WaqtText.label.copyWith(color: t.inkMuted)),
+              const SizedBox(height: WaqtSpace.x3),
+              RowGroup(
+                children: [
+                  for (final p in picks)
+                    _PassageRow(
+                      pick: p,
+                      highlight: p.moments.any(now.contains),
+                      quran: quran,
+                      onOpen: () {
+                        Navigator.of(ctx).pop();
+                        openReader(context, p.at);
+                      },
+                    ),
+                ],
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+}
+
 class _PassageRow extends ConsumerWidget {
-  const _PassageRow({required this.pick, required this.highlight, required this.quran});
+  const _PassageRow({required this.pick, required this.highlight, required this.quran, required this.onOpen});
+  final VoidCallback onOpen;
   final QuranPassage pick;
   final bool highlight;
   final Quran quran;
@@ -399,7 +478,7 @@ class _PassageRow extends ConsumerWidget {
       type: MaterialType.transparency,
       child: InkWell(
         borderRadius: BorderRadius.circular(WaqtRadii.row),
-        onTap: () => openReader(context, pick.at),
+        onTap: onOpen,
         child: Padding(
           padding: const EdgeInsetsDirectional.fromSTEB(WaqtSpace.x3, WaqtSpace.x3, 0, WaqtSpace.x3),
           child: Row(

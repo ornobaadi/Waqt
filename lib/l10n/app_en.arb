@@ -1193,8 +1193,6 @@
   "quranSavedShort": "Saved",
   "quranTranslitSource": "Transliteration: Tanzil.net, for non-commercial use.",
   "quranWellKnown": "Well-known passages",
-  "quranShowAll": "Show all",
-  "quranShowLess": "Show less",
   "quranKursi": "Ayat al-Kursi",
   "quranWhyKursi": "The greatest ayah in the Quran",
   "quranFatihah": "Surah al-Fatihah",
@@ -1209,5 +1207,14 @@
   "undo": "Undo",
   "quranStopRecitation": "Stop recitation",
   "quranAudio": "Audio",
-  "quranPlayback": "Playback options"
+  "quranPlayback": "Playback options",
+  "quranWellKnownHint": "Where they are, and why they are read",
+  "quranRightNowPassage": "Right now: {name}",
+  "@quranRightNowPassage": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  }
 }

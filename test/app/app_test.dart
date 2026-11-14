@@ -333,6 +333,26 @@ void main() {
     expect(find.text('Al-Kahf · Ayah 10 / 110'), findsNothing);
   });
 
+  testWidgets('Quran tab: well-known passages are one row; the sheet lists them and opens the reader', (tester) async {
+    tester.view.physicalSize = const Size(1170, 2532);
+    tester.view.devicePixelRatio = 3;
+    addTearDown(tester.view.reset);
+    // Friday after Jumu'ah: al-Kahf is the one for this moment.
+    await tester.pumpWidget(await app(at: DateTime(2026, 11, 6, 12, 40), place: dhaka));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byTooltip('Quran'));
+    await tester.pumpAndSettle();
+    expect(find.text('Right now: First ten ayat of al-Kahf'), findsOneWidget);
+    expect(find.text('Ayat al-Kursi'), findsNothing); // not on the tab itself
+    expect(find.text('Al-Baqarah'), findsOneWidget); // the surahs stay near the top
+    await tester.tap(find.text('Well-known passages'));
+    await tester.pumpAndSettle();
+    expect(find.text('Right now'), findsOneWidget);
+    await tester.tap(find.text('Ayat al-Kursi'));
+    await tester.pumpAndSettle();
+    expect(find.byKey(const ValueKey('ayah-2:255')), findsOneWidget);
+  });
+
   testWidgets('Quran ayah: double-tap saves with undo, hold copies, no extra menu', (tester) async {
     tester.view.physicalSize = const Size(1170, 2532);
     tester.view.devicePixelRatio = 3;

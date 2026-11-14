@@ -1942,12 +1942,6 @@ class AppLocalizationsTr extends AppLocalizations {
   String get quranWellKnown => 'Bilinen sure ve ayetler';
 
   @override
-  String get quranShowAll => 'Tümünü göster';
-
-  @override
-  String get quranShowLess => 'Daha az göster';
-
-  @override
   String get quranKursi => 'Âyetü\'l-Kürsî';
 
   @override
@@ -1991,4 +1985,12 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get quranPlayback => 'Oynatma seçenekleri';
+
+  @override
+  String get quranWellKnownHint => 'Nerede oldukları ve neden okundukları';
+
+  @override
+  String quranRightNowPassage(String name) {
+    return 'Şimdi: $name';
+  }
 }

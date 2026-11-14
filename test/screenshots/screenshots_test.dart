@@ -335,7 +335,7 @@ void main() {
   }
 
   testWidgets(
-    'quran tab, every well-known passage',
+    'quran tab, well-known passages in their sheet',
     (t) async => shoot(
       t,
       '70c_quran_passages',
@@ -343,9 +343,7 @@ void main() {
       then: () async {
         await t.tap(find.byTooltip('Quran'));
         await t.pumpAndSettle();
-        await t.tap(find.text('Show all'));
-        await t.pumpAndSettle();
-        await t.drag(find.byType(CustomScrollView), const Offset(0, -260));
+        await t.tap(find.text('Well-known passages'));
       },
     ),
   );

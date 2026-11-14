@@ -1948,12 +1948,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String get quranWellKnown => 'سور وآيات مشهورة';
 
   @override
-  String get quranShowAll => 'عرض الكل';
-
-  @override
-  String get quranShowLess => 'عرض أقل';
-
-  @override
   String get quranKursi => 'آية الكرسي';
 
   @override
@@ -1997,4 +1991,12 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get quranPlayback => 'خيارات التشغيل';
+
+  @override
+  String get quranWellKnownHint => 'أين هي، ولماذا تُقرأ';
+
+  @override
+  String quranRightNowPassage(String name) {
+    return 'الآن: $name';
+  }
 }

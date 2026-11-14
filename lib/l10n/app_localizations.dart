@@ -3417,18 +3417,6 @@ abstract class AppLocalizations {
   /// **'Well-known passages'**
   String get quranWellKnown;
 
-  /// No description provided for @quranShowAll.
-  ///
-  /// In en, this message translates to:
-  /// **'Show all'**
-  String get quranShowAll;
-
-  /// No description provided for @quranShowLess.
-  ///
-  /// In en, this message translates to:
-  /// **'Show less'**
-  String get quranShowLess;
-
   /// No description provided for @quranKursi.
   ///
   /// In en, this message translates to:
@@ -3518,6 +3506,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Playback options'**
   String get quranPlayback;
+
+  /// No description provided for @quranWellKnownHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Where they are, and why they are read'**
+  String get quranWellKnownHint;
+
+  /// No description provided for @quranRightNowPassage.
+  ///
+  /// In en, this message translates to:
+  /// **'Right now: {name}'**
+  String quranRightNowPassage(String name);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -491,8 +491,6 @@
   "quranSavedShort": "Tersimpan",
   "quranTranslitSource": "Transliterasi: Tanzil.net, untuk penggunaan non-komersial.",
   "quranWellKnown": "Surah dan ayat pilihan",
-  "quranShowAll": "Lihat semua",
-  "quranShowLess": "Lebih sedikit",
   "quranKursi": "Ayat Kursi",
   "quranWhyKursi": "Ayat paling agung dalam Al-Qur'an",
   "quranFatihah": "Surah Al-Fatihah",
@@ -507,5 +505,7 @@
   "undo": "Urungkan",
   "quranStopRecitation": "Hentikan murattal",
   "quranAudio": "Audio",
-  "quranPlayback": "Opsi pemutaran"
+  "quranPlayback": "Opsi pemutaran",
+  "quranWellKnownHint": "Letaknya, dan mengapa dibaca",
+  "quranRightNowPassage": "Saat ini: {name}"
 }

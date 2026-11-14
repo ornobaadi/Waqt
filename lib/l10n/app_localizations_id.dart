@@ -1946,12 +1946,6 @@ class AppLocalizationsId extends AppLocalizations {
   String get quranWellKnown => 'Surah dan ayat pilihan';
 
   @override
-  String get quranShowAll => 'Lihat semua';
-
-  @override
-  String get quranShowLess => 'Lebih sedikit';
-
-  @override
   String get quranKursi => 'Ayat Kursi';
 
   @override
@@ -1995,4 +1989,12 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get quranPlayback => 'Opsi pemutaran';
+
+  @override
+  String get quranWellKnownHint => 'Letaknya, dan mengapa dibaca';
+
+  @override
+  String quranRightNowPassage(String name) {
+    return 'Saat ini: $name';
+  }
 }

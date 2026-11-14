@@ -497,8 +497,6 @@
   "quranSavedShort": "সংরক্ষিত",
   "quranTranslitSource": "উচ্চারণ: Tanzil.net, অবাণিজ্যিক ব্যবহারের জন্য।",
   "quranWellKnown": "পরিচিত সূরা ও আয়াত",
-  "quranShowAll": "সব দেখুন",
-  "quranShowLess": "কম দেখুন",
   "quranKursi": "আয়াতুল কুরসি",
   "quranWhyKursi": "কুরআনের সবচেয়ে মহান আয়াত",
   "quranFatihah": "সূরা আল-ফাতিহা",
@@ -513,5 +511,7 @@
   "undo": "ফিরিয়ে নিন",
   "quranStopRecitation": "তিলাওয়াত বন্ধ করুন",
   "quranAudio": "অডিও",
-  "quranPlayback": "প্লেব্যাক অপশন"
+  "quranPlayback": "প্লেব্যাক অপশন",
+  "quranWellKnownHint": "কোথায় আছে, আর কেন পড়া হয়",
+  "quranRightNowPassage": "এখন: {name}"
 }

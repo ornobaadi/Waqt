@@ -497,8 +497,6 @@
   "quranSavedShort": "Kaydedildi",
   "quranTranslitSource": "Okunuş: Tanzil.net, ticari olmayan kullanım için.",
   "quranWellKnown": "Bilinen sure ve ayetler",
-  "quranShowAll": "Tümünü göster",
-  "quranShowLess": "Daha az göster",
   "quranKursi": "Âyetü'l-Kürsî",
   "quranWhyKursi": "Kur'an'ın en büyük ayeti",
   "quranFatihah": "Fâtiha Suresi",
@@ -513,5 +511,7 @@
   "undo": "Geri al",
   "quranStopRecitation": "Tilaveti durdur",
   "quranAudio": "Ses",
-  "quranPlayback": "Oynatma seçenekleri"
+  "quranPlayback": "Oynatma seçenekleri",
+  "quranWellKnownHint": "Nerede oldukları ve neden okundukları",
+  "quranRightNowPassage": "Şimdi: {name}"
 }
