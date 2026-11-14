@@ -128,9 +128,24 @@ void main() {
     String flat(String s) => s.replaceAll(RegExp('[‎‏­﻿]'), '').split(RegExp(r'\s+')).join(' ');
 
     test('every task has duas, every label is in every language', () {
-      expect(book.tasks, hasLength(9));
+      expect(book.tasks.map((t) => t.id), [
+        'morning_evening',
+        'asking',
+        'sleep',
+        'salah',
+        'mosque',
+        'home',
+        'food',
+        'travel',
+        'weather',
+        'people',
+        'fasting',
+        'hardship',
+        'protection',
+        'loss',
+      ]);
       for (final t in book.tasks) {
-        expect(book.forTask(t.id), isNotEmpty, reason: t.id);
+        expect(book.forTask(t.id).length, greaterThanOrEqualTo(2), reason: t.id);
         for (final l in langs) {
           expect(t.titles[l], isNotEmpty, reason: '${t.id} $l');
         }

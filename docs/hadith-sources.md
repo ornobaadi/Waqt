@@ -25,3 +25,8 @@ Researched 13 Nov 2026. The goal is almost every authentic hadith, translated in
    - IslamHouse / the Hisn al-Muslim publishers, for the book's translations into ur, bn, id, tr and fr.
    - Sunnah.com, for English.
 4. **Scholar review gate:** release builds show only items a reviewer has marked `approved` (the pipeline already supports draft → checked → approved). The reviewer also confirms nothing contradicts any of the four schools.
+
+## Duas added in Nov 2026 (HadeethEnc ids)
+Asking: 5502 (rabbana atina), 3142 (ya muqallib al-qulub), 3596 (al-huda wat-tuqa), 5915 (ihdini wa saddidni), 3293 (istikhara). Weather: 8956 (strong wind), 65527 (rain, Arabic only). People: 3433 (sneezing), 6032 (newlywed), 66257 (leaving a gathering, Arabic only). Salah: 10905 (opening), 65104 (between the sajdahs). Hardship: 6018 (pain). Protection: 5473 (fearing people), 6047 (serious illness). Loss: 65772 (calamity), 5021 (funeral prayer), 10407 (graves), 3290 (condolence).
+Quran tab passages: 65059 (Ayat al-Kursi), 6274, 10112 (al-Fatihah), 6265, 6260, 6082, 65261 (al-Ikhlas), 6208 (al-Baqarah).
+Looked for and left out because HadeethEnc lacks them or has no translation of the words: the new-garment dua, the market dua, hamm and hazan, returning from travel (its words sit inside the journey hadith), the bad-dream instruction.

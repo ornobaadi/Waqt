@@ -176,13 +176,13 @@ void main() {
     await tester.pumpAndSettle();
     // Moments at once are separate cards, newest (Friday's last hour) first.
     expect(find.text('Last hour of Friday'), findsWidgets);
-    final say = find.text('Say the duas · 4');
+    final say = find.text('Say the duas · 6').first; // the after-salah card; Friday's last hour (hardship) has six too
     await tester.scrollUntilVisible(say, 200, scrollable: find.byType(Scrollable).first);
     await tester.drag(find.byType(Scrollable).first, const Offset(0, -300));
     await tester.pumpAndSettle();
     await tester.tap(say);
     await tester.pumpAndSettle();
-    expect(find.text('1 of 4'), findsOneWidget);
+    expect(find.text('1 of 6'), findsOneWidget);
     expect(find.text('After wudu'), findsOneWidget);
   });
 

@@ -24,6 +24,11 @@ IconData duaTaskIcon(String key) => switch (key) {
   'travel' => Icons.luggage_outlined,
   'heart' => Icons.healing_outlined,
   'crescent' => Icons.nightlight_outlined,
+  'hands' => Icons.favorite_border_rounded,
+  'cloud' => Icons.cloud_outlined,
+  'people' => Icons.groups_outlined,
+  'shield' => Icons.shield_outlined,
+  'leaf' => Icons.spa_outlined,
   _ => Icons.menu_book_outlined,
 };
 

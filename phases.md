@@ -159,6 +159,10 @@ Margins awaiting scholar review: see `docs/moment-rules.md`.
 - [x] Player: one 64 dp row (play, ayah and reciter, previous/next, a menu for speed, downloads and stop). Leaving the reader, a mini bar above the dock keeps it (pause, open, ×); stopping from the notification clears it. Notification icon is the flat status-bar mark.
 - [x] Today: each prayer that has begun carries a Mark pill, or how it was kept (same choices as Now's strip).
 - [x] Reader revamp: each ayah a card with its number, play-from-here, save, translator's notes and more; the Arabic large; English transliteration for every language (Tanzil.net `en.transliteration`, non-commercial, credited; markup cleaned by tool/build_quran.py); the meaning beneath. Transliteration on/off in reading settings. Long-press an ayah for copy and the rest.
+- [x] Ayah card: play, save, the translator's notes (also from a footnote mark) and copy, each its own button; double-tap the words to save (with undo), hold to copy; a one-time tip.
+- [x] Player options in one sheet (reciter, speed pills, audio source, stop) instead of a popup; "Ayah 7 / 286" in the reader's digits.
+- [x] Quran tab: "For this moment" replaced by well-known passages (Ayat al-Kursi, end of al-Baqarah, al-Fatihah, al-Kahf 1-10, al-Mulk, the Quls, al-Ikhlas, al-Baqarah), each with its HadeethEnc hadith; the ones for this moment come first.
+- [x] Duas by task: 14 tasks (was 9). New: Asking Allah for good, Wind and rain, With people, Protection, Loss and death; Salah gains the opening dua and between the sajdahs, Hardship gains the dua for pain. Every item cut from its HadeethEnc hadith by the build.
 - [ ] On a device: check IndoPak and Amiri line spacing at the largest size, and the player in the night palette.
 
 ## Later
