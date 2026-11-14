@@ -23,33 +23,44 @@ DAWN = ('#F7E7C8', '#EFD3A6', '#1C1814', '#5E5240')
 # Crops are in the 924-wide preview of each golden (the app screens are 1170x2532).
 K = 1170 / 924
 
-# (title, subtitle, palette, layout, screens, floats). Play takes at most 8.
-# A float is ('crop', screen, (x0, y0, x1, y1), width, x, y, transform) or ('langs', x, y, transform).
+# (title, subtitle, palette, layout, screens, floats). Play takes at most 8. A float is one of:
+#   ('crop', screen, (x0, y0, x1, y1), width, x, y, transform[, radius, pad, bg])  a piece of a screen, anywhere
+#   ('lift', screen, (x0, y0, x1, y1), pad, bg, lift)  a piece lifted straight off the tilted phone, same angle
+#   ('langs',)  the seven languages as pills around the phones
+PAGE = '#F8F4E8'  # the app's page
+ROW = '#F0ECE0'  # a row group on the page
 SHOTS = [
     ('The right dua, right now', 'for the moment you are in', NIGHT, 'tilt', ['40_now_salah_ticks'],
-     [('crop', '42c_today_marks_reciting', (48, 150, 876, 528), 600, 40, 1450,
+     [('crop', '42d_today_store', (48, 150, 876, 566), 640, 30, 1400,
        'rotateY(16deg) rotateZ(-4deg) translateZ(140px)')]),
     ('The Quran, ayah by ayah', 'Arabic, how to say it, and its meaning', DAWN, 'tilt-r', ['71d_quran_reciting'],
-     [('crop', '71d_quran_reciting', (48, 795, 876, 1248), 760, 30, 860,
+     [('crop', '71d_quran_reciting', (48, 300, 876, 755), 760, 30, 860,
        'rotateY(-10deg) rotateZ(-3deg) translateZ(180px)'),
       ('crop', '71d_quran_reciting', (30, 1820, 895, 1970), 820, 150, 1620,
        'rotateX(8deg) rotateZ(2deg) translateZ(220px)')]),
     ('Ayat al-Kursi in one tap', 'and what to read right now', NIGHT, 'straight', ['70_quran'],
-     [('crop', '70c_quran_passages', (48, 830, 876, 1185), 800, 100, 1180,
-       'rotateY(-12deg) rotateX(6deg) rotateZ(-3deg) translateZ(200px)')]),
+     [('crop', '70c_quran_passages', (70, 1015, 860, 1122), 700, 150, 1290,
+       'rotateX(4deg) rotateZ(-3deg) translateZ(200px)', 44, 36, ROW)]),
     ('Duas for all you do', 'travel, rain, worry, and 11 more', DAWN, 'pair', ['16_duas_library', '16f_dua_page'],
      [('crop', '16_duas_library', (477, 503, 876, 862), 420, 520, 1380,
        'rotateY(-18deg) rotateZ(6deg) translateZ(240px)')]),
-    ('Track your salah, gently', 'one tap a prayer, no guilt', NIGHT, 'pair', ['42c_today_marks_reciting', '43_progress'],
-     [('crop', '42c_today_marks_reciting', (275, 557, 885, 672), 640, 60, 1560,
+    ('Track your salah, gently', 'one tap a prayer, no guilt', NIGHT, 'pair', ['42d_today_store', '43_progress'],
+     [('crop', '43_progress', (48, 152, 876, 338), 640, 40, 1560,
        'rotateY(14deg) rotateZ(-4deg) translateZ(220px)')]),
     ('Every hadith sourced', 'Arabic, meaning and grade, every time', DAWN, 'tilt', ['16f_dua_page'],
-     [('crop', '16f_dua_page', (30, 1550, 900, 1660), 860, 110, 1500,
-       'rotateY(10deg) rotateZ(-3deg) translateZ(200px)')]),
+     [('lift', '16f_dua_page', (40, 1548, 890, 1745), 28, PAGE, 110)]),
     ('Face the Qibla', 'turn until it glows', NIGHT, 'pair', ['34_qibla_night_turn', '34b_qibla_night_aligned'], []),
-    ('In seven languages', 'English, ⁨العربية⁩, ⁨اردو⁩, বাংলা and more', NIGHT, 'pair', ['07_now_arabic_rtl', '30_now_bn'],
-     [('langs', 0, 1500, 'rotateX(12deg) rotateZ(-4deg) translateZ(260px)')]),
+    ('In seven languages', 'English, ⁨العربية⁩, ⁨اردو⁩, বাংলা and more', NIGHT, 'pair',
+     ['07_now_arabic_rtl', '30_now_bn'], [('langs',)]),
 ]
+
+# Where the single phone sits in 'straight' and 'tilt' shots: left, top, screen width.
+PHONE = (220, 390, 600)
+
+
+def tilt(layout: str) -> str:
+    s = -1 if layout == 'tilt' else 1
+    return f'rotateY({s * 16}deg) rotateX(5deg) rotateZ({-s * 2}deg)'
 
 
 def fonts() -> str:
@@ -74,30 +85,50 @@ def phone(name: str, w: int, x: int, y: int, transform: str = '', z: int = 1, sh
             f'border-radius:{round(w * .13) - b}px"></div>')
 
 
-def crop(name: str, box, w: int, x: int, y: int, transform: str, radius: int = 40) -> str:
-    """A piece of a real app screen, lifted off the phone and floating in front of it."""
+def crop(name: str, box, w: int, x: int, y: int, transform: str, radius: int = 40, pad: int = 0, bg: str = '',
+         origin: str = '50% 50%') -> str:
+    """A piece of a real app screen, lifted off the phone and floating in front of it. With `pad`, it sits on a
+    card of the screen's own colour, so its text has room around it."""
     x0, y0, x1, y1 = (round(v * K) for v in box)
     scale = w / (x1 - x0)
     h = round((y1 - y0) * scale)
-    return (f'<div style="position:absolute;left:{x}px;top:{y}px;width:{w}px;height:{h}px;z-index:5;overflow:hidden;'
-            f'border-radius:{radius}px;transform:{transform};'
-            f'box-shadow:0 50px 90px rgba(0,0,0,.42),0 14px 30px rgba(0,0,0,.25),0 0 0 2px rgba(255,255,255,.55)">'
-            f'<img src="{(GOLDENS / f"{name}.png").as_uri()}" style="position:absolute;left:{-x0 * scale}px;'
-            f'top:{-y0 * scale}px;width:{1170 * scale}px;height:{2532 * scale}px;max-width:none"></div>')
+    inner = max(radius - pad, 14) if pad else radius
+    img = (f'<div style="position:relative;width:{w}px;height:{h}px;overflow:hidden;border-radius:{inner}px">'
+           f'<img src="{(GOLDENS / f"{name}.png").as_uri()}" style="position:absolute;left:{-x0 * scale}px;'
+           f'top:{-y0 * scale}px;width:{1170 * scale}px;height:{2532 * scale}px;max-width:none"></div>')
+    return (f'<div style="position:absolute;left:{x - pad}px;top:{y - pad}px;width:{w}px;height:{h}px;padding:{pad}px;'
+            f'z-index:5;border-radius:{radius}px;background:{bg or "transparent"};transform:{transform};'
+            f'transform-origin:{origin};box-shadow:0 50px 90px rgba(0,0,0,.40),0 14px 30px rgba(0,0,0,.22),'
+            f'0 0 0 2px rgba(255,255,255,.55)">{img}</div>')
 
 
-def langs(x: int, y: int, transform: str) -> str:
-    """The seven languages as floating pills, each in its own script."""
-    words = [('English', 'Inter'), ('العربية', 'Naskh'), ('اردو', 'Nast'), ('বাংলা', 'Beng'),
-             ('Bahasa', 'Inter'), ('Türkçe', 'Inter'), ('Français', 'Inter')]
-    pills = ''.join(
-        f'<span style="display:inline-block;margin:10px;padding:18px 32px;border-radius:999px;background:#FBF3E2;'
-        f'color:#1C1814;font-family:{fam};font-size:40px;font-weight:600;line-height:1.2;'
-        f'box-shadow:0 24px 50px rgba(0,0,0,.40),0 0 0 2px rgba(255,255,255,.6);'
-        f'transform:translateY({(-1) ** i * 14}px) rotate({(-1) ** i * 2}deg)">{t}</span>'
-        for i, (t, fam) in enumerate(words))
-    return (f'<div style="position:absolute;left:{x}px;right:0;top:{y}px;z-index:5;text-align:center;padding:0 60px;'
-            f'width:auto;height:auto;transform:{transform}">{pills}</div>')
+def lift(layout: str, name: str, box, pad: int, bg: str, up: int) -> str:
+    """A piece of the tilted phone's screen, at its own place on the screen and at the phone's own angle, raised
+    `up` px off the glass towards the viewer."""
+    left, top, w = PHONE
+    b = round(w * .028)
+    s = w / 1170
+    x0, y0, x1, _ = (v * K for v in box)
+    cx, cy = left + w / 2 + b, top + round(w * 2532 / 1170) / 2 + b  # the phone's centre, its 3D pivot
+    x, y = left + b + x0 * s, top + b + y0 * s
+    origin = f'{cx - x + pad}px {cy - y + pad}px'
+    return crop(name, box, round((x1 - x0) * s), round(x), round(y), f'{tilt(layout)} translateZ({up}px)',
+                34, pad, bg, origin)
+
+
+def langs() -> str:
+    """The seven languages as pills floating around the phones, each in its own script, each at its own depth."""
+    pills = [('English', 'Inter', 40, 560, -8, 160), ('العربية', 'Naskh', 760, 470, 7, 220),
+             ('اردو', 'Nast', 80, 1040, 6, 200), ('বাংলা', 'Beng', 740, 1000, -6, 240),
+             ('Bahasa', 'Inter', 70, 1540, -5, 180), ('Türkçe', 'Inter', 730, 1560, 5, 210),
+             ('Français', 'Inter', 380, 1700, -2, 260)]
+    return ''.join(
+        f'<div style="position:absolute;left:{x}px;top:{y}px;z-index:5;padding:22px 40px;border-radius:999px;'
+        f'background:linear-gradient(160deg,#FFFBF2,#F1E6CC);color:#1C1814;font-family:{fam};font-size:46px;'
+        f'font-weight:600;line-height:1.25;white-space:nowrap;transform:rotateY({-r}deg) rotateZ({r}deg) translateZ({z}px);'
+        f'box-shadow:0 34px 60px rgba(0,0,0,.45),0 10px 20px rgba(0,0,0,.25),inset 0 2px 0 rgba(255,255,255,.9),'
+        f'0 0 0 2px rgba(255,255,255,.5)">{t}</div>'
+        for t, fam, x, y, r, z in pills)
 
 
 def deco(night: bool) -> str:
@@ -119,16 +150,21 @@ def frame(title: str, sub: str, pal, layout: str, screens, floats=()) -> str:
     top, bottom, ink, soft = pal
     night = pal is NIGHT
     persp = 'perspective:2600px;'
+    px, py, pw = PHONE
     if layout == 'straight':
-        body = phone(screens[0], 600, 220, 380, 'rotateX(4deg)')
+        body = phone(screens[0], pw, px, py, 'rotateX(4deg)')
     elif layout in ('tilt', 'tilt-r'):
-        s = -1 if layout == 'tilt' else 1
-        body = phone(screens[0], 600, 220, 390, f'rotateY({s * 16}deg) rotateX(5deg) rotateZ({-s * 2}deg)')
+        body = phone(screens[0], pw, px, py, tilt(layout))
     else:  # pair: back phone angled one way, front phone the other
         body = (phone(screens[0], 500, 70, 500, 'rotateY(18deg) rotateZ(-5deg) translateZ(-120px)', 1, .35)
                 + phone(screens[1], 520, 480, 400, 'rotateY(-14deg) rotateZ(3deg)', 2))
     for f in floats:
-        body += crop(*f[1:]) if f[0] == 'crop' else langs(*f[1:])
+        if f[0] == 'crop':
+            body += crop(*f[1:])
+        elif f[0] == 'lift':
+            body += lift(layout, *f[1:])
+        else:
+            body += langs()
     glow = 'rgba(255,236,190,.16)' if night else 'rgba(255,255,255,.55)'
     return f'''{fonts()}<div class="r"><div style="position:relative;width:1080px;height:1920px;overflow:hidden;
   background:radial-gradient(900px 700px at 50% 62%,{glow},transparent 70%),linear-gradient(170deg,{top},{bottom});

@@ -840,6 +840,32 @@ void main() {
     ),
   );
 
+  // Store art: a day with reading and dhikr in it (Today's Quran and Dhikr cells).
+  testWidgets(
+    'today ring, with 20 ayat read and 100 dhikr',
+    (t) async => shoot(
+      t,
+      '42d_today_store',
+      await app(
+        at: DateTime(2026, 11, 6, 16, 20),
+        place: dhaka,
+        stored: {
+          ...deedsSeed,
+          'deeds.v1.2026-11': deedsSeed['deeds.v1.2026-11']!.replaceFirst(
+            '"2026-11-06":{"s":{"fajr":"jamaah","dhuhr":"qada","asr":"onTime"}}',
+            '"2026-11-06":{"s":{"fajr":"jamaah","dhuhr":"qada","asr":"onTime"},"h":{"quran":20}}',
+          ),
+          'quran.progress.v1': '{"last":[18,30]}',
+          // The counter keeps today by the phone's own date, not the app's test clock.
+          'counter.v2':
+              '{"day":"${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day}",'
+              '"today":{"subhanallah":33,"alhamdulillah":33,"allahuakbar":34}}',
+        },
+      ),
+      then: () async => t.tap(find.byTooltip('Today')),
+    ),
+  );
+
   testWidgets(
     'today ring, Arabic, with reading and dhikr',
     (t) async => shoot(
