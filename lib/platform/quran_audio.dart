@@ -106,6 +106,14 @@ class RecitationNotifier extends Notifier<Recitation> {
   List<int> _ayahs = const [];
   final _subs = <StreamSubscription<Object?>>[];
 
+  /// True while a recitation is being set up. The player reports "idle" until
+  /// its sources are set, and the first time the service starts it reports
+  /// it late; neither means the recitation ended.
+  bool _starting = false;
+
+  /// The service's last state, so only a real change to idle counts as a stop.
+  AudioProcessingState? _last;
+
   @override
   Recitation build() {
     ref.onDispose(() {
@@ -137,6 +145,7 @@ class RecitationNotifier extends Notifier<Recitation> {
       }
     }
     state = Recitation(surah: surah, ayah: ayah, loading: true);
+    _starting = true;
     try {
       final h = _h ??= await _start();
       _listen(h);
@@ -163,10 +172,14 @@ class RecitationNotifier extends Notifier<Recitation> {
       final start = ayahs.indexOf(ayah).clamp(0, ayahs.length - 1);
       await h.player.setAudioSources(sources, initialIndex: start);
       await h.player.setSpeed(prefs.speed);
+      _starting = false;
+      state = Recitation(surah: surah, ayah: ayah, playing: true);
       unawaited(h.player.play());
     } on Object catch (e) {
       debugPrint('recitation failed: $e');
       state = Recitation(surah: surah, ayah: ayah, error: RecitationError.failed);
+    } finally {
+      _starting = false;
     }
   }
 
@@ -174,7 +187,7 @@ class RecitationNotifier extends Notifier<Recitation> {
     if (_subs.isNotEmpty) return;
     _subs.add(
       h.player.currentIndexStream.listen((i) {
-        if (i == null || i >= _ayahs.length || state.surah == null) return;
+        if (_starting || i == null || i >= _ayahs.length || state.surah == null) return;
         state = Recitation(surah: state.surah, ayah: _ayahs[i], playing: h.player.playing);
       }),
     );
@@ -182,14 +195,17 @@ class RecitationNotifier extends Notifier<Recitation> {
     // lets go too, so no bar is left showing a recitation that has ended.
     _subs.add(
       h.playbackState.listen((p) {
-        if (p.processingState == AudioProcessingState.idle && !p.playing && state.active && !state.loading) {
+        final was = _last;
+        _last = p.processingState;
+        if (_starting || was == null || was == AudioProcessingState.idle) return;
+        if (p.processingState == AudioProcessingState.idle && !p.playing && state.active) {
           state = const Recitation();
         }
       }),
     );
     _subs.add(
       h.player.playerStateStream.listen((p) {
-        if (state.surah == null) return;
+        if (_starting || state.surah == null) return;
         if (p.processingState == ProcessingState.completed) {
           state = Recitation(surah: state.surah, ayah: state.ayah);
           return;

@@ -422,6 +422,32 @@ void main() {
     expect(container.read(recitationProvider).active, isFalse);
   });
 
+  testWidgets('the ayah being recited says so beside its number, and its button pauses', (tester) async {
+    tester.view.physicalSize = const Size(1170, 2532);
+    tester.view.devicePixelRatio = 3;
+    addTearDown(tester.view.reset);
+    await tester.pumpWidget(
+      await app(
+        at: DateTime(2026, 11, 6, 9, 41),
+        place: dhaka,
+        reciting: const Recitation(surah: 2, ayah: 7, playing: true),
+      ),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Al-Baqarah · Ayah 7 / 286'));
+    await tester.pumpAndSettle();
+    final ayah = find.byKey(const ValueKey('ayah-2:7'));
+    expect(find.descendant(of: ayah, matching: find.byTooltip('Pause')), findsOneWidget);
+    expect(find.descendant(of: ayah, matching: find.text('Reciting now')), findsOneWidget);
+    // Same row as the number.
+    final number = tester.getCenter(find.descendant(of: ayah, matching: find.text('7')).first);
+    expect(tester.getCenter(find.descendant(of: ayah, matching: find.text('Reciting now'))).dy, closeTo(number.dy, 4));
+    final other = find.byKey(const ValueKey('ayah-2:8'));
+    if (other.evaluate().isNotEmpty) {
+      expect(find.descendant(of: other, matching: find.byTooltip('Play from here')), findsOneWidget);
+    }
+  });
+
   testWidgets('the player in Bangla counts in Bangla digits', (tester) async {
     await tester.pumpWidget(
       await app(

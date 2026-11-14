@@ -441,6 +441,7 @@ class _Ayah extends ConsumerWidget {
     final t = WaqtTokens.of(context);
     final tag = Localizations.localeOf(context).toLanguageTag();
     final label = reciting ? l.quranRecitingNow : (stopped ? l.quranStoppedHere : null);
+    final playing = reciting && ref.watch(recitationProvider.select((r) => r.playing));
     final notes = translation?.notes;
     final hasNotes = notes != null && notes.isNotEmpty;
     final tool = IconButton.styleFrom(
@@ -471,12 +472,42 @@ class _Ayah extends ConsumerWidget {
             ),
           ),
         ),
-        const Spacer(),
+        // What is happening here, beside the number: the free space on the row.
+        Expanded(
+          child: label == null
+              ? const SizedBox.shrink()
+              : Padding(
+                  padding: const EdgeInsetsDirectional.only(start: WaqtSpace.x3, end: WaqtSpace.x1),
+                  child: Row(
+                    children: [
+                      if (reciting) ...[
+                        Icon(Icons.graphic_eq_rounded, size: 16, color: t.ink),
+                        const SizedBox(width: 4),
+                      ],
+                      Flexible(
+                        child: Text(
+                          label,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: WaqtText.caption.copyWith(color: t.ink, fontWeight: FontWeight.w700, height: 1.2),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+        ),
         IconButton(
-          tooltip: l.quranPlayHere,
+          // The ayah being recited pauses and resumes here; any other plays from itself.
+          tooltip: reciting ? (playing ? l.quranPause : l.quranPlay) : l.quranPlayHere,
           style: tool,
-          onPressed: () => ref.read(recitationProvider.notifier).play(quran, at.surah, ayah: at.ayah),
-          icon: const Icon(Icons.play_circle_outline_rounded, size: 22),
+          onPressed: reciting
+              ? ref.read(recitationProvider.notifier).toggle
+              : () => ref.read(recitationProvider.notifier).play(quran, at.surah, ayah: at.ayah),
+          icon: Icon(
+            reciting && playing ? Icons.pause_circle_outline_rounded : Icons.play_circle_outline_rounded,
+            size: 22,
+            color: reciting ? t.ink : null,
+          ),
         ),
         IconButton(
           tooltip: saved ? l.quranUnsave : l.quranSave,
@@ -511,21 +542,6 @@ class _Ayah extends ConsumerWidget {
     final words = Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        if (label != null)
-          Padding(
-            padding: const EdgeInsets.only(top: WaqtSpace.x2),
-            child: Row(
-              children: [
-                if (reciting) ...[Icon(Icons.graphic_eq_rounded, size: 16, color: t.ink), const SizedBox(width: 6)],
-                Expanded(
-                  child: Text(
-                    label,
-                    style: WaqtText.caption.copyWith(color: t.ink, fontWeight: FontWeight.w700),
-                  ),
-                ),
-              ],
-            ),
-          ),
         const SizedBox(height: WaqtSpace.x4),
         Text.rich(
           TextSpan(
