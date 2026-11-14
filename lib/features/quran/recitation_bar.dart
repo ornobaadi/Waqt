@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 
 import '../../core/theme/tokens.dart';
 import '../../core/theme/waqt_theme.dart';
+import '../../core/widgets/waqt_widgets.dart';
 import '../../data/quran/quran.dart';
 import '../../data/quran/quran_prefs.dart';
 import '../../data/quran/recitation.dart';
 import '../../data/quran/recitation_downloads.dart';
 import '../../l10n/app_localizations.dart';
 import '../../platform/quran_audio.dart';
-import 'quran_screen.dart' show openReader, surahName;
+import 'quran_screen.dart' show ayahOf, openReader, surahName;
 
 /// The recitation player as one calm row: play or pause, what is playing,
-/// and a few controls. In the reader it also skips ayat and holds speed,
-/// downloads and stop in a menu; everywhere else ([mini]) it shows what is
+/// and a few controls. In the reader it also skips ayat, and the rest
+/// (reciter, speed, audio, stop) is one tap away in [showRecitationSheet]; everywhere else ([mini]) it shows what is
 /// playing, opens the reader on tap, and closes with ×.
 class RecitationBar extends ConsumerWidget {
   const RecitationBar({super.key, this.mini = false});
   final bool mini;
-
-  static const _speeds = [0.75, 1.0, 1.25, 1.5];
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -31,16 +31,14 @@ class RecitationBar extends ConsumerWidget {
     if (!rec.active || q == null || rec.surah == null) return const SizedBox.shrink();
     final surah = q.surah(rec.surah!);
     final player = ref.read(recitationProvider.notifier);
-    final prefs = ref.watch(quranPrefsProvider);
-    final reciter = reciterById(prefs.reciter);
-    final local = ref.watch(recitationDownloadsProvider.select((d) => d.done.contains(surah.n)));
+    final reciter = reciterById(ref.watch(quranPrefsProvider.select((p) => p.reciter)));
     final a = rec.ayah ?? 0;
     // In the reader the surah is in the header already: the ayah is enough.
     final title = a == 0
         ? surahName(context, surah)
         : mini
-        ? '${surahName(context, surah)} · ${l.quranAyahOf(a, surah.ayahs)}'
-        : l.quranAyahOf(a, surah.ayahs);
+        ? '${surahName(context, surah)} · ${ayahOf(context, a, surah.ayahs)}'
+        : ayahOf(context, a, surah.ayahs);
 
     return Container(
       height: 64,
@@ -68,7 +66,7 @@ class RecitationBar extends ConsumerWidget {
                   borderRadius: BorderRadius.circular(WaqtRadii.row),
                   onTap: mini
                       ? () => openReader(context, (surah: surah.n, ayah: a == 0 ? 1 : a))
-                      : () => context.push('/quran/reciters'),
+                      : () => showRecitationSheet(context),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: WaqtSpace.x3, vertical: 6),
                     child: Column(
@@ -115,44 +113,11 @@ class RecitationBar extends ConsumerWidget {
                   color: t.ink,
                   icon: const Icon(Icons.skip_next_rounded),
                 ),
-                PopupMenuButton<String>(
-                  tooltip: l.quranMore,
-                  icon: Icon(Icons.more_vert_rounded, color: t.ink),
-                  color: Color.alphaBlend(t.surface, t.ground),
-                  onSelected: (v) {
-                    if (v == 'stop') {
-                      player.stop();
-                    } else if (v == 'downloads') {
-                      context.push('/quran/downloads');
-                    } else {
-                      player.setSpeed(double.parse(v));
-                    }
-                  },
-                  itemBuilder: (_) => [
-                    for (final s in _speeds)
-                      CheckedPopupMenuItem(
-                        value: '$s',
-                        checked: prefs.speed == s,
-                        child: Text('${l.quranSpeed} ${s == s.roundToDouble() ? s.toInt() : s}×'),
-                      ),
-                    const PopupMenuDivider(),
-                    PopupMenuItem(
-                      value: 'downloads',
-                      child: ListTile(
-                        contentPadding: EdgeInsets.zero,
-                        leading: Icon(local ? Icons.download_done_rounded : Icons.wifi_rounded),
-                        title: Text(local ? l.quranOnPhone : l.quranStreaming),
-                      ),
-                    ),
-                    PopupMenuItem(
-                      value: 'stop',
-                      child: ListTile(
-                        contentPadding: EdgeInsets.zero,
-                        leading: const Icon(Icons.stop_rounded),
-                        title: Text(l.quranStop),
-                      ),
-                    ),
-                  ],
+                IconButton(
+                  tooltip: l.quranPlayback,
+                  onPressed: () => showRecitationSheet(context),
+                  color: t.ink,
+                  icon: const Icon(Icons.tune_rounded),
                 ),
                 const SizedBox(width: 4),
               ],
@@ -193,3 +158,98 @@ BoxDecoration recitationSurface(WaqtTokens t, [double radius = 32]) => BoxDecora
   border: Border.all(color: t.hairline),
   boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.10), blurRadius: 24, offset: const Offset(0, 8))],
 );
+
+const _speeds = [0.75, 1.0, 1.25, 1.5];
+
+/// The player's options, each on its own line: who recites, how fast,
+/// where the audio comes from, and stop.
+Future<void> showRecitationSheet(BuildContext context) {
+  final t = WaqtTokens.of(context);
+  return showModalBottomSheet<void>(
+    context: context,
+    showDragHandle: true,
+    backgroundColor: t.ground,
+    builder: (_) => const _RecitationSheet(),
+  );
+}
+
+class _RecitationSheet extends ConsumerWidget {
+  const _RecitationSheet();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l = AppLocalizations.of(context);
+    final t = WaqtTokens.of(context);
+    final rec = ref.watch(recitationProvider);
+    final q = ref.watch(quranProvider).value;
+    final prefs = ref.watch(quranPrefsProvider);
+    final player = ref.read(recitationProvider.notifier);
+    final n = rec.surah;
+    if (q == null || n == null) return const SizedBox.shrink();
+    final surah = q.surah(n);
+    final local = ref.watch(recitationDownloadsProvider.select((d) => d.done.contains(n)));
+    final a = rec.ayah ?? 0;
+    final speed = NumberFormat('0.##', Localizations.localeOf(context).toLanguageTag());
+
+    Widget row(IconData icon, String title, String value, String route) => ListTile(
+      contentPadding: EdgeInsets.zero,
+      minTileHeight: WaqtSpace.minTouch + 8,
+      leading: Icon(icon, color: t.ink),
+      title: Text(title, style: WaqtText.bodyStrong.copyWith(color: t.ink)),
+      subtitle: Text(value, style: WaqtText.label.copyWith(color: t.inkMuted)),
+      trailing: Icon(Icons.chevron_right_rounded, color: t.inkMuted, textDirection: Directionality.of(context)),
+      onTap: () {
+        Navigator.of(context).pop();
+        context.push(route);
+      },
+    );
+
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(WaqtSpace.screen, 0, WaqtSpace.screen, WaqtSpace.x4),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(surahName(context, surah), style: WaqtText.titleSmall.copyWith(color: t.ink)),
+            if (a > 0) Text(ayahOf(context, a, surah.ayahs), style: WaqtText.label.copyWith(color: t.inkMuted)),
+            const SizedBox(height: WaqtSpace.x3),
+            row(Icons.record_voice_over_outlined, l.quranReciter, reciterById(prefs.reciter).name, '/quran/reciters'),
+            Divider(height: 1, color: t.hairline),
+            const SizedBox(height: WaqtSpace.x4),
+            Text(l.quranSpeed, style: WaqtText.bodyStrong.copyWith(color: t.ink)),
+            const SizedBox(height: WaqtSpace.x2),
+            PillSwitch(
+              labels: [for (final s in _speeds) '${speed.format(s)}×'],
+              selected: _speeds.indexOf(prefs.speed).clamp(0, _speeds.length - 1),
+              onSelect: (i) => player.setSpeed(_speeds[i]),
+            ),
+            const SizedBox(height: WaqtSpace.x3),
+            Divider(height: 1, color: t.hairline),
+            row(
+              local ? Icons.download_done_rounded : Icons.wifi_rounded,
+              l.quranAudio,
+              local ? l.quranOnPhone : l.quranStreaming,
+              '/quran/downloads',
+            ),
+            const SizedBox(height: WaqtSpace.x3),
+            OutlinedButton.icon(
+              onPressed: () {
+                Navigator.of(context).pop();
+                player.stop();
+              },
+              style: OutlinedButton.styleFrom(
+                foregroundColor: t.ink,
+                side: BorderSide(color: t.ink.withValues(alpha: 0.3)),
+                minimumSize: const Size.fromHeight(WaqtSpace.minTouch),
+                shape: const StadiumBorder(),
+              ),
+              icon: const Icon(Icons.stop_rounded),
+              label: Text(l.quranStopRecitation),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

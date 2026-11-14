@@ -96,11 +96,12 @@ void main() {
       mobileData: true,
       speed: 1.25,
       indoPak: true,
+      hintSeen: true,
     );
     final back = QuranPrefs.fromJson(p.toJson());
     expect(
-      (back.arabicScale, back.translation, back.reciter, back.mobileData, back.speed, back.indoPak),
-      (1.4, false, 'ghamdi', true, 1.25, true),
+      (back.arabicScale, back.translation, back.reciter, back.mobileData, back.speed, back.indoPak, back.hintSeen),
+      (1.4, false, 'ghamdi', true, 1.25, true, true),
     );
   });
 
@@ -148,6 +149,12 @@ void main() {
     expect(marks('সকল ‘হাম্দ’ [১] আল্লাহ্র [২] , যিনি'), 2);
     // Words in brackets that are part of the translation stay.
     expect(plain('[All] praise is [due] to Allah'), '[All] praise is [due] to Allah');
+    // A mark opens the notes when asked to.
+    var opened = 0;
+    final marks0 = translationSpans('a[1] b', Colors.grey, onMark: () => opened++).whereType<WidgetSpan>();
+    (marks0.single.child as GestureDetector).onTap!();
+    expect(opened, 1);
+    expect(translationSpans('a[1] b', Colors.grey).whereType<WidgetSpan>().single.child, isNot(isA<GestureDetector>()));
   });
 
   test('transliteration: every ayah, plain to read, credited', () {

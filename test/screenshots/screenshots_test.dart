@@ -309,6 +309,47 @@ void main() {
     ),
   );
 
+  for (final (name, locale, title) in [
+    ('71e_recitation_sheet', 'en', 'Al-Baqarah · Ayah 7 / 286'),
+    ('71f_recitation_sheet_bn', 'bn', 'আল-বাকারা · আয়াত ৭ / ২৮৬'),
+  ]) {
+    testWidgets(
+      'recitation options sheet, $locale',
+      (t) async => shoot(
+        t,
+        name,
+        await app(
+          at: DateTime(2026, 11, 6, 9, 41),
+          place: dhaka,
+          locale: Locale(locale),
+          stored: {'quran.prefs.v1': '{"hint":true}'},
+          reciting: const Recitation(surah: 2, ayah: 7, playing: true),
+        ),
+        then: () async {
+          await t.tap(find.text(title));
+          await t.pumpAndSettle();
+          await t.tap(find.byIcon(Icons.tune_rounded).last);
+        },
+      ),
+    );
+  }
+
+  testWidgets(
+    'quran tab, every well-known passage',
+    (t) async => shoot(
+      t,
+      '70c_quran_passages',
+      await app(at: DateTime(2026, 11, 6, 12, 40), place: dhaka),
+      then: () async {
+        await t.tap(find.byTooltip('Quran'));
+        await t.pumpAndSettle();
+        await t.tap(find.text('Show all'));
+        await t.pumpAndSettle();
+        await t.drag(find.byType(CustomScrollView), const Offset(0, -260));
+      },
+    ),
+  );
+
   testWidgets(
     'recitation bar on Today, marks on prayers',
     (t) async => shoot(

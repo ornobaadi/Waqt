@@ -1013,14 +1013,14 @@
   "quranStart": "Start reading",
   "quranResume": "Resume",
   "quranOpen": "Open",
-  "quranAyahOf": "Ayah {ayah} of {total}",
+  "quranAyahOf": "Ayah {ayah} / {total}",
   "@quranAyahOf": {
     "placeholders": {
       "ayah": {
-        "type": "int"
+        "type": "String"
       },
       "total": {
-        "type": "int"
+        "type": "String"
       }
     }
   },
@@ -1042,7 +1042,6 @@
   },
   "quranMakki": "Makki",
   "quranMadani": "Madani",
-  "quranForNow": "For this moment",
   "quranTabSurah": "Surah",
   "quranTabJuz": "Juz",
   "quranTabSaved": "Saved",
@@ -1192,5 +1191,23 @@
   "quranPlayHere": "Play from here",
   "quranSaveShort": "Save",
   "quranSavedShort": "Saved",
-  "quranTranslitSource": "Transliteration: Tanzil.net, for non-commercial use."
+  "quranTranslitSource": "Transliteration: Tanzil.net, for non-commercial use.",
+  "quranWellKnown": "Well-known passages",
+  "quranShowAll": "Show all",
+  "quranShowLess": "Show less",
+  "quranKursi": "Ayat al-Kursi",
+  "quranWhyKursi": "The greatest ayah in the Quran",
+  "quranFatihah": "Surah al-Fatihah",
+  "quranWhyFatihah": "The greatest surah in the Quran",
+  "quranIkhlas": "Surah al-Ikhlas",
+  "quranWhyIkhlas": "Equal to a third of the Quran",
+  "quranBaqarah": "Surah al-Baqarah",
+  "quranWhyBaqarah": "Shaytan flees the house where it is read",
+  "quranTipGestures": "Tip: double-tap an ayah to save it, hold it to copy.",
+  "quranSavedSnack": "Ayah saved",
+  "quranRemovedSnack": "Removed from saved",
+  "undo": "Undo",
+  "quranStopRecitation": "Stop recitation",
+  "quranAudio": "Audio",
+  "quranPlayback": "Playback options"
 }

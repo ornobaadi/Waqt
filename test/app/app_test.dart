@@ -4,6 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/services.dart';
+import 'package:waqt/data/quran/quran_prefs.dart';
 import 'package:waqt/data/user/reading_prefs.dart';
 import 'package:waqt/platform/quran_audio.dart';
 import 'package:waqt/data/user/user_prefs.dart';
@@ -322,14 +323,96 @@ void main() {
       ),
     );
     await tester.pumpAndSettle();
-    expect(find.text('Al-Kahf · Ayah 10 of 110'), findsOneWidget);
+    expect(find.text('Al-Kahf · Ayah 10 / 110'), findsOneWidget);
     await tester.tap(find.byTooltip('Today'));
     await tester.pumpAndSettle();
-    expect(find.text('Al-Kahf · Ayah 10 of 110'), findsOneWidget);
+    expect(find.text('Al-Kahf · Ayah 10 / 110'), findsOneWidget);
     expect(find.byTooltip('Pause'), findsOneWidget);
     await tester.tap(find.byTooltip('Stop'));
     await tester.pumpAndSettle();
-    expect(find.text('Al-Kahf · Ayah 10 of 110'), findsNothing);
+    expect(find.text('Al-Kahf · Ayah 10 / 110'), findsNothing);
+  });
+
+  testWidgets('Quran ayah: double-tap saves with undo, hold copies, no extra menu', (tester) async {
+    tester.view.physicalSize = const Size(1170, 2532);
+    tester.view.devicePixelRatio = 3;
+    addTearDown(tester.view.reset);
+    String? copied;
+    tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(SystemChannels.platform, (call) async {
+      if (call.method == 'Clipboard.setData') copied = (call.arguments as Map)['text'] as String?;
+      return null;
+    });
+    await tester.pumpWidget(await app(at: DateTime(2026, 11, 6, 9, 41), place: dhaka));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byTooltip('Quran'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Open'));
+    await tester.pumpAndSettle();
+    // A one-time tip, closed for good.
+    expect(find.textContaining('double-tap an ayah'), findsOneWidget);
+    await tester.tap(find.byTooltip('Close'));
+    await tester.pumpAndSettle();
+    expect(find.textContaining('double-tap an ayah'), findsNothing);
+
+    final ayah = find.byKey(const ValueKey('ayah-1:1'));
+    expect(find.descendant(of: ayah, matching: find.byTooltip('More')), findsNothing);
+    expect(find.descendant(of: ayah, matching: find.byTooltip('Copy')), findsOneWidget);
+    final words = find.descendant(of: ayah, matching: find.text('Bismi Allahi arrahmani arraheem'));
+    final container = ProviderScope.containerOf(tester.element(ayah));
+    await tester.tap(words);
+    await tester.pump(const Duration(milliseconds: 50));
+    await tester.tap(words);
+    await tester.pumpAndSettle();
+    expect(find.text('Ayah saved'), findsOneWidget);
+    expect(container.read(quranProgressProvider).isSaved((surah: 1, ayah: 1)), isTrue);
+    await tester.tap(find.text('Undo'));
+    await tester.pumpAndSettle();
+    expect(container.read(quranProgressProvider).isSaved((surah: 1, ayah: 1)), isFalse);
+
+    await tester.longPress(words);
+    await tester.pumpAndSettle();
+    expect(copied, contains('Bismi Allahi arrahmani arraheem'));
+    expect(copied, contains('Al-Fatihah 1:1'));
+  });
+
+  testWidgets('the player: options in one calm sheet (speed, stop), the title in the reader\'s digits', (tester) async {
+    tester.view.physicalSize = const Size(1170, 2532);
+    tester.view.devicePixelRatio = 3;
+    addTearDown(tester.view.reset);
+    await tester.pumpWidget(
+      await app(
+        at: DateTime(2026, 11, 6, 9, 41),
+        place: dhaka,
+        reciting: const Recitation(surah: 2, ayah: 7, playing: true),
+      ),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Al-Baqarah · Ayah 7 / 286'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byTooltip('Playback options'));
+    await tester.pumpAndSettle();
+    expect(find.text('Speed'), findsOneWidget);
+    expect(find.text('Reciter'), findsOneWidget);
+    await tester.tap(find.text('1.25×'));
+    await tester.pumpAndSettle();
+    final container = ProviderScope.containerOf(tester.element(find.text('Speed')));
+    expect(container.read(quranPrefsProvider).speed, 1.25);
+    await tester.tap(find.text('Stop recitation'));
+    await tester.pumpAndSettle();
+    expect(container.read(recitationProvider).active, isFalse);
+  });
+
+  testWidgets('the player in Bangla counts in Bangla digits', (tester) async {
+    await tester.pumpWidget(
+      await app(
+        at: DateTime(2026, 11, 6, 9, 41),
+        place: dhaka,
+        locale: const Locale('bn'),
+        reciting: const Recitation(surah: 2, ayah: 7, playing: true),
+      ),
+    );
+    await tester.pumpAndSettle();
+    expect(find.text('আল-বাকারা · আয়াত ৭ / ২৮৬'), findsOneWidget);
   });
 
   testWidgets('bedtime checklist ticks and resets with the prayer day', (tester) async {

@@ -1598,8 +1598,8 @@ class AppLocalizationsUr extends AppLocalizations {
   String get quranOpen => 'کھولیں';
 
   @override
-  String quranAyahOf(int ayah, int total) {
-    return '$total میں سے آیت $ayah';
+  String quranAyahOf(String ayah, String total) {
+    return 'آیت $ayah / $total';
   }
 
   @override
@@ -1618,9 +1618,6 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get quranMadani => 'مدنی';
-
-  @override
-  String get quranForNow => 'اس لمحے کے لیے';
 
   @override
   String get quranTabSurah => 'سورتیں';
@@ -1933,4 +1930,58 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get quranTranslitSource => 'رومن تلفظ: Tanzil.net، غیر تجارتی استعمال کے لیے۔';
+
+  @override
+  String get quranWellKnown => 'مشہور سورتیں اور آیات';
+
+  @override
+  String get quranShowAll => 'سب دیکھیں';
+
+  @override
+  String get quranShowLess => 'کم دیکھیں';
+
+  @override
+  String get quranKursi => 'آیت الکرسی';
+
+  @override
+  String get quranWhyKursi => 'قرآن کی سب سے عظیم آیت';
+
+  @override
+  String get quranFatihah => 'سورۃ الفاتحہ';
+
+  @override
+  String get quranWhyFatihah => 'قرآن کی سب سے عظیم سورت';
+
+  @override
+  String get quranIkhlas => 'سورۃ الاخلاص';
+
+  @override
+  String get quranWhyIkhlas => 'ایک تہائی قرآن کے برابر';
+
+  @override
+  String get quranBaqarah => 'سورۃ البقرہ';
+
+  @override
+  String get quranWhyBaqarah => 'جس گھر میں پڑھی جائے، شیطان وہاں سے بھاگتا ہے';
+
+  @override
+  String get quranTipGestures => 'مشورہ: آیت محفوظ کرنے کے لیے دو بار تھپتھپائیں، کاپی کرنے کے لیے دبائے رکھیں۔';
+
+  @override
+  String get quranSavedSnack => 'آیت محفوظ ہو گئی';
+
+  @override
+  String get quranRemovedSnack => 'محفوظ سے ہٹا دی گئی';
+
+  @override
+  String get undo => 'واپس لیں';
+
+  @override
+  String get quranStopRecitation => 'تلاوت بند کریں';
+
+  @override
+  String get quranAudio => 'آڈیو';
+
+  @override
+  String get quranPlayback => 'پلے بیک کے اختیارات';
 }

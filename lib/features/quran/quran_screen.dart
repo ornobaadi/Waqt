@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../app/app_state.dart';
 import '../../core/theme/tokens.dart';
 import '../../core/theme/waqt_theme.dart';
+import '../../core/utils/digits.dart';
 import '../../core/widgets/waqt_widgets.dart';
 import '../../data/quran/quran.dart';
 import '../../data/quran/quran_prefs.dart';
@@ -12,38 +13,60 @@ import '../../domain/moments/moment.dart';
 import '../../l10n/app_localizations.dart';
 import '../duas/library_views.dart';
 
-/// A reading the Sunnah ties to a time, with the hadith that ties it.
-class QuranForMoment {
-  const QuranForMoment(this.title, this.when, this.at, this.he, this.moments);
+/// A passage people look for, with the sahih or hasan hadith that says why
+/// it is read. Some are tied to a time of day; those come first then.
+class QuranPassage {
+  const QuranPassage(this.title, this.why, this.at, this.he, {this.end, this.moments = const {}});
   final String Function(AppLocalizations) title;
-  final String Function(AppLocalizations) when;
+  final String Function(AppLocalizations) why;
   final AyahRef at;
 
-  /// HadeethEnc id, bundled (tool/build_content.py, QURAN_FOR_MOMENT).
+  /// The last ayah, when the passage is a few ayat of a surah.
+  final int? end;
+
+  /// HadeethEnc id, bundled (tool/build_content.py, QURAN_PASSAGES).
   final int he;
 
-  /// Moments it comes first in.
+  /// Moments it is read in.
   final Set<MomentId> moments;
 }
 
-final quranForMoment = [
-  QuranForMoment(
+final quranPassages = [
+  QuranPassage((l) => l.quranKursi, (l) => l.quranWhyKursi, (surah: 2, ayah: 255), 65059, end: 255),
+  QuranPassage(
     (l) => l.quranBaqarahEnd,
     (l) => l.quranWhenNight,
     (surah: 2, ayah: 285),
     6274,
-    {MomentId.maghrib, MomentId.isha, MomentId.bedtime, MomentId.lastThird, MomentId.taraweeh},
+    end: 286,
+    moments: {MomentId.maghrib, MomentId.isha, MomentId.bedtime, MomentId.lastThird, MomentId.taraweeh},
   ),
-  QuranForMoment(
+  QuranPassage((l) => l.quranFatihah, (l) => l.quranWhyFatihah, (surah: 1, ayah: 1), 10112),
+  QuranPassage(
+    (l) => l.quranKahf10,
+    (l) => l.quranWhenDajjal,
+    (surah: 18, ayah: 1),
+    6265,
+    end: 10,
+    moments: {MomentId.jumuah},
+  ),
+  QuranPassage((l) => l.quranMulk, (l) => l.quranWhenSleep, (surah: 67, ayah: 1), 6260, moments: {MomentId.bedtime}),
+  QuranPassage(
     (l) => l.quranQuls,
     (l) => l.quranWhenMorningEvening,
     (surah: 112, ayah: 1),
     6082,
-    {MomentId.morningAdhkar, MomentId.eveningAdhkar, MomentId.fajr, MomentId.sunrise},
+    moments: {MomentId.morningAdhkar, MomentId.eveningAdhkar, MomentId.fajr, MomentId.sunrise},
   ),
-  QuranForMoment((l) => l.quranMulk, (l) => l.quranWhenSleep, (surah: 67, ayah: 1), 6260, {MomentId.bedtime}),
-  QuranForMoment((l) => l.quranKahf10, (l) => l.quranWhenDajjal, (surah: 18, ayah: 1), 6265, {MomentId.jumuah}),
+  QuranPassage((l) => l.quranIkhlas, (l) => l.quranWhyIkhlas, (surah: 112, ayah: 1), 65261),
+  QuranPassage((l) => l.quranBaqarah, (l) => l.quranWhyBaqarah, (surah: 2, ayah: 1), 6208),
 ];
+
+/// "Ayah 7 / 286" in the reader's own digits.
+String ayahOf(BuildContext context, int ayah, int total) {
+  final d = LocaleDigits(Localizations.localeOf(context).toLanguageTag());
+  return AppLocalizations.of(context).quranAyahOf(d(ayah), d(total));
+}
 
 /// The font for the Arabic text of [q]'s script (surah names stay in Amiri Quran).
 String quranFont(Quran q) => q.marksInText ? WaqtFonts.indoPak : WaqtFonts.quran;
@@ -113,6 +136,10 @@ class QuranScreen extends ConsumerStatefulWidget {
 class _QuranScreenState extends ConsumerState<QuranScreen> {
   var _tab = 0;
 
+  /// Well-known passages: the first few, or all of them.
+  static const _shownPassages = 5;
+  var _allPassages = false;
+
   /// Non-null while the surah search is open.
   String? _query;
 
@@ -125,8 +152,11 @@ class _QuranScreenState extends ConsumerState<QuranScreen> {
     // Names, not the list: the snapshot changes every second.
     final active = ref.watch(momentSnapshotProvider.select((s) => s?.active.map((m) => m.id.name).join(',') ?? ''));
     final now = {for (final n in active.split(',')) ?MomentId.values.asNameMap()[n]};
-    final picks = [...quranForMoment]
-      ..sort((a, b) => (b.moments.any(now.contains) ? 1 : 0) - (a.moments.any(now.contains) ? 1 : 0));
+    // The ones for this moment first; the rest keep their order.
+    final picks = [
+      ...quranPassages.where((p) => p.moments.any(now.contains)),
+      ...quranPassages.where((p) => !p.moments.any(now.contains)),
+    ];
 
     return SafeArea(
       bottom: false,
@@ -186,13 +216,24 @@ class _QuranScreenState extends ConsumerState<QuranScreen> {
                         : _list(found.length, (i) => _SurahRow(surah: found[i])),
                 ] else ...[
                   _pad(_ContinueCard(quran: q, at: progress.last)),
-                  _pad(SectionLabel(l.quranForNow)),
+                  _pad(SectionLabel(l.quranWellKnown)),
                   _pad(
                     RowGroup(
                       children: [
-                        for (final p in picks.take(3))
-                          _MomentRow(pick: p, highlight: p.moments.any(now.contains), quran: q),
+                        for (final p in _allPassages ? picks : picks.take(_shownPassages))
+                          _PassageRow(pick: p, highlight: p.moments.any(now.contains), quran: q),
                       ],
+                    ),
+                  ),
+                  _pad(
+                    Align(
+                      alignment: AlignmentDirectional.centerStart,
+                      child: TextButton.icon(
+                        onPressed: () => setState(() => _allPassages = !_allPassages),
+                        style: TextButton.styleFrom(foregroundColor: t.ink),
+                        icon: Icon(_allPassages ? Icons.expand_less_rounded : Icons.expand_more_rounded),
+                        label: Text(_allPassages ? l.quranShowLess : l.quranShowAll),
+                      ),
                     ),
                   ),
                   _pad(
@@ -295,7 +336,7 @@ class _ContinueCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          '${l.quranAyahOf(r.ayah, s.ayahs)} · ${l.quranJuz(quran.juzOf(r.surah, r.ayah))}',
+                          '${ayahOf(context, r.ayah, s.ayahs)} · ${l.quranJuz(quran.juzOf(r.surah, r.ayah))}',
                           style: WaqtText.label.copyWith(
                             color: soft,
                             fontFeatures: const [FontFeature.tabularFigures()],
@@ -335,11 +376,20 @@ class _ContinueCard extends StatelessWidget {
   }
 }
 
-class _MomentRow extends ConsumerWidget {
-  const _MomentRow({required this.pick, required this.highlight, required this.quran});
-  final QuranForMoment pick;
+class _PassageRow extends ConsumerWidget {
+  const _PassageRow({required this.pick, required this.highlight, required this.quran});
+  final QuranPassage pick;
   final bool highlight;
   final Quran quran;
+
+  /// "2:255" or "18:1–10", for passages that are a few ayat of a surah.
+  String? _place(BuildContext context) {
+    final end = pick.end;
+    if (end == null) return null;
+    final d = LocaleDigits(Localizations.localeOf(context).toLanguageTag());
+    final at = pick.at;
+    return end == at.ayah ? '${d(at.surah)}:${d(at.ayah)}' : '${d(at.surah)}:${d(at.ayah)}–${d(end)}';
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -381,7 +431,10 @@ class _MomentRow extends ConsumerWidget {
                       ],
                     ),
                     const SizedBox(height: 2),
-                    Text(pick.when(l), style: WaqtText.caption.copyWith(color: t.inkMuted)),
+                    Text(
+                      [?_place(context), pick.why(l)].join(' · '),
+                      style: WaqtText.caption.copyWith(color: t.inkMuted),
+                    ),
                     HeSourceText(
                       id: pick.he,
                       style: WaqtText.caption.copyWith(color: t.inkMuted),

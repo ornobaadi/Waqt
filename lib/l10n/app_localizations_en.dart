@@ -1606,8 +1606,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get quranOpen => 'Open';
 
   @override
-  String quranAyahOf(int ayah, int total) {
-    return 'Ayah $ayah of $total';
+  String quranAyahOf(String ayah, String total) {
+    return 'Ayah $ayah / $total';
   }
 
   @override
@@ -1626,9 +1626,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get quranMadani => 'Madani';
-
-  @override
-  String get quranForNow => 'For this moment';
 
   @override
   String get quranTabSurah => 'Surah';
@@ -1941,4 +1938,58 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get quranTranslitSource => 'Transliteration: Tanzil.net, for non-commercial use.';
+
+  @override
+  String get quranWellKnown => 'Well-known passages';
+
+  @override
+  String get quranShowAll => 'Show all';
+
+  @override
+  String get quranShowLess => 'Show less';
+
+  @override
+  String get quranKursi => 'Ayat al-Kursi';
+
+  @override
+  String get quranWhyKursi => 'The greatest ayah in the Quran';
+
+  @override
+  String get quranFatihah => 'Surah al-Fatihah';
+
+  @override
+  String get quranWhyFatihah => 'The greatest surah in the Quran';
+
+  @override
+  String get quranIkhlas => 'Surah al-Ikhlas';
+
+  @override
+  String get quranWhyIkhlas => 'Equal to a third of the Quran';
+
+  @override
+  String get quranBaqarah => 'Surah al-Baqarah';
+
+  @override
+  String get quranWhyBaqarah => 'Shaytan flees the house where it is read';
+
+  @override
+  String get quranTipGestures => 'Tip: double-tap an ayah to save it, hold it to copy.';
+
+  @override
+  String get quranSavedSnack => 'Ayah saved';
+
+  @override
+  String get quranRemovedSnack => 'Removed from saved';
+
+  @override
+  String get undo => 'Undo';
+
+  @override
+  String get quranStopRecitation => 'Stop recitation';
+
+  @override
+  String get quranAudio => 'Audio';
+
+  @override
+  String get quranPlayback => 'Playback options';
 }

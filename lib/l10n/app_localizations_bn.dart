@@ -1596,8 +1596,8 @@ class AppLocalizationsBn extends AppLocalizations {
   String get quranOpen => 'খুলুন';
 
   @override
-  String quranAyahOf(int ayah, int total) {
-    return '$totalটির মধ্যে আয়াত $ayah';
+  String quranAyahOf(String ayah, String total) {
+    return 'আয়াত $ayah / $total';
   }
 
   @override
@@ -1616,9 +1616,6 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get quranMadani => 'মাদানী';
-
-  @override
-  String get quranForNow => 'এই মুহূর্তের জন্য';
 
   @override
   String get quranTabSurah => 'সূরা';
@@ -1930,4 +1927,58 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get quranTranslitSource => 'উচ্চারণ: Tanzil.net, অবাণিজ্যিক ব্যবহারের জন্য।';
+
+  @override
+  String get quranWellKnown => 'পরিচিত সূরা ও আয়াত';
+
+  @override
+  String get quranShowAll => 'সব দেখুন';
+
+  @override
+  String get quranShowLess => 'কম দেখুন';
+
+  @override
+  String get quranKursi => 'আয়াতুল কুরসি';
+
+  @override
+  String get quranWhyKursi => 'কুরআনের সবচেয়ে মহান আয়াত';
+
+  @override
+  String get quranFatihah => 'সূরা আল-ফাতিহা';
+
+  @override
+  String get quranWhyFatihah => 'কুরআনের সবচেয়ে মহান সূরা';
+
+  @override
+  String get quranIkhlas => 'সূরা আল-ইখলাস';
+
+  @override
+  String get quranWhyIkhlas => 'কুরআনের এক-তৃতীয়াংশের সমান';
+
+  @override
+  String get quranBaqarah => 'সূরা আল-বাকারা';
+
+  @override
+  String get quranWhyBaqarah => 'যে ঘরে পড়া হয়, শয়তান সেখান থেকে পালায়';
+
+  @override
+  String get quranTipGestures => 'টিপস: আয়াত সেভ করতে দুবার ট্যাপ করুন, কপি করতে চেপে ধরুন।';
+
+  @override
+  String get quranSavedSnack => 'আয়াত সেভ হয়েছে';
+
+  @override
+  String get quranRemovedSnack => 'সেভ থেকে সরানো হয়েছে';
+
+  @override
+  String get undo => 'ফিরিয়ে নিন';
+
+  @override
+  String get quranStopRecitation => 'তিলাওয়াত বন্ধ করুন';
+
+  @override
+  String get quranAudio => 'অডিও';
+
+  @override
+  String get quranPlayback => 'প্লেব্যাক অপশন';
 }

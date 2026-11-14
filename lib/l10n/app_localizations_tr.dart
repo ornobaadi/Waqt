@@ -1606,8 +1606,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get quranOpen => 'Aç';
 
   @override
-  String quranAyahOf(int ayah, int total) {
-    return '$total ayetten $ayah.';
+  String quranAyahOf(String ayah, String total) {
+    return 'Ayet $ayah / $total';
   }
 
   @override
@@ -1626,9 +1626,6 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get quranMadani => 'Medenî';
-
-  @override
-  String get quranForNow => 'Bu an için';
 
   @override
   String get quranTabSurah => 'Sure';
@@ -1940,4 +1937,58 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get quranTranslitSource => 'Okunuş: Tanzil.net, ticari olmayan kullanım için.';
+
+  @override
+  String get quranWellKnown => 'Bilinen sure ve ayetler';
+
+  @override
+  String get quranShowAll => 'Tümünü göster';
+
+  @override
+  String get quranShowLess => 'Daha az göster';
+
+  @override
+  String get quranKursi => 'Âyetü\'l-Kürsî';
+
+  @override
+  String get quranWhyKursi => 'Kur\'an\'ın en büyük ayeti';
+
+  @override
+  String get quranFatihah => 'Fâtiha Suresi';
+
+  @override
+  String get quranWhyFatihah => 'Kur\'an\'ın en büyük suresi';
+
+  @override
+  String get quranIkhlas => 'İhlâs Suresi';
+
+  @override
+  String get quranWhyIkhlas => 'Kur\'an\'ın üçte birine denk';
+
+  @override
+  String get quranBaqarah => 'Bakara Suresi';
+
+  @override
+  String get quranWhyBaqarah => 'Okunduğu evden şeytan kaçar';
+
+  @override
+  String get quranTipGestures => 'İpucu: ayeti kaydetmek için iki kez dokunun, kopyalamak için basılı tutun.';
+
+  @override
+  String get quranSavedSnack => 'Ayet kaydedildi';
+
+  @override
+  String get quranRemovedSnack => 'Kaydedilenlerden çıkarıldı';
+
+  @override
+  String get undo => 'Geri al';
+
+  @override
+  String get quranStopRecitation => 'Tilaveti durdur';
+
+  @override
+  String get quranAudio => 'Ses';
+
+  @override
+  String get quranPlayback => 'Oynatma seçenekleri';
 }

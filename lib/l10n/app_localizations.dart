@@ -2790,8 +2790,8 @@ abstract class AppLocalizations {
   /// No description provided for @quranAyahOf.
   ///
   /// In en, this message translates to:
-  /// **'Ayah {ayah} of {total}'**
-  String quranAyahOf(int ayah, int total);
+  /// **'Ayah {ayah} / {total}'**
+  String quranAyahOf(String ayah, String total);
 
   /// No description provided for @quranJuz.
   ///
@@ -2816,12 +2816,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Madani'**
   String get quranMadani;
-
-  /// No description provided for @quranForNow.
-  ///
-  /// In en, this message translates to:
-  /// **'For this moment'**
-  String get quranForNow;
 
   /// No description provided for @quranTabSurah.
   ///
@@ -3416,6 +3410,114 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Transliteration: Tanzil.net, for non-commercial use.'**
   String get quranTranslitSource;
+
+  /// No description provided for @quranWellKnown.
+  ///
+  /// In en, this message translates to:
+  /// **'Well-known passages'**
+  String get quranWellKnown;
+
+  /// No description provided for @quranShowAll.
+  ///
+  /// In en, this message translates to:
+  /// **'Show all'**
+  String get quranShowAll;
+
+  /// No description provided for @quranShowLess.
+  ///
+  /// In en, this message translates to:
+  /// **'Show less'**
+  String get quranShowLess;
+
+  /// No description provided for @quranKursi.
+  ///
+  /// In en, this message translates to:
+  /// **'Ayat al-Kursi'**
+  String get quranKursi;
+
+  /// No description provided for @quranWhyKursi.
+  ///
+  /// In en, this message translates to:
+  /// **'The greatest ayah in the Quran'**
+  String get quranWhyKursi;
+
+  /// No description provided for @quranFatihah.
+  ///
+  /// In en, this message translates to:
+  /// **'Surah al-Fatihah'**
+  String get quranFatihah;
+
+  /// No description provided for @quranWhyFatihah.
+  ///
+  /// In en, this message translates to:
+  /// **'The greatest surah in the Quran'**
+  String get quranWhyFatihah;
+
+  /// No description provided for @quranIkhlas.
+  ///
+  /// In en, this message translates to:
+  /// **'Surah al-Ikhlas'**
+  String get quranIkhlas;
+
+  /// No description provided for @quranWhyIkhlas.
+  ///
+  /// In en, this message translates to:
+  /// **'Equal to a third of the Quran'**
+  String get quranWhyIkhlas;
+
+  /// No description provided for @quranBaqarah.
+  ///
+  /// In en, this message translates to:
+  /// **'Surah al-Baqarah'**
+  String get quranBaqarah;
+
+  /// No description provided for @quranWhyBaqarah.
+  ///
+  /// In en, this message translates to:
+  /// **'Shaytan flees the house where it is read'**
+  String get quranWhyBaqarah;
+
+  /// No description provided for @quranTipGestures.
+  ///
+  /// In en, this message translates to:
+  /// **'Tip: double-tap an ayah to save it, hold it to copy.'**
+  String get quranTipGestures;
+
+  /// No description provided for @quranSavedSnack.
+  ///
+  /// In en, this message translates to:
+  /// **'Ayah saved'**
+  String get quranSavedSnack;
+
+  /// No description provided for @quranRemovedSnack.
+  ///
+  /// In en, this message translates to:
+  /// **'Removed from saved'**
+  String get quranRemovedSnack;
+
+  /// No description provided for @undo.
+  ///
+  /// In en, this message translates to:
+  /// **'Undo'**
+  String get undo;
+
+  /// No description provided for @quranStopRecitation.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop recitation'**
+  String get quranStopRecitation;
+
+  /// No description provided for @quranAudio.
+  ///
+  /// In en, this message translates to:
+  /// **'Audio'**
+  String get quranAudio;
+
+  /// No description provided for @quranPlayback.
+  ///
+  /// In en, this message translates to:
+  /// **'Playback options'**
+  String get quranPlayback;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

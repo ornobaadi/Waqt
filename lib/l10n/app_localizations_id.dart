@@ -1608,8 +1608,8 @@ class AppLocalizationsId extends AppLocalizations {
   String get quranOpen => 'Buka';
 
   @override
-  String quranAyahOf(int ayah, int total) {
-    return 'Ayat $ayah dari $total';
+  String quranAyahOf(String ayah, String total) {
+    return 'Ayat $ayah / $total';
   }
 
   @override
@@ -1628,9 +1628,6 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get quranMadani => 'Madaniyah';
-
-  @override
-  String get quranForNow => 'Untuk saat ini';
 
   @override
   String get quranTabSurah => 'Surah';
@@ -1944,4 +1941,58 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get quranTranslitSource => 'Transliterasi: Tanzil.net, untuk penggunaan non-komersial.';
+
+  @override
+  String get quranWellKnown => 'Surah dan ayat pilihan';
+
+  @override
+  String get quranShowAll => 'Lihat semua';
+
+  @override
+  String get quranShowLess => 'Lebih sedikit';
+
+  @override
+  String get quranKursi => 'Ayat Kursi';
+
+  @override
+  String get quranWhyKursi => 'Ayat paling agung dalam Al-Qur\'an';
+
+  @override
+  String get quranFatihah => 'Surah Al-Fatihah';
+
+  @override
+  String get quranWhyFatihah => 'Surah paling agung dalam Al-Qur\'an';
+
+  @override
+  String get quranIkhlas => 'Surah Al-Ikhlas';
+
+  @override
+  String get quranWhyIkhlas => 'Setara sepertiga Al-Qur\'an';
+
+  @override
+  String get quranBaqarah => 'Surah Al-Baqarah';
+
+  @override
+  String get quranWhyBaqarah => 'Setan lari dari rumah yang dibacakan surah ini';
+
+  @override
+  String get quranTipGestures => 'Tips: ketuk dua kali untuk menyimpan ayat, tahan untuk menyalin.';
+
+  @override
+  String get quranSavedSnack => 'Ayat disimpan';
+
+  @override
+  String get quranRemovedSnack => 'Dihapus dari simpanan';
+
+  @override
+  String get undo => 'Urungkan';
+
+  @override
+  String get quranStopRecitation => 'Hentikan murattal';
+
+  @override
+  String get quranAudio => 'Audio';
+
+  @override
+  String get quranPlayback => 'Opsi pemutaran';
 }

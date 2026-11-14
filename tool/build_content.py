@@ -221,10 +221,10 @@ DHIKR = [
 ]
 AFTER_SALAH = 6259  # Muslim 596
 
-# The Quran tab's "For this moment" (lib/features/quran/quran_screen.dart):
-# last two ayat of al-Baqarah at night, the three Quls morning and evening,
-# al-Mulk before sleep, the first ten ayat of al-Kahf.
-QURAN_FOR_MOMENT = [6274, 6082, 6260, 6265]
+# The Quran tab's well-known passages (lib/features/quran/quran_screen.dart): Ayat
+# al-Kursi, the end of al-Baqarah, al-Fatihah, al-Kahf 1-10, al-Mulk, the three Quls,
+# al-Ikhlas, al-Baqarah.
+QURAN_PASSAGES = [65059, 6274, 10112, 6265, 6260, 6082, 65261, 6208]
 
 MARKS = re.compile("[ؐ-ًؚ-ٰٟۖ-ۭـ‌]")
 
@@ -360,8 +360,8 @@ def main():
             f"virtue: {{{', '.join(f'{dart(k)}: {dart(x)}' for k, x in v.items())}}}),"
         )
     check(AFTER_SALAH, "after_salah")
-    # Quran tab, "For this moment": the hadiths behind each suggestion.
-    for i in QURAN_FOR_MOMENT:
+    # Quran tab, well-known passages: the hadith behind each one.
+    for i in QURAN_PASSAGES:
         check(i, f"quran {i}")
     v = labels("after_salah", V)
     with open(os.path.join(ROOT, "lib", "features", "counter", "dhikr_data.dart"), "w", encoding="utf8") as f:

@@ -1609,8 +1609,8 @@ class AppLocalizationsFr extends AppLocalizations {
   String get quranOpen => 'Ouvrir';
 
   @override
-  String quranAyahOf(int ayah, int total) {
-    return 'Verset $ayah sur $total';
+  String quranAyahOf(String ayah, String total) {
+    return 'Verset $ayah / $total';
   }
 
   @override
@@ -1629,9 +1629,6 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get quranMadani => 'Médinoise';
-
-  @override
-  String get quranForNow => 'Pour ce moment';
 
   @override
   String get quranTabSurah => 'Sourates';
@@ -1945,4 +1942,59 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get quranTranslitSource => 'Translittération : Tanzil.net, usage non commercial.';
+
+  @override
+  String get quranWellKnown => 'Passages bien connus';
+
+  @override
+  String get quranShowAll => 'Tout afficher';
+
+  @override
+  String get quranShowLess => 'Afficher moins';
+
+  @override
+  String get quranKursi => 'Ayat al-Kursi';
+
+  @override
+  String get quranWhyKursi => 'Le plus grand verset du Coran';
+
+  @override
+  String get quranFatihah => 'Sourate al-Fatiha';
+
+  @override
+  String get quranWhyFatihah => 'La plus grande sourate du Coran';
+
+  @override
+  String get quranIkhlas => 'Sourate al-Ikhlas';
+
+  @override
+  String get quranWhyIkhlas => 'Équivaut au tiers du Coran';
+
+  @override
+  String get quranBaqarah => 'Sourate al-Baqara';
+
+  @override
+  String get quranWhyBaqarah => 'Satan fuit la maison où elle est récitée';
+
+  @override
+  String get quranTipGestures =>
+      'Astuce : touchez deux fois un verset pour l\'enregistrer, maintenez-le pour le copier.';
+
+  @override
+  String get quranSavedSnack => 'Verset enregistré';
+
+  @override
+  String get quranRemovedSnack => 'Retiré des enregistrés';
+
+  @override
+  String get undo => 'Annuler';
+
+  @override
+  String get quranStopRecitation => 'Arrêter la récitation';
+
+  @override
+  String get quranAudio => 'Audio';
+
+  @override
+  String get quranPlayback => 'Options de lecture';
 }

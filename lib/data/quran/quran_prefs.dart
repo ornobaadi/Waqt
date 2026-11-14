@@ -17,7 +17,11 @@ class QuranPrefs {
     this.speed = 1,
     this.indoPak = false,
     this.transliteration = true,
+    this.hintSeen = false,
   });
+
+  /// The reader's one-time tip about double-tap and hold has been closed.
+  final bool hintSeen;
 
   /// Show how to say each ayah in Latin letters.
   final bool transliteration;
@@ -52,6 +56,7 @@ class QuranPrefs {
     double? speed,
     bool? indoPak,
     bool? transliteration,
+    bool? hintSeen,
   }) => QuranPrefs(
     arabicScale: arabicScale ?? this.arabicScale,
     translation: translation ?? this.translation,
@@ -62,6 +67,7 @@ class QuranPrefs {
     speed: speed ?? this.speed,
     indoPak: indoPak ?? this.indoPak,
     transliteration: transliteration ?? this.transliteration,
+    hintSeen: hintSeen ?? this.hintSeen,
   );
 
   Map<String, Object> toJson() => {
@@ -74,6 +80,7 @@ class QuranPrefs {
     'speed': speed,
     'script': indoPak ? 'indopak' : 'uthmani',
     'translit': transliteration,
+    'hint': hintSeen,
   };
 
   static QuranPrefs fromJson(Map<String, Object?> j) => QuranPrefs(
@@ -86,6 +93,7 @@ class QuranPrefs {
     speed: (j['speed'] as num?)?.toDouble() ?? 1,
     indoPak: j['script'] == 'indopak',
     transliteration: j['translit'] as bool? ?? true,
+    hintSeen: j['hint'] as bool? ?? false,
   );
 }
 

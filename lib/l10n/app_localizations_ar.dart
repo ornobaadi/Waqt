@@ -1605,8 +1605,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get quranOpen => 'افتح';
 
   @override
-  String quranAyahOf(int ayah, int total) {
-    return 'الآية $ayah من $total';
+  String quranAyahOf(String ayah, String total) {
+    return 'الآية $ayah / $total';
   }
 
   @override
@@ -1632,9 +1632,6 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get quranMadani => 'مدنية';
-
-  @override
-  String get quranForNow => 'لهذه اللحظة';
 
   @override
   String get quranTabSurah => 'السور';
@@ -1946,4 +1943,58 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get quranTranslitSource => 'النطق بالحروف اللاتينية: Tanzil.net، للاستخدام غير التجاري.';
+
+  @override
+  String get quranWellKnown => 'سور وآيات مشهورة';
+
+  @override
+  String get quranShowAll => 'عرض الكل';
+
+  @override
+  String get quranShowLess => 'عرض أقل';
+
+  @override
+  String get quranKursi => 'آية الكرسي';
+
+  @override
+  String get quranWhyKursi => 'أعظم آية في كتاب الله';
+
+  @override
+  String get quranFatihah => 'سورة الفاتحة';
+
+  @override
+  String get quranWhyFatihah => 'أعظم سورة في القرآن';
+
+  @override
+  String get quranIkhlas => 'سورة الإخلاص';
+
+  @override
+  String get quranWhyIkhlas => 'تعدل ثلث القرآن';
+
+  @override
+  String get quranBaqarah => 'سورة البقرة';
+
+  @override
+  String get quranWhyBaqarah => 'ينفر الشيطان من البيت الذي تُقرأ فيه';
+
+  @override
+  String get quranTipGestures => 'تلميح: انقر مرتين على الآية لحفظها، واضغط عليها مطولًا لنسخها.';
+
+  @override
+  String get quranSavedSnack => 'تم حفظ الآية';
+
+  @override
+  String get quranRemovedSnack => 'أُزيلت من المحفوظات';
+
+  @override
+  String get undo => 'تراجع';
+
+  @override
+  String get quranStopRecitation => 'إيقاف التلاوة';
+
+  @override
+  String get quranAudio => 'الصوت';
+
+  @override
+  String get quranPlayback => 'خيارات التشغيل';
 }

@@ -21,7 +21,7 @@ import '../../domain/deeds/deeds.dart';
 import '../../l10n/app_localizations.dart';
 import '../../platform/quran_audio.dart';
 import 'recitation_bar.dart';
-import 'quran_screen.dart' show quranFont, quranLineHeight, quranWordSpacing, surahName;
+import 'quran_screen.dart' show ayahOf, quranFont, quranLineHeight, quranWordSpacing, surahName;
 
 /// One surah: its heading and basmala, then each ayah with its translation
 /// beneath. Remembers where you are; recites on request.
@@ -263,6 +263,27 @@ class _Heading extends ConsumerWidget {
         ),
         const SizedBox(height: WaqtSpace.x3),
         Divider(height: 1, color: t.hairline),
+        if (!ref.watch(quranPrefsProvider.select((p) => p.hintSeen))) ...[
+          const SizedBox(height: WaqtSpace.x3),
+          Container(
+            padding: const EdgeInsetsDirectional.fromSTEB(WaqtSpace.x4, WaqtSpace.x1, WaqtSpace.x1, WaqtSpace.x1),
+            decoration: BoxDecoration(color: t.surface, borderRadius: BorderRadius.circular(WaqtRadii.strip)),
+            child: Row(
+              children: [
+                Icon(Icons.touch_app_outlined, size: 18, color: t.inkMuted),
+                const SizedBox(width: WaqtSpace.x2),
+                Expanded(
+                  child: Text(l.quranTipGestures, style: WaqtText.label.copyWith(color: t.ink)),
+                ),
+                IconButton(
+                  tooltip: MaterialLocalizations.of(context).closeButtonTooltip,
+                  onPressed: () => ref.read(quranPrefsProvider.notifier).update((p) => p.copyWith(hintSeen: true)),
+                  icon: Icon(Icons.close_rounded, size: 18, color: t.inkMuted),
+                ),
+              ],
+            ),
+          ),
+        ],
         if (offerTranslation && install.status != QuranTranslationStatus.ready) ...[
           const SizedBox(height: WaqtSpace.x4),
           const TranslationDownloadCard(),
@@ -350,8 +371,8 @@ class TranslationDownloadCard extends ConsumerWidget {
 /// A translation as the translator wrote it, made easy to read: their own
 /// ayah number at the start is left off (the reader shows it), and the
 /// footnote marks ([2], [১]) become small raised numbers, so a sentence reads
-/// through. The notes themselves open from the ayah's sheet.
-List<InlineSpan> translationSpans(String text, Color muted) {
+/// through. Tapping a mark ([onMark]) opens the translator's notes.
+List<InlineSpan> translationSpans(String text, Color muted, {VoidCallback? onMark}) {
   const digits = '0-9\u09E6-\u09EF\u0660-\u0669\u06F0-\u06F9';
   var s = text.replaceFirst(RegExp('^\\s*[(（][$digits]+[)）]\\s*'), '');
   // "[২] ," -> "[২]," : the space belonged before the mark, not the comma.
@@ -361,16 +382,24 @@ List<InlineSpan> translationSpans(String text, Color muted) {
   var at = 0;
   for (final m in mark.allMatches(s)) {
     if (m.start > at) out.add(TextSpan(text: s.substring(at, m.start)));
+    final mark = Padding(
+      padding: const EdgeInsets.only(left: 1, right: 2),
+      child: Text(
+        m[1]!,
+        style: TextStyle(fontSize: 10, height: 1, color: muted, fontWeight: FontWeight.w600),
+      ),
+    );
     out.add(
       WidgetSpan(
         alignment: PlaceholderAlignment.top,
-        child: Padding(
-          padding: const EdgeInsets.only(left: 1, right: 2),
-          child: Text(
-            m[1]!,
-            style: TextStyle(fontSize: 10, height: 1, color: muted, fontWeight: FontWeight.w600),
-          ),
-        ),
+        child: onMark == null
+            ? mark
+            // A little extra room around the mark so a finger finds it.
+            : GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: onMark,
+                child: Padding(padding: const EdgeInsets.symmetric(horizontal: 3), child: mark),
+              ),
       ),
     );
     at = m.end;
@@ -450,13 +479,14 @@ class _Ayah extends ConsumerWidget {
         IconButton(
           tooltip: saved ? l.quranUnsave : l.quranSave,
           style: tool,
-          isSelected: saved,
-          selectedIcon: Icon(Icons.bookmark_rounded, size: 22, color: t.ink),
-          onPressed: () {
-            Haptics.tick();
-            ref.read(quranProgressProvider.notifier).toggleSaved(at);
-          },
-          icon: const Icon(Icons.bookmark_border_rounded, size: 22),
+          onPressed: () => _toggleSave(context, ref),
+          icon: AnimatedSwitcher(
+            duration: WaqtMotion.ui,
+            transitionBuilder: (child, a) => ScaleTransition(scale: a, child: child),
+            child: saved
+                ? Icon(Icons.bookmark_rounded, key: const ValueKey('saved'), size: 22, color: t.ink)
+                : const Icon(Icons.bookmark_border_rounded, key: ValueKey('not-saved'), size: 22),
+          ),
         ),
         if (hasNotes)
           IconButton(
@@ -466,18 +496,19 @@ class _Ayah extends ConsumerWidget {
             icon: const Icon(Icons.sticky_note_2_outlined, size: 21),
           ),
         IconButton(
-          tooltip: l.quranMore,
+          tooltip: l.copyText,
           style: tool,
-          onPressed: () => _actions(context, ref),
-          icon: const Icon(Icons.more_horiz_rounded, size: 22),
+          onPressed: () => _copy(context),
+          icon: const Icon(Icons.copy_rounded, size: 20),
         ),
       ],
     );
 
-    final body = Column(
+    // The words: double-tap saves, a long press copies. The buttons above do
+    // the same for anyone who never tries a gesture.
+    final words = Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        header,
         if (label != null)
           Padding(
             padding: const EdgeInsets.only(top: WaqtSpace.x2),
@@ -531,19 +562,32 @@ class _Ayah extends ConsumerWidget {
         if (translation case final tr? when tr.text.isNotEmpty) ...[
           const SizedBox(height: WaqtSpace.x3),
           Text.rich(
-            TextSpan(children: translationSpans(tr.text, t.inkMuted)),
+            TextSpan(
+              children: translationSpans(tr.text, t.inkMuted, onMark: hasNotes ? () => _notes(context, notes) : null),
+            ),
             style: WaqtText.body.copyWith(color: t.ink.withValues(alpha: 0.88), height: 1.6, fontSize: 16.5),
           ),
         ],
       ],
     );
 
+    final body = Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        header,
+        GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          onDoubleTap: () => _toggleSave(context, ref, tell: true),
+          onLongPress: () => _copy(context),
+          child: words,
+        ),
+      ],
+    );
+
     return Semantics(
       container: true,
-      child: GestureDetector(
+      child: KeyedSubtree(
         key: ValueKey('ayah-${at.surah}:${at.ayah}'),
-        behavior: HitTestBehavior.opaque,
-        onLongPress: () => _actions(context, ref),
         child: AnimatedContainer(
           duration: WaqtMotion.ui,
           curve: WaqtMotion.ease,
@@ -594,68 +638,44 @@ class _Ayah extends ConsumerWidget {
     );
   }
 
-  Future<void> _actions(BuildContext context, WidgetRef ref) {
+  /// Save or unsave. From a double-tap ([tell]) a short note says what
+  /// happened, with undo, since nothing on screen was pressed.
+  void _toggleSave(BuildContext context, WidgetRef ref, {bool tell = false}) {
+    Haptics.tick();
+    final progress = ref.read(quranProgressProvider.notifier);
+    progress.toggleSaved(at);
+    if (!tell) return;
     final l = AppLocalizations.of(context);
-    final t = WaqtTokens.of(context);
-    final s = quran.surah(at.surah);
-    return showModalBottomSheet<void>(
-      context: context,
-      showDragHandle: true,
-      backgroundColor: t.ground,
-      builder: (ctx) => SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(WaqtSpace.screen, 0, WaqtSpace.screen, WaqtSpace.x4),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Text(
-                '${surahName(context, s)} ${at.surah}:${at.ayah}',
-                style: WaqtText.titleSmall.copyWith(color: t.ink),
-              ),
-              const SizedBox(height: WaqtSpace.x3),
-              _action(
-                ctx,
-                saved ? Icons.bookmark_remove_outlined : Icons.bookmark_add_outlined,
-                saved ? l.quranUnsave : l.quranSave,
-                () => ref.read(quranProgressProvider.notifier).toggleSaved(at),
-              ),
-              _action(ctx, Icons.play_arrow_rounded, l.quranPlayFrom, () {
-                ref.read(recitationProvider.notifier).play(quran, at.surah, ayah: at.ayah);
-              }),
-              _action(ctx, Icons.copy_rounded, l.copyText, () {
-                Clipboard.setData(
-                  ClipboardData(
-                    text: [
-                      quran.ayah(at.surah, at.ayah),
-                      ?translit,
-                      if (translation?.text case final tr? when tr.isNotEmpty) tr,
-                      '${surahName(context, s)} ${at.surah}:${at.ayah}',
-                    ].join('\n\n'),
-                  ),
-                );
-              }),
-              if (translation?.notes case final n? when n.isNotEmpty)
-                _action(ctx, Icons.sticky_note_2_outlined, l.quranTranslatorNotes, () => _notes(context, n)),
-            ],
-          ),
+    final nowSaved = ref.read(quranProgressProvider).isSaved(at);
+    ScaffoldMessenger.maybeOf(context)
+      ?..hideCurrentSnackBar()
+      ..showSnackBar(
+        SnackBar(
+          duration: const Duration(seconds: 3),
+          content: Text(nowSaved ? l.quranSavedSnack : l.quranRemovedSnack),
+          action: SnackBarAction(label: l.undo, onPressed: () => progress.toggleSaved(at)),
         ),
-      ),
-    );
+      );
   }
 
-  Widget _action(BuildContext ctx, IconData icon, String label, VoidCallback onTap) {
-    final t = WaqtTokens.of(ctx);
-    return ListTile(
-      contentPadding: EdgeInsets.zero,
-      minTileHeight: WaqtSpace.minTouch,
-      leading: Icon(icon, color: t.ink),
-      title: Text(label, style: WaqtText.bodyStrong.copyWith(color: t.ink)),
-      onTap: () {
-        Navigator.of(ctx).pop();
-        onTap();
-      },
+  /// The Arabic, how to say it, what it means and where it is.
+  void _copy(BuildContext context) {
+    Haptics.tick();
+    final l = AppLocalizations.of(context);
+    final s = quran.surah(at.surah);
+    Clipboard.setData(
+      ClipboardData(
+        text: [
+          quran.ayah(at.surah, at.ayah),
+          ?translit,
+          if (translation?.text case final tr? when tr.isNotEmpty) tr,
+          '${surahName(context, s)} ${at.surah}:${at.ayah}',
+        ].join('\n\n'),
+      ),
     );
+    ScaffoldMessenger.maybeOf(context)
+      ?..hideCurrentSnackBar()
+      ..showSnackBar(SnackBar(duration: const Duration(seconds: 2), content: Text(l.copied)));
   }
 }
 
@@ -744,7 +764,7 @@ class _Toolbar extends ConsumerWidget {
               child: ConstrainedBox(
                 constraints: const BoxConstraints(minWidth: 88),
                 child: Text(
-                  l.quranAyahOf(ayah, total),
+                  ayahOf(context, ayah, total),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.center,
